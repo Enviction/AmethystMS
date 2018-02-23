@@ -1,0 +1,1516 @@
+[Amethyst]
+World initialized.  Starting timers...
+Timers started.  Loading guilds...
+Guilds loaded.  Loading families...
+Families loaded.  Initializing quests...
+Quests initialized.  Preparing ItemInformationProvider...
+ItemInformationProvider initialized. Preparing MonsterInformationProvider...
+MapleMonsterInformationProvider ready. Preparing MapleItemInformationProvider...
+22630 items loaded.
+MapleItemInformationProvider ready.  Loading skills...
+SkillFactory loaded.  Loading miscellaneous...
+Miscellaneous loaded. Preparing custom life...
+Custom life loaded. Preparing Cash Shop...
+Could not reload packet logged IPs.
+java.io.FileNotFoundException: LogIPs.txt (The system cannot find the file specified)
+[Loading Login]
+Listening on port 8484.
+[LoginServer initialized and listening]
+[Loading Channel]
+Channel 1: Listening on port 8585
+Channel 2: Listening on port 8587
+Channel 3: Listening on port 8588
+Channel 4: Listening on port 8589
+Channel 5: Listening on port 8590
+Channel 6: Listening on port 8591
+[All Channels Initialized]
+[Loading CS]
+Listening on port 8600.
+[CS initialized and listening]
+Finalizing startup tasks:
+[Respawn Worker] Registered for channels 1 2 3 
+[Respawn Worker] Registered for channels 4 5 6 
+Loading Rankings::
+Done loading Rankings in 3 seconds :::
+Initializing Auto Save, AzwanDailyCheck, and Ardentmill reset timers...Initialized.
+[Fully Initialized in 89 seconds]
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Unhandled script : enter_vanLeon, type : onUserEnter - MAPID 921110210
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 953050000
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 00 00 00 00 00 00 40 00 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 954000000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 954000000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 67][OPCODE: 553]
+[OPCODE DATA: Data: 04 99 F1 20 00 00 04 9A F1 20 00 2E 00 57 68 61 74 20 77 61 73 20 74 68 65 20 68 6F 6C 64 20 75 70 3F 20 59 6F 75 20 73 63 61 72 65 64 20 6F 72 20 73 6F 6D 65 74 68 69 6E 67 3F 01 01]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Data: 04 00 53 63 61 72 78 00 00 00 84 4E 00 00 30 75 00 00 97 4E 0F 00 90 0E 10 00 B2 83 10 00 5C 5D 10 00 EC 64 15 00
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled script : cygnus_AK_mapEnterEff, type : onFirstUserEnter - MAPID 272030400
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : ExitCheck, type : onUserEnter - MAPID 272020110
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 08 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Successfully reset Ardentmill's portals to zero.
+Successfully set azwanCoinsAvail and azwanCoinsRedeemed to zero.
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 20 00 00 00 00 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 03 00 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0A 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 08 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : Saint_eventMob, type : onFirstUserEnter - MAPID 261020301
+Unhandled script : check_q20748, type : onUserEnter - MAPID 220070400
+Unhandled script : check_q20748, type : onUserEnter - MAPID 220070400
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 16][OPCODE: 464]
+[OPCODE DATA: Data: 28 A1 07 00 04 FF 00 00 00 00]
+Unhandled quest: 2552 | NPCID: 9031000
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled script : check_q20748, type : onUserEnter - MAPID 220070400
+Unhandled script : check_q20748, type : onUserEnter - MAPID 220070400
+Unhandled portal script q20749_Fail on map 220070400
+Unhandled portal script q20749_Fail on map 220070400
+Unhandled portal script q20749_Fail on map 220070400
+Unhandled portal script q20749_in on map 220070400
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 27][OPCODE: 252]
+[OPCODE DATA: Data: E9 03 00 00 00 0D 00 69 20 67 6F 74 20 61 6E 64 72 6F 69 64 00]
+Unhandled CS item : 5064101
+
+All: 87 00 2B 3E 6D 23 08 00 A5 45 4D 00 FD FF 00
+Now: FD FF 00
+New scripted item : 2430033
+New scripted item : 2430033
+New scripted item : 2430033
+New scripted item : 2430033
+New scripted item : 2430033
+New scripted item : 2430033
+New scripted item : 2430033
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : boss_summon, type : onFirstUserEnter - MAPID 610040400
+Unhandled script : boss_summon, type : onUserEnter - MAPID 610040400
+Unhandled script : NLC_renew_1, type : onUserEnter - MAPID 600010300
+Unhandled script : NLC_renew_1, type : onUserEnter - MAPID 600010300
+Unhandled script : NLC_renew_1, type : onUserEnter - MAPID 600010300
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+New scripted item : 2430033
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 954000000
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 954000000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 13][OPCODE: 33]
+[OPCODE DATA: Data: 01 01 00 03 05 04 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 128][OPCODE: 33]
+[OPCODE DATA: Data: 00 02 00 03 01 F6 FF 00 01 F6 FF 01 F8 C4 10 00 00 00 80 05 BB 46 E6 17 02 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 14 00 00 00 00 00 0A 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 01 00 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 40 E0 FD 3B 37 4F 01 FF FF FF FF 02]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 08 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 60 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 08 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 10 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 10 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+New scripted item : 2430033
+New scripted item : 2430033
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Unhandled script : q2614M, type : onUserEnter - MAPID 910350200
+Unhandled quest: 3762 | NPCID: 2082004
+Unhandled quest: 3762 | NPCID: 2082004
+Unhandled quest: 3762 | NPCID: 2082004
+Unhandled quest: 3762 | NPCID: 2082004
+Unhandled quest: 3762 | NPCID: 2082004
+Unhandled quest: 3762 | NPCID: 2082004
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Event nameBossQuestHELL, Instance name : BossQuest193, method Name : monsterValue:
+java.lang.NoSuchMethodException: no such method: monsterDamaged
+Event nameBossQuestHELL, Instance name : BossQuest193, method Name : monsterValue:
+java.lang.NoSuchMethodException: no such method: monsterDamaged
+Event nameBossQuestHELL, Instance name : BossQuest193, method Name : monsterValue:
+java.lang.NoSuchMethodException: no such method: monsterDamaged
+Event nameBossQuestHELL, Instance name : BossQuest193, method Name : monsterValue:
+java.lang.NoSuchMethodException: no such method: monsterDamaged
+Event nameBossQuestHELL, Instance name : BossQuest193, method Name : monsterValue:
+java.lang.NoSuchMethodException: no such method: monsterDamaged
+Event nameBossQuestHELL, Instance name : BossQuest193, method Name : monsterValue:
+java.lang.NoSuchMethodException: no such method: monsterDamaged
+Event nameBossQuestHELL, Instance name : BossQuest193, method Name : monsterValue:
+java.lang.NoSuchMethodException: no such method: monsterDamaged
+Event nameBossQuestHELL, Instance name : BossQuest193, method Name : monsterValue:
+java.lang.NoSuchMethodException: no such method: monsterDamaged
+Event nameBossQuestHELL, Instance name : BossQuest193, method Name : monsterValue:
+java.lang.NoSuchMethodException: no such method: monsterDamaged
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+Unhandled quest: 1428 | NPCID: 1090000
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled CS item : 5064100
+
+All: 87 00 85 60 7E 3D 05 00 A4 45 4D 00 F8 FF 00
+Now: F8 FF 00
+Unhandled CS item : 5064101
+
+All: 87 00 0F 6D 7E 3D 08 00 A5 45 4D 00 F8 FF 00
+Now: F8 FF 00
+Unhandled quest: 1428 | NPCID: 1090000
+Unhandled quest: 1428 | NPCID: 1090000
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 08 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 08 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 00 00 00 00 02 20 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 953000000
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 954040000
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 953000100
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 10 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled portal script 103020410_in00 on map 103020410
+Unhandled portal script 103020410_in00 on map 103020410
+Unhandled portal script 103020410_in00 on map 103020410
+Unhandled portal script 103020410_in00 on map 103020410
+Unhandled portal script 103020410_in00 on map 103020410
+Unhandled script : PTjob1, type : onUserEnter - MAPID 150000000
+Unhandled script : PTjob1, type : onUserEnter - MAPID 150000000
+Unhandled script : PTjob1, type : onUserEnter - MAPID 150000000
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 953010000
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 953010100
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 00 00 00 00 02 20 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled quest: 2348 | NPCID: 1401004
+Unhandled quest: 2348 | NPCID: 1401004
+Unhandled quest: 2348 | NPCID: 1401004
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled quest: 3762 | NPCID: 2082004
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+New scripted item : 2430033
+New scripted item : 2430033
+New scripted item : 2430033
+Unhandled quest: 3762 | NPCID: 2082004
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 4096][OPCODE: 555]
+[OPCODE DATA: Data: 04 00 00 00 00 D3 47 1F 00 00 A0 00 14 4A 0F 00 00 71 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 80 DE 0F 00 40 0D 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 D5 DE 0F 00 40 0D 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 BC E2 0F 00 40 0D 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 BD E2 0F 00 40 0D 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 90 05 10 00 74 B7 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 A5 05 10 00 74 B7 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 79 09 10 00 74 B7 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 86 09 10 00 74 B7 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 EB 2C 10 00 20 BF 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 EA 2C 10 00 20 BF 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 DB 30 10 00 20 BF 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 DC 30 10 00 20 BF 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 A1 A9 10 00 A0 86 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 A2 A9 10 00 40 0D 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 9D 4A 0F 00 00 77 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 9E 4A 0F 00 00 77 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 9F 4A 0F 00 00 77 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 A0 4A 0F 00 00 77 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 9C E2 0F 00 C0 D4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 9B E2 0F 00 C0 D4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 AF 05 10 00 E0 93 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 92 05 10 00 E0 93 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 B3 05 10 00 D0 DD 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 B6 05 10 00 D0 DD 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 B4 05 10 00 D0 DD 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 B5 05 10 00 D0 DD 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 8F 09 10 00 D0 DD 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 91 09 10 00 D0 DD 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 90 09 10 00 D0 DD 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 93 09 10 00 D0 DD 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 B8 30 10 00 C0 D4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 B7 30 10 00 C0 D4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 9A 4A 0F 00 A0 86 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 9B 4A 0F 00 A0 86 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 97 4A 0F 00 A0 86 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 99 4A 0F 00 A0 86 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 C8 DE 0F 00 50 BD 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 C9 DE 0F 00 50 BD 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 CA DE 0F 00 50 BD 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 CC DE 0F 00 50 BD 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 D1 DE 0F 00 20 BF 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 CF DE 0F 00 20 BF 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 AA E2 0F 00 50 BD 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 AD E2 0F 00 50 BD 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02 00 00 00 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled portal script exit240070603 on map 240070603
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled portal script exit240070603 on map 240070603
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : visitCity, type : onUserEnter - MAPID 102000003
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 4096][OPCODE: 555]
+[OPCODE DATA: Data: 04 00 00 00 00 D0 B3 8A 00 00 64 00 D4 47 1F 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 70 20 3D 00 88 13 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 71 20 3D 00 88 13 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 85 84 1E 00 7C 15 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 84 84 1E 00 C4 09 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 83 84 1E 00 14 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 86 84 1E 00 BA 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 E0 6E 1F 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D0 07 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 C8 72 1F 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D0 07 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 20 7C 22 00 30 75 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 82 84 1E 00 60 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 81 84 1E 00 30 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 80 84 1E 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 50 B5 2C 00 40 4B 4C 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 60 89 25 00 40 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 61 89 25 00 80 3E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 62 89 25 00 00 7D 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 63 89 25 00 00 F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 CB 82 3D 00 C0 E1 E4 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F9 0C 3D 00 00 2D 31 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 40 59 20 00 F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 90 8D 23 00 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D3 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 98 60 4D 00 40 42 0F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 68 68 4D 00 00 D4 30 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 50 6C 4D 00 00 D4 30 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 20 74 4D 00 40 4B 4C 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 08 78 4D 00 C0 CF 6A 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 80 64 4D 00 80 84 1E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F0 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D3 3F F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F1 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D9 3F F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F2 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E0 3F BC 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F3 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E3 3F F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F4 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E3 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F5 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E6 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F6 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E9 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F7 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F8 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F9 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 FA 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 FB 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 FC 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 FD 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 00 96 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 02 96 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 4096][OPCODE: 555]
+[OPCODE DATA: Data: 04 00 00 00 00 D0 B3 8A 00 00 38 00 D4 47 1F 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 70 20 3D 00 88 13 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 71 20 3D 00 88 13 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 85 84 1E 00 7C 15 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 84 84 1E 00 C4 09 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 83 84 1E 00 14 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 86 84 1E 00 BA 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 E0 6E 1F 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D0 07 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 C8 72 1F 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D0 07 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 20 7C 22 00 30 75 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 82 84 1E 00 60 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 81 84 1E 00 30 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 80 84 1E 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 50 B5 2C 00 40 4B 4C 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 60 89 25 00 40 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 61 89 25 00 80 3E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 62 89 25 00 00 7D 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 63 89 25 00 00 F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 CB 82 3D 00 C0 E1 E4 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F9 0C 3D 00 00 2D 31 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 40 59 20 00 F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 90 8D 23 00 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D3 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 98 60 4D 00 40 42 0F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 68 68 4D 00 00 D4 30 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 50 6C 4D 00 00 D4 30 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 20 74 4D 00 40 4B 4C 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 08 78 4D 00 C0 CF 6A 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 80 64 4D 00 80 84 1E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F0 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D3 3F F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F1 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D9 3F F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F2 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E0 3F BC 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F3 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E3 3F F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F4 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E3 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F5 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E6 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F6 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E9 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F7 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F8 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F9 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 FA 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 FB 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 FC 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 FD 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 00 96 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 02 96 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00]
+Unhandled CS item : 5152102
+
+All: 87 00 C8 21 E2 01 02 00 66 9D 4E 00
+Now: 
+Unhandled CS item : 5152102
+
+All: 87 00 2C 45 E2 01 02 00 66 9D 4E 00
+Now: 
+Unhandled CS item : 5152102
+
+All: 87 00 4E 7D E2 01 02 00 66 9D 4E 00
+Now: 
+Unhandled CS item : 5152102
+
+All: 87 00 8A 8C E2 01 02 00 66 9D 4E 00
+Now: 
+Unhandled CS item : 5152102
+
+All: 87 00 F8 96 E2 01 02 00 66 9D 4E 00
+Now: 
+Unhandled CS item : 5152102
+
+All: 87 00 12 D7 E2 01 02 00 66 9D 4E 00
+Now: 
+Unhandled CS item : 5152102
+
+All: 87 00 DE EC E2 01 02 00 66 9D 4E 00
+Now: 
+Unhandled CS item : 5152102
+
+All: 87 00 C4 F7 E2 01 02 00 66 9D 4E 00
+Now: 
+Unhandled CS item : 5152102
+
+All: 87 00 F6 01 E3 01 02 00 66 9D 4E 00
+Now: 
+Unhandled CS item : 5152102
+
+All: 87 00 DC 2A E3 01 02 00 66 9D 4E 00
+Now: 
+Unhandled script : NLC_renew_1, type : onUserEnter - MAPID 600010300
+Unhandled CS item : 5240052
+
+All: 87 00 D4 C2 DB 09 03 00 F4 F4 4F 00
+Now: 
+Unhandled CS item : 5240050
+
+All: 87 00 0C C7 DB 09 06 00 F2 F4 4F 00
+Now: 
+Unhandled script : visitCity, type : onUserEnter - MAPID 102000003
+Unhandled CS item : 5240050
+
+All: 87 00 80 7F DC 09 06 00 F2 F4 4F 00
+Now: 
+Leaving PVP!: 
+Unhandled script : visitCity, type : onUserEnter - MAPID 102000003
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 954030000
+Unhandled script : visitCity, type : onUserEnter - MAPID 102000003
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 954030000
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 954030000
+Unhandled quest: 3173 | NPCID: 2161001
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 00 00 00 00 0A 20 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 954010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 128][OPCODE: 33]
+[OPCODE DATA: Data: 00 02 00 03 01 F6 FF 00 01 F6 FF 01 F8 C4 10 00 00 00 80 05 BB 46 E6 17 02 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 14 00 00 00 00 00 0A 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 01 00 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 40 E0 FD 3B 37 4F 01 FF FF FF FF 02]
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 7][OPCODE: 338]
+[OPCODE DATA: Data: 2B]
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled CS item : 5240050
+
+All: 87 00 04 48 2D 0A 06 00 F2 F4 4F 00
+Now: 
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : boss_summon, type : onFirstUserEnter - MAPID 610040400
+Unhandled script : boss_summon, type : onUserEnter - MAPID 610040400
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+New scripted item : 2430033
+New scripted item : 2430033
+New scripted item : 2430033
+New scripted item : 2430033
+Unhandled script : check_q20748, type : onUserEnter - MAPID 220070400
+Unhandled portal script in_fairyBoss on map 300030300
+Unhandled portal script in_fairyBoss on map 300030300
+Unhandled portal script in_fairyBoss on map 300030300
+Unhandled portal script in_fairyBoss on map 300030300
+Unhandled portal script in_fairyBoss on map 300030300
+Unhandled portal script in_fairyBoss on map 300030300
+Unhandled script : check_q20748, type : onUserEnter - MAPID 220070400
+Unhandled portal script q20749_in on map 220070400
+Unhandled portal script q20749_in on map 220070400
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 16][OPCODE: 464]
+[OPCODE DATA: Data: 21 A1 07 00 FF 01 00 00 00 00]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Unhandled script : q2614M, type : onUserEnter - MAPID 910350200
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0A 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 04 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 69][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 69][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 128][OPCODE: 33]
+[OPCODE DATA: Data: 00 02 00 03 01 F6 FF 00 01 F6 FF 01 F8 C4 10 00 00 00 80 05 BB 46 E6 17 02 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 14 00 00 00 00 00 0A 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 01 00 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 40 E0 FD 3B 37 4F 01 FF FF FF FF 02]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 01 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled quest: 1501 | NPCID: 1092007
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 08 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : Saint_eventMob, type : onFirstUserEnter - MAPID 100040500
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 548][OPCODE: 250]
+[OPCODE DATA: Data: 9C 02 00 00 B3 04 00 44 65 75 53 00 00 06 00 4C 65 6D 6F 6E 73 FC 03 03 AB 0F 08 00 00 00 FE 00 00 A0 00 00 08 00 00 00 00 00 00 00 00 00 00 00 02 04 00 00 00 00 00 00 00 00 00 01 00 A6 22 E1 FF 01 00 92 EE C9 01 06 00 6D DE DA 01 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 01 06 D6 28 1A 00 00 00 00 00 00 00 00 00 00 01 06 D6 28 1A 00 00 00 00 00 00 00 00 00 00 01 06 D6 28 1A 00 00 00 00 00 00 00 00 00 00 01 06 D6 28 1A 00 00 00 00 00 00 00 00 01 06 D6 28 1A 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 06 D6 28 1A 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 06 D6 28 1A 00 00 28 0C 00 00 00 00 50 51 00 00 28 0C 00 00 00 E8 81 00 00 B3 61 06 10 00 B1 F6 D1 10 00 11 D0 1E 11 00 0C 4C FB 10 00 0B 64 2C 14 00 B0 67 4F 0F 00 0A FC C4 10 00 09 1C D1 10 00 08 C8 83 10 00 07 00 5D 10 00 06 FA 34 10 00 05 CF E6 0F 00 04 58 BF 0F 00 03 60 98 0F 00 01 CA 4A 0F 00 3D 20 1F 11 00 16 21 A6 1B 00 17 20 A6 1B 00 1A 24 A6 1B 00 1B 25 A6 1B 00 35 32 5C 19 00 0D 4C FB 10 00 36 44 83 19 00 37 20 E2 11 00 0F 4C FB 10 00 10 4C FB 10 00 31 39 6D 11 00 32 2E 46 11 00 02 59 71 0F 00 85 21 A6 1B 00 86 20 A6 1B 00 87 24 A6 1B 00 88 25 A6 1B 00 FF FF 06 04 2D 10 00 05 F9 DE 0F 00 08 19 84 10 00 07 45 5C 10 00 09 CE D0 10 00 0C 09 FA 10 00 01 20 4C 0F 00 04 56 BF 0F 00 03 6C 98 0F 00 FF BA F9 19 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 1E 06 A5 00 23 00 00 00 00 01 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 7][OPCODE: 338]
+[OPCODE DATA: Data: 2B]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 04 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 954030000
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 954030000
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 13][OPCODE: 33]
+[OPCODE DATA: Data: 01 01 00 03 05 01 00]
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Unhandled script : check_q20748, type : onUserEnter - MAPID 220070400
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : visitCity, type : onUserEnter - MAPID 102000003
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : NLC_renew_1, type : onUserEnter - MAPID 600010300
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : visitCity, type : onUserEnter - MAPID 102000003
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 21][OPCODE: 429]
+[OPCODE DATA: Data: AB B9 07 00 01 00 00 4C 1D 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 08 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : Saint_eventMob, type : onFirstUserEnter - MAPID 106021001
+Unhandled quest: 2553 | NPCID: 9031000
+Unhandled CS item : 5240050
+
+All: 87 00 97 16 0B 01 04 00 F2 F4 4F 00
+Now: 
+Unhandled CS item : 5240050
+
+All: 87 00 A5 26 0B 01 04 00 F2 F4 4F 00
+Now: 
+Unhandled CS item : 5240050
+
+All: 87 00 57 29 0B 01 04 00 F2 F4 4F 00
+Now: 
+Unhandled CS item : 5240050
+
+All: 87 00 8D 2F 0B 01 04 00 F2 F4 4F 00
+Now: 
+Unhandled CS item : 5240050
+
+All: 87 00 53 86 0C 01 04 00 F2 F4 4F 00
+Now: 
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 08 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 21][OPCODE: 429]
+[OPCODE DATA: Data: 28 A1 07 00 D1 00 00 B2 02 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 20 00 00 00 00 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0A 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 23][OPCODE: 338]
+[OPCODE DATA: Data: 02 6D DE DA 01 B6 1E 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 10 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+New scripted item : 2430182
+New scripted item : 2430182
+New scripted item : 2430182
+New scripted item : 2430182
+New scripted item : 2430182
+Unhandled script : PTjob1, type : onUserEnter - MAPID 150000000
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0A 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+New scripted item : 2430182
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 08 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : check_q20748, type : onUserEnter - MAPID 220070400
+Unhandled script : PTjob1, type : onUserEnter - MAPID 150000000
+Unhandled quest: 2348 | NPCID: 1401004
+Unhandled quest: 2348 | NPCID: 1401004
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled quest: 2348 | NPCID: 1401004
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0A 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 08 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0A 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 13][OPCODE: 33]
+[OPCODE DATA: Data: 01 01 00 03 05 03 00]
+Unhandled script : PTjob1, type : onUserEnter - MAPID 150000000
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled script : PTjob1, type : onUserEnter - MAPID 150000000
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 01 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled quest: 2348 | NPCID: 1401004
+Unhandled quest: 2348 | NPCID: 1401004
+Unhandled script : PTjob1, type : onUserEnter - MAPID 150000000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Unhandled script : enter_park100, type : onUserEnter - MAPID 310020100
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+New scripted item : 2430033
+New scripted item : 2430033
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : visitCity, type : onUserEnter - MAPID 102000003
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 6][OPCODE: 231]
+[OPCODE DATA: Data: ]
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 08 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+Unhandled script : Event_PinkZakumtimeout, type : onFirstUserEnter - MAPID 689012000
+Unhandled script : Event_PinkZakumtimeout, type : onFirstUserEnter - MAPID 689012000
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 00 00 00 00 0A 20 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 128][OPCODE: 33]
+[OPCODE DATA: Data: 00 02 00 03 01 F6 FF 00 01 F6 FF 01 F8 C4 10 00 00 00 80 05 BB 46 E6 17 02 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 14 00 00 00 00 00 0A 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 01 00 00 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF 00 40 E0 FD 3B 37 4F 01 FF FF FF FF 02]
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+[GM ONLY DEBUG] Else case in pickup_player, invenfull.
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 6][OPCODE: 231]
+[OPCODE DATA: Data: ]
+Unhandled script : boss_summon, type : onFirstUserEnter - MAPID 610040400
+Unhandled script : boss_summon, type : onUserEnter - MAPID 610040400
+Unhandled script : NLC_renew_1, type : onUserEnter - MAPID 600010300
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 60 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 51][OPCODE: 324]
+[OPCODE DATA: Data: 0E 04 00 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 01 01 00]
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 51][OPCODE: 324]
+[OPCODE DATA: Data: 0E 04 00 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 01 01 00]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : visitCity, type : onUserEnter - MAPID 102000003
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Unhandled script : q2614M, type : onUserEnter - MAPID 910350200
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Unhandled script : PTjob1, type : onUserEnter - MAPID 150000000
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Event nameBossQuestHELL, Instance name : BossQuest200, method Name : monsterValue:
+java.lang.NoSuchMethodException: no such method: monsterDamaged
+New scripted item : 2430033
+Unhandled script : boss_summon, type : onFirstUserEnter - MAPID 610040400
+Unhandled script : boss_summon, type : onUserEnter - MAPID 610040400
+Unhandled script : NLC_renew_1, type : onUserEnter - MAPID 600010300
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02 00 00 00 00 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 20 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled quest: 3173 | NPCID: 2161001
+Unhandled quest: 3173 | NPCID: 2161001
+Unhandled quest: 3173 | NPCID: 2161001
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 00 20 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : NLC_renew_1, type : onUserEnter - MAPID 600010300
+Unhandled quest: 8255 | NPCID: 9201106
+Unhandled quest: 8255 | NPCID: 9201106
+Unhandled quest: 2553 | NPCID: 9031000
+Unhandled script : q3143_clear, type : onUserEnter - MAPID 211060800
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 953050000
+Unhandled script : mpark_mobRegen, type : onFirstUserEnter - MAPID 953050000
+Unhandled script : visitCity, type : onUserEnter - MAPID 102000003
+Unhandled CS item : 5240050
+
+All: 87 00 A6 9B 37 00 04 00 F2 F4 4F 00
+Now: 
+Unhandled CS item : 5240050
+
+All: 87 00 DE 9F 37 00 04 00 F2 F4 4F 00
+Now: 
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : boss_summon, type : onFirstUserEnter - MAPID 610040400
+Unhandled script : boss_summon, type : onUserEnter - MAPID 610040400
+Unhandled script : NLC_renew_1, type : onUserEnter - MAPID 600010300
+Unhandled CS item : 5240050
+
+All: 87 00 74 C5 3F 00 04 00 F2 F4 4F 00
+Now: 
+New scripted item : 2430033
+Unhandled CS item : 5240050
+
+All: 87 00 30 18 40 00 04 00 F2 F4 4F 00
+Now: 
+Unhandled CS item : 5240050
+
+All: 87 00 1E 1B 40 00 04 00 F2 F4 4F 00
+Now: 
+Unhandled CS item : 5240050
+
+All: 87 00 74 1F 40 00 04 00 F2 F4 4F 00
+Now: 
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 309][OPCODE: 12]
+[OPCODE DATA: Data: 00 72 04 00 00 76 76 77 76 77 76 00 00 00 00 00 00 00 00 02 32 4E 00 00 4E 75 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 0C 00 05 00 04 00 04 00 32 00 00 00 32 00 00 00 32 00 00 00 32 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 42 93 48 78 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 40 E0 FD 3B 37 4F 01 00 00 00 00 00 00 00 00 00 05 00 00 00 00 00 3B 37 4F 01 00 40 E0 FD 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D5 64 FB 95 37 01 00 00 00 02 32 4E 00 00 00 00 00 00 00 4E 75 00 00 0B 87 FA 10 00 07 1D 2C 14 00 06 0A FA 10 00 05 18 84 10 00 FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+New scripted item : 2430033
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 04 00 40 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Unhandled quest: 3173 | NPCID: 2161001
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 6][OPCODE: 231]
+[OPCODE DATA: Data: ]
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 6][OPCODE: 231]
+[OPCODE DATA: Data: ]
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : Saint_eventMob, type : onFirstUserEnter - MAPID 100040500
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+New scripted item : 2430014
+New scripted item : 2430014
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : boss_summon, type : onFirstUserEnter - MAPID 610040400
+Unhandled script : boss_summon, type : onUserEnter - MAPID 610040400
+Unhandled script : PTjob1, type : onUserEnter - MAPID 150000000
+Unhandled script : PTjob1, type : onUserEnter - MAPID 150000000
+Unhandled script : visitCity, type : onUserEnter - MAPID 103000003
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled CS item : 5240051
+
+All: 87 00 48 06 85 00 08 00 F3 F4 4F 00
+Now: 
+Unhandled CS item : 5240050
+
+All: 87 00 36 09 85 00 04 00 F2 F4 4F 00
+Now: 
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Unhandled quest: 3762 | NPCID: 2082004
+Unhandled quest: 2553 | NPCID: 9031000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 4096][OPCODE: 554]
+[OPCODE DATA: Data: 00 00 00 00 99 69 8A 00 00 37 00 80 84 1E 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 81 84 1E 00 30 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 82 84 1E 00 60 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 83 84 1E 00 14 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 86 84 1E 00 BA 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 50 8C 1E 00 F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 51 8C 1E 00 90 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 52 8C 1E 00 F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 54 8C 1E 00 F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 55 8C 1E 00 F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 73 DA 1E 00 02 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 70 DA 1E 00 83 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 68 88 1E 00 80 0C 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 69 88 1E 00 FC 08 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 6A 88 1E 00 A0 0F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 90 AB 1E 00 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 92 AB 1E 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 91 AB 1E 00 1E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 93 AB 1E 00 0A 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 94 AB 1E 00 5D 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 BC D2 1E 00 B8 0B 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 D0 47 1F 00 C8 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 D1 47 1F 00 C8 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 D2 47 1F 00 2C 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 D3 47 1F 00 F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 B0 F9 1E 00 90 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 E0 6E 1F 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D0 07 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 C8 72 1F 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D0 07 E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F0 95 1F 00 F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D3 3F F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F1 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 D9 3F F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F2 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E0 3F BC 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F3 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E3 3F F4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F4 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E3 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F5 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E6 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F6 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E9 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F7 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F8 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 F9 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 FA 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 FB 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 FC 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 FD 95 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F E8 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 00 96 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F 00 00 00 00 00 77 96 8F 00 00 00 00 00 78 96 8F 00 00 00 00 00 02 96 1F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 F0 3F 20 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 75 96 8F 00 00 00 00 00 76 96 8F]
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02 00 00 00 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : enter_training, type : onUserEnter - MAPID 310010010
+Unhandled CS item : 5240050
+
+All: 87 00 A2 9F AF 00 04 00 F2 F4 4F 00
+Now: 
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 23][OPCODE: 338]
+[OPCODE DATA: Data: 02 6D DE DA 01 89 0A 00 00 00 00 00 00 00 00 00 00]
+Unhandled script : d_test01, type : onUserEnter - MAPID 600000000
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 65][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 08 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Data: 05 00 43 75 72 73 65 9A 01 00 00 B2 4F 00 00 30 75 00 00 97 4E 0F 00 90 0E 10 00 B2 83 10 00 5C 5D 10 00 77 76 16 00
+Unhandled script : Event_PinkZakumtimeout, type : onFirstUserEnter - MAPID 689012000
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 6][OPCODE: 231]
+[OPCODE DATA: Data: ]
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 6][OPCODE: 231]
+[OPCODE DATA: Data: ]
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 6][OPCODE: 231]
+[OPCODE DATA: Data: ]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Unhandled script : ludi_time_path, type : onUserEnter - MAPID 220050300
+Unhandled quest: 2552 | NPCID: 9031000
+Unhandled quest: 2552 | NPCID: 9031000
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 23][OPCODE: 338]
+[OPCODE DATA: Data: 02 6D DE DA 01 BA 1E 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 7][OPCODE: 338]
+[OPCODE DATA: Data: 2B]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 45][OPCODE: 428]
+[OPCODE DATA: Data: 9E BD 07 00 00 FF 00 00 00 00 00 00 31 FD CF 00 08 00 01 00 01 00 31 FD CF 00 00 00 00 00 08 00 00 00 00 00 05 38 04]
+Client ERROR! [Exception][ERROR TYPE: 553648131][DATA_LENGTH: 136][OPCODE: 553]
+[OPCODE DATA: Data: 04 D7 07 00 00 05 00 79 00 48 65 6C 6C 6F 2E 20 57 6F 75 6C 64 20 79 6F 75 20 6C 69 6B 65 20 74 6F 20 62 65 20 61 20 6C 65 67 65 6E 64 3F 20 43 68 6F 6F 73 65 20 6F 6E 65 3A 20 0D 0A 20 23 4C 30 23 43 61 6E 6E 6F 6E 65 65 72 23 6C 20 0D 0A 20 23 4C 31 23 4D 65 72 63 65 64 65 73 23 6C 20 0D 0A 20 23 4C 32 23 44 65 6D 6F 6E 53 6C 61 79 65 72 23 6C 20 0D 0A 20 23 4C 33 23 4A 65 74 74 23 6C]
+Client ERROR! [SendBackupPacket][ERROR TYPE: 38][DATA_LENGTH: 7][OPCODE: 338]
+[OPCODE DATA: Data: 2B]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 73][OPCODE: 37]
+[OPCODE DATA: Data: 00 00 00 00 00 00 00 00 00 00 00 00 00 10 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 03 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00]
+Client ERROR! [Crash Report][ERROR TYPE: 0][DATA_LENGTH: 15][OPCODE: 420]
+[OPCODE DATA: Data: C7 03 00 00 2F 28 14 00 08]
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000
+Unhandled script : enter_underbase, type : onUserEnter - MAPID 310010000

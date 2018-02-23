@@ -1,0 +1,4248 @@
+
+
+------------------------ 2018-02-13 20:40:52 ------------------------
+Error Type: 0, 2
+Data Length: 42
+Error for player ; Buff - account ; majama
+ Opcode: 35
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-13 20:59:52 ------------------------
+Error Type: 0, 2
+Data Length: 42
+Error for player ; Hello - account ; ilovemaple30
+ Opcode: 35
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-13 21:14:17 ------------------------
+Error Type: 0, 2
+Data Length: 42
+Error for player ; ssssss - account ; scar
+ Opcode: 35
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-13 21:54:32 ------------------------
+Error Type: 0, 2
+Data Length: 42
+Error for player ; 33MB - account ; asdfg1357
+ Opcode: 35
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-13 21:55:47 ------------------------
+Error Type: 0, 2
+Data Length: 16
+Error for player ; 33MB - account ; asdfg1357
+ Opcode: 464
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 03:09:00 ------------------------
+Error Type: 0, 2
+Data Length: 42
+Error for player ; Toast - account ; jan1999
+ Opcode: 35
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 03:09:57 ------------------------
+Error Type: 0, 2
+Data Length: 316
+Error for player ; Toast - account ; jan1999
+ Opcode: 250
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 05:33:01 ------------------------
+Error Type: 0, 2
+Data Length: 42
+Error for player ; Cute - account ; imbh
+ Opcode: 35
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 05:33:44 ------------------------
+Error Type: 0, 2
+Data Length: 315
+Error for player ; Cute - account ; imbh
+ Opcode: 250
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 09:48:46 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Flee - account ; OmegaXBlast
+ Opcode: 33
+ MapID: 682010201
+
+
+
+------------------------ 2018-02-14 10:04:36 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; PanConQueso - account ; vakook
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-14 10:06:45 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; MrNoodles - account ; MrNoodle
+ Opcode: 33
+ MapID: 682010201
+
+
+
+------------------------ 2018-02-14 10:15:23 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; DeuS - account ; coyote
+ Opcode: 33
+ MapID: 310030000
+
+
+
+------------------------ 2018-02-14 11:19:51 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Sleepy - account ; sleepy
+ Opcode: 37
+ MapID: 600000000
+
+
+
+------------------------ 2018-02-14 11:40:25 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Sleepy - account ; sleepy
+ Opcode: 37
+ MapID: 310040000
+
+
+
+------------------------ 2018-02-14 11:56:17 ------------------------
+Error Type: 0, 2
+Data Length: 2881
+Error for player ; MrNoodles - account ; MrNoodle
+ Opcode: 204
+ MapID: 600020300
+
+
+
+------------------------ 2018-02-14 12:14:10 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; HysteriA - account ; royalblood
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-14 12:51:54 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Lime - account ; imbh
+ Opcode: 37
+ MapID: 100020100
+
+
+
+------------------------ 2018-02-14 13:10:31 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; MrNoodles - account ; MrNoodle
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-14 13:16:29 ------------------------
+Error Type: 0, 2
+Data Length: 43
+Error for player ; Killign - account ; angel87a
+ Opcode: 464
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 13:24:41 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Gowther - account ; ches777
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-14 13:43:58 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; DarkLord - account ; angel87a
+ Opcode: 33
+ MapID: 100040500
+
+
+
+------------------------ 2018-02-14 14:10:04 ------------------------
+Error Type: 0, 2
+Data Length: 42
+Error for player ; Satoo - account ; angel87a
+ Opcode: 35
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 14:13:25 ------------------------
+Error Type: 0, 2
+Data Length: 16
+Error for player ; Satoo - account ; angel87a
+ Opcode: 464
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 14:15:16 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Lime - account ; imbh
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 14:21:09 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Black - account ; angel87a
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-14 14:22:48 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Jackie - account ; Blaze
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-14 14:28:10 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; DeuS - account ; coyote
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-14 14:36:54 ------------------------
+Error Type: 38, 1
+Data Length: 16
+Error for player ; YElll - account ; angel87a
+ Opcode: 464
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 14:40:49 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Flame - account ; daniel
+ Opcode: 33
+ MapID: 682010201
+
+
+
+------------------------ 2018-02-14 15:10:01 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Sleepy - account ; sleepy
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-14 15:13:51 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Kirito - account ; Andorue
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-14 15:22:43 ------------------------
+Error Type: 0, 2
+Data Length: 73
+Error for player ; Sleepy - account ; sleepy
+ Opcode: 37
+ MapID: 610040210
+
+
+
+------------------------ 2018-02-14 15:42:53 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Zeus - account ; juggaloboy
+ Opcode: 37
+ MapID: 610040210
+
+
+
+------------------------ 2018-02-14 15:43:45 ------------------------
+Error Type: 38, 1
+Data Length: 8
+Error for player ; Sleepy - account ; sleepy
+ Opcode: 49
+ MapID: 551030100
+
+
+
+------------------------ 2018-02-14 15:57:31 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Zeus - account ; juggaloboy
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-14 16:04:25 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Flame - account ; daniel
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-14 16:06:33 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Wolf - account ; WolfDG
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-14 16:12:09 ------------------------
+Error Type: 0, 2
+Data Length: 42
+Error for player ; Kyle - account ; Kyle
+ Opcode: 35
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 16:19:35 ------------------------
+Error Type: 0, 2
+Data Length: 73
+Error for player ; Gowther - account ; ches777
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-14 16:27:09 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Echo - account ; Kyle
+ Opcode: 33
+ MapID: 100040500
+
+
+
+------------------------ 2018-02-14 16:30:44 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Kirito - account ; Andorue
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-14 16:33:53 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; SingSing - account ; holykick
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-14 16:44:42 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; VirusOffline - account ; yomevie
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-14 16:46:10 ------------------------
+Error Type: 0, 2
+Data Length: 73
+Error for player ; Gowther - account ; ches777
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-14 16:48:05 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Zizara - account ; RijkaMR
+ Opcode: 37
+ MapID: 261020300
+
+
+
+------------------------ 2018-02-14 17:30:39 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Bing - account ; cottontail1
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-14 17:31:14 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Zeus - account ; juggaloboy
+ Opcode: 37
+ MapID: 682000000
+
+
+
+------------------------ 2018-02-14 17:35:35 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Josh - account ; trymydex
+ Opcode: 33
+ MapID: 682010201
+
+
+
+------------------------ 2018-02-14 17:44:01 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Kirito - account ; Andorue
+ Opcode: 37
+ MapID: 682000000
+
+
+
+------------------------ 2018-02-14 17:57:50 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; SharkBoy - account ; uoakhl
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-14 18:09:49 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Wrath - account ; scar
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-14 18:10:55 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Mystic - account ; Mystic
+ Opcode: 37
+ MapID: 251010000
+
+
+
+------------------------ 2018-02-14 18:21:06 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Gowther - account ; ches777
+ Opcode: 37
+ MapID: 261000000
+
+
+
+------------------------ 2018-02-14 18:24:34 ------------------------
+Error Type: 38, 1
+Data Length: 4096
+Error for player ; Kirito - account ; Andorue
+ Opcode: 206
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 18:25:42 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Kirito - account ; Andorue
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 19:10:44 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; VirusOffline - account ; yomevie
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-14 19:17:06 ------------------------
+Error Type: 0, 2
+Data Length: 42
+Error for player ; Nihaken - account ; noob714
+ Opcode: 35
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 19:18:21 ------------------------
+Error Type: 0, 2
+Data Length: 16
+Error for player ; Nihaken - account ; noob714
+ Opcode: 464
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 19:19:31 ------------------------
+Error Type: 0, 2
+Data Length: 338
+Error for player ; Nihaken - account ; noob714
+ Opcode: 250
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-14 19:21:07 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; VirusOffline - account ; yomevie
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-14 19:50:02 ------------------------
+Error Type: 0, 2
+Data Length: 21
+Error for player ; SingSing - account ; holykick
+ Opcode: 429
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-14 19:59:34 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; SingSing - account ; holykick
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-14 20:18:06 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; VirusOffline - account ; yomevie
+ Opcode: 37
+ MapID: 261020300
+
+
+
+------------------------ 2018-02-14 20:32:33 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Bing - account ; cottontail1
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-14 20:39:08 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Bing - account ; cottontail1
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-14 21:05:28 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Bing - account ; cottontail1
+ Opcode: 37
+ MapID: 103040000
+
+
+
+------------------------ 2018-02-14 21:19:16 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Gowther - account ; ches777
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-14 21:19:17 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Bing - account ; cottontail1
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-14 21:39:57 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Smash - account ; sleepy
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-14 21:50:46 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Smash - account ; sleepy
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-15 03:01:03 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; SingSing - account ; holykick
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-15 03:37:15 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; TheLingOne - account ; TheLingOne
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-15 04:53:47 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; gucci - account ; FoxyPup
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-15 05:02:42 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Lime - account ; imbh
+ Opcode: 37
+ MapID: 211060100
+
+
+
+------------------------ 2018-02-15 05:12:20 ------------------------
+Error Type: 553648131, 3
+Data Length: 4096
+Error for player ; Sultan - account ; Sultan
+ Opcode: 555
+ MapID: 910000000
+
+
+
+------------------------ 2018-02-15 05:18:08 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; SingSing - account ; holykick
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-15 06:13:48 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; PanConQueso - account ; vakook
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-15 06:56:02 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Lime - account ; imbh
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-15 07:16:01 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Lime - account ; imbh
+ Opcode: 37
+ MapID: 211060100
+
+
+
+------------------------ 2018-02-15 07:24:38 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; mayedals - account ; mayedals
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-15 07:54:24 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; SingSing - account ; holykick
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-15 08:23:10 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Gowther - account ; ches777
+ Opcode: 37
+ MapID: 261010102
+
+
+
+------------------------ 2018-02-15 09:24:15 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; ZohaR - account ; zohartiram
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-15 09:33:43 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; gabi - account ; vinirox
+ Opcode: 37
+ MapID: 200010111
+
+
+
+------------------------ 2018-02-15 09:44:23 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Loxed - account ; Nalox
+ Opcode: 37
+ MapID: 103040400
+
+
+
+------------------------ 2018-02-15 10:02:09 ------------------------
+Error Type: 0, 2
+Data Length: 16
+Error for player ; Acedia - account ; RijkaMR
+ Opcode: 464
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-15 10:02:16 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Fire - account ; cottontail1
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-15 10:29:28 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; KnightGurren - account ; KnightAsriel
+ Opcode: 37
+ MapID: 100040100
+
+
+
+------------------------ 2018-02-15 10:39:39 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; gucci - account ; FoxyPup
+ Opcode: 37
+ MapID: 211060100
+
+
+
+------------------------ 2018-02-15 11:00:04 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; MrNoodle - account ; MrNoodle
+ Opcode: 37
+ MapID: 105010000
+
+
+
+------------------------ 2018-02-15 12:12:04 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Gowther - account ; ches777
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-15 13:46:01 ------------------------
+Error Type: 0, 2
+Data Length: 21
+Error for player ; PanConQueso - account ; vakook
+ Opcode: 429
+ MapID: 260010600
+
+
+
+------------------------ 2018-02-15 14:25:35 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Jackie - account ; Blaze
+ Opcode: 37
+ MapID: 682010200
+
+
+
+------------------------ 2018-02-15 15:40:29 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Corsair - account ; majama
+ Opcode: 37
+ MapID: 261020400
+
+
+
+------------------------ 2018-02-15 16:36:14 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; RoyalBlood - account ; royalblood
+ Opcode: 37
+ MapID: 261020400
+
+
+
+------------------------ 2018-02-15 16:46:44 ------------------------
+Error Type: 553648131, 3
+Data Length: 45
+Error for player ; Fire - account ; cottontail1
+ Opcode: 553
+ MapID: 600000000
+
+
+
+------------------------ 2018-02-15 16:48:42 ------------------------
+Error Type: 553648131, 3
+Data Length: 45
+Error for player ; Fire - account ; cottontail1
+ Opcode: 553
+ MapID: 600000000
+
+
+
+------------------------ 2018-02-15 16:49:28 ------------------------
+Error Type: 553648131, 3
+Data Length: 45
+Error for player ; Love - account ; angel87a
+ Opcode: 553
+ MapID: 104020110
+
+
+
+------------------------ 2018-02-15 16:52:56 ------------------------
+Error Type: 553648131, 3
+Data Length: 45
+Error for player ; Love - account ; angel87a
+ Opcode: 553
+ MapID: 910000000
+
+
+
+------------------------ 2018-02-15 17:05:45 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Gowther - account ; ches777
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-15 17:20:41 ------------------------
+Error Type: 38, 1
+Data Length: 16
+Error for player ; Love - account ; angel87a
+ Opcode: 464
+ MapID: 105000010
+
+
+
+------------------------ 2018-02-15 17:22:30 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Mystic - account ; Mystic
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-15 17:59:59 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; LasNoches - account ; memomunozv
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-15 18:51:49 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Demolition - account ; royalblood
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-15 19:05:39 ------------------------
+Error Type: 38, 1
+Data Length: 8
+Error for player ; Amity - account ; Amity
+ Opcode: 49
+ MapID: 240010800
+
+
+
+------------------------ 2018-02-15 19:26:28 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Kirito - account ; Andorue
+ Opcode: 37
+ MapID: 800020120
+
+
+
+------------------------ 2018-02-15 20:15:39 ------------------------
+Error Type: 553648131, 3
+Data Length: 4096
+Error for player ; Fire - account ; cottontail1
+ Opcode: 554
+ MapID: 261000000
+
+
+
+------------------------ 2018-02-15 20:41:04 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Boop - account ; scar
+ Opcode: 37
+ MapID: 682010201
+
+
+
+------------------------ 2018-02-15 21:12:48 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Fire - account ; cottontail1
+ Opcode: 37
+ MapID: 261010001
+
+
+
+------------------------ 2018-02-15 22:25:25 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Fire - account ; cottontail1
+ Opcode: 37
+ MapID: 230040100
+
+
+
+------------------------ 2018-02-16 00:09:41 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Kzxe - account ; plscanla
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-16 01:36:59 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; gucci - account ; FoxyPup
+ Opcode: 37
+ MapID: 211060830
+
+
+
+------------------------ 2018-02-16 01:38:00 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Kzxe - account ; plscanla
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-16 02:01:42 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; gucci - account ; FoxyPup
+ Opcode: 37
+ MapID: 100000104
+
+
+
+------------------------ 2018-02-16 03:03:47 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; radish - account ; radish
+ Opcode: 33
+ MapID: 100020100
+
+
+
+------------------------ 2018-02-16 03:11:28 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; gucci - account ; FoxyPup
+ Opcode: 37
+ MapID: 809000101
+
+
+
+------------------------ 2018-02-16 03:28:18 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; gucci - account ; FoxyPup
+ Opcode: 37
+ MapID: 103000000
+
+
+
+------------------------ 2018-02-16 03:35:34 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Deida - account ; eralethien
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-16 03:57:09 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Deida - account ; eralethien
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-16 04:47:28 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Deida - account ; eralethien
+ Opcode: 37
+ MapID: 240040600
+
+
+
+------------------------ 2018-02-16 05:11:40 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Deida - account ; eralethien
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-16 05:28:01 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Deida - account ; eralethien
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-16 05:37:57 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Gowther - account ; ches777
+ Opcode: 37
+ MapID: 261020500
+
+
+
+------------------------ 2018-02-16 06:38:37 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; radish - account ; radish
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-16 06:42:47 ------------------------
+Error Type: 553648131, 3
+Data Length: 43
+Error for player ; radish - account ; radish
+ Opcode: 553
+ MapID: 240080000
+
+
+
+------------------------ 2018-02-16 06:45:12 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Deida - account ; eralethien
+ Opcode: 37
+ MapID: 240080000
+
+
+
+------------------------ 2018-02-16 07:21:15 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; radish - account ; radish
+ Opcode: 37
+ MapID: 240011000
+
+
+
+------------------------ 2018-02-16 07:34:59 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; Deida - account ; eralethien
+ Opcode: 338
+ MapID: 240080000
+
+
+
+------------------------ 2018-02-16 07:36:55 ------------------------
+Error Type: 38, 1
+Data Length: 416
+Error for player ; radish - account ; radish
+ Opcode: 250
+ MapID: 240080600
+
+
+
+------------------------ 2018-02-16 07:36:56 ------------------------
+Error Type: 38, 1
+Data Length: 426
+Error for player ; Deida - account ; eralethien
+ Opcode: 250
+ MapID: 240080600
+
+
+
+------------------------ 2018-02-16 07:39:13 ------------------------
+Error Type: 0, 2
+Data Length: 67
+Error for player ; Deida - account ; eralethien
+ Opcode: 36
+ MapID: 240080600
+
+
+
+------------------------ 2018-02-16 07:43:12 ------------------------
+Error Type: 0, 2
+Data Length: 69
+Error for player ; HiImLeo - account ; MrNoodles
+ Opcode: 37
+ MapID: 211060830
+
+
+
+------------------------ 2018-02-16 07:57:04 ------------------------
+Error Type: 38, 1
+Data Length: 426
+Error for player ; HiImLeo - account ; MrNoodles
+ Opcode: 250
+ MapID: 240080600
+
+
+
+------------------------ 2018-02-16 07:59:30 ------------------------
+Error Type: 38, 1
+Data Length: 373
+Error for player ; radish - account ; radish
+ Opcode: 250
+ MapID: 240080600
+
+
+
+------------------------ 2018-02-16 07:59:30 ------------------------
+Error Type: 38, 1
+Data Length: 373
+Error for player ; Deida - account ; eralethien
+ Opcode: 250
+ MapID: 240080600
+
+
+
+------------------------ 2018-02-16 08:01:31 ------------------------
+Error Type: 38, 1
+Data Length: 373
+Error for player ; radish - account ; radish
+ Opcode: 250
+ MapID: 240080000
+
+
+
+------------------------ 2018-02-16 08:01:31 ------------------------
+Error Type: 38, 1
+Data Length: 373
+Error for player ; Deida - account ; eralethien
+ Opcode: 250
+ MapID: 240080000
+
+
+
+------------------------ 2018-02-16 08:14:59 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; Deida - account ; eralethien
+ Opcode: 338
+ MapID: 261000021
+
+
+
+------------------------ 2018-02-16 08:39:03 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; Deida - account ; eralethien
+ Opcode: 338
+ MapID: 923020000
+
+
+
+------------------------ 2018-02-16 09:02:27 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; Sp3arZ - account ; holykick
+ Opcode: 338
+ MapID: 240060200
+
+
+
+------------------------ 2018-02-16 09:29:10 ------------------------
+Error Type: 38, 1
+Data Length: 21
+Error for player ; radish - account ; radish
+ Opcode: 35
+ MapID: 960000000
+
+
+
+------------------------ 2018-02-16 09:29:14 ------------------------
+Error Type: 38, 1
+Data Length: 21
+Error for player ; Gowther - account ; ches777
+ Opcode: 35
+ MapID: 960000000
+
+
+
+------------------------ 2018-02-16 10:19:37 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; gucci - account ; FoxyPup
+ Opcode: 37
+ MapID: 240020400
+
+
+
+------------------------ 2018-02-16 10:30:37 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Lime - account ; imbh
+ Opcode: 37
+ MapID: 951000000
+
+
+
+------------------------ 2018-02-16 11:05:05 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Lime - account ; imbh
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-16 12:35:54 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; HysteriA - account ; royalblood
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-16 13:42:36 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; KnockOut - account ; orval
+ Opcode: 33
+ MapID: 100010000
+
+
+
+------------------------ 2018-02-16 14:57:16 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Shade - account ; flamesderp
+ Opcode: 37
+ MapID: 200070000
+
+
+
+------------------------ 2018-02-16 15:16:13 ------------------------
+Error Type: 38, 1
+Data Length: 7
+Error for player ; KnockOut - account ; orval
+ Opcode: 338
+ MapID: 101030300
+
+
+
+------------------------ 2018-02-16 15:56:24 ------------------------
+Error Type: 38, 1
+Data Length: 7
+Error for player ; Love - account ; angel87a
+ Opcode: 338
+ MapID: 140020200
+
+
+
+------------------------ 2018-02-16 16:19:29 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Moon - account ; Blaze
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-16 16:29:28 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; IDawncerS - account ; ches777
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-16 16:35:06 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Aleric - account ; scar
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-16 18:22:55 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Aleric - account ; scar
+ Opcode: 37
+ MapID: 211041900
+
+
+
+------------------------ 2018-02-16 18:29:46 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Aleric - account ; scar
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-16 20:09:12 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; HysteriA - account ; royalblood
+ Opcode: 37
+ MapID: 261000020
+
+
+
+------------------------ 2018-02-16 20:15:40 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Deida - account ; eralethien
+ Opcode: 37
+ MapID: 910000000
+
+
+
+------------------------ 2018-02-16 20:23:48 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; HysteriA - account ; royalblood
+ Opcode: 37
+ MapID: 261020400
+
+
+
+------------------------ 2018-02-16 20:42:03 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Wands - account ; wands
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-16 21:43:25 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Wands - account ; wands
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-16 21:56:26 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Sp3arZ - account ; holykick
+ Opcode: 37
+ MapID: 100000104
+
+
+
+------------------------ 2018-02-16 22:03:35 ------------------------
+Error Type: 0, 2
+Data Length: 73
+Error for player ; Gowther - account ; ches777
+ Opcode: 37
+ MapID: 261020500
+
+
+
+------------------------ 2018-02-16 22:20:58 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; KnightAsriel - account ; KnightAsriel
+ Opcode: 37
+ MapID: 261020500
+
+
+
+------------------------ 2018-02-16 23:05:51 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Sp3arZ - account ; holykick
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-17 03:58:43 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Ashura - account ; jinbrianz
+ Opcode: 37
+ MapID: 106020000
+
+
+
+------------------------ 2018-02-17 05:12:49 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Sp3arZ - account ; holykick
+ Opcode: 37
+ MapID: 800010001
+
+
+
+------------------------ 2018-02-17 05:26:44 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Boom - account ; orval1
+ Opcode: 33
+ MapID: 910060000
+
+
+
+------------------------ 2018-02-17 05:27:34 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Sp3arZ - account ; holykick
+ Opcode: 37
+ MapID: 211040200
+
+
+
+------------------------ 2018-02-17 05:31:34 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; HiImLeo - account ; MrNoodles
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-17 06:00:09 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; BlazeWizard - account ; Ramsum1
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-17 06:43:59 ------------------------
+Error Type: 0, 2
+Data Length: 41
+Error for player ; Gowther - account ; ches777
+ Opcode: 417
+ MapID: 240060200
+
+
+
+------------------------ 2018-02-17 06:53:57 ------------------------
+Error Type: 0, 2
+Data Length: 45
+Error for player ; Gowther - account ; ches777
+ Opcode: 428
+ MapID: 240060200
+
+
+
+------------------------ 2018-02-17 06:59:24 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Flame - account ; daniel
+ Opcode: 37
+ MapID: 310040200
+
+
+
+------------------------ 2018-02-17 07:29:27 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Aleric - account ; scar
+ Opcode: 37
+ MapID: 100020100
+
+
+
+------------------------ 2018-02-17 07:29:33 ------------------------
+Error Type: 553648131, 3
+Data Length: 4096
+Error for player ; Boom - account ; orval1
+ Opcode: 554
+ MapID: 250000000
+
+
+
+------------------------ 2018-02-17 08:17:34 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Meth0d - account ; Ramsum1
+ Opcode: 37
+ MapID: 260000000
+
+
+
+------------------------ 2018-02-17 09:02:30 ------------------------
+Error Type: 0, 2
+Data Length: 4096
+Error for player ; Gowther - account ; ches777
+ Opcode: 204
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-17 11:15:07 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Otosan - account ; yurchik102
+ Opcode: 37
+ MapID: 682010200
+
+
+
+------------------------ 2018-02-17 12:58:24 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Meth0d - account ; Ramsum1
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-17 14:42:15 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Meth0d - account ; Ramsum1
+ Opcode: 37
+ MapID: 220000000
+
+
+
+------------------------ 2018-02-17 15:00:20 ------------------------
+Error Type: 0, 2
+Data Length: 69
+Error for player ; wand - account ; wands2
+ Opcode: 37
+ MapID: 261020300
+
+
+
+------------------------ 2018-02-17 15:23:11 ------------------------
+Error Type: 0, 2
+Data Length: 13
+Error for player ; Love - account ; angel87a
+ Opcode: 33
+ MapID: 106020300
+
+
+
+------------------------ 2018-02-17 16:13:34 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Love - account ; angel87a
+ Opcode: 37
+ MapID: 105030000
+
+
+
+------------------------ 2018-02-17 16:21:30 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; wand - account ; wands2
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-17 16:28:43 ------------------------
+Error Type: 38, 1
+Data Length: 7
+Error for player ; Love - account ; angel87a
+ Opcode: 338
+ MapID: 310020200
+
+
+
+------------------------ 2018-02-17 17:23:09 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Nekokilla - account ; beshimi88
+ Opcode: 37
+ MapID: 220000000
+
+
+
+------------------------ 2018-02-17 17:34:38 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Demon - account ; zoltage
+ Opcode: 33
+ MapID: 682010201
+
+
+
+------------------------ 2018-02-17 18:34:08 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Yunie - account ; berty999
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-17 18:45:55 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Moon - account ; Blaze
+ Opcode: 37
+ MapID: 240000000
+
+
+
+------------------------ 2018-02-17 19:00:36 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Yunie - account ; berty999
+ Opcode: 37
+ MapID: 310000000
+
+
+
+------------------------ 2018-02-17 19:15:46 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Nekokilla - account ; beshimi88
+ Opcode: 37
+ MapID: 220050100
+
+
+
+------------------------ 2018-02-17 20:46:22 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Demon - account ; zoltage
+ Opcode: 37
+ MapID: 910000000
+
+
+
+------------------------ 2018-02-17 21:13:49 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Mars - account ; wands2
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-17 21:28:44 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; DeuS - account ; coyote
+ Opcode: 37
+ MapID: 211041900
+
+
+
+------------------------ 2018-02-17 21:56:52 ------------------------
+Error Type: 570425350, 3
+Data Length: 55
+Error for player ; Buff - account ; majama
+ Opcode: 324
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-18 01:51:46 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Yunie - account ; berty999
+ Opcode: 37
+ MapID: 261020300
+
+
+
+------------------------ 2018-02-18 02:11:50 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; DeuS - account ; coyote
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-18 03:32:26 ------------------------
+Error Type: 38, 1
+Data Length: 7
+Error for player ; DeuS - account ; coyote
+ Opcode: 338
+ MapID: 310020200
+
+
+
+------------------------ 2018-02-18 03:55:38 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Ashura - account ; jinbrianz
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-18 03:57:21 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Yunie - account ; berty999
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-18 04:26:58 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Yunie - account ; berty999
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-18 04:50:43 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Yunie - account ; berty999
+ Opcode: 37
+ MapID: 211000002
+
+
+
+------------------------ 2018-02-18 04:51:00 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Mars - account ; wands2
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-18 06:11:52 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Mars - account ; wands2
+ Opcode: 37
+ MapID: 222010310
+
+
+
+------------------------ 2018-02-18 06:36:39 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Taka - account ; mmttdl
+ Opcode: 37
+ MapID: 240000000
+
+
+
+------------------------ 2018-02-18 07:14:39 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Gowther - account ; ches777
+ Opcode: 37
+ MapID: 261020400
+
+
+
+------------------------ 2018-02-18 07:48:49 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Taka - account ; mmttdl
+ Opcode: 37
+ MapID: 261020300
+
+
+
+------------------------ 2018-02-18 07:53:34 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Taka - account ; mmttdl
+ Opcode: 37
+ MapID: 261020300
+
+
+
+------------------------ 2018-02-18 08:18:07 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Niggy - account ; coyote
+ Opcode: 33
+ MapID: 310040000
+
+
+
+------------------------ 2018-02-18 08:25:28 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Nekokilla - account ; beshimi88
+ Opcode: 37
+ MapID: 220050200
+
+
+
+------------------------ 2018-02-18 09:33:53 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Loxed - account ; Nalox
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-18 10:21:24 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Demon - account ; zoltage
+ Opcode: 37
+ MapID: 211041900
+
+
+
+------------------------ 2018-02-18 10:31:30 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Loxed - account ; Nalox
+ Opcode: 37
+ MapID: 230040000
+
+
+
+------------------------ 2018-02-18 10:34:32 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; KnightAsriel - account ; KnightAsriel
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-18 11:30:07 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Phantom - account ; zoltage
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-18 11:48:18 ------------------------
+Error Type: 0, 2
+Data Length: 193
+Error for player ; HolySymbol - account ; Andorue
+ Opcode: 304
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-18 12:25:44 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Crusader - account ; Andorue
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-18 13:09:55 ------------------------
+Error Type: 0, 2
+Data Length: 69
+Error for player ; CastingCouch - account ; jaden
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-18 13:17:55 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; Phantom - account ; zoltage
+ Opcode: 231
+ MapID: 240050400
+
+
+
+------------------------ 2018-02-18 13:35:03 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; ZiaZara - account ; RijkaMR
+ Opcode: 37
+ MapID: 240040300
+
+
+
+------------------------ 2018-02-18 13:37:27 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; HiImLeo - account ; MrNoodles
+ Opcode: 37
+ MapID: 211041900
+
+
+
+------------------------ 2018-02-18 13:37:50 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Kirito - account ; Andorue
+ Opcode: 37
+ MapID: 910000000
+
+
+
+------------------------ 2018-02-18 13:38:04 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Phantom - account ; zoltage
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-18 13:44:46 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; HiImLeo - account ; MrNoodles
+ Opcode: 231
+ MapID: 211042400
+
+
+
+------------------------ 2018-02-18 13:51:00 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; Kirito - account ; Andorue
+ Opcode: 231
+ MapID: 211042400
+
+
+
+------------------------ 2018-02-18 14:03:54 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Phantom - account ; zoltage
+ Opcode: 37
+ MapID: 240050400
+
+
+
+------------------------ 2018-02-18 14:50:31 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; ZiaZara - account ; RijkaMR
+ Opcode: 37
+ MapID: 261020300
+
+
+
+------------------------ 2018-02-18 15:18:59 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Phantom - account ; zoltage
+ Opcode: 37
+ MapID: 261020300
+
+
+
+------------------------ 2018-02-18 15:42:12 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Phantom - account ; zoltage
+ Opcode: 37
+ MapID: 261020300
+
+
+
+------------------------ 2018-02-18 15:52:04 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Love - account ; angel87a
+ Opcode: 37
+ MapID: 230020201
+
+
+
+------------------------ 2018-02-18 16:23:57 ------------------------
+Error Type: 0, 2
+Data Length: 21
+Error for player ; Methood - account ; Ramsum1
+ Opcode: 429
+ MapID: 261020400
+
+
+
+------------------------ 2018-02-18 16:49:41 ------------------------
+Error Type: 0, 2
+Data Length: 13
+Error for player ; Love - account ; angel87a
+ Opcode: 33
+ MapID: 105000000
+
+
+
+------------------------ 2018-02-18 17:01:02 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; HiImLeo - account ; MrNoodles
+ Opcode: 37
+ MapID: 260010400
+
+
+
+------------------------ 2018-02-18 17:18:57 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Methood - account ; Ramsum1
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-18 18:15:52 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; moosh - account ; moosh
+ Opcode: 37
+ MapID: 200010100
+
+
+
+------------------------ 2018-02-18 19:48:29 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; moosh - account ; moosh
+ Opcode: 37
+ MapID: 200010301
+
+
+
+------------------------ 2018-02-18 22:23:07 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; billybob - account ; yun0135
+ Opcode: 288
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-19 00:58:05 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Calwyn - account ; Calwyn
+ Opcode: 37
+ MapID: 100040300
+
+
+
+------------------------ 2018-02-19 02:49:29 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; moosh - account ; moosh
+ Opcode: 37
+ MapID: 100000104
+
+
+
+------------------------ 2018-02-19 04:06:26 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Bobdasin - account ; bobdasin
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-19 04:17:21 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Bobdasin - account ; bobdasin
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-19 04:47:18 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Bobdasin - account ; bobdasin
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-19 06:19:02 ------------------------
+Error Type: 0, 2
+Data Length: 13
+Error for player ; Mars - account ; wands2
+ Opcode: 33
+ MapID: 600000000
+
+
+
+------------------------ 2018-02-19 08:29:18 ------------------------
+Error Type: 0, 2
+Data Length: 13
+Error for player ; Mars - account ; wands2
+ Opcode: 33
+ MapID: 100000100
+
+
+
+------------------------ 2018-02-19 08:40:10 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; iloveyou - account ; bigHM
+ Opcode: 37
+ MapID: 951000000
+
+
+
+------------------------ 2018-02-19 10:02:36 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Calwyn - account ; Calwyn
+ Opcode: 37
+ MapID: 211041900
+
+
+
+------------------------ 2018-02-19 10:39:55 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; iloveyou - account ; bigHM
+ Opcode: 37
+ MapID: 540020100
+
+
+
+------------------------ 2018-02-19 10:43:09 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; iWill - account ; Blackdude
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-19 10:44:10 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; ZiaZara - account ; RijkaMR
+ Opcode: 37
+ MapID: 220070301
+
+
+
+------------------------ 2018-02-19 10:47:25 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; CZwc - account ; CZwc
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-19 11:41:24 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Aleric - account ; scar
+ Opcode: 37
+ MapID: 211041900
+
+
+
+------------------------ 2018-02-19 12:04:34 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; gabb - account ; gabrsrs
+ Opcode: 33
+ MapID: 100040400
+
+
+
+------------------------ 2018-02-19 12:05:56 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Rain - account ; Blaze
+ Opcode: 37
+ MapID: 261020400
+
+
+
+------------------------ 2018-02-19 14:02:23 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; DeuS - account ; coyote
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-19 15:24:07 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; LasNoches - account ; memomunozv
+ Opcode: 37
+ MapID: 260020000
+
+
+
+------------------------ 2018-02-19 15:25:14 ------------------------
+Error Type: 553648131, 3
+Data Length: 42
+Error for player ; Love - account ; angel87a
+ Opcode: 553
+ MapID: 211000001
+
+
+
+------------------------ 2018-02-19 15:35:11 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Phantom - account ; zoltage
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-19 15:35:43 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; iWill - account ; Blackdude
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-19 15:46:31 ------------------------
+Error Type: 38, 1
+Data Length: 231
+Error for player ; DeuS - account ; coyote
+ Opcode: 126
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-19 16:17:41 ------------------------
+Error Type: 38, 1
+Data Length: 231
+Error for player ; DeuS - account ; coyote
+ Opcode: 126
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-19 16:27:17 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; DeuS - account ; coyote
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-19 16:42:32 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; iloveyou - account ; bigHM
+ Opcode: 37
+ MapID: 103040400
+
+
+
+------------------------ 2018-02-19 16:43:23 ------------------------
+Error Type: 0, 2
+Data Length: 73
+Error for player ; Rain - account ; Blaze
+ Opcode: 37
+ MapID: 240000000
+
+
+
+------------------------ 2018-02-19 16:49:17 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; Blue - account ; coyote1
+ Opcode: 338
+ MapID: 240040510
+
+
+
+------------------------ 2018-02-19 16:51:58 ------------------------
+Error Type: 38, 1
+Data Length: 51
+Error for player ; Bobdasin - account ; bobdasin
+ Opcode: 324
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-19 16:59:15 ------------------------
+Error Type: 0, 2
+Data Length: 21
+Error for player ; Blue - account ; coyote1
+ Opcode: 429
+ MapID: 240040510
+
+
+
+------------------------ 2018-02-19 17:02:32 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; DarkLord - account ; angel87a
+ Opcode: 37
+ MapID: 105030400
+
+
+
+------------------------ 2018-02-19 17:10:52 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; DeuS - account ; coyote
+ Opcode: 37
+ MapID: 240040510
+
+
+
+------------------------ 2018-02-19 17:49:31 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Joker - account ; cottontail1
+ Opcode: 37
+ MapID: 100000104
+
+
+
+------------------------ 2018-02-19 18:02:41 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Caladin - account ; Calwyn
+ Opcode: 37
+ MapID: 540000000
+
+
+
+------------------------ 2018-02-19 18:27:30 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Venum - account ; job51
+ Opcode: 37
+ MapID: 600010600
+
+
+
+------------------------ 2018-02-19 18:33:11 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; iloveyou - account ; bigHM
+ Opcode: 37
+ MapID: 220020300
+
+
+
+------------------------ 2018-02-19 19:13:40 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; whaat - account ; bigHM
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-19 19:58:23 ------------------------
+Error Type: 0, 2
+Data Length: 45
+Error for player ; Blue - account ; coyote1
+ Opcode: 428
+ MapID: 240060200
+
+
+
+------------------------ 2018-02-19 20:17:19 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Kaido - account ; xlvlol
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-19 20:22:43 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; Blue - account ; coyote1
+ Opcode: 338
+ MapID: 541020800
+
+
+
+------------------------ 2018-02-19 21:08:04 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Royalty - account ; peachsatan
+ Opcode: 37
+ MapID: 910000000
+
+
+
+------------------------ 2018-02-19 21:16:00 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; DeuS - account ; coyote
+ Opcode: 37
+ MapID: 211060100
+
+
+
+------------------------ 2018-02-19 21:51:18 ------------------------
+Error Type: 0, 2
+Data Length: 16
+Error for player ; Joker - account ; cottontail1
+ Opcode: 464
+ MapID: 910001000
+
+
+
+------------------------ 2018-02-19 22:19:26 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Senpai - account ; motherlim
+ Opcode: 37
+ MapID: 100020200
+
+
+
+------------------------ 2018-02-19 22:27:42 ------------------------
+Error Type: 38, 1
+Data Length: 231
+Error for player ; Calwyn - account ; Calwyn
+ Opcode: 126
+ MapID: 100000104
+
+
+
+------------------------ 2018-02-19 22:47:58 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Calwyn - account ; Calwyn
+ Opcode: 37
+ MapID: 100000104
+
+
+
+------------------------ 2018-02-19 23:11:08 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Senpai - account ; motherlim
+ Opcode: 37
+ MapID: 105010000
+
+
+
+------------------------ 2018-02-20 02:33:03 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Dray - account ; itsuae
+ Opcode: 37
+ MapID: 682000000
+
+
+
+------------------------ 2018-02-20 03:09:28 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Triple - account ; eralethien
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-20 04:28:32 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; CZwc - account ; CZwc
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-20 09:46:05 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Loxer - account ; Nalox
+ Opcode: 37
+ MapID: 211000000
+
+
+
+------------------------ 2018-02-20 11:11:29 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Calwyn - account ; Calwyn
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-20 11:31:54 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Loxer - account ; Nalox
+ Opcode: 37
+ MapID: 261020400
+
+
+
+------------------------ 2018-02-20 11:42:05 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Calwyn - account ; Calwyn
+ Opcode: 37
+ MapID: 910000000
+
+
+
+------------------------ 2018-02-20 12:23:27 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Dray - account ; itsuae
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-20 12:53:45 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Dray - account ; itsuae
+ Opcode: 37
+ MapID: 261020400
+
+
+
+------------------------ 2018-02-20 12:55:12 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; sugoi - account ; wjdwlsqja
+ Opcode: 37
+ MapID: 100040300
+
+
+
+------------------------ 2018-02-20 12:55:23 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; moosh - account ; moosh
+ Opcode: 37
+ MapID: 211040200
+
+
+
+------------------------ 2018-02-20 13:36:01 ------------------------
+Error Type: 553648131, 3
+Data Length: 43
+Error for player ; Dude - account ; Blackdude
+ Opcode: 553
+ MapID: 310010000
+
+
+
+------------------------ 2018-02-20 14:13:49 ------------------------
+Error Type: 0, 2
+Data Length: 73
+Error for player ; Dray - account ; itsuae
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-20 14:46:01 ------------------------
+Error Type: 0, 2
+Data Length: 21
+Error for player ; Methood - account ; Ramsum1
+ Opcode: 429
+ MapID: 261020400
+
+
+
+------------------------ 2018-02-20 14:49:58 ------------------------
+Error Type: 38, 1
+Data Length: 147
+Error for player ; ZiaZara - account ; RijkaMR
+ Opcode: 555
+ MapID: 270020410
+
+
+
+------------------------ 2018-02-20 14:59:13 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Dray - account ; itsuae
+ Opcode: 37
+ MapID: 240040510
+
+
+
+------------------------ 2018-02-20 15:09:52 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Yunie - account ; berty999
+ Opcode: 37
+ MapID: 950100000
+
+
+
+------------------------ 2018-02-20 15:53:02 ------------------------
+Error Type: 0, 2
+Data Length: 93
+Error for player ; Will - account ; Blackdude
+ Opcode: 37
+ MapID: 610010000
+
+
+
+------------------------ 2018-02-20 16:05:41 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Jonn - account ; Jonn
+ Opcode: 33
+ MapID: 100040300
+
+
+
+------------------------ 2018-02-20 16:23:33 ------------------------
+Error Type: 0, 2
+Data Length: 69
+Error for player ; Jonn - account ; Jonn
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-20 16:51:23 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; 1888 - account ; wjdwlsqja
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-20 17:40:30 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; iWill - account ; Blackdude
+ Opcode: 231
+ MapID: 271040000
+
+
+
+------------------------ 2018-02-20 17:57:03 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Jonn - account ; Jonn
+ Opcode: 37
+ MapID: 261020300
+
+
+
+------------------------ 2018-02-20 18:00:48 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; Amity - account ; Amity
+ Opcode: 338
+ MapID: 270050100
+
+
+
+------------------------ 2018-02-20 18:19:14 ------------------------
+Error Type: 0, 2
+Data Length: 135
+Error for player ; Amity - account ; Amity
+ Opcode: 304
+ MapID: 270050100
+
+
+
+------------------------ 2018-02-20 18:24:47 ------------------------
+Error Type: 0, 2
+Data Length: 91
+Error for player ; iWill - account ; Blackdude
+ Opcode: 304
+ MapID: 270050100
+
+
+
+------------------------ 2018-02-20 18:31:39 ------------------------
+Error Type: 0, 2
+Data Length: 21
+Error for player ; Jonn - account ; Jonn
+ Opcode: 35
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-20 18:33:32 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; KnightAsriel - account ; KnightAsriel
+ Opcode: 37
+ MapID: 610040210
+
+
+
+------------------------ 2018-02-20 18:45:59 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; iWill - account ; Blackdude
+ Opcode: 231
+ MapID: 211070000
+
+
+
+------------------------ 2018-02-20 19:34:11 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Baphomet - account ; juggaloboy
+ Opcode: 37
+ MapID: 951000000
+
+
+
+------------------------ 2018-02-20 19:43:24 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; iWill - account ; Blackdude
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-20 19:53:43 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Baphomet - account ; juggaloboy
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-20 20:09:53 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Eumemes - account ; enemy679
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-20 20:33:04 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Zeus - account ; juggaloboy
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-20 20:50:19 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; mina - account ; jrdarky
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-20 20:53:45 ------------------------
+Error Type: 553648131, 3
+Data Length: 67
+Error for player ; Takumi - account ; dibia
+ Opcode: 553
+ MapID: 931000000
+
+
+
+------------------------ 2018-02-20 20:54:07 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; mina - account ; jrdarky
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-20 20:57:20 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; mina - account ; jrdarky
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-20 20:58:27 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Baphomet - account ; juggaloboy
+ Opcode: 37
+ MapID: 950100000
+
+
+
+------------------------ 2018-02-20 20:59:44 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Takumi - account ; dibia
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-20 21:17:07 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Aleric - account ; scar
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-20 21:36:33 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; PitchBlack - account ; peachsatan
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-20 21:43:27 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Aleric - account ; scar
+ Opcode: 37
+ MapID: 271000300
+
+
+
+------------------------ 2018-02-20 21:58:09 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; LasNoches - account ; memomunozv
+ Opcode: 37
+ MapID: 251010403
+
+
+
+------------------------ 2018-02-20 22:10:21 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Frio - account ; memomunozv
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-20 22:59:05 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; moosh - account ; moosh
+ Opcode: 37
+ MapID: 261020400
+
+
+
+------------------------ 2018-02-20 23:08:37 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Senpai - account ; motherlim
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-21 00:35:05 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; DeuS - account ; coyote
+ Opcode: 37
+ MapID: 801040000
+
+
+
+------------------------ 2018-02-21 00:45:11 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; DeuS - account ; coyote
+ Opcode: 37
+ MapID: 801040000
+
+
+
+------------------------ 2018-02-21 01:23:38 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; moosh - account ; moosh
+ Opcode: 37
+ MapID: 261020000
+
+
+
+------------------------ 2018-02-21 01:52:33 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Dray - account ; itsuae
+ Opcode: 37
+ MapID: 910000000
+
+
+
+------------------------ 2018-02-21 02:39:29 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; fffffffff - account ; ches777
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 02:45:41 ------------------------
+Error Type: 0, 2
+Data Length: 16
+Error for player ; Dray - account ; itsuae
+ Opcode: 464
+ MapID: 910001000
+
+
+
+------------------------ 2018-02-21 05:12:59 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Num1Sniper - account ; ilovemaple87
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 05:49:26 ------------------------
+Error Type: 0, 2
+Data Length: 27
+Error for player ; DeuS - account ; coyote
+ Opcode: 252
+ MapID: 910001000
+
+
+
+------------------------ 2018-02-21 06:47:16 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Halo - account ; Blackdude
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 07:02:30 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; TryHard - account ; valery
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 07:05:58 ------------------------
+Error Type: 0, 2
+Data Length: 13
+Error for player ; Lime - account ; imbh
+ Opcode: 33
+ MapID: 240010500
+
+
+
+------------------------ 2018-02-21 07:10:31 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; TryHard - account ; valery
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-21 07:25:31 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; whaat - account ; bigHM
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-21 07:33:30 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; TryHard - account ; valery
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-21 07:41:58 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Dray - account ; itsuae
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-21 07:43:23 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Aleric - account ; scar
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-21 08:01:02 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; whaat - account ; bigHM
+ Opcode: 37
+ MapID: 220060201
+
+
+
+------------------------ 2018-02-21 08:06:17 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; TryHard - account ; valery
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-21 08:23:49 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Lust - account ; scar
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 08:27:15 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Lust - account ; scar
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 08:32:45 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Jonn - account ; Jonn
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 10:21:53 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; LOOKnow - account ; kensblade
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 10:33:23 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Create - account ; gluttonnnzw
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-21 10:35:40 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; whaat - account ; bigHM
+ Opcode: 37
+ MapID: 211060200
+
+
+
+------------------------ 2018-02-21 10:41:18 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Create - account ; gluttonnnzw
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-21 10:52:13 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; dhmh - account ; bigHM
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 11:04:38 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Baphomet - account ; juggaloboy
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-21 11:20:27 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Create - account ; gluttonnnzw
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-21 11:28:03 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Stream - account ; layvons
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 12:16:53 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Vilym - account ; kensblade
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 13:00:58 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; ZiaZara - account ; RijkaMR
+ Opcode: 37
+ MapID: 551030100
+
+
+
+------------------------ 2018-02-21 13:05:52 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; PitchBlack - account ; peachsatan
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 13:07:53 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Fafnir - account ; anthonygil15
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 13:09:26 ------------------------
+Error Type: 553648131, 3
+Data Length: 4096
+Error for player ; Neko2nd - account ; beshimi
+ Opcode: 555
+ MapID: 251000000
+
+
+
+------------------------ 2018-02-21 13:11:20 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Drai - account ; anthonygil15
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 13:11:30 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; PitchBlack - account ; peachsatan
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 13:13:43 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; DeuS - account ; coyote
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-21 13:31:26 ------------------------
+Error Type: 553648131, 3
+Data Length: 4096
+Error for player ; Neko2nd - account ; beshimi
+ Opcode: 555
+ MapID: 250010700
+
+
+
+------------------------ 2018-02-21 13:32:11 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; grfhrth - account ; Kyle
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 13:35:13 ------------------------
+Error Type: 553648131, 3
+Data Length: 4096
+Error for player ; Lust - account ; scar
+ Opcode: 555
+ MapID: 910000000
+
+
+
+------------------------ 2018-02-21 14:08:17 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; ZiaZara - account ; RijkaMR
+ Opcode: 37
+ MapID: 541010050
+
+
+
+------------------------ 2018-02-21 14:10:06 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Lust - account ; scar
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-21 15:02:06 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Faustox - account ; faustox
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 15:10:06 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Faustox - account ; faustox
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 15:17:04 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Faustox - account ; faustox
+ Opcode: 33
+ MapID: 310020000
+
+
+
+------------------------ 2018-02-21 15:22:25 ------------------------
+Error Type: 38, 1
+Data Length: 7
+Error for player ; Faustox - account ; faustox
+ Opcode: 338
+ MapID: 310020200
+
+
+
+------------------------ 2018-02-21 15:48:06 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Mercury - account ; wands2
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 16:29:57 ------------------------
+Error Type: 0, 2
+Data Length: 16
+Error for player ; Odinson - account ; royalblood
+ Opcode: 464
+ MapID: 280030000
+
+
+
+------------------------ 2018-02-21 16:47:06 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; goodjob - account ; bigHM
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 19:00:15 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Vaire - account ; maxwell00
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-21 19:12:49 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Vaire - account ; maxwell00
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-21 19:44:19 ------------------------
+Error Type: 0, 2
+Data Length: 69
+Error for player ; Lust - account ; scar
+ Opcode: 37
+ MapID: 801040000
+
+
+
+------------------------ 2018-02-21 19:55:26 ------------------------
+Error Type: 0, 2
+Data Length: 69
+Error for player ; Lust - account ; scar
+ Opcode: 37
+ MapID: 800020120
+
+
+
+------------------------ 2018-02-21 20:13:02 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Ghost - account ; monsterkilp
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 20:16:40 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; Ghost - account ; monsterkilp
+ Opcode: 33
+ MapID: 310020000
+
+
+
+------------------------ 2018-02-21 20:17:01 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Lust - account ; scar
+ Opcode: 37
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-21 20:23:49 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Ghost - account ; monsterkilp
+ Opcode: 37
+ MapID: 100020200
+
+
+
+------------------------ 2018-02-21 20:39:34 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Aston - account ; motherlim
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 21:01:46 ------------------------
+Error Type: 38, 1
+Data Length: 548
+Error for player ; Blue - account ; coyote1
+ Opcode: 250
+ MapID: 240080600
+
+
+
+------------------------ 2018-02-21 21:06:04 ------------------------
+Error Type: 38, 1
+Data Length: 7
+Error for player ; DeuS - account ; coyote
+ Opcode: 338
+ MapID: 240010500
+
+
+
+------------------------ 2018-02-21 21:16:14 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Aston - account ; motherlim
+ Opcode: 37
+ MapID: 682010202
+
+
+
+------------------------ 2018-02-21 21:20:53 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Gowther - account ; ches777
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-21 21:23:25 ------------------------
+Error Type: 0, 2
+Data Length: 13
+Error for player ; Gowther - account ; ches777
+ Opcode: 33
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-21 21:46:41 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Mongoloid - account ; A773N710N
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-21 22:32:58 ------------------------
+Error Type: 38, 1
+Data Length: 21
+Error for player ; DeuS - account ; coyote
+ Opcode: 429
+ MapID: 270020200
+
+
+
+------------------------ 2018-02-21 22:37:47 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Mongoloid - account ; A773N710N
+ Opcode: 37
+ MapID: 106020000
+
+
+
+------------------------ 2018-02-21 22:45:54 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Aston - account ; motherlim
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-21 23:39:38 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; DeuS - account ; coyote
+ Opcode: 37
+ MapID: 270030500
+
+
+
+------------------------ 2018-02-22 00:20:01 ------------------------
+Error Type: 0, 2
+Data Length: 21
+Error for player ; Dray - account ; itsuae
+ Opcode: 429
+ MapID: 801040100
+
+
+
+------------------------ 2018-02-22 00:35:59 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Dray - account ; itsuae
+ Opcode: 37
+ MapID: 801040000
+
+
+
+------------------------ 2018-02-22 00:51:33 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; moosh - account ; moosh
+ Opcode: 37
+ MapID: 261020200
+
+
+
+------------------------ 2018-02-22 01:01:57 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; Blue - account ; coyote1
+ Opcode: 338
+ MapID: 271030100
+
+
+
+------------------------ 2018-02-22 01:14:32 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Neko2nd - account ; beshimi
+ Opcode: 37
+ MapID: 240000002
+
+
+
+------------------------ 2018-02-22 02:07:00 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; moosh - account ; moosh
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-22 02:18:51 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Spear - account ; majama
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-22 02:50:34 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; moosh - account ; moosh
+ Opcode: 37
+ MapID: 250020300
+
+
+
+------------------------ 2018-02-22 02:55:28 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Dray - account ; itsuae
+ Opcode: 37
+ MapID: 271010000
+
+
+
+------------------------ 2018-02-22 02:58:14 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Spear - account ; majama
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-22 02:59:50 ------------------------
+Error Type: 0, 2
+Data Length: 13
+Error for player ; Spear - account ; majama
+ Opcode: 33
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-22 03:35:46 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; HiImLeo - account ; MrNoodles
+ Opcode: 37
+ MapID: 910000000
+
+
+
+------------------------ 2018-02-22 04:35:54 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Uroboros - account ; anthonygil20
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 04:42:13 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Uroboros - account ; anthonygil20
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 05:00:55 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; Spear - account ; majama
+ Opcode: 231
+ MapID: 551030100
+
+
+
+------------------------ 2018-02-22 05:28:14 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; WildZara - account ; RijkaMR
+ Opcode: 37
+ MapID: 310000000
+
+
+
+------------------------ 2018-02-22 06:21:41 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Eragon - account ; nhocty1234
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-22 06:35:52 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; BaduM - account ; joshi
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 06:39:59 ------------------------
+Error Type: 0, 2
+Data Length: 128
+Error for player ; BaduM - account ; joshi
+ Opcode: 33
+ MapID: 100020000
+
+
+
+------------------------ 2018-02-22 06:53:38 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; Sp3arZ - account ; holykick
+ Opcode: 231
+ MapID: 240050400
+
+
+
+------------------------ 2018-02-22 07:04:32 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Sp3arZ - account ; holykick
+ Opcode: 37
+ MapID: 910001000
+
+
+
+------------------------ 2018-02-22 07:28:14 ------------------------
+Error Type: 38, 1
+Data Length: 51
+Error for player ; Calwyn - account ; Calwyn
+ Opcode: 324
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-22 07:28:14 ------------------------
+Error Type: 38, 1
+Data Length: 51
+Error for player ; Create - account ; gluttonnnzw
+ Opcode: 324
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-22 07:34:03 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Loxn - account ; Nalox
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 08:10:34 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; mLox - account ; Nalox
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 08:35:29 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Create - account ; gluttonnnzw
+ Opcode: 37
+ MapID: 211041900
+
+
+
+------------------------ 2018-02-22 08:39:45 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Vilym - account ; kensblade
+ Opcode: 37
+ MapID: 261020500
+
+
+
+------------------------ 2018-02-22 09:24:36 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Datsun - account ; kibayu
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-22 10:02:07 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; MrLulz - account ; MrNoodles
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 10:03:22 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; vvwvwv - account ; MrNoodles
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 10:13:51 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; vvwvwv - account ; MrNoodles
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 10:26:23 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; vvwvwv - account ; MrNoodles
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 10:46:41 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; cLox - account ; Nalox
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-22 10:49:49 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; LeeTErik - account ; Ramsum1
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 11:06:38 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; Lust - account ; scar
+ Opcode: 231
+ MapID: 211070000
+
+
+
+------------------------ 2018-02-22 11:06:38 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; DeuS - account ; coyote
+ Opcode: 231
+ MapID: 211070000
+
+
+
+------------------------ 2018-02-22 11:12:08 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Gowther - account ; ches777
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-22 11:40:20 ------------------------
+Error Type: 553648131, 3
+Data Length: 4096
+Error for player ; Gowther - account ; ches777
+ Opcode: 554
+ MapID: 951000000
+
+
+
+------------------------ 2018-02-22 12:07:48 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; iWill - account ; Blackdude
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-22 12:21:43 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; WiII - account ; Blackdude
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 12:29:47 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; Royalty - account ; peachsatan
+ Opcode: 338
+ MapID: 610040220
+
+
+
+------------------------ 2018-02-22 12:37:34 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Rheia - account ; maxwell00
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 12:43:56 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Rheia - account ; maxwell00
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 12:50:21 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Rheia - account ; maxwell00
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 12:51:40 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Royalty - account ; peachsatan
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-22 13:25:14 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; Ghost - account ; monsterkilp
+ Opcode: 231
+ MapID: 270050000
+
+
+
+------------------------ 2018-02-22 13:25:14 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; Royalty - account ; peachsatan
+ Opcode: 231
+ MapID: 270050000
+
+
+
+------------------------ 2018-02-22 13:25:14 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; HiImLeo - account ; MrNoodles
+ Opcode: 231
+ MapID: 270050000
+
+
+
+------------------------ 2018-02-22 13:36:48 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Greed - account ; scar
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 13:52:12 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; RoyalBlue - account ; peachsatan
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 14:33:34 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; Blue - account ; coyote1
+ Opcode: 338
+ MapID: 271030202
+
+
+
+------------------------ 2018-02-22 14:41:10 ------------------------
+Error Type: 38, 1
+Data Length: 7
+Error for player ; Zenkari - account ; DragonFolf
+ Opcode: 338
+ MapID: 100020401
+
+
+
+------------------------ 2018-02-22 14:46:46 ------------------------
+Error Type: 0, 2
+Data Length: 45
+Error for player ; Blue - account ; coyote1
+ Opcode: 428
+ MapID: 271030202
+
+
+
+------------------------ 2018-02-22 15:23:46 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Messur - account ; Amity
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 15:29:12 ------------------------
+Error Type: 38, 1
+Data Length: 7
+Error for player ; Zenkari - account ; DragonFolf
+ Opcode: 338
+ MapID: 101030300
+
+
+
+------------------------ 2018-02-22 15:35:13 ------------------------
+Error Type: 0, 2
+Data Length: 73
+Error for player ; Storm - account ; daniel
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-22 15:55:47 ------------------------
+Error Type: 0, 2
+Data Length: 15
+Error for player ; Spear - account ; majama
+ Opcode: 420
+ MapID: 100000000
+
+
+
+------------------------ 2018-02-22 16:10:31 ------------------------
+Error Type: 0, 2
+Data Length: 99
+Error for player ; BBCmonster - account ; Maverick
+ Opcode: 428
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-22 16:14:17 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; BaduM - account ; joshi
+ Opcode: 37
+ MapID: 682010203
+
+
+
+------------------------ 2018-02-22 16:24:23 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; Mars - account ; wands2
+ Opcode: 338
+ MapID: 211060100
+
+
+
+------------------------ 2018-02-22 16:57:13 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Dray - account ; itsuae
+ Opcode: 37
+ MapID: 271010300
+
+
+
+------------------------ 2018-02-22 17:26:12 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; Dray - account ; itsuae
+ Opcode: 338
+ MapID: 271030202
+
+
+
+------------------------ 2018-02-22 17:29:16 ------------------------
+Error Type: 0, 2
+Data Length: 23
+Error for player ; Dray - account ; itsuae
+ Opcode: 338
+ MapID: 271030202
+
+
+
+------------------------ 2018-02-22 17:44:09 ------------------------
+Error Type: 38, 1
+Data Length: 8
+Error for player ; Joker - account ; cottontail1
+ Opcode: 49
+ MapID: 551030100
+
+
+
+------------------------ 2018-02-22 17:44:10 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Bang - account ; mmttdl
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 17:49:08 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; RazerZ - account ; mottom88
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 18:10:04 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Beshimi - account ; beshimi
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 18:11:45 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Ghost - account ; monsterkilp
+ Opcode: 37
+ MapID: 610040230
+
+
+
+------------------------ 2018-02-22 18:45:12 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; DeuS - account ; coyote
+ Opcode: 37
+ MapID: 910000000
+
+
+
+------------------------ 2018-02-22 18:55:52 ------------------------
+Error Type: 553648131, 3
+Data Length: 136
+Error for player ; Eqz1 - account ; uaex7amood
+ Opcode: 553
+ MapID: 10000
+
+
+
+------------------------ 2018-02-22 19:19:01 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; Mars - account ; wands2
+ Opcode: 231
+ MapID: 240050400
+
+
+
+------------------------ 2018-02-22 19:19:01 ------------------------
+Error Type: 38, 1
+Data Length: 6
+Error for player ; DeuS - account ; coyote
+ Opcode: 231
+ MapID: 240050400
+
+
+
+------------------------ 2018-02-22 19:36:12 ------------------------
+Error Type: 0, 2
+Data Length: 65
+Error for player ; Eqz1 - account ; uaex7amood
+ Opcode: 37
+ MapID: 103040300
+
