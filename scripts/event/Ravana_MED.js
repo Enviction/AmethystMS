@@ -19,8 +19,8 @@ em.setProperty("state", "1");
 function playerEntry(eim, player) {
     var map = eim.getMapInstance(0);
     player.changeMap(map, map.getPortal(0));
-    if (player.haveItem(4001433, 30)) {
-	player.removeItem(4001433, -30);
+    if (player.haveItem(4001433, 1)) {
+	player.removeItem(4001433, -1);
     } else {
 	player.removeAll(4001433);
     }

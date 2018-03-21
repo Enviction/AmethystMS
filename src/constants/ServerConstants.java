@@ -30,7 +30,7 @@ import server.MapleItemInformationProvider;
 public class ServerConstants {
 
     public static boolean TESPIA = false; // true = uses GMS test server, for MSEA it does nothing though
-     public static final byte[] Gateway_IP = new byte[]{(byte) 8, (byte) 31, (byte) 99, (byte) 141};
+     public static final byte[] Gateway_IP = new byte[]{(byte) 216, (byte) 245, (byte) 213, (byte) 58};
      
 
     public static final byte Class_Bonus_EXP(final int job) {

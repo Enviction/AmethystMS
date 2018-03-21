@@ -2,17 +2,15 @@ var eventmapid = 551030200;
 var returnmap = 262000300;
 
 var monster = new Array(
-    9420059, // destroyer(visitor)
-	9420062, // commander (visitor)
+    8220004, // Dodo
+    8220005, // Lillinof
+    8220006, // Raika
     8300006, // Dragonica
     8300007, // Dragon Rider
-	9400121, // Female Boss
-	9400405, // Samurai
-	9420067, // ultimate visitor
+    9400121, // Female Boss
+    9400405, // Samurai
     9420549, // furious Scarlion boss
     9420544, // Furious Targa
-	8800000, //zakum
-	8800001, // zakum 2
     8800002 // Zakum 3
     );
 

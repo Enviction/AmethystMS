@@ -1,5 +1,5 @@
 var eventmapid = 551030200;
-var returnmap = 910000000;
+var returnmap = 262000300;
 
 var monster = new Array(
     8220004, // Dodo

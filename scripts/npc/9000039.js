@@ -10,6 +10,8 @@ var acashp = 500;
 var sel = -1;
 var itt = -1;
 var previous_points;
+var nxitems;
+var nxitemsp = Array(2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500, 2500);
 var chairs;
 var chairsp = Array(1200, 1200, 1200, 1200, 1200, 1200, 1200, 1200, 800, 1000, 1000, 1000, 1500, 800, 800, 1200, 1000, 1000, 1500, 1000, 800, 800, 1000, 1000, 1200, 1200, 1500, 1000, 1000, 800, 1000, 1000, 1200, 1500);
 
@@ -44,13 +46,15 @@ function start() {
 		fhair = Array(34000, 34010, 34020, 34030, 34040, 34050, 34060, 34070, 34080, 34090, 34100, 34110, 34120, 34130, 34140, 34150, 34160, 34180, 34190, 34210, 34220, 34250, 34260, 34270, 34310, 34320, 34330, 34340, 34360, 34400, 34410, 34420, 34450, 34470, 34480, 34490, 34540);
 		mhair = Array(33000, 33030, 33040, 33050, 33060, 33070, 33080, 33090, 33100, 33110, 33120, 33130, 33150, 33160, 33170, 33180, 33190, 33210, 33220, 33240, 33250, 33270, 33280, 33290, 33350, 33360, 33370, 33380, 33390, 33400, 33440, 33450, 33460, 33500, 33510, 33520, 33580, 33590);
 		chairs = Array(3010045, 3010014, 3010068, 3010009, 3010022, 3010023, 3010041, 3010142, 3010069, 3010071, 3010107, 3010119, 3010151, 3010155, 3010139, 3010171, 3010077, 3010173, 3010174, 3010175, 3010123, 3010168, 3010095, 3010099, 3010036, 3010112, 3010096, 3010131, 3010172, 3012010, 3012011, 3010180, 3010181, 3010188);
-		items = Array(5360000, 1082149, 5220000, 1442057, 2340000, 1002959, 4030003, 1122121, 2530000, 2531000);
+		nxitems = Array(1702118, 1702119, 1702120, 1702187, 1702188, 1102376, 1102377, 1102378, 1102385, 1102386);
+                items = Array(5360000, 1082149, 5220000, 1442057, 2340000, 1002959, 4030003, 1122121, 2530000, 2531000);
 		skills = Array(9101000, 9101001, 9101003, 9101007, 9101008);
 	} else {
 		fhair = Array(34000, 34010, 34020, 34030, 34040, 34050, 34070, 34080, 34090, 34100, 34110, 34120, 34140, 34160, 34180, 34200, 34210, 34240, 34250, 34060, 34130, 34150, 34170, 34190, 34230, 34220, 34260, 34270, 34280, 34290, 34300, 34310, 34320, 34330, 34340, 34360, 34390, 34430, 34450, 34480, 34510);
 		mhair = Array(33000, 33010, 33020, 33030, 33040, 33070, 33080, 33100, 33120, 33130, 33140, 33150, 33160, 33170, 33210, 33240, 33250, 33260, 33010, 33050, 33060, 33090, 33110, 33180, 33190, 33200, 33220, 33230, 33270, 33280, 33290, 33300, 33310, 33320, 33340, 33350, 33380, 33390, 33420, 33430, 33480, 33510, 33520);
 		chairs = Array(3010045, 3010054, 3012002, 3010014, 3010068, 3010009, 3010022, 3010023, 3012003, 3010041, 3010142, 3010069, 3010071, 3010107, 3010119, 3010151, 3010155, 3010139, 3010171, 3010077, 3010173, 3010174, 3010175, 3010123, 3010168, 3010095, 3010099, 3010036, 3010144, 3010112, 3010096, 3010131, 3010172, 3012006);
-		items = Array(5360017, 1082149, 5220000, 1442057, 2340000, 1002959, 4030003, 1122121, 2530000, 2531000);
+		nxitems = Array(1702118, 1702119, 1702120, 1702187, 1702188, 1102376, 1102377, 1102378, 1102385, 1102386);
+                items = Array(5360017, 1082149, 5220000, 1442057, 2340000, 1002959, 4030003, 1122121, 2530000, 2531000);
 		skills = Array(9001000, 9001001, 9001003, 9001007, 9001008);
 	}
     inv = cm.getInventory(1);
@@ -64,16 +68,16 @@ function action(mode, type, selection) {
 	}
 	status++;
     if (status == 0) {
-	cm.sendSimple("Hello #r#h ##k! My name is #rAgent W#k. I am the master of #bpoints#k. What would you like?\r\n#b#L0#What are points?#l \r\n#L4#Trade points for Cash#l \r\n#b#L6#Trade points for chairs#l \r\n#L7#Royal Hair (" + hairp + " points)#l \r\n#L10#Change name for " + namep + " points#l \r\n#L11#Buddy capacity 120 for " + buddyp + " points#l \r\n#L5#How many points do I have?#l \r\n#L12#Trade M Coins for points(100)#l \r\n#L13#Trade points(100) for M Coins#l  \r\n#L16#Trade Magic Crystal for points(1000)#l \r\n#L17#Trade points(1000) for Magic Crystal#l#k");
+	cm.sendSimple("Hello #r#h ##k! My name is #rAgent W#k. I am the master of #bpoints#k. What would you like?\r\n#b#L0#What are points?#l \r\n\n#b#L1#Trade points for NX Items#l \r\n#b#L6#Trade points for chairs#l \r\n#L7#Royal Hair (" + hairp + " points)#l \r\n#L10#Change name for " + namep + " points#l \r\n#L11#Buddy capacity 120 for " + buddyp + " points#l \r\n#L5#How many points do I have?#l \r\n#L12#Trade M Coins for points(100)#l \r\n#L13#Trade points(100) for M Coins#l  \r\n#L16#Trade Magic Crystal for points(1000)#l \r\n#L17#Trade points(1000) for Magic Crystal#l#k");
     } else if (status == 1) {
 	sel = selection;
 	if (selection == 0) {
 		cm.sendNext("Points can be achieved through donations. They can be used to trade for really good things, such as equipments, chairs, and Cash right here by me! If you save up your points, perhaps there is a greater reward...");
 		status = -1;
 	} else if (selection == 1) {
-		var selStr = "Alright, I can trade these items for points...#b\r\n\r\n";
-		for (var i = 0; i < items.length; i++) {
-			selStr += "#L" + i + "##v" + items[i] + "#" + extra_text[i] + (itemsu[i] > 0 ? "(with " + itemsu[i] + " extra slots)" : "") + " x " + itemsq[i] + " for #e" + itemsp[i] + "#n points#n" + (itemse[i] > 0 ? (" ...lasts #r#e" + itemse[i] + "#n#bdays") : "") + "#l\r\n";
+		var selStr = "Alright, I can trade these NX Items for points...#b\r\n\r\n";
+		for (var i = 0; i < nxitems.length; i++) {
+			selStr += "#L" + i + "##v" + nxitems[i] + "##t" + nxitems[i] + "# for #e" + nxitemsp[i] + "#n points#n#l\r\n";
 		}
 		cm.sendSimple(selStr + "#k");
 	} else if (selection == 3) {
@@ -144,7 +148,7 @@ function action(mode, type, selection) {
 		cm.sendGetText("Please enter the name you wish to change to.");
 	} else if (selection == 11) {
 	      if (cm.getBuddyCapacity() < 120 && cm.getPlayer().getDPoints() >= buddyp) {
-		cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - buddyp);
+		cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - buddyp);
 		cm.logDonator(" has bought buddy capacity 120 costing " + buddyp + ".", previous_points);
 		cm.updateBuddyCapacity(120);
 	      } else {
@@ -184,24 +188,17 @@ function action(mode, type, selection) {
 	}
 	} else if (status == 2) {
 		if (sel == 1) {
-			var it = items[selection];
-			var ip = itemsp[selection];
-			var iu = itemsu[selection];
-			var iq = itemsq[selection];
-			var ie = itemse[selection];
-			if (cm.getPlayer().getDPoints() < ip) {
-				cm.sendOk("You don't have enough points. You have " + cm.getPlayer().getDPoints() + " while I need " + ip + ".");
-			} else if (!cm.canHold(it, iq)) {
+			var it = nxitems[selection];
+			var cp = nxitemsp[selection];
+			if (cm.getPlayer().getDPoints() < cp) {
+				cm.sendOk("You don't have enough points. You have " + cm.getPlayer().getDPoints() + " while I need " + cp + ".");
+			} else if (!cm.canHold(it)) {
 				cm.sendOk("Please free up inventory.");
 			} else {
-				if (iu > 0) {
-					cm.gainItem(it, iq, false, ie, iu, "Donor");
-				} else {
-					cm.gainItemPeriod(it, iq, ie, "Donor");
-				}
-				cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - ip);
-				cm.sendOk("There! Thank you for those points. I have given you your item. Come again~");
-				cm.logDonator(" has bought item [" + it + "] x " + iq + " costing " + ip + ". [Expiry: " + ie + "] [Extra Slot: " + iu + "] ", previous_points);
+				cm.gainItem(it, 1);
+				cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - cp);
+				cm.sendOk("There! Thank you for those points. I have given you your NX Item. Come again~");
+				cm.logDonator(" has bought NX Item [" + it + "] costing " + cp + ".", previous_points);
 			}
 			cm.dispose();
 		} else if (sel == 3) {
@@ -229,7 +226,7 @@ function action(mode, type, selection) {
 				cm.sendOk("You don't have enough points. You have " + cm.getPlayer().getDPoints() + " while I need " + pointsToUse + ".");
 			} else {
 				cm.replaceItem(selection, 1, statsSel, 1);
-				cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - pointsToUse);
+				cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - pointsToUse);
 				cm.sendOk("There! Thank you for those points. I have given you your item. Come again~");
 				cm.logDonator(" has enhanced +1 slot on item [" + statsSel.getItemId() + "] costing " + pointsToUse + ". [Used slots: " + statsSel.getViciousHammer() + "]", previous_points);
 			}
@@ -240,7 +237,7 @@ function action(mode, type, selection) {
 			} else if (cm.getPlayer().getCSPoints(1) > (java.lang.Integer.MAX_VALUE - acash)) {
 				cm.sendOk("You have too much Cash.");
 			} else {
-				cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - acashp);
+				cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - acashp);
 				cm.getPlayer().modifyCSPoints(1, acash, true);
 				cm.sendOk("There! Thank you for those points, I have given you Cash. Come again~");
 				cm.logDonator(" has bought Cash [" + (cm.isGMS() ? (acash/2) : acash) + "] costing " + acashp + ".", previous_points);
@@ -255,7 +252,7 @@ function action(mode, type, selection) {
 				cm.sendOk("Please free up inventory.");
 			} else {
 				cm.gainItem(it, 1);
-				cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - cp);
+				cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - cp);
 				cm.sendOk("There! Thank you for those points. I have given you your chair. Come again~");
 				cm.logDonator(" has bought chair [" + it + "] costing " + cp + ".", previous_points);
 			}
@@ -265,7 +262,7 @@ function action(mode, type, selection) {
 				cm.sendOk("You don't have enough points. You only have " + cm.getPlayer().getDPoints());
 			} else {
 				cm.setHair(hairnew[selection]);
-				cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - hairp);
+				cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - hairp);
 				cm.sendOk("Thank you for the purchase~");
 				cm.logDonator(" has bought hair [" + hairnew[selection] + "] costing " + hairp + ".", previous_points);
 			}
@@ -275,7 +272,7 @@ function action(mode, type, selection) {
 				cm.sendOk("You don't have enough points. You only have " + cm.getPlayer().getDPoints());
 			} else {
 				cm.getPlayer().resetStatsByJob(false);
-				cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - resetp);
+				cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - resetp);
 				cm.sendOk("Thank you for the purchase~");
 				cm.logDonator(" has bought full AP reset costing " + resetp + ".", previous_points);
 			}
@@ -288,7 +285,7 @@ function action(mode, type, selection) {
 				for (var i = 0; i < skills.length; i++) {
 					cm.teachSkill(skills[i], 1, 0);
 				}
-				cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - allskillsp);
+				cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - allskillsp);
 				cm.sendOk("Thank you for the purchase~ To use your skills, please click on me again and distribute each skill to a key.");
 				cm.logDonator(" has bought all skills costing " + allskillsp + ".", previous_points);
 			}
@@ -303,7 +300,7 @@ function action(mode, type, selection) {
 		      cm.sendSimple(selStr + "#k");
 		} else if (sel == 10) {
 		      if (cm.getPlayer().getDPoints() >= namep && cm.isEligibleName(cm.getText())) {
-			cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - namep);
+			cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - namep);
 			cm.logDonator(" has bought name change from " + cm.getPlayer().getName() + " to " + cm.getText() + " costing " + namep + ".", previous_points);
 		 	cm.getClient().getChannelServer().removePlayer(cm.getPlayer().getId(), cm.getPlayer().getName());
 			cm.getPlayer().setName(cm.getText());
@@ -318,7 +315,7 @@ function action(mode, type, selection) {
 					cm.sendOk("You have too many points.");
 				} else {
 					cm.gainItem(5220013, -selection);
-					cm.getPlayer().setPoints(cm.getPlayer().getDPoints() + (selection * 100));
+					cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() + (selection * 100));
 					cm.sendOk("You have lost " + selection + " M Coins and gained " + (selection * 100) + " points. Current Points: " + cm.getPlayer().getDPoints());
 					cm.logDonator(" has redeemed " + selection + " M Coin(s) gaining " + (selection * 100) + ".", previous_points);
 				}
@@ -332,21 +329,21 @@ function action(mode, type, selection) {
 					cm.sendOk("Please make space in CASH tab.");
 				} else {
 					cm.gainItem(5220013, selection);
-					cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - (selection * 100));
+					cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - (selection * 100));
 					cm.sendOk("You have gained " + selection + " M Coins and lost " + (selection * 100) + " points. Current Points: " + cm.getPlayer().getDPoints());
 					cm.logDonator(" has gained " + selection + " M Coin(s) costing " + (selection * 100) + ".", previous_points);
 				}
 			}
 			cm.dispose();
 		} else if (sel == 16) {
-			if (selection >= 1 && selection <= cm.getPlayer().itemQuantity(3993003)) {
+			if (selection >= 1 && selection <= cm.getPlayer().itemQuantity(4032056)) {
 				if (cm.getPlayer().getDPoints() > (2147483647 - (selection * 1000))) {
 					cm.sendOk("You have too many points.");
 				} else {
-					cm.gainItem(3993003, -selection);
-					cm.getPlayer().setPoints(cm.getPlayer().getDPoints() + (selection * 1000));
+					cm.gainItem(4032056, -selection);
+					cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() + (selection * 1000));
 					cm.sendOk("You have lost " + selection + " and gained " + (selection * 1000) + " points. Current Points: " + cm.getPlayer().getDPoints());
-					cm.logDonator(" has redeemed " + selection + " Red Luck Sack(s) gaining " + (selection * 1000) + ".", previous_points);
+					cm.logDonator(" has redeemed " + selection + " Magic Crystal(s) gaining " + (selection * 1000) + ".", previous_points);
 				}
 			} 
 			cm.dispose();
@@ -354,11 +351,11 @@ function action(mode, type, selection) {
 			if (selection >= 1) {
 				if (selection > (cm.getPlayer().getDPoints() / 1000)) {
 					cm.sendOk("You can only get max " + (cm.getPlayer().getDPoints() / 1000) + ". 1 Item = 1000 points.");
-				} else if (!cm.canHold(3993003, selection)) {
+				} else if (!cm.canHold(4032056, selection)) {
 					cm.sendOk("Please make space in SETUP tab.");
 				} else {
-					cm.gainItem(3993003, selection);
-					cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - (selection * 1000));
+					cm.gainItem(4032056, selection);
+					cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - (selection * 1000));
 					cm.sendOk("You have gained " + selection + " and lost " + (selection * 1000) + " points. Current Points: " + cm.getPlayer().getDPoints());
 					cm.logDonator(" has gained " + selection + " Red Luck Sack(s) costing " + (selection * 1000) + ".", previous_points);
 				}
@@ -375,7 +372,7 @@ function action(mode, type, selection) {
 					} else {
 						cm.setCData("pendant", "" + (cm.getCurrentTime() + (30 * 24 * 60 * 60 * 1000)));
 						cm.forceStartQuest(7830, "1");
-						cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - pendantp);
+						cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - pendantp);
 						cm.sendOk("You have gained additional pendant slot - 30 days.");
 						cm.sendPendant(true);
 						cm.getPlayer().fakeRelog();
@@ -392,7 +389,7 @@ function action(mode, type, selection) {
 					} else {
 						cm.setCData("pendant", "" + (cm.getCurrentTime() + (90 * 24 * 60 * 60 * 1000)));
 						cm.forceStartQuest(7830, "1");
-						cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - pendantp_perm);
+						cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - pendantp_perm);
 						cm.sendOk("You have gained additional pendant slot - 90 days.");
 						cm.sendPendant(true);
 						cm.getPlayer().fakeRelog();
@@ -413,7 +410,7 @@ function action(mode, type, selection) {
 		        return;
 		      } else {
 		        cm.teachSkill(skills[itt], 1, 0);
-		        cm.getPlayer().setPoints(cm.getPlayer().getDPoints() - skillsp[itt]);
+		        cm.getPlayer().setDPoints(cm.getPlayer().getDPoints() - skillsp[itt]);
 		      }
 		    }
 		    cm.putKey(keys[selection], 1, skills[itt]);

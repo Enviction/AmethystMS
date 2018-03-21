@@ -3761,7 +3761,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
              stats.checkEquipLevels(this, total); //gms like
              }*/
             boolean voidExp = false;
-            if (level == getCData(this, ServerConstants.Q_MAXLEVEL) || level == 200) {
+            if (level == getCData(this, ServerConstants.Q_MAXLEVEL) || level == 250) {
                 voidExp = true;
             }
             if (voidExp || (GameConstants.isKOC(job) && level >= 120)) {
@@ -3881,7 +3881,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
          }*/
         int needed = getNeededExp();
         boolean voidExp = false;
-        if (level == getCData(this, ServerConstants.Q_MAXLEVEL) || level == 200) {
+        if (level == getCData(this, ServerConstants.Q_MAXLEVEL) || level == 250) {
             voidExp = true;
         }
         if (voidExp || (GameConstants.isKOC(job) && level >= 120)) {
@@ -4412,7 +4412,12 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                 }
             }
         }
-        if(level >= 199 && level % 10 == 9 && !isGM()){
+        if(level >= 200 && level % 10 == 9 && !isGM()){
+            World.Broadcast.broadcastMessage(CWvsContext.serverNotice(MessageType.SYSTEM, "Congratulations to " + 
+                    getName() + " for reaching Level " + Integer.toString(level + 1) + "! Only 50 more levels to go!"));
+        }
+        
+        if(level >= 249 && level % 10 == 9 && !isGM()){
             World.Broadcast.broadcastMessage(CWvsContext.serverNotice(MessageType.SYSTEM, "Congratulations to " + 
                     getName() + " for reaching Level " + Integer.toString(level + 1) + "!"));
         }
@@ -6408,6 +6413,10 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
 
         return dpoints;
     }
+    
+    public void gainDPoints(int dpoints) {
+            this.dpoints += dpoints;
+        }
 
     public int getNX() {
         return nxcredit;

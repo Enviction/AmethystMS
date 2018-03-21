@@ -562,7 +562,7 @@ public class PlayerCommand {
         private String helpCommands;
         @Override
         public int execute(final MapleClient c, String[] splitted) {
-                         helpCommands = "#k#eMapleCrystal Commands \r\n"
+                         helpCommands = "#k#eAmethystMS Commands \r\n"
                                      +  "#k#e@npc #k#n - <#rUniversal System NPC#n#k>\r\n"  
                                      //+  "#k#e@exp #k#n - <#rShow EXP table above Lv200#n#k>\r\n" 
                                      +  "#k#e@online #k#n - <#rShow who's online#n#k>\r\n"

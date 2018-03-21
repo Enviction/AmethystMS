@@ -1763,6 +1763,29 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         return "No drops was returned.";
     }
 
+public void getItemByName(String itemname) {        MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
+        List <Integer> itemId = ii.getItemIdFromName(itemname);
+        System.out.println(" Array Size is " + itemId.size());
+        String text = "Please Select Your Item: \r\n";
+        for (int i = 0; i < itemId.size(); i++) {
+        text += "#L" + itemId.get(i) + "##i" + itemId.get(i) + "# - " + ii.getName(itemId.get(i)) + "\r\n";
+        }   
+       sendSimple(text);   
+    }
+    public void getMobs(int itemid) {
+       MapleMonsterInformationProvider mi = MapleMonsterInformationProvider.getInstance();
+       final List<Integer> mobs = MapleMonsterInformationProvider.getInstance().getMobByItem(itemid);
+       String text = "The following mobs drop your item: \r\n";
+       for (int i = 0; i < mobs.size(); i++) {
+           int quest = 0;
+           if (mi.getDropQuest(mobs.get(i)) > 0) {
+            quest = mi.getDropQuest(mobs.get(i));
+           }
+        int chance = mi.getDropChance(mobs.get(i)) * getClient().getChannelServer().getDropRate();
+        text += "#o" + mobs.get(i) +"# - "  + (Integer.valueOf(chance >= 999999 ? 1000000 : chance).doubleValue() / 10000.0) + "%. " + (quest > 0 && MapleQuest.getInstance(quest).getName().length() > 0 ? ("Requires quest " + MapleQuest.getInstance(quest).getName() + " to be started.") : "") + "\r\n";
+    }
+       sendNext(text);
+        }
 
     public String getLeftPadded(final String in, final char padchar, final int length) {
         return StringUtil.getLeftPaddedStr(in, padchar, length);
@@ -1931,6 +1954,18 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         }
         return str.toString();
 }
+    	public int getDPoints() {
+		return getPlayer().getDPoints();
+	}
+
+	public void gainDPoints(int dpoints) {
+                getPlayer().gainDPoints(dpoints);
+        }
+        
+        public void setDPoints(int dpoints) {
+            getPlayer().setDPoints(dpoints);
+        }
+        
     public void logDonator(String log, int previous_points) {
         final StringBuilder logg = new StringBuilder();
         logg.append(MapleCharacterUtil.makeMapleReadable(getPlayer().getName()));

@@ -1,5 +1,5 @@
 var eventmapid = 610030600;
-var returnmap = 910000000;
+var returnmap = 262000300;
 var monster = Array(/*8300006, */8510000/*, 8810130*/, 0, 8850010, 8870107/*, 8860000*/, 2, 1);
 
 function init() {

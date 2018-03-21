@@ -2,17 +2,19 @@ var eventmapid = 220080001;
 var returnmap = 262000300;
 
 var monster = new Array(
+    4130103, // Rombot
+    9300039, // Papa Pixie
+    9300119, // Lord Pirate
+    9300152, // Angry Franken Lloyd
+    9400549, // Headless Horseman
+    9300028, // Ergoth
     8180000, // Manon
     8180001, // Griffey
-    9400014, // Black Crow
-    8210011, // Ani (Second Tower)
     9500392, // Ravana HARD
-    8500001, // Papulatus
     8220003, // Lev
-	9300517, // dodo
-	9300518, // lilynouch
-	9300519, // lyka
-	9305139 // final panda
+    8210011, // Ani (Second Tower)
+    9400014, // Black Crow
+    8500001 // Papulatus
     );
 
 function init() {

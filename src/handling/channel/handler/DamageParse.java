@@ -767,7 +767,7 @@ public class DamageParse {
                         break;
                     }
                     defined = true;
-                    maximumDamageToMonster = 999999.0D;
+                    maximumDamageToMonster = 50000000.0D;
             }
 
         }

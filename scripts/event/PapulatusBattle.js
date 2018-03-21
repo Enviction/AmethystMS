@@ -1,29 +1,21 @@
 function init() {
-em.setProperty("state", "0");
+	em.setProperty("leader", "true");
+    em.setProperty("state", "0");
 }
 
 function setup(eim, leaderid) {
-em.setProperty("state", "1");
-    var eim = em.newInstance("Ravana_HARD" + leaderid);
-
-    var map = eim.setInstanceMap(950101010);
-    map.resetFully();
-    var mob = em.getMonster(9500392);
-    eim.registerMonster(mob);
-    map.spawnMonsterOnGroundBelow(mob, new java.awt.Point(1000, 513));
+	em.setProperty("leader", "true");
+    var eim = em.newInstance("Papulatus");
+	eim.setInstanceMap(220080001).resetFully();
+    em.setProperty("state", "1");
 
     eim.startEventTimer(3600000); // 1 hr
     return eim;
 }
 
 function playerEntry(eim, player) {
-    var map = eim.getMapInstance(0);
+    var map = eim.getMapFactory().getMap(220080000);
     player.changeMap(map, map.getPortal(0));
-    if (player.haveItem(4001433, 1)) {
-	player.removeItem(4001433, -1);
-    } else {
-	player.removeAll(4001433);
-    }
 }
 
 function playerRevive(eim, player) {
@@ -31,15 +23,18 @@ function playerRevive(eim, player) {
 }
 
 function scheduledTimeout(eim) {
-   end(eim);
+    eim.disposeIfPlayerBelow(90, 220080000);
+    em.setProperty("state", "0");
+		em.setProperty("leader", "true");
 }
 
 function changedMap(eim, player, mapid) {
-    if (mapid != 950101010) {
+    if (mapid != 220080000) {
 	eim.unregisterPlayer(player);
 
 	if (eim.disposeIfPlayerBelow(0, 0)) {
-		em.setProperty("state", "0");
+	    em.setProperty("state", "0");
+		em.setProperty("leader", "true");
 	}
     }
 }
@@ -56,13 +51,16 @@ function playerExit(eim, player) {
     eim.unregisterPlayer(player);
 
     if (eim.disposeIfPlayerBelow(0, 0)) {
-		em.setProperty("state", "0");
-	}
+	em.setProperty("state", "0");
+		em.setProperty("leader", "true");
+    }
 }
 
 function end(eim) {
-    eim.disposeIfPlayerBelow(100, 950101100);
-em.setProperty("state", "0");
+    if (eim.disposeIfPlayerBelow(90, 220080001)) {
+	em.setProperty("state", "0");
+		em.setProperty("leader", "true");
+    }
 }
 
 function clearPQ(eim) {
@@ -70,10 +68,10 @@ function clearPQ(eim) {
 }
 
 function allMonstersDead(eim) {
-	//after ravana is dead nothing special should really happen
 }
 
 function leftParty (eim, player) {}
 function disbandParty (eim) {}
 function playerDead(eim, player) {}
 function cancelSchedule() {}
+

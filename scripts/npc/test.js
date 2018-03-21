@@ -1,22 +1,22 @@
 var status = -1;
 
 function start() {
-    if (cm.getPlayer().getMapId() == 272030400) {
+    if (cm.getPlayer().getMapId() == 262013000) {
         cm.sendYesNo("Would you like to get out?");
         status = 1;
         return;
     }
     if (cm.getPlayer().getLevel() < 120) {
-        cm.sendOk("There is a level requirement of 120 to attempt Arkarium.");
+        cm.sendOk("There is a level requirement of 120 to attempt Hilla.");
         cm.dispose();
         return;
     }
     if (cm.getPlayer().getClient().getChannel() != 1 && cm.getPlayer().getClient().getChannel() != 3 && cm.getPlayer().getClient().getChannel() != 5) {
-        cm.sendOk("Arkarium may only be attempted on channel 1, 3, 5.");
+        cm.sendOk("Hilla may only be attempted on channel 1, 3, 5.");
         cm.dispose();
         return;
     }
-    var em = cm.getEventManager("ArkariumBattle");
+    var em = cm.getEventManager("HillaBattle");
 
     if (em == null) {
         cm.sendOk("The event isn't started, please contact a GM.");
@@ -32,11 +32,11 @@ function start() {
     }
     var time = parseInt(data);
     if (eim_status == null || eim_status.equals("0")) {
-        var squadAvailability = cm.getSquadAvailability("Arkarium");
+        var squadAvailability = cm.getSquadAvailability("Hilla");
         if (squadAvailability == -1) {
             status = 0;
             if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
-                cm.sendOk("You have already went to Arkarium in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
+                cm.sendOk("You have already went to Hilla in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
                 cm.dispose();
                 return;
             }
@@ -44,17 +44,17 @@ function start() {
 
         } else if (squadAvailability == 1) {
             if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
-                cm.sendOk("You have already went to Arkarium in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
+                cm.sendOk("You have already went to Hilla in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
                 cm.dispose();
                 return;
             }
             // -1 = Cancelled, 0 = not, 1 = true
-            var type = cm.isSquadLeader("Arkarium");
+            var type = cm.isSquadLeader("Hilla");
             if (type == -1) {
                 cm.sendOk("The squad has ended, please re-register.");
                 cm.dispose();
             } else if (type == 0) {
-                var memberType = cm.isSquadMember("Arkarium");
+                var memberType = cm.isSquadMember("Hilla");
                 if (memberType == 2) {
                     cm.sendOk("You been banned from the squad.");
                     cm.dispose();
@@ -74,12 +74,12 @@ function start() {
             // TODO viewing!
             }
         } else {
-            var eim = cm.getDisconnected("ArkariumBattle");
+            var eim = cm.getDisconnected("HillaBattle");
             if (eim == null) {
-                var squd = cm.getSquad("Arkarium");
+                var squd = cm.getSquad("Hilla");
                 if (squd != null) {
                     if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
-                        cm.sendOk("You have already went to Arkarium in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
+                        cm.sendOk("You have already went to Hilla in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
                         cm.dispose();
                         return;
                     }
@@ -95,12 +95,12 @@ function start() {
             }
         }
     } else {
-        var eim = cm.getDisconnected("ArkariumBattle");
+        var eim = cm.getDisconnected("HillaBattle");
         if (eim == null) {
-            var squd = cm.getSquad("Arkarium");
+            var squd = cm.getSquad("Hilla");
             if (squd != null) {
                 if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
-                    cm.sendOk("You have already went to Arkarium in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
+                    cm.sendOk("You have already went to Hilla in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
                     cm.dispose();
                     return;
                 }
@@ -121,7 +121,7 @@ function action(mode, type, selection) {
     switch (status) {
         case 0:
             if (mode == 1) {
-                if (cm.registerSquad("Arkarium", 5, " has been named the Leader of the squad. If you would you like to join please register for the Expedition Squad within the time period.")) {
+                if (cm.registerSquad("Hilla", 5, " has been named the Leader of the squad. If you would you like to join please register for the Expedition Squad within the time period.")) {
                     cm.sendOk("You have been named the Leader of the Squad. For the next 5 minutes, you can add the members of the Expedition Squad.");
                 } else {
                     cm.sendOk("An error has occurred adding your squad.");
@@ -136,14 +136,14 @@ function action(mode, type, selection) {
             cm.dispose();
             break;
         case 2:
-            if (!cm.reAdd("ArkariumBattle", "Arkarium")) {
+            if (!cm.reAdd("HillaBattle", "Hilla")) {
                 cm.sendOk("Error... please try again.");
             }
             cm.safeDispose();
             break;
         case 3:
             if (mode == 1) {
-                var squd = cm.getSquad("Arkarium");
+                var squd = cm.getSquad("Hilla");
                 if (squd != null && !squd.getAllNextPlayer().contains(cm.getPlayer().getName())) {
                     squd.setNextPlayer(cm.getPlayer().getName());
                     cm.sendOk("You have reserved the spot.");
@@ -153,7 +153,7 @@ function action(mode, type, selection) {
             break;
         case 5:
             if (selection == 0) { // join
-                var ba = cm.addMember("Arkarium", true);
+                var ba = cm.addMember("Hilla", true);
                 if (ba == 2) {
                     cm.sendOk("The squad is currently full, please try again later.");
                 } else if (ba == 1) {
@@ -162,14 +162,14 @@ function action(mode, type, selection) {
                     cm.sendOk("You are already part of the squad.");
                 }
             } else if (selection == 1) {// withdraw
-                var baa = cm.addMember("Arkarium", false);
+                var baa = cm.addMember("Hilla", false);
                 if (baa == 1) {
                     cm.sendOk("You have withdrawed from the squad successfully");
                 } else {
                     cm.sendOk("You are not part of the squad.");
                 }
             } else if (selection == 2) {
-                if (!cm.getSquadList("Arkarium", 0)) {
+                if (!cm.getSquadList("Hilla", 0)) {
                     cm.sendOk("Due to an unknown error, the request for squad has been denied.");
                 }
             }
@@ -178,26 +178,26 @@ function action(mode, type, selection) {
         case 10:
             if (mode == 1) {
                 if (selection == 0) {
-                    if (!cm.getSquadList("Arkarium", 0)) {
+                    if (!cm.getSquadList("Hilla", 0)) {
                         cm.sendOk("Due to an unknown error, the request for squad has been denied.");
                     }
                     cm.dispose();
                 } else if (selection == 1) {
                     status = 11;
-                    if (!cm.getSquadList("Arkarium", 1)) {
+                    if (!cm.getSquadList("Hilla", 1)) {
                         cm.sendOk("Due to an unknown error, the request for squad has been denied.");
                         cm.dispose();
                     }
                 } else if (selection == 2) {
                     status = 12;
-                    if (!cm.getSquadList("Arkarium", 2)) {
+                    if (!cm.getSquadList("Hilla", 2)) {
                         cm.sendOk("Due to an unknown error, the request for squad has been denied.");
                         cm.dispose();
                     }
                 } else if (selection == 3) { // get insode
-                    if (cm.getSquad("Arkarium") != null) {
-                        var dd = cm.getEventManager("ArkariumBattle");
-                        dd.startInstance(cm.getSquad("Arkarium"), cm.getMap(), 160111);
+                    if (cm.getSquad("Hilla") != null) {
+                        var dd = cm.getEventManager("HillaBattle");
+                        dd.startInstance(cm.getSquad("Hilla"), cm.getMap(), 160111);
                     } else {
                         cm.sendOk("Due to an unknown error, the request for squad has been denied.");
                     }
@@ -208,12 +208,12 @@ function action(mode, type, selection) {
             }
             break;
         case 11:
-            cm.banMember("Arkarium", selection);
+            cm.banMember("Hilla", selection);
             cm.dispose();
             break;
         case 12:
             if (selection != -1) {
-                cm.acceptMember("Arkarium", selection);
+                cm.acceptMember("Hilla", selection);
             }
             cm.dispose();
             break;

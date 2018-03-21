@@ -17,9 +17,9 @@ function action(mode, type, selection) {
     if (status == 0) {
 	cm.sendYesNo("OAWK OAWK you can make your escape to a safer place through me. Noob? would you like to leave this place?");
     } else if (status == 1) {
-	cm.warp(689010000);
-	if (cm.getPlayerCount(689010000) == 0) {
-		cm.getMap(689010000).resetReactors();
+	cm.warp(262000300);
+	if (cm.getPlayerCount(262000300) == 0) {
+		cm.getMap(262000300).resetReactors();
 	}
 	cm.dispose();
     } else {

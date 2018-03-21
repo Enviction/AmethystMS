@@ -829,8 +829,8 @@ public class CField {
     public static byte[] getPublicNPCInfo() {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
-        int[] publicNpcIds = {9310008, 9071003, 9010022, 9000087, 9000088, 9310008, 9010000, 9000000};
-        final String[] publicNpcs = {"#cUniversal NPC#", "Move to #cMonster Park# to team up to defeat monsters.", "Move to a variety of #cparty quests#.", "Move to the #cFree Market# to trade items with players.", "Move to #cArdentmill#, the crafting town.","View the #cgame options# for MapleCrystal", "Check #cdrops# of any monster in the map.", "Join an #cevent# in progress."};
+        int[] publicNpcIds = {9310008, 9071003, 9010022, 9000087, 9000088, 9000039, 9010000, 9000000};
+        final String[] publicNpcs = {"#cUniversal NPC#", "Move to #cMonster Park# to team up to defeat monsters.", "Move to a variety of #cparty quests#.", "Move to the #cFree Market# to trade items with players.", "Move to #cArdentmill#, the crafting town.","View the #cdonation options# for AmethystMS", "Check #cdrops# of any monster in the map.", "Join an #cevent# in progress."};
 
         mplew.writeShort(SendPacketOpcode.PUBLIC_NPC.getValue());
         mplew.write(publicNpcIds.length);

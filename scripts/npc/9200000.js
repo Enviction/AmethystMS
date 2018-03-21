@@ -1,3 +1,11 @@
+/**
+-- Odin JavaScript --------------------------------------------------------------------------------
+	Cody
+-- By --------------------------------------------------------------------------------------------------
+	xQuasar
+Note by Tykian: Minor fixes/additions
+**/
+
 importPackage(java.lang);
 
 var status = -1;
@@ -10,10 +18,9 @@ var stimulator;
 var cost;
 var getNewWep;
 var sel;
-var reward_msg = "Here is your new, #ecool#n, stylish Maple Weapon.\r\n\r\nTreat it with care.";
 
 function start() {
-    cm.sendNext("Welcome to #bWizStory#k!!\r\nI'm #bWizStory's#k Head Coder, #rEric#k.\r\nChat me if you need anything!\r\nAlso, report any bugs to us so we can fix them.\r\n\r\n#gThanks!#k");
+    cm.sendSimple("What would you like to do ? \r\n\r\n#b#L0#Make the level 35 weapon#l\r\n\r\n#L1#Make the level 43 weapon#l\r\n\r\n#L2#Make the level 64 weapon#l\r\n\r\n#L4#Make the level 77 weapon#l\r\n\r\n#L3#Trade for Experience#l#k");
 }
 
 function action(mode, type, selection) {
@@ -24,38 +31,34 @@ function action(mode, type, selection) {
 	status++;
     }
     if (status == 0) {
-	   cm.sendGetText("Want to see something cool?\r\nEnter the secret message #eEric is cool#n to get a weapon!");
-	   } else if (status == 1) {
-	    if (cm.getText().equalsIgnoreCase("Eric is cool")) {
-		  status = 1; 
-		  cm.sendSimple("Oh, Im cool huh? Why, thank you! <3\r\nChoose the #elevel#n of the weapon you want!\r\n\r\n#b#L0#Level 35 Weapon#l\r\n#L1#Level 43 Weapon#l\r\n#L2#Level 64 Weapon#l\r\n#L4#Level 77 Weapon#l");
-		 // cm.sendNext("Oh, I'm cool huh? Why, thank you! <3\r\nClick next for a weapon. :)");
-		  } else {
-		  if (cm.getPlayer().gmLevel() < 3) { // oh i'm such a troll. ;P
-		    cm.getPlayer().dropMessage(1, "Okay, have it your way. :(");
-		    cm.getPlayer().unequipEverything();
-			cm.dispose();
-			} else {
-			cm.sendOk("#rWAAAAAAAAAAAAAAAAAH?!#k");
-			cm.dispose();
-			}
-		  }
-		  } else if (status == 2) {
-		sel = selection;
+	sel = selection;
 	if (sel == 0) {
-	    cm.sendSimple("\r\nChoose a #bLevel 35 Weapon :\r\n#L0#Maple Sword#l \r\n#b#L2#Maple Staff#l \r\n#b#L3#Maple Bow#l \r\n#b#L4#Maple Crow#l \r\n#b#L5#Maple Claw#l \r\n#b#L6#Maple Gun#l \r\n#b#L7#Maple Knuckle#l \r\n#b#L8#Maple Shield#l \r\n#b#L9#Maple Katara#l");
+	    cm.sendSimple("So, wotcha want? \r\n#b#L0#Maple Sword#l \r\n#b#L1#Maple Wagner#l \r\n#b#L2#Maple Staff#l \r\n#b#L3#Maple Bow#l \r\n#b#L4#Maple Crow#l \r\n#b#L5#Maple Claw#l \r\n#b#L6#Maple Gun#l \r\n#b#L7#Maple Knuckle#l \r\n#b#L8#Maple Shield#l \r\n#b#L9#Maple Katara#l");
 	} else if (sel == 2) {
-	    cm.sendSimple("\r\nChoose a #bLevel 43 Weapon :\r\n#L0#Maple Glory Sword (One-Handed Sword)#l\r\n#L1#Maple Soul Rohen (Two-Handed Sword)#l\r\n#L2#Maple Steel Axe (One-Handed Axe)#l\r\n#L3#Maple Demon Axe (Two-Handed Axe)#l\r\n#L4#Maple Havoc Hammer (One-Handed Mace)#l\r\n#L5#Maple Belzet (Two-Handed Mace)#l\r\n#L6#Maple Kandiva Bow (Bow)#l\r\n#L7#Maple Nishada (Crossbow)#l\r\n#L8#Maple Skanda (Claw)#l\r\n#L9#Maple Asura Dagger (Dagger)#l\r\n#L10#Maple Dark Mate (Dagger)#l\r\n#L11#Maple Soul Spear (Spear)#l\r\n#L12#Maple Karstan (Polearm)#l\r\n#L13#Maple Shine Wand (Wand)#l\r\n#L14#Maple Wisdom Staff (Staff)#l\r\n#L15#Maple Golden Claw (Knuckler)#l\r\n#L16#Maple Cannon Shooter (Gun)#l\r\n#L17#Maple Warrior Shield (Warrior Shield)#l\r\n#L18#Maple Magician Shield (Magician Shield)#l\r\n#L19#Maple Thief Shield (Thief Shield)#l\r\n#L20#Maple Cleat Katara#l");
+	    cm.sendSimple("So, wotcha want? \r\n\r\n#b#L0#Maple Glory Sword (One-Handed Sword)#l\r\n#L1#Maple Soul Rohen (Two-Handed Sword)#l\r\n#L2#Maple Steel Axe (One-Handed Axe)#l\r\n#L3#Maple Demon Axe (Two-Handed Axe)#l\r\n#L4#Maple Havoc Hammer (One-Handed Mace)#l\r\n#L5#Maple Belzet (Two-Handed Mace)#l\r\n#L6#Maple Kandiva Bow (Bow)#l\r\n#L7#Maple Nishada (Crossbow)#l\r\n#L8#Maple Skanda (Claw)#l\r\n#L9#Maple Asura Dagger (Dagger)#l\r\n#L10#Maple Dark Mate (Dagger)#l\r\n#L11#Maple Soul Spear (Spear)#l\r\n#L12#Maple Karstan (Polearm)#l\r\n#L13#Maple Shine Wand (Wand)#l\r\n#L14#Maple Wisdom Staff (Staff)#l\r\n#L15#Maple Golden Claw (Knuckler)#l\r\n#L16#Maple Cannon Shooter (Gun)#l\r\n#L17#Maple Warrior Shield (Warrior Shield)#l\r\n#L18#Maple Magician Shield (Magician Shield)#l\r\n#L19#Maple Thief Shield (Thief Shield)#l\r\n#L20#Maple Cleat Katara#l");
 	} else if (sel == 1) {
-	    cm.sendSimple("\r\nChoose a#bLevel 64 Weapon :\r\n#L0#Maple Soul Singer#l \r\n#b#L1#Maple Lama Staff#l \r\n#b#L2#Maple Dragon Axe#l \r\n#b#L3#Maple Doom Singer#l \r\n#b#L4#Maple Impaler#l \r\n#b#L5#Maple Scorpio#l \r\n#b#L6#Maple Soul Searcher#l \r\n#b#L7#Maple Crossbow#l \r\n#b#L8#Maple Kanduyo#l \r\n#b#L9#Maple Storm Pistol#l \r\n#b#L10#Maple Storm Finger#l \r\n#b#L11#Maple Duke Katara#l  \r\n#b#L12#Maple Wagner#l");
+	    cm.sendSimple("So, wotcha want? \r\n#b#L0#Maple Soul Singer#l \r\n#b#L1#Maple Lama Staff#l \r\n#b#L2#Maple Dragon Axe#l \r\n#b#L3#Maple Doom Singer#l \r\n#b#L4#Maple Impaler#l \r\n#b#L5#Maple Scorpio#l \r\n#b#L6#Maple Soul Searcher#l \r\n#b#L7#Maple Crossbow#l \r\n#b#L8#Maple Kanduyo#l \r\n#b#L9#Maple Storm Pistol#l \r\n#b#L10#Maple Storm Finger#l \r\n#b#L11#Maple Duke Katara#l");
 	} else if (sel == 4) {
-	    cm.sendSimple("\r\nChoose a #bLevel 77 Weapon :\r\n#L0#Maple Pyrope Sword#l \r\n#b#L1#Maple Pyrope Axe#l \r\n#b#L2#Maple Pyrope Hammer#l \r\n#b#L3#Maple Pyrope Halfmoon#l \r\n#b#L4#Maple Pyrope Wand#l \r\n#b#L5#Maple Pyrope Staff#l \r\n#b#L6#Maple Pyrope Rohen#l \r\n#b#L7#Maple Pyrope Battle Axe#l \r\n#b#L8#Maple Pyrope Maul#l \r\n#b#L9#Maple Pyrope Spear#l \r\n#b#L10#Maple Pyrope Hellslayer#l \r\n#b#L11#Maple Pyrope Bow#l \r\n#b#L12#Maple Pyrope Crow#l \r\n#b#L13#Maple Pyrope Skanda#l \r\n#b#L14#Maple Pyrope Knuckle#l \r\n#b#L15#Maple Pyrope Shooter#l \r\n#b#L16#Maple Pyrope Katara#l");
+	    cm.sendSimple("So, wotcha want? \r\n#b#L0#Maple Pyrope Sword#l \r\n#b#L1#Maple Pyrope Axe#l \r\n#b#L2#Maple Pyrope Hammer#l \r\n#b#L3#Maple Pyrope Halfmoon#l \r\n#b#L4#Maple Pyrope Wand#l \r\n#b#L5#Maple Pyrope Staff#l \r\n#b#L6#Maple Pyrope Rohen#l \r\n#b#L7#Maple Pyrope Battle Axe#l \r\n#b#L8#Maple Pyrope Maul#l \r\n#b#L9#Maple Pyrope Spear#l \r\n#b#L10#Maple Pyrope Hellslayer#l \r\n#b#L11#Maple Pyrope Bow#l \r\n#b#L12#Maple Pyrope Crow#l \r\n#b#L13#Maple Pyrope Skanda#l \r\n#b#L14#Maple Pyrope Knuckle#l \r\n#b#L15#Maple Pyrope Shooter#l \r\n#b#L16#Maple Pyrope Katara#l");
+	} else if (sel == 3) {
+		if (!cm.haveItem(4001126, 1)) {
+			cm.sendOk("You will need at least one leaf to receive experience!");
+			cm.dispose();
+			return;
+		}
+		cm.sendGetNumber("How many leaves would you like to trade in?", 0, 0, 32767);
+		status = 9;
 	}
-    } else if (status == 3) {
+    } else if (status == 1) {
 	if (sel == 0) {
 	    if (selection == 0) {
 		newWepName = "Maple Sword";
 		newWepId = 1302020;
+		leaves = 100;
+		cost = 50000;
+	    } else if (selection == 1) {
+		newWepName = "Maple Wagner";
+		newWepId = 1332025;
 		leaves = 100;
 		cost = 50000;
 	    } else if (selection == 2) {
@@ -99,7 +102,7 @@ function action(mode, type, selection) {
 		leaves = 100;
 		cost = 50000;
 	    }
-	    cm.sendYesNo("Are you sure you want a #b" + newWepName + "#k?");
+	    cm.sendYesNo("Are you sure you want to make a #b" + newWepName + "#k? The following items and materials will be required...\r\n\#i4001126# x" + leaves + "#k\r\n\r\n#fUI/UIWindow.img/QuestIcon/7/0# " + cost);
 	// 1482020
 	} else if (sel == 2) {
 	    if (selection == 0) {
@@ -264,7 +267,7 @@ function action(mode, type, selection) {
 		leaves = 200;
 		cost = 500000;
 	    }
-	    cm.sendYesNo("Are you sure you want a #b" + newWepName + "#k?");
+	    cm.sendYesNo("Are you sure you want to make a #b" + newWepName + "#k? The following items and materials will be required...\r\n\r\n#i" + oldWepId + "# x 1\r\n#i4001126# x" + leaves + "\r\n A Stimulator can also be used if you have the required one! #r(Optional)#k\r\n\r\n#fUI/UIWindow.img/QuestIcon/7/0# " + cost);
 	} else if (sel == 1) {
 	    if (selection == 0) {
 		newWepName = "Maple Soul Singer";
@@ -307,7 +310,7 @@ function action(mode, type, selection) {
 		leaves = 200;
 		cost = 50000;
 	    } else if (selection == 8) {
-		newWepName = "Maple Kandayo";
+		newWepName = "Maple Kanduyo";
 		newWepId = 1472032;
 		leaves = 200;
 		cost = 50000;
@@ -326,13 +329,8 @@ function action(mode, type, selection) {
 		newWepId = 1342026;
 		leaves = 200;
 		cost = 50000;
-	    } else if (selection == 12) {
-		newWepName = "Maple Wagner";
-		newWepId = 1332025;
-		leaves = 200;
-		cost = 50000;
 	    }
-	    cm.sendYesNo("Are you sure you want a #b" + newWepName + "#k?");
+	    cm.sendYesNo("Are you sure you want to make a #b" + newWepName + "#k? The following items and materials will be required...\r\n\#i4001126# x" + leaves + "#k\r\n\r\n#fUI/UIWindow.img/QuestIcon/7/0# " + cost);
 	} else if (sel == 4) {
 	    if (selection == 0) {
 		oldWepName = "Maple Glory Sword";
@@ -470,52 +468,64 @@ function action(mode, type, selection) {
 		leaves = 500;
 		cost = 5000000;
 	    }
-	    cm.sendYesNo("Are you sure you want a #b" + newWepName + "#k?");
+	    cm.sendYesNo("Are you sure you want to make a #b" + newWepName + "#k? The following items and materials will be required...\r\n\r\n#i" + oldWepId + "# x 1\r\n#i4001126# x" + leaves + "\r\n A Stimulator can also be used if you have the required one! #r(Optional)#k\r\n\r\n#fUI/UIWindow.img/QuestIcon/7/0# " + cost);
 	}
-    } else if (status == 4) {
+    } else if (status == 2) {
 	if (sel == 2 || sel == 4) {
 	    if (mode != 1) {
-		cm.sendOk("No? Maybe you should make up your mind. I'll be here, waiting.");
+		cm.sendOk("No? Maybe you should get the required items first, or make up your mind. I'll be here, waiting.");
 		cm.dispose();
 	    } else {
+		if ((cm.getMeso() < cost) || (!cm.haveItem(oldWepId,1)) || (!cm.haveItem(4001126,leaves))) {
+		    cm.sendOk("Sorry, but you don't seem to have all the items. Please get them all, and try again.");
+		    cm.dispose();
+		} else if (stimulator == null || !cm.haveItem(stimulator)) {
 		    if (cm.canHold(newWepId)) {
-			//cm.gainItem(oldWepId, -1);
-			//cm.gainItem(4001126, -leaves);
-			//cm.gainMeso(-cost);
+			cm.gainItem(oldWepId, -1);
+			cm.gainItem(4001126, -leaves);
+			cm.gainMeso(-cost);
 			cm.gainItem(newWepId,1);
-			cm.sendOk(reward_msg);
+			cm.sendOk("There, all done! That was quick, wasn't it? If you need any more items, I'll be waiting here.");
 		    } else {
 			cm.sendOk("It appears that you are currently in full inventory, please check.");
 		    }
 		    cm.dispose();
+		} else {
+		    status = 2;
+		    cm.sendSimple("It appears that you have a #rStimulator#k for this weapon. Would you like to create the weapon with or without the #rStimulator#k? If you create without the #rStimulator#k, the item will always be #baverage#k. If you do create it with the #rStimulator#k, the item has a random chance of being #blower#k or #bhigher#k than average.\r\n#b#L20#Create weapon WITH Stimulator#l\r\n#L21#Create weapon WITHOUT Stimulator#l#k");
+		}
 	    }
 	} else if (sel == 0 || sel == 1) {
+	    if ((cm.getMeso() < cost) || !cm.haveItem(4001126,leaves)) {
+		cm.sendOk("Sorry, but you don't seem to have all the items. Please get them all, and try again.");
+	    } else {
 		if (cm.canHold(newWepId)) {
-		   // cm.gainItem(4001126, -leaves);
-		   // cm.gainMeso(-cost);
+		    cm.gainItem(4001126, -leaves);
+		    cm.gainMeso(-cost);
 		    cm.gainItem(newWepId, 1);
-		    cm.sendOk(reward_msg);
+		    cm.sendOk("There, all done! That was quick, wasn't it? If you need any more items, I'll be waiting here.");
 		} else {
 		    cm.sendOk("It appears that you are currently in full inventory, please check.");
 		}
+	    }
 	    cm.dispose();
 	}
-    } else if (status == 5) {
+    } else if (status == 3) {
 	if (sel == 2 || sel == 4) {
 	    if (cm.canHold(newWepId)) {
 		if (selection == 21) {
-		    //cm.gainItem(oldWepId,-1);
-		    //cm.gainItem(4001126,-leaves);
-		    //cm.gainMeso(-cost);
+		    cm.gainItem(oldWepId,-1);
+		    cm.gainItem(4001126,-leaves);
+		    cm.gainMeso(-cost);
 		    cm.gainItem(newWepId, 1);
-		    cm.sendOk(reward_msg);
+		    cm.sendOk("There, all done! That was quick, wasn't it? If you need any more items, I'll be waiting here.");
 		} else {
-		    //cm.gainItem(oldWepId,-1);
-		    //cm.gainItem(4001126,-leaves);
-		    //cm.gainItem(stimulator,-1);
-		    //cm.gainMeso(-cost);
+		    cm.gainItem(oldWepId,-1);
+		    cm.gainItem(4001126,-leaves);
+		    cm.gainItem(stimulator,-1);
+		    cm.gainMeso(-cost);
 		    cm.gainItem(newWepId,1,true);
-		    cm.sendOk(reward_msg);
+		    cm.sendOk("There, all done! That was quick, wasn't it? If you need any more items, I'll be waiting here.");
 		}
 	    } else {
 		cm.sendOk("It appears that you are currently in full inventory, please check.");

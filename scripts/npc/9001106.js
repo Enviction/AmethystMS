@@ -2,7 +2,7 @@
 rewards = [[1902201, "Amaterasu (Okami) Mount", 2000, 1], [1022199, "Blue Neon Shades", 500, 1], [1004001, "Hollow Ichigo mask", 1000, 1], [1082500, "Monster Energy Gloves", 200, 1], [1022196, "Red Neon Shades", 500, 1], [1442299, "Solar Scythe", 1000, 1], [1382199, "Solar Staff", 1000, 1], [1302999, "Tensa Zangetsu", 1500, 1], [1442202, "Thunder Edge", 1500, 1], [1102299, "Water Cape", 500, 1]];
 
 function start() { 
-    text = "Oh hey there! I'm in charge of the #eWizStory#n #rDonator Shop#k!\r\nYou have #r" + cm.getPlayer().getPoints() + "#k Donator Points.\r\nWhat would you like to buy?\r\n#b"; 
+    text = "Oh hey there! I'm in charge of the #eAmethyst#n #rDonator Shop#k!\r\nYou have #r" + cm.getPlayer().getPoints() + "#k Donator Points.\r\nWhat would you like to buy?\r\n#b"; 
     for (var i = 0; i < rewards.length; text += "\r\n#L" + i + "# " + rewards[i][1] + " (" + rewards[i][2] + " Donator Points)#l", i++); 
     cm.sendSimple(text); 
 } 

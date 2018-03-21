@@ -36,7 +36,7 @@ function enter(pi) {
 	while (it.hasNext()) {
 		var cPlayer = it.next();
 		var ccPlayer = pi.getPlayer().getMap().getCharacterById(cPlayer.getId());
-		if (ccPlayer == null || !ccPlayer.haveItem(4001433,30,true,true)) {
+		if (ccPlayer == null || !ccPlayer.haveItem(4001433,1,true,true)) {
 			next = false;
 			break;
 		} else {
@@ -80,7 +80,7 @@ function enter(pi) {
 			}
 		}
 	} else {
-		pi.playerMessage(5, "All of your party members require 30 Sunbursts! Come back to me when you have met my requirements. They also have be in the same level range as you (level ranges: 50-90, 91-120, 121+, 141+)");
+		pi.playerMessage(5, "All of your party members require Sunbursts! Come back to me when you have met my requirements. They also have be in the same level range as you (level ranges: 50-90, 91-120, 121+, 141+)");
 		return false;
 	}
     return true;

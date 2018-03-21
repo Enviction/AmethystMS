@@ -1,5 +1,5 @@
 var eventmapid = 220080001;
-var returnmap = 910000000;
+var returnmap = 262000300;
 
 var monster = new Array(
     4130103, // Rombot

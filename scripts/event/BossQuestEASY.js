@@ -2,21 +2,25 @@ var eventmapid = 910340500;
 var returnmap = 262000300;
 
 var monster = new Array( // revamped
-    8220009, // snack bar
-	9300206, // chimera
-	9305303, // blue mushmom
-	9400741, // coco
-	9400549, // headless horseman
-	6090002, // bamboo warrior
-	9305326, // poison golem
-	7220000, // tae roon
-	9800066, // centipede
-	9300479, // master hoblin
-	9300480, // master harp
-	9300481, // master birk
-	9305132, // snowman
-	8220011, // auf haven
-	5250007 // ephenia
+    9300003, // Slime King
+    2220000, // Mano
+    3220000, // Stumpy
+    5220002, // Fraust
+    6220000, // Dale
+    9300012, // Alishar
+    5220001, // King Clang
+    8220000, // Eliza
+    4220000, // Sherp
+    7220001, // Old Fox
+    5220003, // Timer
+    9400633, //Astaroth
+    3220001, // Dweu
+    6220001, // Jeno
+    7220000, // Tae Roon
+    7220002, // Ghost Priest
+    8220002, // Chimera
+    6160003, //Xerxes
+    8220001 // Yeti on Skis
     );
 
 function init() {

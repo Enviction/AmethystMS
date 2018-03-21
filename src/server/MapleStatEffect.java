@@ -2748,11 +2748,14 @@ public class MapleStatEffect implements Serializable {
                 //applyto.dropMessage(5, Integer.toString(statups.get(MapleBuffStat.ENHANCED_WATK)));
                 localstatups.put(MapleBuffStat.STANCE, statups.get(MapleBuffStat.STANCE));
                 break;
-            case 35001002:
-                if (applyfrom.getTotalSkillLevel(35120000) > 0) {
+            case 35001002: 
+                localstatups = new EnumMap<>(MapleBuffStat.class); 
+                localstatups.put(MapleBuffStat.MECH_CHANGE, info.get(MapleStatInfo.x)); 
+                System.out.println("applyBuffEffect"); 
+                if (applyfrom.getTotalSkillLevel(35120000) > 0) { 
                     SkillFactory.getSkill(35120000).getEffect(applyfrom.getTotalSkillLevel(35120000)).applyBuffEffect(applyfrom, applyto, primary, newDuration);
-                    return;
-                }
+                    return; 
+                } 
 
             //fallthrough intended
             default:
@@ -2794,27 +2797,16 @@ public class MapleStatEffect implements Serializable {
                 } else if (isMonsterRiding()) {
                     localDuration = 2100000000;
                     localstatups = new EnumMap<>(statups);
-                    if (sourceid == 35001002 || sourceid == 35120000) {
-                        localstatups = new EnumMap<>(MapleBuffStat.class);
-                    }
                     localstatups.put(MapleBuffStat.MONSTER_RIDING, 1);
                     final int mountid = parseMountInfo(applyto, sourceid);
                     final int mountid2 = parseMountInfo_Pure(applyto, sourceid);
                     if (mountid != 0 && mountid2 != 0) {
-                        if (sourceid == 35001002 && applyto.getBuffedValue(MapleBuffStat.ENHANCED_WDEF) == null) { //hacky
-                            int bufftoGive = 2259120 + applyto.getTotalSkillLevel(35001002);
-                            MapleItemInformationProvider.getInstance().getItemEffect(bufftoGive).applyTo(applyto);
-                        } else if (sourceid == 35120000) {
-                            int bufftoGive = 2259130 + applyto.getTotalSkillLevel(35120000);
-                            MapleItemInformationProvider.getInstance().getItemEffect(bufftoGive).applyTo(applyto);
-                        }
-                        EnumMap<MapleBuffStat, Integer> stat = new EnumMap<>(MapleBuffStat.class);
+                        final EnumMap<MapleBuffStat, Integer> stat = new EnumMap<>(MapleBuffStat.class);
                         stat.put(MapleBuffStat.MONSTER_RIDING, 0);
                         applyto.cancelEffectFromBuffStat(MapleBuffStat.POWERGUARD);
                         applyto.cancelEffectFromBuffStat(MapleBuffStat.MANA_REFLECTION);
                         applyto.getClient().getSession().write(BuffPacket.giveMount(mountid2, sourceid, stat));
                         applyto.getMap().broadcastMessage(applyto, BuffPacket.showMonsterRiding(applyto.getId(), stat, mountid, sourceid), false);
-                        applyto.getMap().broadcastMessage(applyto, BuffPacket.giveForeignBuff(applyto.getId(), localstatups, this), false);
                     } else {
                         return;
                     }

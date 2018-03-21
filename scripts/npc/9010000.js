@@ -1,4 +1,4 @@
-/*var status = -1;
+var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
@@ -26,4 +26,4 @@ function action(mode, type, selection) {
 	cm.sendNext(cm.checkDrop(selection));
 	cm.dispose();
     }
-}*/
+}

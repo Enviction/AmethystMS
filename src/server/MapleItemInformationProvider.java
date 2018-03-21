@@ -293,6 +293,24 @@ public class MapleItemInformationProvider {
         afterImage.put("aran", thePointA); //hackish
     }
 
+     public List<Integer> getItemIdFromName(String name) {            List <Integer> itemReturn = new LinkedList <Integer> ();
+            MapleDataProvider dataProvider = MapleDataProviderFactory.getDataProvider(new File ("wz/String.wz"));
+            MapleData data = dataProvider.getData(("items.img"));
+           List<Pair<Integer, String>> itemPairList = new LinkedList<Pair<Integer, String>>();
+           for  (MapleData itemIdData : data.getChildren()) {
+            int itemIdFromData = Integer.parseInt(itemIdData.getName());
+            String itemNameFromData = MapleDataTool.getString(itemIdData.getChildByPath("name"), "NO-NAME");
+            itemPairList.add(new Pair<Integer, String> (itemIdFromData, itemNameFromData));
+           }
+           for (Pair<Integer, String> itemPair : itemPairList) {
+               if (itemPair.getRight().toLowerCase().contains(name.toLowerCase()) && itemPair.getLeft() > 0) {
+                   if (getItemData(itemPair.getLeft()) != null) 
+                   itemReturn.add(itemPair.getLeft());
+               }
+           }
+           return itemReturn;
+        }
+    
     public void runItems() {
         if (GameConstants.GMS) { //these must be loaded before items..
             final MapleData fData = etcData.getData("FamiliarInfo.img");

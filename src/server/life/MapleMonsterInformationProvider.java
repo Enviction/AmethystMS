@@ -33,6 +33,7 @@ import java.util.Map;
 import client.inventory.MapleInventoryType;
 import database.DatabaseConnection;
 import java.io.File;
+import java.util.LinkedList;
 import java.util.Map.Entry;
 import provider.MapleData;
 import provider.MapleDataProvider;
@@ -245,6 +246,70 @@ public class MapleMonsterInformationProvider {
         }
         return false;
     }
+    
+    public int getDropQuest(int monsterId) {        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int quest = 0;
+        try {
+            ps = DatabaseConnection.getConnection().prepareStatement("SELECT questid FROM drop_data where dropperid = ?");
+            ps.setInt(1, monsterId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                quest = rs.getInt("questid");
+            }
+        } catch (SQLException e) {
+            
+        }
+        return quest;
+    }
+    
+    public int getDropChance(int monsterId) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int chance = 0;
+        try {
+            ps = DatabaseConnection.getConnection().prepareStatement("SELECT chance FROM drop_data where dropperid = ?");
+            ps.setInt(1, monsterId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                chance = rs.getInt("chance");
+            }
+        } catch (SQLException e) {
+            
+        }
+        return chance;
+    }
+   public List<Integer> getMobByItem(final int itemId) {
+       final List<Integer> mobs = new LinkedList<Integer>() {};
+       PreparedStatement ps = null;
+       ResultSet rs = null;
+       try {
+           ps = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM global_drop_data WHERE itemid = ?");
+           ps = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM drop_data WHERE itemid = ?");
+           ps.setInt(1, itemId);
+           rs = ps.executeQuery();
+           int mobid;
+           while (rs.next()) {
+               mobid = rs.getInt("dropperid");
+               if (!mobs.contains(mobid))
+               mobs.add(mobid);
+           }
+       } catch (SQLException e) {
+           e.printStackTrace();
+           } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ignore) {
+                return null;
+            }
+       }
+       return mobs;
+   }
 
     //what the fuck?
     public int chanceLogic(int itemId) { //not much logic in here. most of the drops should already be there anyway.

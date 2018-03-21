@@ -67,15 +67,15 @@ public class GameConstants {
     public static final double bossDefenseMultiplier = 1.2;
     public static final double mobHPMultiplier = 1.0;
     //Bonus party play EXP applied to all mobs, in percent.  This gets overriden by 50% party play EXP where applicable.
-    public static final int defaultPartyPlayBonusEXP = 40;
+    public static final int defaultPartyPlayBonusEXP = 50;
     //Bonus EXP to give for every level that the mob is higher than the attacker.  Exponential, so a two level difference gives (1.04*1.04)% EXP.
     public static final double levelDiffEXPBonus = 4;
     //Maximum damage that any attack can do to a character, as a percentage of their max HP.  MP is not affected by this.
     //Set to 100 or higher to disable.
     public static final int healthGate = 99;
     //NX multipliers.
-    public static final double nxGainChance = 0.15;
-    public static final double nxRate = 0.74;
+    public static final double nxGainChance = 0.21;
+    public static final double nxRate = 0.56;
     //Limits for drop and meso rates.  Nightmare mode increases do not count towards these caps.
     public static final double dropRateCap = 500.0;
     public static final double mesoRateCap = 500.0;
@@ -89,7 +89,7 @@ public class GameConstants {
     //Durability loss on character death.
     public static final int durabilityPerDeath = -10000;
     //Global multiplier for item EXP gains.
-    public static final double itemEXPRate = 0.0;
+    public static final double itemEXPRate = 0.4;
     /*
      * END DURABILITY & ITEM EXP SECTION
      */
@@ -98,9 +98,9 @@ public class GameConstants {
      * Note: Nightmare Mode is partly coded in the source.  Not completely, unfortunately; permadeath isn't finished.
      */
     //Additional rates for Nightmare mode characters.  Additive (not multiplicative) with regular rates.
-    public static final int hcExpRate = 200;
-    public static final int hcMesoRate = 100;
-    public static final int hcDropRate = 100;
+    public static final int hcExpRate = 8;
+    public static final int hcMesoRate = 5;
+    public static final int hcDropRate = 2;
     //Time, in seconds, over which a potion's healing effects will take place.  A lower value means the potion will heal faster.
     public static final int potionDuration = 20;
     //Global cooldown applied to all potions, in seconds.
@@ -190,7 +190,7 @@ public class GameConstants {
     private static final int[] mountexp = {0, 6, 25, 50, 105, 134, 196, 254, 263, 315, 367, 430, 543, 587, 679, 725, 897, 1146, 1394, 1701, 2247,
         2543, 2898, 3156, 3313, 3584, 3923, 4150, 4305, 4550};
     public static final int[] itemBlock = {4001168, 5220013, 3993003, 2340000, 2049100, 4001129, 2040037, 2040006, 2040007, 2040303, 2040403, 2040506, 2040507, 2040603, 2040709, 2040710, 2040711, 2040806, 2040903, 2041024, 2041025, 2043003, 2043103, 2043203, 2043303, 2043703, 2043803, 2044003, 2044103, 2044203, 2044303, 2044403, 2044503, 2044603, 2044908, 2044815, 2044019, 2044703};
-    public static final int[] cashBlock = {5080001, 5080000, 5063000, 5064000, 5660000, 5660001, 5222027, 5530172, 5530173, 5530174, 5530175, 5530176, 5530177, 5251016, 5534000, 5152053, 5152058, 5150044, 5150040, 5220082, 5680021, 5150050, 5211091, 5211092, 5220087, 5220088, 5220089, 5220090, 5220085, 5220086, 5470000, 1002971, 1052202, 5060003, 5060004, 5680015, 5220082, 5530146, 5530147, 5530148, 5710000, 5500000, 5500001, 5500002, 5500002, 5500003, 5500004, 5500005, 5500006, 5050000, 5075000, 5075001, 5075002, 1122121, 5450000, 5190005, 5190007, 5600000, 5600001, 5350003, 2300002, 2300003, 5330000, 5062000, 5211073, 5211074, 5211075, 5211076, 5211077, 5211078, 5211079, 5650000, 5431000, 5431001, 5432000, 5450000, 5550000, 5550001, 5640000, 5530013, 5150039, 5150040, 5150046, 5150054, 5150052, 5150053, 5151035, 5151036, 5152053, 5152056, 5152057, 5152058, 1812006, 5650000, 5222000, 5221001, 5220014, 5220015, 5420007, 5451000,
+    public static final int[] cashBlock = {5080001, 5080000, 5063000, 5064000, 5660000, 5660001, 5222027, 5530172, 5530173, 5530174, 5530175, 5530176, 5530177, 5251016, 5534000, 5152053, 5152058, 5150044, 5150040, 5220082, 5680021, 5150050, 5211091, 5211092, 5220087, 5220088, 5220089, 5220090, 5220085, 5220086, 5470000, 1002971, 1052202, 5060003, 5060004, 5680015, 5220082, 5530146, 5530147, 5530148, 5710000, 5500000, 5500001, 5500002, 5500002, 5500003, 5500004, 5500005, 5500006, 5050000, 5075000, 5075001, 5075002, 1122121, 5450000, 5190005, 5190007, 5600000, 5600001, 5350003, 2300002, 2300003, 5330000, 5211073, 5211074, 5211075, 5211076, 5211077, 5211078, 5211079, 5650000, 5431000, 5431001, 5432000, 5450000, 5550000, 5550001, 5640000, 5530013, 5150039, 5150040, 5150046, 5150054, 5150052, 5150053, 5151035, 5151036, 5152053, 5152056, 5152057, 5152058, 1812006, 5650000, 5222000, 5221001, 5220014, 5220015, 5420007, 5451000,
         5210000, 5210001, 5210002, 5210003, 5210004, 5210005, 5210006, 5210007, 5210008, 5210009, 5210010, 5210011, 5211000, 5211001, 5211002, 5211003, 5211004, 5211005, 5211006, 5211007, 5211008, 5211009, 5211010, 5211011, 5211012, 5211013, 5211014, 5211015, 5211016, 5211017, 5211018,
         5211019, 5211020, 5211021, 5211022, 5211023, 5211024, 5211025, 5211026, 5211027, 5211028, 5211029, 5211030, 5211031, 5211032, 5211033, 5211034, 5211035, 5211036, 5211037, 5211038, 5211039, 5211040, 5211041, 5211042, 5211043,
         5211044, 5211045, 5211046, 5211047, 5211048, 5211049, 5211050, 5211051, 5211052, 5211053, 5211054, 5211055, 5211056, 5211057, 5211058, 5211059, 5211060, 5211061,//2x exp
@@ -198,7 +198,7 @@ public class GameConstants {
         1112810, 1112811, 5530013, 4001431, 4001432, 4032605, 5064002, 5062300, 5534000, 5330084, 5680021, 5202001, 5064301, 5064201,
         5140000, 5140001, 5140002, 5140003, 5140004, 5140007, 5640000, //stores
         5270000, 5270001, 5270002, 5270003, 5270004, 5270005, 5270006, //2x meso
-        5062002, 5062000, 5062003, 5062005, //cubes
+         //cubes
         9102328, 9102329, 9102330, 9102331, 9102332, 9102333, 5211000, 5211048, 5211048, 5211014, 5211015, 5211016, 5211017, 5211018, //miracle cube and stuff
         9102855, 9102541, 9102542, 9102584, 9102483, 9102484, 9102911, 9102912};// cube packages
     public static final int JAIL = 180000001, MAX_BUFFSTAT = 8;
@@ -3325,9 +3325,8 @@ public class GameConstants {
     public static final boolean canSteal(Skill skil) {
         return skil != null && !skil.isMovement() && !isLinkedAranSkill(skil.getId()) && skil.getId() % 10000 >= 1000 && getJobNumber(skil.getId() / 10000) > 0 && !isDualBlade(skil.getId() / 10000) && !isCannon(skil.getId() / 10000) && !isJett(skil.getId() / 10000) && skil.getId() < 8000000 && skil.getEffect(1) != null && skil.getEffect(1).getSummonMovementType() == null && !skil.getEffect(1).isUnstealable();
     }
-    public static final int[] publicNpcIds = {9310008, 9070004, 9010022, 9071003, 9000087, 9000088, 9010000, 9000000};
-    public static final String[] publicNpcs = {"#cUniversal NPC#", "Move to a variety of #cparty quests#.", "Move to #cMonster Park# to team up to defeat monsters.", "Move to #cFree Market# to trade items with players.", "Move to #cArdentmill#, the crafting town.",
-        "Check #cdrops# of any monster in the map.", "Join an #cevent# in progress."};
+    public static final int[] publicNpcIds = {9310008, 9071003, 9010022, 9000087, 9000088, 9000039, 9010000, 9000000};
+    public static final String[] publicNpcs = {"#cUniversal NPC#", "Move to #cMonster Park# to team up to defeat monsters.", "Move to a variety of #cparty quests#.", "Move to the #cFree Market# to trade items with players.", "Move to #cArdentmill#, the crafting town.","View the #cdonation options# for AmethystMS", "Check #cdrops# of any monster in the map.", "Join an #cevent# in progress."};
     //questID; FAMILY USES 19000x, MARRIAGE USES 16000x, EXPED USES 16010x
     //dojo = 150000, bpq = 150001, master monster portals: 122600
     //compensate evan = 170000, compensate sp = 170001

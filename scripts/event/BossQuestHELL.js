@@ -1,6 +1,6 @@
 var eventmapid = 610030600;
 var returnmap = 262000300;
-var monster = Array(7120102, 8800100, 8800101, 8800102, 8840006, 8860000, 9400409, 9400408, 8820001, 8850011); // 8840006 vonleon
+var monster = Array(7120102, 8800100, 8800101, 8800102, 8840000, 9400590, 9400591, 9400592, 9400593, 9400594, 9400409, 9400408, 8820001, 8850011); // 8840006 vonleon
 
 function init() {
 // After loading, ChannelServer
@@ -104,13 +104,29 @@ modified.setOMp(mob.getMobMaxMp());
 	    modified.setOExp(mob.getMobExp() * 2);
 	    modified.setOHp(mob.getMobMaxHp() * 2.2); //1b
 	    break;
-	case 8840006:
+	case 8840000:
 	    modified.setOExp(mob.getMobExp() * 1.5); //goes stack overflow over 2.1b if too high
 	    modified.setOHp(mob.getMobMaxHp() * 8); //1.2b
 	    break;
-	case 8860000:
-	    modified.setOExp(mob.getMobExp() * 1.1);
-	    modified.setOHp(mob.getMobMaxHp() * 1.2); //1.4b total
+	case 9400590:
+	    modified.setOExp(mob.getMobExp() * 2.1);
+	    modified.setOHp(mob.getMobMaxHp() * 4.2); //1.4b total
+	    break;
+        case 9400591:
+	    modified.setOExp(mob.getMobExp() * 2.1);
+	    modified.setOHp(mob.getMobMaxHp() * 4.2); //1.4b total
+	    break;
+        case 9400592:
+	    modified.setOExp(mob.getMobExp() * 2.1);
+	    modified.setOHp(mob.getMobMaxHp() * 4.2); //1.4b total
+	    break;
+        case 9400593:
+	    modified.setOExp(mob.getMobExp() * 2.1);
+	    modified.setOHp(mob.getMobMaxHp() * 4.2); //1.4b total
+	    break;
+        case 9400594:
+	    modified.setOExp(mob.getMobExp() * 2.1);
+	    modified.setOHp(mob.getMobMaxHp() * 4.2); //1.4b total
 	    break;
 	case 8820001:
 	case 8850011:
@@ -176,8 +192,8 @@ function allMonstersDead(eim) {
 	eim.broadcastPlayerMsg(6, "Prepare! The next boss will appear in a glimpse of an eye!");
     } else {
 	eim.saveBossQuest(1200000);
-	eim.saveNX(850000);
-	eim.broadcastPlayerMsg(5, "Your team've beaten the HELL mode and have gained an extra 1,200,000 points and extra 850,000 Cash!");
+	eim.saveNX(50000);
+	eim.broadcastPlayerMsg(5, "Your team've beaten the HELL mode and have gained an extra 1,200,000 points and extra 50,000 Cash!");
 	eim.giveAchievement(22);
 	}
 // When invoking unregisterMonster(MapleMonster mob) OR killed

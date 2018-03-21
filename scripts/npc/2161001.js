@@ -10,9 +10,13 @@ function action(mode, type, selection) {
 	status--;
     }
     if (status == 0) {
-	cm.sendYesNo("Would you like to go to the Audience Room?");
+	cm.sendSimple("#b#L0#Exchange Medals#l\r\n#L1#Go to the Audience Room#l");
     } else if (status == 1) {
-	cm.warp(211070000, 1);
+	if (selection == 0) {
+	    cm.openShop(200);
+	} else if (selection == 1) {
+	    cm.warp(211070000);
+	}
 	cm.dispose();
     }
 }
