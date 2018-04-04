@@ -20,28 +20,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package scripting;
 
+import client.MapleClient;
+import client.inventory.Equip;
+import client.inventory.Item;
+import client.inventory.MapleInventoryType;
+import constants.GameConstants;
+import handling.channel.ChannelServer;
 import java.awt.Point;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import client.inventory.Equip;
-import client.inventory.Item;
-import constants.GameConstants;
-import client.MapleCharacter;
-import client.MapleClient;
-import client.inventory.MapleInventoryType;
-import handling.channel.ChannelServer;
 import server.MapleCarnivalFactory;
 import server.MapleCarnivalFactory.MCSkill;
 import server.MapleItemInformationProvider;
 import server.Randomizer;
 import server.life.MapleLifeFactory;
-import server.maps.ReactorDropEntry;
-import server.maps.MapleReactor;
-import tools.packet.CField;
 import server.life.MapleMonster;
-import server.maps.MapleMap;
+import server.maps.MapleReactor;
+import server.maps.ReactorDropEntry;
+import tools.packet.CField;
 
 public class ReactorActionManager extends AbstractPlayerInteraction {
 
@@ -63,7 +60,7 @@ public class ReactorActionManager extends AbstractPlayerInteraction {
 
     public void dropItems(boolean meso, int mesoChance, int minMeso, int maxMeso, int minItems) {
         final List<ReactorDropEntry> chances = ReactorScriptManager.getInstance().getDrops(reactor.getReactorId());
-        final List<ReactorDropEntry> items = new LinkedList<ReactorDropEntry>();
+        final List<ReactorDropEntry> items = new LinkedList<>();
 
         if (meso) {
             if (Math.random() < (1 / (double) mesoChance)) {
@@ -97,7 +94,7 @@ public class ReactorActionManager extends AbstractPlayerInteraction {
         for (final ReactorDropEntry d : items) {
             if (d.itemId == 0) {
                 range = maxMeso - minMeso;
-                mesoDrop = Randomizer.nextInt(range) + minMeso * ChannelServer.getInstance(getClient().getChannel()).getMesoRate();
+                mesoDrop = Randomizer.nextInt(range) + minMeso * getClient().getWorldServer().getMesoRate();
                 reactor.getMap().spawnMesoDrop(mesoDrop, dropPos, reactor, getPlayer(), false, (byte) 0);
             } else {
                 Item drop;
@@ -201,7 +198,7 @@ public class ReactorActionManager extends AbstractPlayerInteraction {
 
     public void cancelHarvest(boolean succ) {
         getPlayer().setFatigue((byte) (getPlayer().getFatigue() + 1));
-        getPlayer().getMap().broadcastMessage(getPlayer(), CField.showHarvesting(c, 0), false);
+        getPlayer().getMap().broadcastMessage(getPlayer(), CField.showHarvesting(getPlayer().getId(), 0), false);
         getPlayer().getMap().broadcastMessage(CField.harvestResult(getPlayer().getId(), succ));
     }
 
@@ -216,7 +213,7 @@ public class ReactorActionManager extends AbstractPlayerInteraction {
             return;
         }
         final Item item = getInventory(1).getItem((short)getPlayer().getStat().harvestingTool);
-        if (item == null || ((item.getItemId() / 10000) | 0) != (getReactor().getReactorId() < 200000 ? 150 : 151)) {
+        if (item == null || ((item.getItemId() / 10000)) != (getReactor().getReactorId() < 200000 ? 150 : 151)) {
             return;
         }
         int hm = getReactor().getReactorId() % 100;

@@ -21,14 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package client.inventory;
 
+import database.DatabaseConnection;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-import database.DatabaseConnection;
-import java.io.Serializable;
 
 public class MapleInventoryIdentifier implements Serializable {
 
@@ -100,7 +98,6 @@ public class MapleInventoryIdentifier implements Serializable {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return ret;
     }

@@ -1,4 +1,9 @@
-var status = -1;
+// Yulete (2112012) of Romeo and Juliet PQ. Removed by Eric, this was an extra NPC used in past-gms events. No longer used.
+function start() {
+	cm.sendOk("I have been #rremoved#k from the game.");
+	cm.dispose();
+}
+/*var status = -1;
 function action(mode, type, selection) {
     if (cm.getMapId() == 926110600) {
 	    cm.removeAll(4001130);
@@ -42,7 +47,7 @@ cm.gainExp_PQ(120, 1.0);
 	    cm.removeAll(4001133);
 	    cm.removeAll(4001134);
 	    cm.removeAll(4001135);
-	cm.sendSimple("#b#L0#Get me out of here#l\r\n#L1#Get me Proof of Love.#l#k");
+	cm.sendSimple("\r\n#b#L0#Get me out of here#l\r\n#L1#Get me Proof of Love.#l#k");
     } else {
 	if (selection == 0) {
     	    cm.warp(926110600,0);
@@ -57,4 +62,4 @@ cm.gainExp_PQ(120, 1.0);
 	}
     	cm.dispose();
     }
-}
+}*/

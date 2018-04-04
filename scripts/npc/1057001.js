@@ -1,21 +1,12 @@
-var data = [20, 400, 430, "DualBlade"];
-
-function action(m,t,s) {
-	if(t == 0) {
-		cm.sendSimple("So I guess you have heard, would you want to be a DualBlade?\r\n#b#L0#Yes (Level 20 - Rogue)");
+function action(mode, type, selection) {
+	if (cm.getPlayer().getLevel() < 20) {	
+		if (cm.getPlayer().getSubcategory() != 1) {
+			cm.sendOk("You must have selected Dual Blader in character selection to talk to me.");
+		} else {
+			cm.sendOk("You must have accepted the quests at level 2 and 9 to talk to me.");
+		}
 	} else {
-		for (var i = 0; i < data.length; i++) {
-		    if(s == i) {
-				if (cm.getPlayerStat("LVL") >= data[i][0] && cm.getJob() == data[i][1]) {
-					cm.changeJob(data[i][2]);
-				} else {
-					cm.PlayerToNpc("Oh Snap!\r\nI can't be a #b"+data[i][3]+"#k... Guess I should train more to become one!");
-				}
-			}
-		}
-		if(s == 5) {
-			 cm.sendOk("You will auto job advance at your correct levels.");
-		}
-		cm.dispose();
+		cm.sendOk("I guard the entrance to the Secret Garden... oops, not so secret anymore, is it?");
 	}
+	cm.safeDispose();
 }

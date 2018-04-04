@@ -20,13 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package handling.channel.handler;
 
-import java.util.List;
-import java.awt.Point;
-
-import client.Skill;
-import constants.GameConstants;
 import client.MapleCharacter;
+import client.Skill;
 import client.SkillFactory;
+import constants.GameConstants;
+import java.awt.Point;
+import java.util.List;
 import server.MapleStatEffect;
 import tools.AttackPair;
 
@@ -54,14 +53,12 @@ public class AttackInfo {
 					if (skillLink.getAnimation() == -1) {
 						chr.dropMessage(5, "Please report this: animation for skill " + skillLink.getId() + " doesn't exist");
 					} else {
+                                            
+                                            return null;
 						//AutobanManager.getInstance().autoban(chr.getClient(), "No delay hack, SkillID : " + skillLink.getId() + ", animation: " + dd + ", expected: " + skillLink.getAnimation());
-					}      
-                       if (skill_.getId() == 24121003) {
-                           return skillLink.getEffect(skillLevel);
-                       }
-                       
-                  return null;
-              }      
+					}
+                    return null;
+                }
             }
             return skillLink.getEffect(skillLevel);
         } // i'm too lazy to calculate the new skill types =.=

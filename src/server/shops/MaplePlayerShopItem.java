@@ -33,4 +33,16 @@ public class MaplePlayerShopItem {
         this.bundles = bundles;
         this.price = price;
     }
+    
+    public short getBundles() {
+        return bundles;
+    }
+    
+    public int getPrice() {
+        return price;
+    }
+    
+    public Item getItem() {
+        return item;
+    }
 }

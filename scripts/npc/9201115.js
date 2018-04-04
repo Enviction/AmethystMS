@@ -1,85 +1,32 @@
-var status = -1;function action(mode, type, selection) {
-    if (mode == 1) {
-	status++;
+var status = 0;
+
+function start() {
+    status = -1;
+    action(1, 0, 0);
+}
+
+function action(mode, type, selection) {
+    if (mode == -1) {
+        cm.dispose();
     } else {
-	status--;
+        if (mode == 0) {
+            cm.dispose();
+            return;
+        }
+        if (mode == 1)
+            status++;
+        else
+            status--;
+        if (status == 0) { 
+            cm.sendSimple("#rSo you've trained hard...are you ready to put your skills to the test? Seeking challenges that will thrill and amuse your senses?\r\n		If so..then PvP is just the thing for you! Choose a map:#k#b\r\n#L1#Regular#l\r\n#L2#City#l");//idk what they are lol
+        } else if (status == 1) {
+            if (selection == 1) {
+                cm.warp(20, 0);
+				cm.dispose();
+            } else if (selection == 2) {
+				cm.warp(48, 0);
+				cm.dispose();
+			}
+        } 
     }
-    if (!cm.isLeader()) {
-	cm.sendNext("I wish for your leader to talk to me.");
-	cm.dispose();
-	return;
-    }
-	var em = cm.getEventManager("CWKPQ");
-	if (em != null) {
-		if (em.getProperty("glpq6").equals("0")) {
-			if (status == 0) {
-				cm.sendNext("Welcome to the Twisted Masters' Keep. I will be your host for this evening...");
-			} else if (status == 1) {
-				cm.sendNext("Tonight, we have a feast of a squad of Maplers.. ahaha...");
-			} else if (status == 2) {
-				cm.sendNext("Let our specially trained Master Guardians escort you!");
-				cm.mapMessage(6, "Engarde! Master Guardians approach!");
-				for (var i = 0; i < 10; i++) {
-					var mob = em.getMonster(9400594);
-					cm.getMap().spawnMonsterOnGroundBelow(mob, new java.awt.Point(-1337 + (java.lang.Math.random() * 1337), 276));
-				}
-				for (var i = 0; i < 20; i++) {
-					var mob = em.getMonster(9400582);
-					cm.getMap().spawnMonsterOnGroundBelow(mob, new java.awt.Point(-1337 + (java.lang.Math.random() * 1337), 276));
-				}
-				em.setProperty("glpq6", "1");
-				cm.dispose();
-			}
-		} else if (em.getProperty("glpq6").equals("1")) {
-			if (cm.getMap().getAllMonstersThreadsafe().size() == 0) {
-				if (status == 0) {
-					cm.sendOk("Eh, what is this? You've defeated them?");
-				} else if (status == 1) {
-					cm.sendNext("Well, no matter! The Twisted Masters will be glad to welcome you.");
-					cm.mapMessage(6, "Twisted Masters approach!");
-
-					//MV or Heron
-					var mob = em.getMonster(9400589);
-					cm.getMap().spawnMonsterOnGroundBelow(mob, new java.awt.Point(-1000, 276));
-
-					//Margana
-					var mob = em.getMonster(9400590);
-					cm.getMap().spawnMonsterOnGroundBelow(mob, new java.awt.Point(-22, 1));
-
-					//Red Nirg
-					var mob2 = em.getMonster(9400591);
-					cm.getMap().spawnMonsterOnGroundBelow(mob2, new java.awt.Point(-22, 276));
-
-					//Hsalf
-					var mob4 = em.getMonster(9400593);
-					cm.getMap().spawnMonsterOnGroundBelow(mob4, new java.awt.Point(496, 276));
-
-					//Rellik
-					var mob3 = em.getMonster(9400592);
-					cm.getMap().spawnMonsterOnGroundBelow(mob3, new java.awt.Point(-496, 276));
-
-					em.setProperty("glpq6", "2");
-					cm.dispose();
-				}
-			} else {
-				cm.sendOk("Pay no attention to me. The Master Guardians will escort you!");
-				cm.dispose();
-			}
-		} else if (em.getProperty("glpq6").equals("2")) {
-			if (cm.getMap().getAllMonstersThreadsafe().size() == 0) {
-				cm.sendOk("WHAT? Ugh... this can't be happening.");
-				cm.mapMessage(5, "The portal to the next stage has opened!");
-				cm.dispose();
-				em.setProperty("glpq6", "3");
-			} else {
-				cm.sendOk("Pay no attention to me. The Twisted Masters will escort you!");
-				cm.dispose();
-			}
-		} else {
-			cm.dispose();
-		}
-	} else {
-		cm.dispose();
-	}
-
 }

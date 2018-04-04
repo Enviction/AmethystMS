@@ -1,34 +1,35 @@
-/* NPC : A pile of pink flower
- * Location : Sleepywood, forest of patient
- */
+/**
+ * @author: Eric
+ * @rev: 3.0 - Added in JQ Leveling.
+ * @notes: Warp now warps the world of JQers not just the map.
+*/
 
-var itemSet = new Array(4010003, 4010000, 4010002, 4010005, 4010004, 4010001);
-var rand = Math.floor(Math.random() * itemSet.length);
-
+importPackage(Packages.client);
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
+   action(1, 0, 0);
 }
 
+
 function action(mode, type, selection) {
-    if (status >= 2 && mode == 0) {
-	cm.dispose();
-	return;
-    }
-    if (mode == 1) {
-	status++;
-    } else {
-	status--;
-    }
-    if (status == 0) {
-	cm.warp(105000000);
-            
-	if (cm.getQuestStatus(2052) == 1 && !cm.haveItem(4031025)) {
-	    cm.gainItem(4031025, 20);
-	} else {
-	    cm.gainItem(itemSet[rand], 2);
-	}
-	cm.dispose();
+ if (cm.getPlayer().getMapId() == cm.getEventMap()){
+        cm.warpMapAutoJQers(910000000); // warps the entire WORLD of ONLY people in the JQ map! :D
+		cm.gainCurrency(150);
+        cm.setEventMap(0);
+        cm.serverNotice("Congratulations to " + cm.getName() + " on Channel " + cm.getPlayer().getClient().getChannel() + " for winning the JQ and receiving 150 Wiz Coins!");
+        cm.dispose();
+    } else { 
+	  if (cm.getPlayer().isGM()) {
+		cm.warp(100000000, 0);
+		cm.gainJQExp(MapleCharacter.rand(10, 100));
+        cm.dispose();
+		} else if (cm.getPlayer().getJQLevel() < 11) {
+		cm.warp(100000000, 0);
+		cm.gainJQExp(MapleCharacter.rand(10, 100));
+        cm.dispose();
+	    } else {
+		cm.sendOk("What the fuck are you doing here?\r\nThere are currently no #rAuto JQs#k going on!");
+		cm.dispose();
+		}
     }
 }

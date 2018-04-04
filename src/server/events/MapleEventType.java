@@ -36,7 +36,7 @@ public enum MapleEventType {
         this.mapids = mapids;
     }
 
-    public static final MapleEventType getByString(final String splitted) {
+    public static MapleEventType getByString(final String splitted) {
         for (MapleEventType t : MapleEventType.values()) {
             if (t.name().equalsIgnoreCase(splitted)) {
                 return t;

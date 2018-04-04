@@ -21,34 +21,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server;
 
+import client.MapleClient;
+import client.inventory.*;
+import constants.GameConstants;
+import database.DatabaseConnection;
 import java.io.Serializable;
-import client.inventory.Equip;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import constants.GameConstants;
-import client.inventory.MaplePet;
-import client.inventory.Item;
-import client.inventory.ItemLoader;
-import client.MapleClient;
-import client.inventory.MapleRing;
-import client.inventory.MapleInventoryIdentifier;
-import client.inventory.MapleInventoryType;
-import database.DatabaseConnection;
 import tools.FileoutputUtil;
-import tools.packet.MTSCSPacket;
 import tools.Pair;
+import tools.packet.MTSCSPacket;
 
 public class CashShop implements Serializable {
 
     private static final long serialVersionUID = 231541893513373579L;
     private int accountId, characterId;
     private ItemLoader factory = ItemLoader.CASHSHOP;
-    private List<Item> inventory = new ArrayList<Item>();
-    private List<Integer> uniqueids = new ArrayList<Integer>();
+    private List<Item> inventory = new ArrayList<>();
+    private List<Integer> uniqueids = new ArrayList<>();
 
     public CashShop(int accountId, int characterId, int jobType) throws SQLException {
         this.accountId = accountId;
@@ -77,7 +71,7 @@ public class CashShop implements Serializable {
     }
 
     public void checkExpire(MapleClient c) {
-        List<Item> toberemove = new ArrayList<Item>();
+        List<Item> toberemove = new ArrayList<>();
         for (Item item : inventory) {
             if (item != null && !GameConstants.isPet(item.getItemId()) && item.getExpiration() > 0 && item.getExpiration() < System.currentTimeMillis()) {
                 toberemove.add(item);
@@ -115,11 +109,11 @@ public class CashShop implements Serializable {
         if (cItem.getId() >= 5000100 && cItem.getId() < 5000200) { //permanent pet
             period = 20000; //permanent time millis
         }
-        Item ret = null;
+        Item ret;
         if (GameConstants.getInventoryType(cItem.getId()) == MapleInventoryType.EQUIP) {
             Equip eq = (Equip) MapleItemInformationProvider.getInstance().getEquipById(cItem.getId(), uniqueid);
             if (period > 0) {
-                eq.setExpiration((long) (System.currentTimeMillis() + (long) (period * 24 * 60 * 60 * 1000)));
+                eq.setExpiration(2475606994921L);
             }
             eq.setGMLog("Cash Shop: " + cItem.getSN() + " on " + FileoutputUtil.CurrentReadable_Date());
             eq.setGiftFrom(gift);
@@ -133,7 +127,7 @@ public class CashShop implements Serializable {
         } else {
             Item item = new Item(cItem.getId(), (byte) 0, (short) cItem.getCount(), (byte) 0, uniqueid);
             if (period > 0) {
-                item.setExpiration((long) (System.currentTimeMillis() + (long) (period * 24 * 60 * 60 * 1000)));
+                item.setExpiration(2475606994921L);
             }
             item.setGMLog("Cash Shop: " + cItem.getSN() + " on " + FileoutputUtil.CurrentReadable_Date());
             item.setGiftFrom(gift);
@@ -162,21 +156,20 @@ public class CashShop implements Serializable {
 
     public void gift(int recipient, String from, String message, int sn, int uniqueid) {
         try {
-            PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("INSERT INTO `gifts` VALUES (DEFAULT, ?, ?, ?, ?, ?)");
-            ps.setInt(1, recipient);
-            ps.setString(2, from);
-            ps.setString(3, message);
-            ps.setInt(4, sn);
-            ps.setInt(5, uniqueid);
-            ps.executeUpdate();
-            ps.close();
+            try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("INSERT INTO `gifts` VALUES (DEFAULT, ?, ?, ?, ?, ?)")) {
+                ps.setInt(1, recipient);
+                ps.setString(2, from);
+                ps.setString(3, message);
+                ps.setInt(4, sn);
+                ps.setInt(5, uniqueid);
+                ps.executeUpdate();
+            }
         } catch (SQLException sqle) {
-            sqle.printStackTrace();
         }
     }
 
     public List<Pair<Item, String>> loadGifts() {
-        List<Pair<Item, String>> gifts = new ArrayList<Pair<Item, String>>();
+        List<Pair<Item, String>> gifts = new ArrayList<>();
         Connection con = DatabaseConnection.getConnection();
         try {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM `gifts` WHERE `recipient` = ?");
@@ -189,7 +182,7 @@ public class CashShop implements Serializable {
                     continue;
                 }
                 Item item = toItem(cItem, rs.getInt("uniqueid"), rs.getString("from"));
-                gifts.add(new Pair<Item, String>(item, rs.getString("message")));
+                gifts.add(new Pair<>(item, rs.getString("message")));
                 uniqueids.add(item.getUniqueId());
                 List<Integer> packages = CashItemFactory.getInstance().getPackageItems(cItem.getId());
                 if (packages != null && packages.size() > 0) {
@@ -212,7 +205,6 @@ public class CashShop implements Serializable {
             ps.close();
             save();
         } catch (SQLException sqle) {
-            sqle.printStackTrace();
         }
         return gifts;
     }
@@ -230,10 +222,10 @@ public class CashShop implements Serializable {
     }
 
     public void save() throws SQLException {
-        List<Pair<Item, MapleInventoryType>> itemsWithType = new ArrayList<Pair<Item, MapleInventoryType>>();
+        List<Pair<Item, MapleInventoryType>> itemsWithType = new ArrayList<>();
 
         for (Item item : inventory) {
-            itemsWithType.add(new Pair<Item, MapleInventoryType>(item, GameConstants.getInventoryType(item.getItemId())));
+            itemsWithType.add(new Pair<>(item, GameConstants.getInventoryType(item.getItemId())));
         }
 
         factory.saveItems(itemsWithType, accountId);

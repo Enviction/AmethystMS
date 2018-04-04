@@ -3,8 +3,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/src/constants/ServerConstants.java</file>
-            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/src/constants/GameConstants.java</file>
+            <file>file:/C:/Users/Owner/Documents/Development/src/constants/GameConstants.java</file>
+            <file>file:/C:/Users/Owner/Documents/Development/src/client/messages/commands/PlayerCommand.java</file>
+            <file>file:/C:/Users/Owner/Documents/Development/scripts/npc/9000085.js</file>
+            <file>file:/C:/Users/Owner/Documents/Development/scripts/npc/9001000.js</file>
+            <file>file:/C:/Users/Owner/Documents/Development/src/tools/packet/MTSCSPacket.java</file>
+            <file>file:/C:/Users/Owner/Documents/Development/src/scripting/NPCConversationManager.java</file>
+            <file>file:/C:/Users/Owner/Documents/Development/scripts/npc/9900002.js</file>
+            <file>file:/C:/Users/Owner/Documents/Development/scripts/npc/1002004.js</file>
+            <file>file:/C:/Users/Owner/Documents/Development/src/server/MapleItemInformationProvider.java</file>
+            <file>file:/C:/Users/Owner/Documents/Development/scripts/npc/2002000.js</file>
+            <file>file:/C:/Users/Owner/Documents/Development/scripts/npc/9001106.js</file>
+            <file>file:/C:/Users/Owner/Documents/Development/scripts/npc/1012008.js</file>
+            <file>file:/C:/Users/Owner/Documents/Development/scripts/npc/9270035.js</file>
+            <file>file:/C:/Users/Owner/Documents/Development/src/handling/cashshop/handler/CashShopOperation.java</file>
+            <file>file:/C:/Users/Owner/Documents/Development/scripts/npc/9901001.js</file>
+            <file>file:/C:/Users/Owner/Documents/Development/src/client/MapleCharacter.java</file>
+            <file>file:/C:/Users/Owner/Documents/Development/src/handling/channel/ChannelServer.java</file>
+            <file>file:/C:/Users/Owner/Documents/Development/scripts/npc/1052013.js</file>
+            <file>file:/C:/Users/Owner/Documents/Development/scripts/npc/9010000.js</file>
+            <file>file:/C:/Users/Owner/Documents/Development/scripts/npc/1061008.js</file>
+            <file>file:/C:/Users/Owner/Documents/Development/src/server/life/MapleMonsterInformationProvider.java</file>
         </group>
     </open-files>
 </project-private>

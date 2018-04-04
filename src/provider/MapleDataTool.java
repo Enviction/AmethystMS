@@ -67,7 +67,7 @@ public class MapleDataTool {
         return ((Integer) data.getData()).intValue();
     }
 
-        public static int getInt(MapleData data, int def) {
+    public static int getInt(MapleData data, int def) {
         if (data == null || data.getData() == null) {
             return def;
         } else {
@@ -76,9 +76,7 @@ public class MapleDataTool {
             } else if (data.getType() == MapleDataType.SHORT) {
                 return Integer.valueOf(((Short) data.getData()).shortValue());
             } else {
-               int buffer = (Integer) data.getData();
-               int buffer2 = ((Integer) data.getData()).intValue();
-                return buffer2;
+                return ((Integer) data.getData()).intValue();
             }
         }
     }

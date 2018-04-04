@@ -1,76 +1,82 @@
 /*
-This file is part of the OdinMS Maple Story Server
-Copyright (C) 2008 ~ 2010 Patrick Huy <patrick.huy@frz.cc> 
-Matthias Butz <matze@odinms.de>
-Jan Christian Meyer <vimes@odinms.de>
+ This file is part of the OdinMS Maple Story Server
+ Copyright (C) 2008 ~ 2010 Patrick Huy <patrick.huy@frz.cc> 
+ Matthias Butz <matze@odinms.de>
+ Jan Christian Meyer <vimes@odinms.de>
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License version 3
-as published by the Free Software Foundation. You may not use, modify
-or distribute this program under any other version of the
-GNU Affero General Public License.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License version 3
+ as published by the Free Software Foundation. You may not use, modify
+ or distribute this program under any other version of the
+ GNU Affero General Public License.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
 
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package handling.channel.handler;
 
+import client.MapleCharacter;
+import client.MapleClient;
+import client.MapleQuestStatus;
+import client.RockPaperScissors;
 import client.inventory.Equip;
 import client.inventory.Item;
 import client.inventory.MapleInventoryType;
-import client.MapleClient;
-import client.MapleCharacter;
 import constants.GameConstants;
-import client.MapleQuestStatus;
-import client.RockPaperScissors;
-import client.inventory.ItemFlag;
 import handling.SendPacketOpcode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import scripting.AbstractPlayerInteraction;
-import server.MapleShop;
+import scripting.NPCConversationManager;
+import scripting.NPCScriptManager;
 import server.MapleInventoryManipulator;
+import server.MapleItemInformationProvider;
+import server.MapleShop;
 import server.MapleStorage;
 import server.life.MapleNPC;
 import server.quest.MapleQuest;
-import scripting.NPCScriptManager;
-import scripting.NPCConversationManager;
-import server.MapleItemInformationProvider;
-import server.maps.MapScriptMethods;
-import tools.packet.CField;
 import tools.Pair;
 import tools.data.LittleEndianAccessor;
 import tools.data.MaplePacketLittleEndianWriter;
+import tools.packet.CField;
 import tools.packet.CField.EffectPacket;
 import tools.packet.CField.NPCPacket;
 import tools.packet.CWvsContext;
 
 public class NPCHandler {
 
-    public static final void NPCAnimation(final LittleEndianAccessor slea, final MapleClient c) {
+    public static void NPCAnimation(LittleEndianAccessor slea, MapleClient c) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
-        mplew.writeShort(SendPacketOpcode.NPC_ACTION.getValue());
-        final int length = (int) slea.available();
-        if (length == 10) { // NPC Talk
+        int length = (int) slea.available();
+          if (length == 10) { // NPC Talk
+            //System.out.println("NPCTALK: " + slea.toString());
+            mplew.writeShort(SendPacketOpcode.NPC_ACTION.getValue());
             mplew.writeInt(slea.readInt());
             mplew.writeShort(slea.readShort());
             mplew.writeInt(slea.readInt());
+            c.announce(mplew.getPacket());
         } else if (length > 10) { // NPC Move
-            mplew.write(slea.read(length - 9));
+            //System.out.println("NPCMOVE: " + slea.toString());
+            byte[] bytes = slea.read(length - 9);
+            mplew.writeShort(SendPacketOpcode.NPC_ACTION.getValue());
+            mplew.write(bytes);
+            c.announce(mplew.getPacket());
         } else {
-            return;
+            //System.out.println("ehh " + slea.toString());
         }
-        c.getSession().write(mplew.getPacket());
+    }
+    
+     public static final void openNpc(int npcId, final MapleClient c) {
+        NPCScriptManager.getInstance().start(c, npcId);
     }
 
-    public static final void NPCShop(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void NPCShop(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         final byte bmode = slea.readByte();
         if (chr == null) {
             return;
@@ -114,11 +120,14 @@ public class NPCHandler {
         }
     }
 
-    public static final void NPCTalk(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void NPCTalk(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null || chr.getMap() == null) {
             return;
         }
         final MapleNPC npc = chr.getMap().getNPCByOid(slea.readInt());
+        if (NPCScriptManager.getInstance().getCM(c) != null) {
+            NPCConversationManager.dispose(c);
+        }
         if (npc == null) {
             return;
         }
@@ -133,7 +142,7 @@ public class NPCHandler {
         }
     }
 
-    public static final void QuestAction(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void QuestAction(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         final byte action = slea.readByte();
         int quest = slea.readUShort();
         if (chr == null) {
@@ -208,7 +217,7 @@ public class NPCHandler {
         }
     }
 
-    public static final void Storage(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void Storage(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         final byte mode = slea.readByte();
         if (chr == null) {
             return;
@@ -224,15 +233,18 @@ public class NPCHandler {
                 if (item != null) {
                     if (!MapleInventoryManipulator.checkSpace(c, item.getItemId(), item.getQuantity(), item.getOwner())) {
                         storage.store(item);
+                        chr.saveToDB(false, false);
                         chr.dropMessage(1, "Your inventory is full");
                     } else {
+                        if (item.getQuantity() < 1) {
+                            return;
+                        }
                         MapleInventoryManipulator.addFromDrop(c, item, false);
+                        chr.saveToDB(false, false);
                         storage.sendTakenOut(c, GameConstants.getInventoryType(item.getItemId()));
-                        tools.FileoutputUtil.log("logs\\storage\\"+chr.getName()+".txt", "["+tools.FileoutputUtil.CurrentReadable_Time()+"] " + chr.getName() + " (CID: " + chr.getId() + ") Withdrew ItemID " + item.getItemId() + " x"+ item.getQuantity());
                     }
                 } else {
                     c.getSession().write(CWvsContext.enableActions());
-                    return;
                 }
                 break;
             }
@@ -244,7 +256,6 @@ public class NPCHandler {
                 final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
                 if (quantity < 1) {
                     //AutobanManager.getInstance().autoban(c, "Trying to store " + quantity + " of " + itemId);
-                    tools.FileoutputUtil.log("logs\\storage\\"+chr.getName()+".txt", "["+tools.FileoutputUtil.CurrentReadable_Time()+"] "  + chr.getName() + " (CID: " + chr.getId() + ")  WARNING! Tried to store " + quantity + " + of " + itemId);
                     return;
                 }
                 if (storage.isFull()) {
@@ -257,9 +268,7 @@ public class NPCHandler {
                 }
 
                 if (chr.getMeso() < 100) {
-                    chr.dropMessage(1, "You don't have enough mesos to store the item.");
-                    c.getSession().write(CWvsContext.enableActions());
-                    return;
+                    chr.dropMessage(1, "You don't have enough mesos to store the item");
                 } else {
                     Item item = chr.getInventory(type).getItem(slot).copy();
 
@@ -268,25 +277,29 @@ public class NPCHandler {
                         return;
                     }
                     final short flag = item.getFlag();
-                    if (ii.isPickupRestricted(item.getItemId()) && storage.findById(item.getItemId()) != null) {
-                        c.getSession().write(CWvsContext.enableActions());
-                        return;
-                    }
+                    /*   if (ii.isPickupRestricted(item.getItemId()) && storage.findById(item.getItemId()) != null) {
+                     c.getSession().write(CWvsContext.enableActions());
+                     return;
+                     }
+                     * 
+                     */
                     if (item.getItemId() == itemId && (item.getQuantity() >= quantity || GameConstants.isThrowingStar(itemId) || GameConstants.isBullet(itemId))) {
-                        if (ii.isDropRestricted(item.getItemId())) {
-                            if (ItemFlag.KARMA_EQ.check(flag)) {
-                                item.setFlag((short) (flag - ItemFlag.KARMA_EQ.getValue()));
-                            } else if (ItemFlag.KARMA_USE.check(flag)) {
-                                item.setFlag((short) (flag - ItemFlag.KARMA_USE.getValue()));
-                            } else if (ItemFlag.KARMA_ACC.check(flag)) {
-                                item.setFlag((short) (flag - ItemFlag.KARMA_ACC.getValue()));
-                            } else if (ItemFlag.KARMA_ACC_USE.check(flag)) {
-                                item.setFlag((short) (flag - ItemFlag.KARMA_ACC_USE.getValue()));
-                            } else {
-                                c.getSession().write(CWvsContext.enableActions());
-                                return;
-                            }
-                        }
+                        /*if (ii.isDropRestricted(item.getItemId())) {
+                         if (ItemFlag.KARMA_EQ.check(flag)) {
+                         item.setFlag((short) (flag - ItemFlag.KARMA_EQ.getValue()));
+                         } else if (ItemFlag.KARMA_USE.check(flag)) {
+                         item.setFlag((short) (flag - ItemFlag.KARMA_USE.getValue()));
+                         } else if (ItemFlag.KARMA_ACC.check(flag)) {
+                         item.setFlag((short) (flag - ItemFlag.KARMA_ACC.getValue()));
+                         } else if (ItemFlag.KARMA_ACC_USE.check(flag)) {
+                         item.setFlag((short) (flag - ItemFlag.KARMA_ACC_USE.getValue()));
+                         } else {
+                         c.getSession().write(CWvsContext.enableActions());
+                         return;
+                         }
+                        
+                         * 
+                         */
                         if (GameConstants.isThrowingStar(itemId) || GameConstants.isBullet(itemId)) {
                             quantity = item.getQuantity();
                         }
@@ -294,10 +307,9 @@ public class NPCHandler {
                         MapleInventoryManipulator.removeFromSlot(c, type, slot, quantity, false);
                         item.setQuantity(quantity);
                         storage.store(item);
-                        tools.FileoutputUtil.log("logs\\storage\\"+chr.getName()+".txt", "["+tools.FileoutputUtil.CurrentReadable_Time()+"] " + chr.getName() + " (CID: " + chr.getId() + ") Deposited ItemID " + item.getItemId() + " x"+ item.getQuantity());
+                        chr.saveToDB(false, false);
                     } else {
-                        //AutobanManager.getInstance().addPoints(c, 1000, 0, "Trying to store non-matching itemid (" + itemId + "/" + item.getItemId() + ") or quantity not in posession (" + quantity + "/" + item.getQuantity() + ")");
-                        tools.FileoutputUtil.log("logs\\storage\\"+chr.getName()+".txt", "["+tools.FileoutputUtil.CurrentReadable_Time()+"] "  + chr.getName() + " (CID: " + chr.getId() + ") WARNING! Trying to store non-matching itemid (" + itemId + "/" + item.getItemId() + ") or quantity not in posession (" + quantity + "/" + item.getQuantity() + ")");
+//                        AutobanManager.getInstance().addPoints(c, 1000, 0, "Trying to store non-matching itemid (" + itemId + "/" + item.getItemId() + ") or quantity not in posession (" + quantity + "/" + item.getQuantity() + ")");
                         return;
                     }
                 }
@@ -306,7 +318,6 @@ public class NPCHandler {
             }
             case 6: { //arrange
                 storage.arrange();
-                tools.FileoutputUtil.log("logs\\storage\\"+chr.getName()+".txt", "["+tools.FileoutputUtil.CurrentReadable_Time()+"] "  + chr.getName() + " (CID: " + chr.getId() + ")  Re-arranged Storage.");
                 storage.update(c);
                 break;
             }
@@ -329,18 +340,12 @@ public class NPCHandler {
                     }
                     storage.setMeso(storageMesos - meso);
                     chr.gainMeso(meso, false, false);
-                    //tools.FileoutputUtil.log("logs\\storage\\"+chr.getName()+".txt", "["+tools.FileoutputUtil.CurrentReadable_Time()+"] Withdrew "+ meso +" mesos.");
+                    chr.saveToDB(false, false);
                 } else {
-                    //AutobanManager.getInstance().addPoints(c, 1000, 0, "Trying to store or take out unavailable amount of mesos (" + meso + "/" + storage.getMeso() + "/" + c.getPlayer().getMeso() + ")");
-                    tools.FileoutputUtil.log("logs\\storage\\"+chr.getName()+".txt", "["+tools.FileoutputUtil.CurrentReadable_Time()+"] " + chr.getName() + " (CID: " + chr.getId() + ") Trying to store or take out unavailable amount of mesos (" + meso + "/" + storage.getMeso() + "/" + c.getPlayer().getMeso() + ")");
-                    
+//                    AutobanManager.getInstance().addPoints(c, 1000, 0, "Trying to store or take out unavailable amount of mesos (" + meso + "/" + storage.getMeso() + "/" + c.getPlayer().getMeso() + ")");
                     return;
                 }
                 storage.sendMeso(c);
-                if(meso > 0)
-                    tools.FileoutputUtil.log("logs\\storage\\"+chr.getName()+".txt", "["+tools.FileoutputUtil.CurrentReadable_Time()+"] "+ chr.getName() + " (CID: " + chr.getId() + ") " + Math.abs(meso) +" mesos were taken OUT of storage.");
-                else
-                    tools.FileoutputUtil.log("logs\\storage\\"+chr.getName()+".txt", "["+tools.FileoutputUtil.CurrentReadable_Time()+"] "+ chr.getName() + " (CID: " + chr.getId() + ") " + Math.abs(meso) +" mesos were put INTO storage.");
                 break;
             }
             case 8: {
@@ -354,15 +359,11 @@ public class NPCHandler {
         }
     }
 
-    public static final void NPCMoreTalk(final LittleEndianAccessor slea, final MapleClient c) {
+    public static void NPCMoreTalk(final LittleEndianAccessor slea, final MapleClient c) {
         final byte lastMsg = slea.readByte(); // 00 (last msg type I think)
         final byte action = slea.readByte(); // 00 = end chat, 01 == follow
 
-        //todo legend
-        if (((lastMsg == 0x12 && c.getPlayer().getDirection() >= 0) || (lastMsg == 0x13 && c.getPlayer().getDirection() == -1)) && action == 1 && GameConstants.GMS) {
-            MapScriptMethods.startDirectionInfo(c.getPlayer(), lastMsg == 0x13);
-            return;
-        }
+
 
         final NPCConversationManager cm = NPCScriptManager.getInstance().getCM(c);
 
@@ -408,7 +409,7 @@ public class NPCHandler {
         }
     }
 
-    public static final void repairAll(final MapleClient c) {
+    public static void repairAll(final MapleClient c) {
         if (c.getPlayer().getMapId() != 240000000) {
             return;
         }
@@ -417,7 +418,7 @@ public class NPCHandler {
         int price = 0;
         Map<String, Integer> eqStats;
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        final Map<Equip, Integer> eqs = new HashMap<Equip, Integer>();
+        final Map<Equip, Integer> eqs = new HashMap<>();
         final MapleInventoryType[] types = {MapleInventoryType.EQUIP, MapleInventoryType.EQUIPPED};
         for (MapleInventoryType type : types) {
             for (Item item : c.getPlayer().getInventory(type).newList()) {
@@ -446,7 +447,7 @@ public class NPCHandler {
         }
     }
 
-    public static final void repair(final LittleEndianAccessor slea, final MapleClient c) {
+    public static void repair(final LittleEndianAccessor slea, final MapleClient c) {
         if (c.getPlayer().getMapId() != 240000000 || slea.available() < 4) { //leafre for now
             return;
         }
@@ -475,21 +476,21 @@ public class NPCHandler {
         c.getPlayer().forceReAddItem(eq.copy(), type);
     }
 
-    public static final void UpdateQuest(final LittleEndianAccessor slea, final MapleClient c) {
+    public static void UpdateQuest(final LittleEndianAccessor slea, final MapleClient c) {
         final MapleQuest quest = MapleQuest.getInstance(slea.readShort());
         if (quest != null) {
             c.getPlayer().updateQuest(c.getPlayer().getQuest(quest), true);
         }
     }
 
-    public static final void UseItemQuest(final LittleEndianAccessor slea, final MapleClient c) {
+    public static void UseItemQuest(final LittleEndianAccessor slea, final MapleClient c) {
         final short slot = slea.readShort();
         final int itemId = slea.readInt();
         final Item item = c.getPlayer().getInventory(MapleInventoryType.ETC).getItem(slot);
         final int qid = slea.readInt();
         final MapleQuest quest = MapleQuest.getInstance(qid);
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        Pair<Integer, List<Integer>> questItemInfo = null;
+        Pair<Integer, List<Integer>> questItemInfo;
         boolean found = false;
         for (Item i : c.getPlayer().getInventory(MapleInventoryType.ETC)) {
             if (i.getItemId() / 10000 == 422) {
@@ -511,7 +512,7 @@ public class NPCHandler {
         }
     }
 
-    public static final void RPSGame(final LittleEndianAccessor slea, final MapleClient c) {
+    public static void RPSGame(final LittleEndianAccessor slea, final MapleClient c) {
         if (slea.available() == 0 || c.getPlayer() == null || c.getPlayer().getMap() == null || !c.getPlayer().getMap().containsNPC(9000019)) {
             if (c.getPlayer() != null && c.getPlayer().getRPS() != null) {
                 c.getPlayer().getRPS().dispose(c);
@@ -557,7 +558,7 @@ public class NPCHandler {
 
     }
 
-    public static final void OpenPublicNpc(final LittleEndianAccessor slea, final MapleClient c) {
+    public static void OpenPublicNpc(final LittleEndianAccessor slea, final MapleClient c) {
         final int npcid = slea.readInt();
         if (c.getPlayer().hasBlockedInventory() || c.getPlayer().isInBlockedMap() || c.getPlayer().getLevel() < 10) {
             return;

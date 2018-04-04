@@ -23,7 +23,6 @@ package server.events;
 
 import client.MapleCharacter;
 import constants.GameConstants;
-
 import handling.channel.ChannelServer;
 import handling.world.World;
 import server.MapleInventoryManipulator;
@@ -34,16 +33,19 @@ import server.maps.FieldLimitType;
 import server.maps.MapleMap;
 import server.maps.SavedLocationType;
 import tools.FileoutputUtil;
-import tools.packet.CField;
 import tools.StringUtil;
+import tools.packet.CField;
 import tools.packet.CWvsContext;
 
 public abstract class MapleEvent {
     protected MapleEventType type;
-    protected int channel, playerCount = 0;
+    static int worldSt;
+    protected int world, channel, playerCount = 0;
     protected boolean isRunning = false;
 
-    public MapleEvent(final int channel, final MapleEventType type) {
+    public MapleEvent(final int world, final int channel, final MapleEventType type) {
+        this.world = world;
+        worldSt = world;
         this.channel = channel;
         this.type = type;
     }
@@ -51,7 +53,7 @@ public abstract class MapleEvent {
     public void incrementPlayerCount() {
 	playerCount++;
 	if (playerCount == 250) {
-	    setEvent(ChannelServer.getInstance(channel), true);
+	    setEvent(ChannelServer.getInstance(world, channel), true);
 	}
     }
 
@@ -68,7 +70,7 @@ public abstract class MapleEvent {
     }
 
     public ChannelServer getChannelServer() {
-        return ChannelServer.getInstance(channel);
+        return ChannelServer.getInstance(world, channel);
     }
 
     public void broadcast(final byte[] packet) {
@@ -155,18 +157,19 @@ public abstract class MapleEvent {
 	playerCount = 0;
     }
 
-    public static final void setEvent(final ChannelServer cserv, final boolean auto) {
+    public static void setEvent(final ChannelServer cserv, final boolean auto) {
         if (auto && cserv.getEvent() > -1) {
             for (MapleEventType t : MapleEventType.values()) {
                 final MapleEvent e = cserv.getEvent(t);
                 if (e.isRunning) {
                     for (int i : e.type.mapids) {
                         if (cserv.getEvent() == i) {
-			    World.Broadcast.broadcastMessage(CWvsContext.serverNotice(0, "Entries for the event are now closed!"));
+			    World.Broadcast.broadcastMessage(worldSt, CWvsContext.serverNotice(0, "Entries for the event are now closed!"));
                             e.broadcast(CWvsContext.serverNotice(0, "The event will start in 30 seconds!"));
                             e.broadcast(CField.getClock(30));
                             EventTimer.getInstance().schedule(new Runnable() {
 
+                                @Override
                                 public void run() {
                                     e.startEvent();
                                 }
@@ -180,33 +183,29 @@ public abstract class MapleEvent {
         cserv.setEvent(-1);
     }
 
-    public static final void mapLoad(final MapleCharacter chr, final int channel) {
+    public static void mapLoad(final MapleCharacter chr, final int channel) {
 	if (chr == null) {
 	    return;
 	} //o_o
         for (MapleEventType t : MapleEventType.values()) {
-            final MapleEvent e = ChannelServer.getInstance(channel).getEvent(t);
-            if ( e != null){
-                if (e.isRunning) {
-                    if (chr.getMapId() == 109050000) { //finished map
-                        e.finished(chr);
-                    }
-                    for (int i = 0; i < e.type.mapids.length; i++) {
-                        if (chr.getMapId() == e.type.mapids[i]) {
-                            e.onMapLoad(chr);
-                            if (i == 0) { //first map
-                                e.incrementPlayerCount();
-                            }
-                        }
+            final MapleEvent e = ChannelServer.getInstance(1, channel).getEvent(t);
+            if (e.isRunning) {
+                if (chr.getMapId() == 109050000) { //finished map
+                    e.finished(chr);
+                }
+                for (int i = 0; i < e.type.mapids.length; i++) {
+                    if (chr.getMapId() == e.type.mapids[i]) {
+                        e.onMapLoad(chr);
+			if (i == 0) { //first map
+			    e.incrementPlayerCount();
+			}
                     }
                 }
-            } else {
-                System.out.println("mapLoad getEvent returned null on MapleEventType : " + t.name());
             }
         }
     }
 
-    public static final void onStartEvent(final MapleCharacter chr) {
+    public static void onStartEvent(final MapleCharacter chr) {
         for (MapleEventType t : MapleEventType.values()) {
             final MapleEvent e = chr.getClient().getChannelServer().getEvent(t);
             if (e.isRunning) {
@@ -220,22 +219,8 @@ public abstract class MapleEvent {
             }
         }
     }
-    
-    public static final void finishEvent(final MapleCharacter chr) {
-        for (MapleEventType t : MapleEventType.values()) {
-            final MapleEvent e = chr.getClient().getChannelServer().getEvent(t);
-            if (e.isRunning) {
-                for (int i : e.type.mapids) {
-                    if (chr.getMapId() == i) {
-                        e.unreset();
-                        chr.dropMessage(5, String.valueOf(t) + " has ended.");
-                    }
-                }
-            }
-        }
-    }
 
-    public static final String scheduleEvent(final MapleEventType event, final ChannelServer cserv) {
+    public static String scheduleEvent(final MapleEventType event, final ChannelServer cserv) {
         if (cserv.getEvent() != -1 || cserv.getEvent(event) == null) {
             return "The event must not have been already scheduled.";
         }
@@ -246,18 +231,7 @@ public abstract class MapleEvent {
         }
         cserv.setEvent(cserv.getEvent(event).type.mapids[0]);
         cserv.getEvent(event).reset();
-        World.Broadcast.broadcastMessage(CWvsContext.serverNotice(0, "Hello " + cserv.getServerName() + "! Let's play a " + StringUtil.makeEnumHumanReadable(event.name()) + " event in channel " + cserv.getChannel() + "! Change to channel " + cserv.getChannel() + " and use @event command!"));
-        return "";
-    }
-    
-    public static final String cancelEvent(final MapleEventType event, final ChannelServer cserv) {
-        if (cserv.getEvent() != -1 || cserv.getEvent(event) == null) {
-            cserv.setEvent(-1);
-            cserv.getEvent(event).unreset();
-            World.Broadcast.broadcastMessage(CWvsContext.serverNotice(0, "Hello " + cserv.getServerName() + "! The " + StringUtil.makeEnumHumanReadable(event.name()) + " event in channel " + cserv.getChannel() + " has been cancelled. Sorry for the inconvenience."));
-        } else {
-            return "The event is not scheduled";
-        }
+        World.Broadcast.broadcastMessage(worldSt, CWvsContext.serverNotice(0, "Hey guys! Let's play a " + StringUtil.makeEnumHumanReadable(event.name()) + " event in channel " + cserv.getChannel() + "! Change to channel " + cserv.getChannel() + " and use @event command!"));
         return "";
     }
 }

@@ -31,26 +31,33 @@ import server.StructItemOption;
 public class Equip extends Item implements Serializable {
 
     public static enum ScrollResult {
-
         SUCCESS, FAIL, CURSE
     }
-    public static final int ARMOR_RATIO = 1;
-    public static final int WEAPON_RATIO = 1;
+    public static final int ARMOR_RATIO = 350000;
+    public static final int WEAPON_RATIO = 700000;
     //charm: -1 = has not been initialized yet, 0 = already been worn, >0 = has teh charm exp
-    private byte upgradeSlots = 0, level = 0, vicioushammer = 0, enhance = 0, cashCover = 0;
+    private byte upgradeSlots = 0, level = 0, vicioushammer = 0, enhance = 0;
     private short str = 0, dex = 0, _int = 0, luk = 0, hp = 0, mp = 0, watk = 0, matk = 0, wdef = 0, mdef = 0, acc = 0, avoid = 0, hands = 0, speed = 0, jump = 0, charmExp = 0, pvpDamage = 0;
     private int itemEXP = 0, durability = -1, incSkill = -1, potential1 = 0, potential2 = 0, potential3 = 0, potential4 = 0, potential5 = 0, socket1 = -1, socket2 = -1, socket3 = -1;
     private MapleRing ring = null;
     private MapleAndroid android = null;
+    // EUS (Eric's doing something? Whoa!)
+    private int equipLevel, equipExp, equipMSIUpgrades;
 
     public Equip(int id, short position, byte flag) {
         super(id, position, (short) 1, flag);
+        this.equipLevel = 1;
+        this.equipExp = 0;
+        this.equipMSIUpgrades = 0;
     }
 
     public Equip(int id, short position, int uniqueid, short flag) {
         super(id, position, (short) 1, flag, uniqueid);
+        this.equipLevel = 1;
+        this.equipExp = 0;
+        this.equipMSIUpgrades = 0;
     }
-
+    
     @Override
     public Item copy() {
         Equip ret = new Equip(getItemId(), getPosition(), getUniqueId(), getFlag());
@@ -85,11 +92,14 @@ public class Equip extends Item implements Serializable {
         ret.socket3 = socket3;
         ret.charmExp = charmExp;
         ret.pvpDamage = pvpDamage;
-        ret.cashCover = cashCover;
         ret.incSkill = incSkill;
+        ret.equipLevel = equipLevel;
+        ret.equipExp = equipExp;
+        ret.equipMSIUpgrades = equipMSIUpgrades;
         ret.setGiftFrom(getGiftFrom());
         ret.setOwner(getOwner());
         ret.setQuantity(getQuantity());
+        // ret.setExpiration(2475606994921L);
         ret.setExpiration(getExpiration());
         return ret;
     }
@@ -125,6 +135,87 @@ public class Equip extends Item implements Serializable {
 
     public short getMp() {
         return mp;
+    }
+    
+    public void makeMSI(String owner) {
+        this.setOwner(owner);
+        this.level = 20;
+        this.str = 32767;
+        this.dex = 32767;
+        this._int = 32767;
+        this.luk = 32767;
+        this.watk = 32767;
+        this.matk = 32767;
+        this.wdef = 32767;
+        this.mdef = 32767;
+        this.speed = 32767;
+        this.jump = 32767;
+        this.acc = 32767;
+        this.avoid = 32767;
+        this.hp = 32767;
+        this.mp = 32767;
+        this.potential1 = 60001;
+        this.potential2 = 60001;
+        this.potential3 = 60001;
+        this.potential4 = 60001;
+        this.potential5 = 60001;
+        this.socket1 = 3064221;
+        this.socket2 = 3064221;
+        this.socket3 = 3064221;
+        this.pvpDamage = 32767;
+        this.enhance = 20; // maximum of 127(byte), but the highest enhancement should be 15.
+    }
+    
+    public void makeProItem(String owner, short stat, boolean potential) {
+        this.setOwner(owner);
+        this.level = 20;
+        this.str = stat;
+        this.dex = stat;
+        this._int = stat;
+        this.luk = stat;
+        this.watk = stat;
+        this.matk = stat;
+        this.wdef = stat;
+        this.mdef = stat;
+        this.speed = stat;
+        this.jump = stat;
+        this.acc = stat;
+        this.avoid = stat;
+        this.hp = stat;
+        this.mp = stat;
+            if (potential) {
+                this.potential1 = 60001;
+                this.potential2 = 60001;
+                this.potential3 = 60001;
+                this.potential4 = 60001;
+                this.potential5 = 60001;
+        }
+    }
+    
+    public void makeProItem(String owner, short str, short dex, short _int, short luk, short watk, short matk_, short wdef, short mdef_, short speed, short jump, short acc, short avoid, short hp, short mp, boolean potential) {
+        this.setOwner(owner);
+        this.level = 20;
+        this.str = str;
+        this.dex = dex;
+        this._int = _int;
+        this.luk = luk;
+        this.watk = watk;
+        this.matk = matk_;
+        this.wdef = wdef;
+        this.mdef = mdef_;
+        this.speed = speed;
+        this.jump = jump;
+        this.acc = acc;
+        this.avoid = avoid;
+        this.hp = hp;
+        this.mp = mp;
+            if (potential) {
+        this.potential1 = 60001;
+        this.potential2 = 60001;
+        this.potential3 = 60001;
+        this.potential4 = 60001;
+        this.potential5 = 60001;
+        }
     }
 
     public short getWatk() {
@@ -280,14 +371,6 @@ public class Equip extends Item implements Serializable {
         this.level = level;
     }
 
-    public byte getCashCover() {
-        return cashCover;
-    }
-    
-    public void setCashCover(byte cover){
-        cashCover = cover;
-    }
-    
     public byte getViciousHammer() {
         return vicioushammer;
     }
@@ -335,11 +418,6 @@ public class Equip extends Item implements Serializable {
     }
 
     public int getExpPercentage() {
-//        System.out.println(getEquipLevel());
-//        System.out.println(getBaseLevel());
-//        System.out.println(GameConstants.getMaxLevel(getItemId()));
-//        System.out.println(GameConstants.getExpForLevel(getEquipLevel(), getItemId()));
-//        System.out.println(getEquipExpForLevel());
         if (getEquipLevel() < getBaseLevel() || getEquipLevel() > GameConstants.getMaxLevel(getItemId()) || GameConstants.getExpForLevel(getEquipLevel(), getItemId()) <= 0) {
             return 0;
         }
@@ -391,23 +469,6 @@ public class Equip extends Item implements Serializable {
 
     public void setEnhance(final byte en) {
         this.enhance = en;
-    }
-    
-    public int getPotential(byte line){
-        if(line == 1) { return potential1; }
-        if(line == 2) { return potential2; }
-        if(line == 3) { return potential3; }
-        if(line == 4) { return potential4; }
-        if(line == 5) { return potential5; }
-        return -1;
-    }
-    
-    public void setPotential(byte line, int potID){
-        if(line == 1) { this.potential1 = potID; }
-        if(line == 2) { this.potential2 = potID; }
-        if(line == 3) { this.potential3 = potID; }
-        if(line == 4) { this.potential4 = potID; }
-        if(line == 5) { this.potential5 = potID; }
     }
 
     public int getPotential1() {
@@ -530,7 +591,6 @@ public class Equip extends Item implements Serializable {
         setPotential5(0); //just set it theoretically
     }
 
-
     public int getIncSkill() {
         return incSkill;
     }
@@ -568,6 +628,139 @@ public class Equip extends Item implements Serializable {
     public void setRing(MapleRing ring) {
         this.ring = ring;
     }
+
+    public MapleAndroid getAndroid() {
+        if (getItemId() / 10000 != 166 || getUniqueId() <= 0) {
+            return null;
+        }
+        if (android == null) {
+            android = MapleAndroid.loadFromDb(getItemId(), getUniqueId());
+        }
+        return android;
+    }
+
+    public void setAndroid(MapleAndroid ring) {
+        this.android = ring;
+    }
+
+    public short getSocketState() {
+        int flag = 0;
+        if (socket1 != -1 || socket2 != -1 || socket3 != -1) { // Got empty sockets show msg 
+            flag |= SocketFlag.DEFAULT.getValue();
+        }
+        if (socket1 != -1) {
+            flag |= SocketFlag.SOCKET_BOX_1.getValue();
+        }
+        if (socket1 > 0) {
+            flag |= SocketFlag.USED_SOCKET_1.getValue();
+        }
+        if (socket2 != -1) {
+            flag |= SocketFlag.SOCKET_BOX_2.getValue();
+        }
+        if (socket2 > 0) {
+            flag |= SocketFlag.USED_SOCKET_2.getValue();
+        }
+        if (socket3 != -1) {
+            flag |= SocketFlag.SOCKET_BOX_3.getValue();
+        }
+        if (socket3 > 0) {
+            flag |= SocketFlag.USED_SOCKET_3.getValue();
+        }
+        return (short) flag;
+    }
+
+    public int getSocket1() {
+        return socket1;
+    }
+
+    public void setSocket1(int socket1) {
+        this.socket1 = socket1;
+    }
+
+    public int getSocket2() {
+        return socket2;
+    }
+
+    public void setSocket2(int socket2) {
+        this.socket2 = socket2;
+    }
+
+    public int getSocket3() {
+        return socket3;
+    }
+
+    public void setSocket3(int socket3) {
+        this.socket3 = socket3;
+    }
+    
+    // Equipment Upgrade System
+    public int getEquipmentLevel() {
+        return equipLevel;
+    }
+    
+    public void setEquipLevel(int level) {
+        equipLevel = level;
+    }
+    
+    public void levelUpEquip() { // won't need this for Exp because yeah.. logic lol
+        equipLevel += 1;
+    }
+    
+    public void addEquipLevel(int level) {
+        equipLevel += level;
+    }
+    
+    public int getEquipmentExp() {
+        return equipExp;
+    }
+    
+    public void setEquipExp(int exp) {
+        equipExp = exp;
+    }
+    
+    public void gainEquipExp(int exp) {
+        if (getEquipmentLevel() == 10) { // we don't want people to level up.. period after this.
+            return;
+        }
+        if (equipExp + exp >= getEquipExpNeeded(getEquipmentLevel())) {
+            levelUpEquip();
+            equipExp = (getEquipmentLevel() == 10 ? 1 : 0); // we'll make it 1/1 after reaching 10.
+            return;
+        }
+        equipExp += exp;
+    }
+    
+    public int getEquipExpNeeded(int level) { // TODO: Calculations.
+          switch(level) {
+              case 1: // Level 1
+              case 2: // Level 2
+              case 3: // Level 3
+              case 4: // Level 4
+              case 5: // Level 5
+              case 6: // Level 6
+              case 7: // Level 7
+              case 8: // Level 8
+              case 9: // Level 9
+                  return 10;
+              case 10: // Level 10 (Max Level)
+                  return 1; // when they're maxed, the exp system will read 1/1
+              default:
+                  return 999;
+          }
+    }
+    
+    public int getEquipMSIUpgrades() {
+        return equipMSIUpgrades;
+    }
+    
+    public void setEquipMSIUpgrades(int upgrades) {
+        equipMSIUpgrades = upgrades;
+    }
+    
+    public void addEquipMSIUpgrade() {
+        equipMSIUpgrades += 1;
+    }
+    
     //Doesn't change rank or lines, just reset existing ones.
     public void shufflePotential(){
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
@@ -626,116 +819,5 @@ public class Equip extends Item implements Serializable {
                 rewarded = true;
             }
         }
-    }
-    /*public int getPotential(int line){
-        switch(line){
-            case 1:
-                return potential1;
-            case 2:
-                return potential2;
-            case 3:
-                return potential3;
-            case 4:
-                return potential4;
-            case 5:
-                return potential5;
-        }
-        return 0; //um?
-    }*/
-    
-    /*public void setPotential(int line, int en){
-        switch(line){
-            case 1:
-                this.potential1 = en;
-                break;
-            case 2:
-                this.potential2 = en;
-                break;
-            case 3:
-                this.potential3 = en;
-                break;
-            case 4:
-                this.potential4 = en;
-                break;
-            case 5:
-                this.potential5 = en;
-                break;
-        }
-    }*/
-    public MapleAndroid getAndroid() {
-        if (getItemId() / 10000 != 166 || getUniqueId() <= 0) {
-            return null;
-        }
-        if (android == null) {
-            android = MapleAndroid.loadFromDb(getItemId(), getUniqueId());
-        }
-        return android;
-    }
-
-    public void setAndroid(MapleAndroid ring) {
-        this.android = ring;
-    }
-
-    public short getSocketState() {
-        int flag = 0;
-        if (socket1 != -1 || socket2 != -1 || socket3 != -1) { // Got empty sockets show msg 
-            flag |= SocketFlag.DEFAULT.getValue();
-        }
-        if (socket1 != -1) {
-            flag |= SocketFlag.SOCKET_BOX_1.getValue();
-        }
-        if (socket1 > 0) {
-            flag |= SocketFlag.USED_SOCKET_1.getValue();
-        }
-        if (socket2 != -1) {
-            flag |= SocketFlag.SOCKET_BOX_2.getValue();
-        }
-        if (socket2 > 0) {
-            flag |= SocketFlag.USED_SOCKET_2.getValue();
-        }
-        if (socket3 != -1) {
-            flag |= SocketFlag.SOCKET_BOX_3.getValue();
-        }
-        if (socket3 > 0) {
-            flag |= SocketFlag.USED_SOCKET_3.getValue();
-        }
-        return (short) flag;
-    }
-    
-    public int getSocket(byte socket){
-        if(socket == 1) { return this.socket1; }
-        if(socket == 2) { return this.socket2; }
-        if(socket == 3) { return this.socket3; }
-        return -1;
-    }
-    
-    public void setSocket(byte socket, int potID){
-        if(socket == 1) { this.socket1 = potID; }
-        if(socket == 2) { this.socket2 = potID; }
-        if(socket == 3) { this.socket3 = potID; }
-    }
-    
-    public int getSocket1() {
-        return socket1;
-    }
-
-    public void setSocket1(int socket1) {
-        this.socket1 = socket1;
-    }
-
-    public int getSocket2() {
-        return socket2;
-    }
-
-    public void setSocket2(int socket2) {
-        this.socket2 = socket2;
-    }
-
-    public int getSocket3() {
-        return socket3;
-    }
-
-    public void setSocket3(int socket3) {
-        this.socket3 = socket3;
     }
 }

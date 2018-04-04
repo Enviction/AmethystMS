@@ -20,47 +20,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package handling.login;
 
-import constants.GameConstants;
+import constants.ServerConstants;
+import constants.WorldConstants;
+import handling.MapleServerHandler;
+import handling.channel.ChannelServer;
+import handling.mina.MapleCodecFactory;
+import handling.world.World;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-
-import handling.MapleServerHandler;
-import handling.mina.CodecFactory;
-import handling.mina.MapleCodecFactory;
 import java.util.HashSet;
-import org.apache.mina.common.ByteBuffer;
-import org.apache.mina.common.SimpleByteBufferAllocator;
-import org.apache.mina.common.IoAcceptor;
-
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import org.apache.mina.core.buffer.IoBuffer;
+import org.apache.mina.core.buffer.SimpleBufferAllocator;
+import org.apache.mina.core.filterchain.IoFilter;
+import org.apache.mina.core.service.IoAcceptor;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
-import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
-import org.apache.mina.transport.socket.nio.SocketAcceptor;
-import server.ServerProperties;
-import tools.Triple;
+import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
+import tools.Pair;
+import tools.packet.LoginPacket.Server;
 
 public class LoginServer {
 
     public static final int PORT = 8484;
-    public static final int PORT2 = 8900;
-    private static InetSocketAddress InetSocketadd;
-    private static IoAcceptor acceptor;
-    private static Map<Integer, Integer> load = new HashMap<Integer, Integer>();
-    private static String serverName, eventMessage;
-    private static byte flag;
-    private static int maxCharacters, userLimit, usersOn = 0;
-    private static boolean finishedShutdown = true, adminOnly = false;
     
-    private static HashMap<Integer, Triple<String, String, Integer>> loginAuth = new HashMap<Integer, Triple<String, String, Integer>>();
-    private static HashSet<String> loginIPAuth = new HashSet<String>();
+    private static List<World> worlds = new ArrayList<>();
+    private static List<Map<Integer, String>> channels = new LinkedList<>();
+    private static LoginServer instance = null;
+    
+    private static IoAcceptor acceptor;
+    private static Map<Integer, Integer> load = new HashMap<>();
+    private static int maxCharacters, usersOn = 0;
+    private static boolean finishedShutdown = true, adminOnly = false;
+    private static HashMap<Integer, Pair<String, String>> loginAuth = new HashMap<>();
+    private static HashSet<String> loginIPAuth = new HashSet<>();
 
-     public static void putLoginAuth(int chrid, String ip, String tempIP, int channel) {
-        loginAuth.put(chrid, new Triple<String, String, Integer>(ip, tempIP, channel));
+    public static LoginServer getInstance() {
+        if (instance == null) {
+            instance = new LoginServer();
+        }
+        return instance;
+    }
+    
+    public static void putLoginAuth(int chrid, String ip, String tempIP) {
+        loginAuth.put(chrid, new Pair<>(ip, tempIP));
         loginIPAuth.add(ip);
     }
 
-    public static Triple<String, String, Integer> getLoginAuth(int chrid) {
+    public static Pair<String, String> getLoginAuth(int chrid) {
         return loginAuth.remove(chrid);
     }
 
@@ -76,83 +87,125 @@ public class LoginServer {
         loginIPAuth.add(ip);
     }
 
-    public static final void addChannel(final int channel) {
+    public static void addChannel(final int channel) {
         load.put(channel, 0);
     }
 
-    public static final void removeChannel(final int channel) {
-        load.remove(channel);
+    public void removeChannel(int worldid, final int channel) {
+        channels.remove(channel);
+
+        World world = worlds.get(worldid);
+        if (world != null) {
+            world.removeChannel(channel);
+        }
+    }
+    
+    public ChannelServer getChannel(int world, int channel) {
+        return worlds.get(world).getChannel(channel);
     }
 
-    public static final void run_startup_configurations() {
-        userLimit = Integer.parseInt(ServerProperties.getProperty("net.sf.odinms.login.userlimit"));
-        serverName = ServerProperties.getProperty("net.sf.odinms.login.serverName");
-        eventMessage = ServerProperties.getProperty("net.sf.odinms.login.eventMessage");
-        flag = Byte.parseByte(ServerProperties.getProperty("net.sf.odinms.login.flag"));
-        adminOnly = Boolean.parseBoolean(ServerProperties.getProperty("net.sf.odinms.world.admin", "false"));
-        maxCharacters = Integer.parseInt(ServerProperties.getProperty("net.sf.odinms.login.maxCharacters"));
+    public List<ChannelServer> getChannelsFromWorld(int world) {
+        return worlds.get(world).getChannels();
+    }
 
-        ByteBuffer.setUseDirectBuffers(false);
-        ByteBuffer.setAllocator(new SimpleByteBufferAllocator());
+    public List<ChannelServer> getAllChannels() {
+        List<ChannelServer> channelz = new ArrayList<>();
+        for (World world : worlds) {
+            for (ChannelServer ch : world.getChannels()) {
+                channelz.add(ch);
+            }
+        }
+        return channelz;
+    }
+    
+    public String getIP(int world, int channel) {
+        return channels.get(world).get(channel);
+    }
 
-        acceptor = new SocketAcceptor();
-        final SocketAcceptorConfig cfg = new SocketAcceptorConfig();
-        cfg.getSessionConfig().setTcpNoDelay(true);
-        cfg.setDisconnectOnUnbind(true);
-        cfg.getFilterChain().addLast("codec", new ProtocolCodecFilter(new MapleCodecFactory()));
+    public static void run_startup_configurations() {
+        adminOnly = ServerConstants.Admin_Only;
 
-        final SocketAcceptorConfig cfg2 = new SocketAcceptorConfig();
-        cfg2.getSessionConfig().setTcpNoDelay(true);
-        cfg2.setDisconnectOnUnbind(true);
-        cfg2.getFilterChain().addLast("codec", new ProtocolCodecFilter(new CodecFactory()));
-
+        IoBuffer.setUseDirectBuffer(false);
+        IoBuffer.setAllocator(new SimpleBufferAllocator());
+        acceptor = new NioSocketAcceptor();
+        acceptor.getFilterChain().addLast("codec", (IoFilter) new ProtocolCodecFilter(new MapleCodecFactory()));
+        acceptor.setHandler(new MapleServerHandler());
+        
+        byte[] flagg = new byte[17];
+        int[] expp = new int[17];
+        int[] mesoo = new int[17];
+        int[] dropp = new int[17];
+        int userLimit = WorldConstants.UserLimit;
+        maxCharacters = WorldConstants.maxCharacters; // replace this with below
+        int maxCharacterss = WorldConstants.maxCharacters; // todo
+        String[] eventMessagee = new String[17];
+        for (Pair<Integer, Byte> flags : WorldConstants.flag) {
+            flagg[flags.left] = flags.right;
+        }
+        for (Pair<Integer, Integer> loadexp : WorldConstants.expRates) {
+            expp[loadexp.left] = loadexp.right;
+        }
+        for (Pair<Integer, Integer> loadmeso : WorldConstants.mesoRates) {
+            mesoo[loadmeso.left] = loadmeso.right;
+        }
+        for (Pair<Integer, Integer> loaddrop : WorldConstants.dropRates) {
+            dropp[loaddrop.left] = loaddrop.right;
+        }
+        for (Pair<Integer, String> eventmsg : WorldConstants.eventMessages) {
+            eventMessagee[eventmsg.left] = eventmsg.right;
+        }
+        for (int i = 0; i < WorldConstants.Worlds; i++) {
+            World world = new World(i, flagg[i], eventMessagee[i], expp[i], mesoo[i], dropp[i]);
+            worlds.add(world);
+            channels.add(new LinkedHashMap<Integer, String>());
+            for (int z = 0; z < WorldConstants.Channels; z++) {
+                int channelid = z + 1;
+                ChannelServer channel = ChannelServer.newInstance(i, channelid);
+                world.addChannel(channel);
+                world.setUserLimit(userLimit);
+                channel.init(); // initialize
+                channels.get(i).put(channelid, channel.getIP());
+            }
+            System.out.println("    " + Server.getById(world.getWorldId()).toString() + " is online:");
+            System.out.println("        Channels: " + LoginServer.getInstance().getWorld(world.getWorldId()).getChannels().size());
+            System.out.println("        EXP: " + LoginServer.getInstance().getWorld(world.getWorldId()).getExpRate());
+            System.out.println("        MESO: " + LoginServer.getInstance().getWorld(world.getWorldId()).getMesoRate());
+            System.out.println("        DROP: " + LoginServer.getInstance().getWorld(world.getWorldId()).getDropRate());
+        }
         try {
-            InetSocketadd = new InetSocketAddress(PORT);
-            acceptor.bind(InetSocketadd, new MapleServerHandler(), cfg);
-            System.out.println("Listening on port " + PORT + ".");
-            
-            //InetSocketadd = new InetSocketAddress(PORT2);
-            //acceptor.bind(InetSocketadd, new AntiClientHandler(), cfg);
-            //System.out.println("AuthServer listening on port " + PORT2 + ".");
-            
-            //InetSocketadd = new InetSocketAddress(UnstuckHandler.portToBind);
-            //acceptor.bind(InetSocketadd, new UnstuckHandler(), cfg2);
-            //System.out.println("UnstuckServer listening on port " + UnstuckHandler.portToBind + ".");
+            acceptor.bind(new InetSocketAddress(PORT));
         } catch (IOException e) {
             System.err.println("Binding to port " + PORT + " failed" + e);
         }
     }
+    
+    public World getWorld(int id) {
+        return worlds.get(id);
+    }
+    
+    public static World getWorldStatic(int id) {
+        return worlds.get(id);
+    }
+    
+    public static List<World> getWorlds() {
+        return worlds;
+    }
 
-    public static final void shutdown() {
+    public static void shutdown() {
         if (finishedShutdown) {
             return;
         }
         System.out.println("Shutting down login...");
-        acceptor.unbindAll();
+        acceptor.unbind();
         finishedShutdown = true; //nothing. lol
     }
 
-    public static final String getServerName() {
-        return serverName;
-    }
-
-    public static final String getTrueServerName() {
-        return serverName;//.substring(0, serverName.length() - (GameConstants.GMS ? 2 : 3));
-    }
-
-    public static final String getEventMessage() {
-        return eventMessage;
-    }
-
-    public static final byte getFlag() {
-        return flag;
-    }
-
-    public static final int getMaxCharacters() {
+    public static int getMaxCharacters() {
         return maxCharacters;
     }
 
-    public static final Map<Integer, Integer> getLoad() {
+    // TODO: remove most/all of this below
+    public static Map<Integer, Integer> getLoad() {
         return load;
     }
 
@@ -161,39 +214,23 @@ public class LoginServer {
         usersOn = usersOn_;
     }
 
-    public static final void setEventMessage(final String newMessage) {
-        eventMessage = newMessage;
-    }
-
-    public static final void setFlag(final byte newflag) {
-        flag = newflag;
-    }
-
-    public static final int getUserLimit() {
-        return userLimit;
-    }
-
-    public static final int getUsersOn() {
+    public static int getUsersOn() {
         return usersOn;
     }
 
-    public static final void setUserLimit(final int newLimit) {
-        userLimit = newLimit;
+    public static int getNumberOfSessions() {
+        return acceptor.getManagedSessions().size();
     }
 
-    public static final int getNumberOfSessions() {
-        return acceptor.getManagedSessions(InetSocketadd).size();
-    }
-
-    public static final boolean isAdminOnly() {
+    public static boolean isAdminOnly() {
         return adminOnly;
     }
 
-    public static final boolean isShutdown() {
+    public static boolean isShutdown() {
         return finishedShutdown;
     }
 
-    public static final void setOn() {
+    public static void setOn() {
         finishedShutdown = false;
     }
 }

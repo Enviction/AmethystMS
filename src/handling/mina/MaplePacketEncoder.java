@@ -26,9 +26,10 @@ import tools.MapleAESOFB;
 import tools.MapleCustomEncryption;
 
 import java.util.concurrent.locks.Lock;
+import org.apache.mina.core.buffer.IoBuffer;
+import org.apache.mina.core.session.IoSession;
 
-import org.apache.mina.common.ByteBuffer;
-import org.apache.mina.common.IoSession;
+
 import org.apache.mina.filter.codec.ProtocolEncoder;
 import org.apache.mina.filter.codec.ProtocolEncoderOutput;
 
@@ -57,9 +58,9 @@ public class MaplePacketEncoder implements ProtocolEncoder {
 		mutex.unlock();
 	    }
 	    System.arraycopy(unencrypted, 0, ret, 4, unencrypted.length); // Copy the unencrypted > "ret"
-	    out.write(ByteBuffer.wrap(ret));
+	    out.write(IoBuffer.wrap(ret));
 	} else { // no client object created yet, send unencrypted (hello)
-	    out.write(ByteBuffer.wrap(((byte[]) message)));
+	    out.write(IoBuffer.wrap(((byte[]) message)));
 	}
     }
 

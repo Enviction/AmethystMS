@@ -1,3 +1,10 @@
+/**
+ * @revisor: Eric
+ * @function: Cygnus Expedition Map Instancing
+ * @notes: Fixed map reloading, fixed spawning, fixed instancing
+ *
+*/
+
 function init() {
 	em.setProperty("leader", "true");
     em.setProperty("state", "0");

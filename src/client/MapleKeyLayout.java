@@ -20,18 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package client;
 
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.HashMap;
+import database.DatabaseConnection;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.io.Serializable;
-
-import tools.data.MaplePacketLittleEndianWriter;
-
-import database.DatabaseConnection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import tools.Pair;
+import tools.data.MaplePacketLittleEndianWriter;
 
 public class MapleKeyLayout implements Serializable {
 
@@ -40,7 +38,7 @@ public class MapleKeyLayout implements Serializable {
     private Map<Integer, Pair<Byte, Integer>> keymap;
 
     public MapleKeyLayout() {
-        keymap = new HashMap<Integer, Pair<Byte, Integer>>();
+        keymap = new HashMap<>();
     }
 
     public MapleKeyLayout(Map<Integer, Pair<Byte, Integer>> keys) {

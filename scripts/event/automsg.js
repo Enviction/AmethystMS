@@ -1,25 +1,11 @@
-/*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/**
+ * @author: Eric
+ * @rev: 1.1 - Lithium Support for Maple Ascension
+ * @desc: Auto-Tip for v1.17.2
 */
+
 var setupTask;
+var serverName = "AmethystMS"
 
 function init() {
     scheduleNew();
@@ -32,7 +18,7 @@ function scheduleNew() {
     cal.set(java.util.Calendar.SECOND, 0);
     var nextTime = cal.getTimeInMillis();
     while (nextTime <= java.lang.System.currentTimeMillis())
-        nextTime += 300 * 1000;
+        nextTime += 900 * 1000; //420 * 1000 = 7minutes
     setupTask = em.scheduleAtTimestamp("start", nextTime);
 }
 
@@ -42,6 +28,6 @@ function cancelSchedule() {
 
 function start() {
     scheduleNew();
-    var Message = new Array("Please refrain from using foul language in this game.", "Verbal and other forms of abuse will NOT be tolerated. Abusers will be blocked from the game.");
-    em.getChannelServer().yellowWorldMessage("[MapleTip] " + Message[Math.floor(Math.random() * Message.length)]);
+    var Message = new Array("Welcome to " + serverName + ", we hope you enjoy your stay!", "Did you know our rates are 8x EXP 5x MESO 2x DROP?", "Did you know that " + serverName + " supports Windows 8, 8.1 and 10? Well, we do!", "Are you l33t? Speak 1337? Try using the command @leet!", "To view the list of commands, type @commands!", "Fight your friends in " + serverName + "'s very own Player vs. Player! Type @pvp", "Voting for us every 6 hours guarantee's you some currency and NX!", "Don't use any .WZ edits other than the ones we provide you with.", "Don't forget to use @save to avoid rollback because we can't provoke it!", "Do not use any Hacking Program, or else!", "Packet Editors get pwnt, don't even try.", "Using a custom client will result in a ban, use ours.", "Our client currently has support of: UFJ, Tubi, No Breath, No Damage Cap, and Droppable NX!", "Donations are acceptable via Paypal and Donors will receive special prizes in-game!");
+    em.getChannelServer().yellowWorldMessage("[" + serverName + "] " + Message[Math.floor(Math.random() * Message.length)]);
 }

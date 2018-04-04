@@ -7,7 +7,7 @@ var cx = Array(200, -300, -300, -300, 200, 200, 200, -300, -300, 200, 200, -300,
 var cy = Array(-2321, -2114, -2910, -2510, -1526, -2716, -717, -1310, -3357, -1912, -1122, -1736, -915, -3116);
 
 function init() {
-em.setProperty("state", "0");
+	em.setProperty("state", "0");
 	em.setProperty("leader", "true");
 }
 
@@ -88,12 +88,13 @@ em.setProperty("state", "1");
 	em.setProperty("stage7", "0"); //papa spawned
 	em.setProperty("done", "0");
         eim.setInstanceMap(920010000).resetPQ(level);
-        var center = eim.setInstanceMap(920010100);
-	center.resetPQ(level);
+		eim.setInstanceMap(920010100).resetPQ(level);
+//        var center = eim.setInstanceMap(920010100);
+//	center.resetPQ(level);
 	//MSEA remove 2 stages: sealed room + lounge
-	center.getReactorByName("minerva").forceHitReactor(2);
-	center.getReactorByName("scar3").forceHitReactor(1); //sealed room
-	center.getReactorByName("scar5").forceHitReactor(1); //lounge
+//	center.getReactorByName("minerva").forceHitReactor(2);
+//	center.getReactorByName("scar3").forceHitReactor(1); //sealed room
+//	center.getReactorByName("scar5").forceHitReactor(1); //lounge
         eim.setInstanceMap(920010200).resetPQ(level);
         eim.setInstanceMap(920010300).resetPQ(level);
         eim.setInstanceMap(920010400).resetPQ(level);

@@ -1,47 +1,35 @@
 /**
--- Odin JavaScript --------------------------------------------------------------------------------
-	A Pile of Herbs - The Forest of Patience <Step 5> (101000104)
--- By ---------------------------------------------------------------------------------------------
-	Information
--- Version Info -----------------------------------------------------------------------------------
-	1.0 - First Version by Information
----------------------------------------------------------------------------------------------------
+ * @author: Eric
+ * @rev: 3.0 - Added in JQ Leveling.
+ * @notes: Warp now warps the world of JQers not just the map.
 */
 
+importPackage(Packages.client);
+
 function start() {
-    status = -1;
-    action(1, 0, 0);
+   action(1, 0, 0);
 }
 
-function action(mode, type, selection) {
-    if (status >= 2 && mode == 0) {
-	cm.sendOk("Alright, see you next time.");
-	cm.dispose();
-	return;
-    }
-    if (mode == 1) {
-	status++;
-    }
-    else {
-	status--;
-    }
-    if (status == 0) {
-	if (cm.getQuestStatus(2051) == 1 && !cm.haveItem(4031032)) {
-	    cm.gainItem(4031032, 1); // Double-Rooted Red Ginseng
-	} else {
-	    var rand = 1 + Math.floor(Math.random() * 4);
-	    if (rand == 1) {
-		cm.gainItem(4020007, 2); // Diamond Ore
-	    } else if (rand == 2) {
-		cm.gainItem(4020008, 2); // Black Crystal Ore
-	    } else if (rand == 3) {
-		cm.gainItem(4010006, 2); // Gold Ore
-	    } else if (rand == 4) {
-		cm.gainItem(1032013, 1); // Red-Hearted Earrings
-	    }
-	}
-	cm.warp(101000000, 0);
-	cm.dispose();
-    }
-}	
 
+function action(mode, type, selection) {
+ if (cm.getPlayer().getMapId() == cm.getEventMap()){
+        cm.warpMapAutoJQers(910000000); // warps the entire WORLD of ONLY people in the JQ map! :D
+		cm.gainCurrency(150);
+        cm.setEventMap(0);
+        cm.serverNotice("Congratulations to " + cm.getName() + " on Channel " + cm.getPlayer().getClient().getChannel() + " for winning the JQ and receiving 150 Wiz Coins!");
+        cm.dispose();
+    } else { 
+	  if (cm.getPlayer().isGM()) {
+		cm.warp(100000000, 0);
+		cm.gainJQExp(MapleCharacter.rand(10, 100));
+        cm.dispose();
+		} else if (cm.getPlayer().getJQLevel() < 11) {
+		cm.warp(100000000, 0);
+		cm.gainJQExp(MapleCharacter.rand(10, 100));
+        cm.dispose();
+	    } else {
+		cm.sendOk("What the fuck are you doing here?\r\nThere are currently no #rAuto JQs#k going on!");
+		cm.dispose();
+		}
+    }
+}

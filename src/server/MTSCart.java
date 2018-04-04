@@ -21,13 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server;
 
-import constants.GameConstants;
 import client.inventory.Item;
 import client.inventory.ItemLoader;
 import client.inventory.MapleInventoryType;
-import java.sql.Connection;
+import constants.GameConstants;
 import database.DatabaseConnection;
 import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,17 +35,17 @@ import java.util.ArrayList;
 import java.util.List;
 import tools.Pair;
 
-public class MTSCart implements Serializable {
+public final class MTSCart implements Serializable {
 
     private static final long serialVersionUID = 231541893513373578L;
     private int characterId, tab = 1, type = 0, page = 0;
     //tab; 1 = buy now, 2 = wanted, 3 = auction, 4 = cart
     //type = inventorytype; 0 = anything
     //page = whatever
-    private List<Item> transfer = new ArrayList<Item>();
-    private List<Integer> cart = new ArrayList<Integer>();
-    private List<Integer> notYetSold = new ArrayList<Integer>(10);
-    private List<Integer> currentViewingItems = new ArrayList<Integer>();
+    private List<Item> transfer = new ArrayList<>();
+    private List<Integer> cart = new ArrayList<>();
+    private List<Integer> notYetSold = new ArrayList<>(10);
+    private List<Integer> currentViewingItems = new ArrayList<>();
     private int owedNX = 0;
 
     public MTSCart(int characterId) throws SQLException {
@@ -116,10 +116,10 @@ public class MTSCart implements Serializable {
     }
 
     public void save() throws SQLException {
-        List<Pair<Item, MapleInventoryType>> itemsWithType = new ArrayList<Pair<Item, MapleInventoryType>>();
+        List<Pair<Item, MapleInventoryType>> itemsWithType = new ArrayList<>();
 
         for (Item item : getInventory()) {
-            itemsWithType.add(new Pair<Item, MapleInventoryType>(item, GameConstants.getInventoryType(item.getItemId())));
+            itemsWithType.add(new Pair<>(item, GameConstants.getInventoryType(item.getItemId())));
         }
 
         ItemLoader.MTS_TRANSFER.saveItems(itemsWithType, characterId);
@@ -143,35 +143,35 @@ public class MTSCart implements Serializable {
     }
 
     public void loadCart() throws SQLException {
-        final PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM mts_cart WHERE characterid = ?");
-        ps.setInt(1, characterId);
-        final ResultSet rs = ps.executeQuery();
-        int iId;
-        while (rs.next()) {
-            iId = rs.getInt("itemid");
-            if (iId < 0) {
-                owedNX -= iId;
-            } else if (MTSStorage.getInstance().check(iId)) {
-                cart.add(iId);
+        try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM mts_cart WHERE characterid = ?")) {
+            ps.setInt(1, characterId);
+            try (ResultSet rs = ps.executeQuery()) {
+                int iId;
+                while (rs.next()) {
+                    iId = rs.getInt("itemid");
+                    if (iId < 0) {
+                        owedNX -= iId;
+                    } else if (MTSStorage.getInstance().check(iId)) {
+                        cart.add(iId);
+                    }
+                }
             }
         }
-        rs.close();
-        ps.close();
     }
 
     public void loadNotYetSold() throws SQLException {
-        final PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM mts_items WHERE characterid = ?");
-        ps.setInt(1, characterId);
-        final ResultSet rs = ps.executeQuery();
-        int pId;
-        while (rs.next()) {
-            pId = rs.getInt("id");
-            if (MTSStorage.getInstance().check(pId)) {
-                notYetSold.add(pId);
+        try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM mts_items WHERE characterid = ?")) {
+            ps.setInt(1, characterId);
+            try (ResultSet rs = ps.executeQuery()) {
+                int pId;
+                while (rs.next()) {
+                    pId = rs.getInt("id");
+                    if (MTSStorage.getInstance().check(pId)) {
+                        notYetSold.add(pId);
+                    }
+                }
             }
         }
-        rs.close();
-        ps.close();
     }
 
     public void changeInfo(final int tab, final int type, final int page) {
@@ -196,7 +196,7 @@ public class MTSCart implements Serializable {
     }
 
     public List<Integer> getCurrentViewPage() {
-	final List<Integer> ret = new ArrayList<Integer>();
+	final List<Integer> ret = new ArrayList<>();
 	final int size = currentViewingItems.size() / 16 + (currentViewingItems.size() % 16 > 0 ? 1 : 0);
 	if (page > size) {
 	    page = 0;

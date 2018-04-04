@@ -1,3 +1,6 @@
+// Cygnus Expedition NPC
+// Added support to Donators having a bypass to time limit
+
 var status = -1;
 
 function start() {
@@ -8,11 +11,6 @@ function start() {
 	}
 		if (cm.getPlayer().getLevel() < 170) {
 			cm.sendOk("There is a level requirement of 170 to attempt Empress Cygnus.");
-			cm.dispose();
-			return;
-		}
-		if (cm.getPlayer().getClient().getChannel() != 5) {
-			cm.sendOk("Cygnus may only be attempted on channel 5.");
 			cm.dispose();
 			return;
 		}
@@ -35,7 +33,7 @@ function start() {
     var squadAvailability = cm.getSquadAvailability("Cygnus");
     if (squadAvailability == -1) {
 	status = 0;
-	    if (time + (24 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
+	    if (time + (24 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isDonator()) {
 		cm.sendOk("You have already went to Cygnus in the past 24 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (24 * 3600000)));
 		cm.dispose();
 		return;
@@ -43,7 +41,7 @@ function start() {
 	cm.sendYesNo("Are you interested in becoming the leader of the expedition Squad?");
 
     } else if (squadAvailability == 1) {
-	    if (time + (24 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
+	    if (time + (24 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isDonator()) {
 		cm.sendOk("You have already went to Cygnus in the past 24 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (24 * 3600000)));
 		cm.dispose();
 		return;
@@ -78,7 +76,7 @@ function start() {
 			if (eim == null) {
 				var squd = cm.getSquad("Cygnus");
 				if (squd != null) {
-	    if (time + (24 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
+	    if (time + (24 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isDonator()) {
 		cm.sendOk("You have already went to Cygnus in the past 24 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (24 * 3600000)));
 		cm.dispose();
 		return;
@@ -99,7 +97,7 @@ function start() {
 			if (eim == null) {
 				var squd = cm.getSquad("Cygnus");
 				if (squd != null) {
-	    if (time + (24 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
+	    if (time + (24 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isDonator()) {
 		cm.sendOk("You have already went to Cygnus in the past 24 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (24 * 3600000)));
 		cm.dispose();
 		return;

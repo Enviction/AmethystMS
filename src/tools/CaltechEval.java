@@ -1,6 +1,9 @@
 package tools;
 
 // Simple Java Math Expression Evaluator
+
+import java.util.Vector;
+
 // Usage example: hmm
 // java Evaluator "1+-min(-33,+4)*sin(0.5-0.1e-7) -atan2(3,4)  +1/(0.051e-5)"
 // 1+-min(-33,+4)*sin(0.5-0.1e-7)-atan2(3,4)+1/(0.051e-5) = 1960801.7782690835
@@ -9,7 +12,6 @@ package tools;
 // You are free to use this code however you see fit. Please let me know if
 // you find any bugs, or would like to suggest enhancements
 
-import java.util.Vector;
 
 public class CaltechEval
 {
@@ -150,50 +152,69 @@ public class CaltechEval
     {
         for (int i = 0; i < NOPERATORS; i++)
         {
-            if (op.equals(Operators[i]) && op.length() == Operators[i].length())
+            if (op.equals(Operators[i]) && op.length() == Operators[i].length()) {
                 return i;
+            }
         }
         return -1;
     }
    
     private double doOp(String op, double arg1, double arg2)
     {
-        if (op.equals("+"))
+        if (op.equals("+")) {
             return (arg1 + arg2);
-        if (op.equals("-"))
+        }
+        if (op.equals("-")) {
             return (arg1 - arg2);
-        if (op.equals("*"))
+        }
+        if (op.equals("*")) {
             return (arg1 * arg2);
-        if (op.equals("/"))
+        }
+        if (op.equals("/")) {
             return (arg1 / arg2);
-        if (op.equals("sin"))
+        }
+        if (op.equals("sin")) {
             return Math.sin(arg1);
-        if (op.equals("cos"))
+        }
+        if (op.equals("cos")) {
             return Math.cos(arg1);
-        if (op.equals("tan"))
+        }
+        if (op.equals("tan")) {
             return Math.tan(arg1);
-        if (op.equals("exp"))
+        }
+        if (op.equals("exp")) {
             return Math.exp(arg1);
-        if (op.equals("sqrt"))
+        }
+        if (op.equals("sqrt")) {
             return Math.sqrt(arg1);
-        if (op.equals("asin"))
+        }
+        if (op.equals("asin")) {
             return Math.asin(arg1);
-        if (op.equals("acos"))
+        }
+        if (op.equals("acos")) {
             return Math.acos(arg1);
-        if (op.equals("atan"))
+        }
+        if (op.equals("atan")) {
             return Math.atan(arg1);
-        if (op.equals("atan2"))
+        }
+        if (op.equals("atan2")) {
             return Math.atan2(arg1, arg2);
-        if (op.equals("max"))
+        }
+        if (op.equals("max")) {
             return (Math.max(arg1, arg2));
-        if (op.equals("min"))
+        }
+        if (op.equals("min")) {
             return (Math.min(arg1, arg2));
-        if (op.equals("u"))
+        }
+        if (op.equals("u")) {
             return (Math.ceil(arg1));
-        if (op.equals("d"))
+        }
+        if (op.equals("d")) {
             return (Math.floor(arg1));
-        if (op.equals("n"))
+        }
+        if (op.equals("n")) {
             return -arg1;
+        }
         throw new RuntimeException("Invalid operator: " + op);
     }
    
@@ -215,8 +236,9 @@ public class CaltechEval
             char c = s.charAt(i);
             char cnext = ' ';
             // System.out.println("Looking at " + c);
-            if (i < s.length() - 1)
+            if (i < s.length() - 1) {
                 cnext = s.charAt(i + 1);
+            }
            
             if (nt > 0 && operator.equals("atan") && c == '2')
             {
@@ -325,7 +347,7 @@ public class CaltechEval
             tokens = reduceTokens(tokens);
         }
        
-        return D.parseDouble((String) tokens.elementAt(0));
+        return Double.parseDouble((String) tokens.elementAt(0));
        
     }
    
@@ -345,13 +367,13 @@ public class CaltechEval
             for (int it = ib + 1; it < tokens.size(); it++)
             {
                 String st = (String) tokens.elementAt(it);
-                if (st.equals(")"))
-                {
-                    brackets--;
-                }
-                else if (st.equals("("))
-                {
-                    brackets++;
+                switch (st) {
+                    case ")":
+                        brackets--;
+                        break;
+                    case "(":
+                        brackets++;
+                        break;
                 }
                 if (brackets == 0)
                 {
@@ -408,8 +430,9 @@ public class CaltechEval
             {
                 String st = (String) tokens.elementAt(it);
                 int iop = getOperator(st);
-                if (iop == -1)
+                if (iop == -1) {
                     continue;
+                }
                 if (OperatorsPrecedence[iop] >= maxprec)
                 {
                     maxprec = OperatorsPrecedence[iop];
@@ -417,8 +440,9 @@ public class CaltechEval
                 }
             }
            
-            if (ipos == -1)
-                return tokens; // for a simple list of operands
+            if (ipos == -1) {
+                return tokens;
+            } // for a simple list of operands
                
             int it = ipos;
            
@@ -441,7 +465,7 @@ public class CaltechEval
                         }
                         else
                         {
-                            leftValue = D.parseDouble(stleft);
+                            leftValue = Double.parseDouble(stleft);
                         }
                     }
                     else
@@ -450,7 +474,7 @@ public class CaltechEval
                         leftValue = 0.0;
                     }
                     String stright = (String) tokens.elementAt(it + 1);
-                    rightValue1 = D.parseDouble(stright);
+                    rightValue1 = Double.parseDouble(stright);
                     // System.out.print("DoOp " + leftValue + st + rightValue1);
                     double value = doOp(st, leftValue, rightValue1);
                     stright = "" + value;
@@ -458,8 +482,9 @@ public class CaltechEval
                     tokens.setElementAt(stright, ipt);
                     // System.out.println("After Op:");
                     tokens.removeElementAt(ipt + 1);
-                    if (it > 0 && ipt != it)
+                    if (it > 0 && ipt != it) {
                         tokens.removeElementAt(ipt + 1);
+                    }
                     // for (int i = 0; i < tokens.size(); i++)
                     // System.out.println(" " + (String)tokens.elementAt(i));
                     continue;
@@ -474,12 +499,12 @@ public class CaltechEval
             {
                 int nargs = OperatorsArgs[iop];
                 String stright = (String) tokens.elementAt(it + 1);
-                rightValue1 = D.parseDouble(stright);
+                rightValue1 = Double.parseDouble(stright);
                 rightValue2 = 0;
                 if (nargs > 1)
                 {
                     stright = (String) tokens.elementAt(it + 2);
-                    rightValue2 = D.parseDouble(stright);
+                    rightValue2 = Double.parseDouble(stright);
                 }
                 // System.out.print("DoOp " + st + " "+
                 // rightValue1+" "+rightValue2);

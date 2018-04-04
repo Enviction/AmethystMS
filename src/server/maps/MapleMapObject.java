@@ -20,16 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.maps;
 
-import java.awt.Point;
-
 import client.MapleClient;
 import constants.GameConstants;
+import java.awt.Point;
 
 public abstract class MapleMapObject {
 
     private Point position = new Point();
     private int objectId;
 
+ 
     public Point getPosition() {
         return new Point(position);
     }

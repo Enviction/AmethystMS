@@ -1,3 +1,23 @@
+/*
+This file is part of the OdinMS Maple Story Server
+Copyright (C) 2008 ~ 2010 Patrick Huy <patrick.huy@frz.cc> 
+Matthias Butz <matze@odinms.de>
+Jan Christian Meyer <vimes@odinms.de>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3
+as published by the Free Software Foundation. You may not use, modify
+or distribute this program under any other version of the
+GNU Affero General Public License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package client.inventory;
 
 import database.DatabaseConnection;
@@ -15,162 +35,157 @@ import server.movement.LifeMovement;
 import server.movement.LifeMovementFragment;
 import tools.Pair;
 
-public class MapleAndroid
-  implements Serializable
-{
-  private static final long serialVersionUID = 9179541993413738569L;
-  private int stance = 0;
-  private int uniqueid;
-  private int itemid;
-  private int hair;
-  private int face;
-  private String name;
-  private Point pos = new Point(0, 0);
-  private boolean changed = false;
+public class MapleAndroid implements Serializable {
 
-  private MapleAndroid(int itemid, int uniqueid) {
-    this.itemid = itemid;
-    this.uniqueid = uniqueid;
-  }
+    private static final long serialVersionUID = 9179541993413738569L;
+    private int stance = 0, uniqueid, itemid, hair, face, skin;
+	private String name;
+    private Point pos = new Point(0, 0);
 
-  public static final MapleAndroid loadFromDb(int itemid, int uid) {
-    try {
-      MapleAndroid ret = new MapleAndroid(itemid, uid);
-
-      Connection con = DatabaseConnection.getConnection();
-      PreparedStatement ps = con.prepareStatement("SELECT * FROM androids WHERE uniqueid = ?");
-      ps.setInt(1, uid);
-
-      ResultSet rs = ps.executeQuery();
-      if (!rs.next()) {
-        rs.close();
-        ps.close();
-        return null;
-      }
-
-      ret.setHair(rs.getInt("hair"));
-      ret.setFace(rs.getInt("face"));
-      ret.setName(rs.getString("name"));
-      ret.changed = false;
-
-      rs.close();
-      ps.close();
-
-      return ret;
-    } catch (SQLException ex) {
-      ex.printStackTrace();
-    }return null;
-  }
-
-  public final void saveToDb()
-  {
-    if (!this.changed)
-      return;
-    try
-    {
-      PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("UPDATE androids SET hair = ?, face = ?, name = ? WHERE uniqueid = ?");
-      ps.setInt(1, this.hair);
-      ps.setInt(2, this.face);
-      ps.setString(3, this.name);
-      ps.setInt(4, this.uniqueid);
-      ps.executeUpdate();
-      ps.close();
-      this.changed = false;
-    } catch (SQLException ex) {
-      ex.printStackTrace();
+    private MapleAndroid(final int itemid, final int uniqueid) {
+        this.itemid = itemid;
+        this.uniqueid = uniqueid;
     }
-  }
 
-  public static final MapleAndroid create(int itemid, int uniqueid) {
-    Pair aInfo = MapleItemInformationProvider.getInstance().getAndroidInfo(itemid == 1662006 ? 5 : itemid - 1661999);
-    if (aInfo == null) {
-      return null;
-    }
-    return create(itemid, uniqueid, ((Integer)((List)aInfo.left).get(Randomizer.nextInt(((List)aInfo.left).size()))).intValue(), ((Integer)((List)aInfo.right).get(Randomizer.nextInt(((List)aInfo.right).size()))).intValue());
-  }
+    public static MapleAndroid loadFromDb(final int itemid, final int uid) {
+        try {
+            final MapleAndroid ret = new MapleAndroid(itemid, uid);
 
-  public static final MapleAndroid create(int itemid, int uniqueid, int hair, int face) {
-    if (uniqueid <= -1)
-      uniqueid = MapleInventoryIdentifier.getInstance();
-    try
-    {
-      PreparedStatement pse = DatabaseConnection.getConnection().prepareStatement("INSERT INTO androids (uniqueid, hair, face, name) VALUES (?, ?, ?, ?)");
-      pse.setInt(1, uniqueid);
-      pse.setInt(2, hair);
-      pse.setInt(3, face);
-      pse.setString(4, "Android");
-      pse.executeUpdate();
-      pse.close();
-    } catch (SQLException ex) {
-      ex.printStackTrace();
-      return null;
-    }
-    MapleAndroid pet = new MapleAndroid(itemid, uniqueid);
-    pet.setHair(hair);
-    pet.setFace(face);
-    pet.setName("Android");
+            Connection con = DatabaseConnection.getConnection(); // Get a connection to the database
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM androids WHERE uniqueid = ?")) {
+                ps.setInt(1, uid);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (!rs.next()) {
+                        rs.close();
+                        ps.close();
+                        return null;
+                    }
+                    ret.setSkin(rs.getInt("skin"));
+                    ret.setHair(rs.getInt("hair"));
+                    ret.setFace(rs.getInt("face"));
+                    ret.setName(rs.getString("name"));
+                }
+            }
 
-    return pet;
-  }
-
-  public int getUniqueId() {
-    return this.uniqueid;
-  }
-
-  public final void setHair(int closeness) {
-    this.hair = closeness;
-    this.changed = true;
-  }
-
-  public final int getHair() {
-    return this.hair;
-  }
-
-  public final void setFace(int closeness) {
-    this.face = closeness;
-    this.changed = true;
-  }
-
-  public final int getFace() {
-    return this.face;
-  }
-
-  public String getName() {
-    return this.name;
-  }
-
-  public void setName(String n) {
-    this.name = n;
-    this.changed = true;
-  }
-
-  public final Point getPos() {
-    return this.pos;
-  }
-
-  public final void setPos(Point pos) {
-    this.pos = pos;
-  }
-
-  public final int getStance() {
-    return this.stance;
-  }
-
-  public final void setStance(int stance) {
-    this.stance = stance;
-  }
-
-  public final int getItemId() {
-    return this.itemid;
-  }
-
-  public final void updatePosition(List<LifeMovementFragment> movement) {
-    for (LifeMovementFragment move : movement)
-      if ((move instanceof LifeMovement)) {
-        if ((move instanceof AbsoluteLifeMovement)) {
-          setPos(((LifeMovement)move).getPosition());
+            return ret;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
         }
-        setStance(((LifeMovement)move).getNewstate());
-      }
-  }
+    }
+
+    public final void saveToDb() {
+        try {
+            try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("UPDATE androids SET skin = ?, hair = ?, face = ?, name = ? WHERE uniqueid = ?")) {
+                ps.setInt(1, skin);
+                ps.setInt(2, hair);
+                ps.setInt(3, face);
+                ps.setString(4, name);
+                ps.setInt(5, uniqueid); // Set ID
+                ps.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public static MapleAndroid create(final int itemid, final int uniqueid) {
+        Pair<List<Integer>, List<Integer>> aInfo = MapleItemInformationProvider.getInstance().getAndroidInfo(itemid == 1662006 ? 5 : (itemid - 1661999));
+	if (aInfo == null) {
+	    return null;
+	}
+        return create(itemid, uniqueid, aInfo.left.get(Randomizer.nextInt(aInfo.left.size())), aInfo.right.get(Randomizer.nextInt(aInfo.right.size())), 0);
+    }
+
+    public static MapleAndroid create(int itemid, int uniqueid, int hair, int face, int skin) {
+        if (uniqueid <= -1) { //wah
+            uniqueid = MapleInventoryIdentifier.getInstance();
+        }
+        try { try (PreparedStatement pse = DatabaseConnection.getConnection().prepareStatement("INSERT INTO androids (uniqueid, hair, face, name, skin) VALUES (?, ?, ?, ?, ?)")) {
+                pse.setInt(1, uniqueid);
+                pse.setInt(2, hair);
+                pse.setInt(3, face);
+                pse.setString(4, "Android");
+                pse.setInt(5, skin);
+                pse.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            return null;
+        }
+        final MapleAndroid pet = new MapleAndroid(itemid, uniqueid);
+        pet.setHair(hair);
+        pet.setFace(face);
+		pet.setName("Android");
+
+        return pet;
+    }
+
+    public int getUniqueId() {
+        return uniqueid;
+    }
+
+    public final void setHair(final int closeness) {
+        this.hair = closeness;
+    }
+
+    public final int getHair() {
+        return hair;
+    }
+
+    public final void setFace(final int closeness) {
+        this.face = closeness;
+    }
+
+    public final int getFace() {
+        return face;
+    }
+    
+    public final void setSkin(final int s) {
+        this.skin = s;
+    }
+
+    public final int getSkin() {
+        return skin;
+    }
+
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String n) {
+		this.name = n;
+	}
+
+    public final Point getPos() {
+        return pos;
+    }
+
+    public final void setPos(final Point pos) {
+        this.pos = pos;
+    }
+
+    public final int getStance() {
+        return stance;
+    }
+
+    public final void setStance(final int stance) {
+        this.stance = stance;
+    }
+
+    public final int getItemId() {
+        return itemid;
+    }
+
+    public final void updatePosition(final List<LifeMovementFragment> movement) {
+        for (final LifeMovementFragment move : movement) {
+            if (move instanceof LifeMovement) {
+                if (move instanceof AbsoluteLifeMovement) {
+                    setPos(((LifeMovement) move).getPosition());
+                }
+                setStance(((LifeMovement) move).getNewstate());
+            }
+        }
+    }
 }
+

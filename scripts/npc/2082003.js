@@ -1,5 +1,5 @@
 /*
-	NPC Name: 		Cobra - ReMaskedStory dragon trainer
+	NPC Name: 		Cobra - Retired dragon trainer
 	Map(s): 		Leafre : Cabin
 */
 var status = 0;

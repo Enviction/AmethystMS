@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package client;
 
+import database.DatabaseConnection;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,9 +29,6 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.io.Serializable;
-
-import database.DatabaseConnection;
 import tools.packet.CWvsContext.BuddylistPacket;
 
 public class BuddyList implements Serializable {
@@ -44,11 +43,11 @@ public class BuddyList implements Serializable {
         BUDDYLIST_FULL, ALREADY_ON_LIST, OK
     }
     private static final long serialVersionUID = 1413738569L;
-    private Map<Integer, BuddylistEntry> buddies = new LinkedHashMap<Integer, BuddylistEntry>();
-    private byte capacity = 20;
+    private Map<Integer, BuddylistEntry> buddies = new LinkedHashMap<>();
+    private int capacity;
     private boolean changed = false;
 
-    public BuddyList(byte capacity) {
+    public BuddyList(int capacity) {
         this.capacity = capacity;
     }
 
@@ -64,11 +63,11 @@ public class BuddyList implements Serializable {
         return ble.isVisible();
     }
 
-    public byte getCapacity() {
+    public int getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(byte capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
@@ -125,14 +124,14 @@ public class BuddyList implements Serializable {
 
     public void loadFromDb(int characterId) throws SQLException {
         Connection con = DatabaseConnection.getConnection();
-        PreparedStatement ps = con.prepareStatement("SELECT b.buddyid, b.pending, c.name as buddyname, b.groupname FROM buddies as b, characters as c WHERE c.id = b.buddyid AND b.characterid = ?");
-        ps.setInt(1, characterId);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-	    put(new BuddylistEntry(rs.getString("buddyname"), rs.getInt("buddyid"), rs.getString("groupname"), -1, rs.getInt("pending") != 1));
+        try (PreparedStatement ps = con.prepareStatement("SELECT b.buddyid, b.pending, c.name as buddyname, b.groupname FROM buddies as b, characters as c WHERE c.id = b.buddyid AND b.characterid = ?")) {
+            ps.setInt(1, characterId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                put(new BuddylistEntry(rs.getString("buddyname"), rs.getInt("buddyid"), rs.getString("groupname"), -1, rs.getInt("pending") != 1));
+            }
+            rs.close();
         }
-        rs.close();
-        ps.close();
     }
 
     public void addBuddyRequest(MapleClient c, int cidFrom, String nameFrom, int channelFrom, int levelFrom, int jobFrom) {

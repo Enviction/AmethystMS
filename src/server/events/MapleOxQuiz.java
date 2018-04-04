@@ -28,8 +28,8 @@ import java.util.concurrent.ScheduledFuture;
 import server.Timer.EventTimer;
 import server.events.MapleOxQuizFactory.MapleOxQuizEntry;
 import server.maps.MapleMap;
-import tools.packet.CField;
 import tools.Pair;
+import tools.packet.CField;
 import tools.packet.CWvsContext;
 
 public class MapleOxQuiz extends MapleEvent {
@@ -38,8 +38,8 @@ public class MapleOxQuiz extends MapleEvent {
     private int timesAsked = 0;
     private boolean finished = false;
 
-    public MapleOxQuiz(final int channel, final MapleEventType type) {
-	super(channel,type);
+    public MapleOxQuiz(final int world, final int channel, final MapleEventType type) {
+	super(world,channel,type);
     }
 
     @Override
@@ -98,6 +98,7 @@ public class MapleOxQuiz extends MapleEvent {
         }
         oxSchedule2 = EventTimer.getInstance().schedule(new Runnable() {
 
+            @Override
             public void run() {
                 int number = 0;
                 for (MapleCharacter mc : toSend.getCharactersThreadsafe()) {
@@ -111,7 +112,6 @@ public class MapleOxQuiz extends MapleEvent {
                     for (MapleCharacter chr : toSend.getCharactersThreadsafe()) {
                         if (chr != null && !chr.isGM() && chr.isAlive()) {
                             chr.canTalk(true);
-                            //chr.finishAchievement(19);
                             givePrize(chr);
                             warpBack(chr);
                         }

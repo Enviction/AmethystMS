@@ -35,9 +35,9 @@ import javax.script.ScriptEngineManager;
 
 import client.MapleClient;
 import java.io.PrintWriter;
-import java.io.StringWriter;
 import server.MaplePortal;
 import tools.FileoutputUtil;
+import tools.packet.CWvsContext;
 
 public class PortalScriptManager {
 
@@ -84,16 +84,41 @@ public class PortalScriptManager {
 
     public final void executePortalScript(final MaplePortal portal, final MapleClient c) {
         final PortalScript script = getPortalScript(portal.getScriptName());
+
         if (script != null) {
             try {
                 script.enter(new PortalPlayerInteraction(c, portal));
             } catch (Exception e) {
-                System.err.println("Error entering Portalscript: " + portal.getScriptName() + " (TargetMapID: "+portal.getTargetMapId()+", PortalID: "+ portal.getId()+") : " + e + " / " + e.getCause());
+                System.err.println("Error entering Portalscript: " + portal.getScriptName() + " : " + e);
             }
         } else {
             System.out.println("Unhandled portal script " + portal.getScriptName() + " on map " + c.getPlayer().getMapId());
             FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Unhandled portal script " + portal.getScriptName() + " on map " + c.getPlayer().getMapId());
+        //    try {
+        //        createPortalScript(c,portal.getScriptName(), c.getPlayer().getLastMap(), c.getPlayer().getLastPortal());
+        //    } catch (IOException ex) {
+        //        ex.printStackTrace();
+        //    }
         }
+    }
+    
+    private void createPortalScript(MapleClient c,String name,int mapid,MaplePortal portal) throws IOException{
+        int portalnpc = 9270031;// choose an NPC for this
+        if (portalnpc == 0) 
+            return;
+        NPCScriptManager.getInstance().start( c ,portalnpc);// ask if trying to get back
+        c.getSession().write(CWvsContext.enableActions());
+        if (!c.getPlayer().getReturningToMap()) 
+            return; // want to get back = true
+        String fname = "./scripts/portal/"+name+".js";
+        if (new File(fname).exists()) return; // make sure script does not exist already.
+        PrintWriter pw = new PrintWriter(fname);
+        pw.println("function enter(pi) {");
+        pw.format("   pi.warp(%s,%s);\r\n",mapid,portal.getId());
+        pw.println("}");
+        pw.flush();
+        pw.close();
+        System.out.print("Script created back to map [" + mapid + "]\r\n");
     }
 
     public final void clearScripts() {

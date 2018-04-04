@@ -20,16 +20,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.maps;
 
-import java.awt.Point;
-
 import client.MapleCharacter;
+import client.MapleCharacter.DojoMode;
 import client.MapleTrait.MapleTraitType;
 import constants.GameConstants;
 import handling.channel.ChannelServer;
 import handling.world.MaplePartyCharacter;
+import handling.world.World;
+import java.awt.Point;
 import server.Randomizer;
 import server.Timer.MapTimer;
 import server.life.MapleLifeFactory;
+import server.life.MapleMonster;
+import server.life.OverrideMonsterStats;
 import server.quest.MapleQuest;
 import tools.FileoutputUtil;
 import tools.packet.CWvsContext;
@@ -40,6 +43,7 @@ public class Event_DojoAgent {
     private final static Point point1 = new Point(140, 0),
             point2 = new Point(-193, 0),
             point3 = new Point(355, 0);
+    private static int dojoMode = -1;
 
     public static boolean warpStartAgent(final MapleCharacter c, final boolean party) {
         final int stage = 1;
@@ -68,7 +72,6 @@ public class Event_DojoAgent {
         }
         if (!fromResting) {
             clearMap(map, true);
-            c.modifyCSPoints(1, 40, true);
         }
         final ChannelServer ch = c.getClient().getChannelServer();
         if (currentmap >= 970032700 && currentmap <= 970032800) {
@@ -127,7 +130,23 @@ public class Event_DojoAgent {
             } else {
                 c.changeMap(map, map.getPortal(0));
             }
-            spawnMonster(map, stage);
+            switch (c.getDojoMode()) {
+                case EASY:
+                    dojoMode = 0;
+                    break;
+                case NORMAL:
+                    dojoMode = 1;
+                    break;
+                case HARD:
+                    dojoMode = 2;
+                    break;
+                case RANKED:
+                    dojoMode = 3;
+                    break;
+                default: // DojoMode.NONE
+                    return false;
+            }
+            spawnMonster(map, stage, dojoMode);
         }
         return canenter;
     }
@@ -170,23 +189,18 @@ public class Event_DojoAgent {
                     for (MaplePartyCharacter mem : c.getParty().getMembers()) {
                         MapleCharacter chr = currentmap.getCharacterById(mem.getId());
                         if (chr != null) {
-                            final int point = (points * 3);
                             c.getTrait(MapleTraitType.will).addExp(points, c);
-                            chr.modifyCSPoints(1, point * 4, true);
-                            final int dojo = chr.getIntRecord(GameConstants.DOJO) + point;
+                            final int dojo = chr.getIntRecord(GameConstants.DOJO) + points;
                             chr.getQuestNAdd(MapleQuest.getInstance(GameConstants.DOJO)).setCustomData(String.valueOf(dojo));
-                            chr.getClient().getSession().write(CWvsContext.Mulung_Pts(point, dojo));
+                            // chr.getClient().getSession().write(CWvsContext.Mulung_Pts(points, dojo));
                         }
                     }
                 } else {
-                    final int point = (points * 4);
                     c.getTrait(MapleTraitType.will).addExp(points, c);
-                    c.modifyCSPoints(1, point * 4, true);
-                    final int dojo = c.getIntRecord(GameConstants.DOJO) + point;
+                    final int dojo = c.getIntRecord(GameConstants.DOJO) + points;
                     c.getQuestNAdd(MapleQuest.getInstance(GameConstants.DOJO)).setCustomData(String.valueOf(dojo));
-                    c.getClient().getSession().write(CWvsContext.Mulung_Pts(point, dojo));
+                    // c.getClient().getSession().write(CWvsContext.Mulung_Pts(points, dojo));
                 }
-
             }
             if (currentmap.getId() >= 925023800 && currentmap.getId() <= 925023814) {
                 final MapleMap lastMap = ch.getMapFactory().getMap(925020003);
@@ -199,22 +213,38 @@ public class Event_DojoAgent {
                                 chr.addHP(50);
                             }
                             chr.changeMap(lastMap, lastMap.getPortal(1));
-                            final int point = (points * 3);
+                            int exp = chr.getLevel() * (2000 * Randomizer.rand(10, 50));
+                            c.dropMessage(5, "Mu Lung Dojo " + 
+                            (c.getDojoMode() == DojoMode.EASY ? "Easy Mode" : 
+                                    c.getDojoMode() == DojoMode.NORMAL ? "Normal Mode" : 
+                                            c.getDojoMode() == DojoMode.HARD ? "Hard Mode" : 
+                                                    c.getDojoMode() == DojoMode.RANKED ? "Ranked Mode" : "Unknown Mode") 
+                            + " cleared! You've earned " + exp + " Exp!");
+                            final int point = (points * 2);
                             c.getTrait(MapleTraitType.will).addExp(points, c);
                             final int dojo = chr.getIntRecord(GameConstants.DOJO) + point;
                             chr.getQuestNAdd(MapleQuest.getInstance(GameConstants.DOJO)).setCustomData(String.valueOf(dojo));
-                            chr.getClient().getSession().write(CWvsContext.Mulung_Pts(point, dojo));
-                            chr.modifyCSPoints(1, 5000, true);
+                            // chr.getClient().getSession().write(CWvsContext.Mulung_Pts(point, dojo));
                         }
                     }
                 } else {
                     c.changeMap(lastMap, lastMap.getPortal(1));
-                    final int point = (points * 4);
+                    // c.startMapEffect("You have mastered the Mu Lung Dojo. Congratulations!", 5120000);
+                    int exp = c.getLevel() * (2000 * Randomizer.rand(10, 50));
+                    c.dropMessage(5, "Mu Lung Dojo " + 
+                            (c.getDojoMode() == DojoMode.EASY ? "Easy Mode" : 
+                                    c.getDojoMode() == DojoMode.NORMAL ? "Normal Mode" : 
+                                            c.getDojoMode() == DojoMode.HARD ? "Hard Mode" : 
+                                                    c.getDojoMode() == DojoMode.RANKED ? "Ranked Mode" : "Unknown Mode") 
+                            + " cleared! You've earned " + exp + " Exp!");
+                    if (c.dojoStartTime == 1337) {
+                        World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.serverNotice(6, "[Mu Lung Dojo] " + c.getName() + " has achieved the best record in Mu Lung Dojo Ranked Mode."));
+                    }
+                    final int point = (points * 3);
                     c.getTrait(MapleTraitType.will).addExp(points, c);
                     final int dojo = c.getIntRecord(GameConstants.DOJO) + point;
                     c.getQuestNAdd(MapleQuest.getInstance(GameConstants.DOJO)).setCustomData(String.valueOf(dojo));
-                    c.getClient().getSession().write(CWvsContext.Mulung_Pts(point, dojo));
-                    c.modifyCSPoints(1, currentmap.getCharactersSize() > 1 ? 5000 : 7500, true);
+                    // c.getClient().getSession().write(CWvsContext.Mulung_Pts(point, dojo));
                 }
                 return true;
             }
@@ -235,7 +265,7 @@ public class Event_DojoAgent {
                 } else {
                     c.changeMap(map, map.getPortal(0));
                 }
-                spawnMonster(map, thisStage + 1);
+                spawnMonster(map, thisStage + 1, dojoMode);
                 return true;
             } else if (map != null) { //wtf, find a new map
                 int basemap = currentmap.getId() / 100 * 100 + 100;
@@ -256,7 +286,7 @@ public class Event_DojoAgent {
                         } else {
                             c.changeMap(mapz, mapz.getPortal(0));
                         }
-                        spawnMonster(mapz, thisStage + 1);
+                        spawnMonster(mapz, thisStage + 1, dojoMode);
                         return true;
                     }
                 }
@@ -275,14 +305,13 @@ public class Event_DojoAgent {
                 c.changeMap(mappz, mappz.getPortal(0));
             }
         } catch (Exception rm) {
-            rm.printStackTrace();
             FileoutputUtil.outputFileError(FileoutputUtil.PacketEx_Log, rm);
         }
 
         return false;
     }
 
-    private static final void clearMap(final MapleMap map, final boolean check) {
+    private static void clearMap(final MapleMap map, final boolean check) {
         if (check) {
             if (map.getCharactersSize() != 0) {
                 return;
@@ -291,56 +320,54 @@ public class Event_DojoAgent {
         map.resetFully();
     }
 
-    private static final int getDojoPoints(final int stage) {
-
+    private static int getDojoPoints(final int stage) {
         switch (stage) {
             case 1:
             case 2:
             case 3:
             case 4:
             case 5:
-                return 1;
+                return 2;
             case 7:
             case 8:
             case 9:
             case 10:
             case 11:
-                return 2;
+                return 3;
             case 13:
             case 14:
             case 15:
             case 16:
             case 17:
-                return 3;
+                return 4;
             case 19:
             case 20:
             case 21:
             case 22:
             case 23:
-                return 4;
+                return 5;
             case 25:
             case 26:
             case 27:
             case 28:
             case 29:
-                return 5;
+                return 6;
             case 31:
             case 32:
             case 33:
             case 34:
             case 35:
-                return 6;
+                return 7;
             case 37:
             case 38:
-                return 7;
+                return 8;
             default:
                 return 0;
         }
     }
 
-    private static final void spawnMonster(final MapleMap map, final int stage) {
+    private static void spawnMonster(final MapleMap map, final int stage, final int dojoMode) {
         final int mobid;
-
         switch (stage) {
             case 1:
                 mobid = 9300184; // Mano
@@ -445,10 +472,36 @@ public class Event_DojoAgent {
             final int rand = Randomizer.nextInt(3);
 
             MapTimer.getInstance().schedule(new Runnable() {
-
                 @Override
                 public void run() {
-                    map.spawnMonsterWithEffect(MapleLifeFactory.getMonster(mobid), 15, rand == 0 ? point1 : rand == 1 ? point2 : point3);
+                    MapleMonster mob = MapleLifeFactory.getMonster(mobid);
+                    OverrideMonsterStats dojoStats = new OverrideMonsterStats();
+                    switch(dojoMode) {
+                        case 0:
+                            dojoStats.setOHp(mob.getMobMaxHp() / 2); // decrease their hp, have same attack
+                            dojoStats.setOMp(mob.getMobMaxMp());
+                            dojoStats.setOExp(mob.getMobExp() / 2);
+                            break;
+                        case 1:
+                            dojoStats.setOHp(mob.getMobMaxHp() * 2); // normal - keep it the way it is
+                            dojoStats.setOMp(mob.getMobMaxMp() * 2);
+                            dojoStats.setOExp(mob.getMobExp());
+                            break;
+                        case 2:
+                            dojoStats.setOHp(mob.getMobMaxHp() * 8); // 3x their hp
+                            dojoStats.setOMp(mob.getMobMaxMp() * 8); // 3x their attack
+                            dojoStats.setOExp(mob.getMobExp() * 2);
+                            break;
+                        case 3:
+                            dojoStats.setOHp(mob.getMobMaxHp() * 15); // 5x their hp and timed
+                            dojoStats.setOMp(mob.getMobMaxMp() * 15); // 5 their attack and timed
+                            dojoStats.setOExp(mob.getMobExp() * 3); // ehh..
+                            break;
+                        default: // DojoMode.NONE
+                            return;
+                    }
+                    mob.setOverrideStats(dojoStats);
+                    map.spawnMonsterWithEffect(mob, 15, rand == 0 ? point1 : rand == 1 ? point2 : point3);
                 }
             }, 3000);
         }

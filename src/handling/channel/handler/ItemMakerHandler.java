@@ -20,53 +20,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package handling.channel.handler;
 
-import client.MapleCharacter;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-
-import client.inventory.Item;
-import client.inventory.Equip;
-import client.SkillFactory;
-import client.MapleClient;
-import client.MapleQuestStatus;
 import client.MapleTrait.MapleTraitType;
-import client.Skill;
-import client.SkillEntry;
+import client.*;
 import client.SkillFactory.CraftingEntry;
-import client.inventory.ItemFlag;
-import client.inventory.MapleImp;
 import client.inventory.MapleImp.ImpFlag;
-import client.inventory.MapleInventoryType;
-import client.messages.MessageType;
+import client.inventory.*;
 import constants.GameConstants;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
-import server.ItemMakerFactory;
 import server.ItemMakerFactory.GemCreateEntry;
 import server.ItemMakerFactory.ItemMakerCreateEntry;
-import server.Randomizer;
-import server.MapleItemInformationProvider;
-import server.MapleInventoryManipulator;
-import server.MapleStatEffect;
+import server.*;
 import server.maps.MapleExtractor;
 import server.maps.MapleReactor;
 import server.quest.MapleQuest;
 import tools.FileoutputUtil;
 import tools.Pair;
-import tools.packet.CField;
 import tools.Triple;
 import tools.data.LittleEndianAccessor;
+import tools.packet.CField;
 import tools.packet.CField.EffectPacket;
 import tools.packet.CWvsContext;
 import tools.packet.CWvsContext.InventoryPacket;
 
 public class ItemMakerHandler {
 
-    private static final Map<String, Integer> craftingEffects = new HashMap<String, Integer>();
+    private static final Map<String, Integer> craftingEffects = new HashMap<>();
 
     static {
-        craftingEffects.put("Effect/BasicEff.img/professions/herbalism", 92000000);
+    /*    craftingEffects.put("Effect/BasicEff.img/professions/herbalism", 92000000);
         craftingEffects.put("Effect/BasicEff.img/professions/mining", 92010000);
         craftingEffects.put("Effect/BasicEff.img/professions/herbalismExtract", 92000000);
         craftingEffects.put("Effect/BasicEff.img/professions/miningExtract", 92010000);
@@ -74,6 +59,8 @@ public class ItemMakerHandler {
         craftingEffects.put("Effect/BasicEff.img/professions/equip_product", 92020000);
         craftingEffects.put("Effect/BasicEff.img/professions/acc_product", 92030000);
         craftingEffects.put("Effect/BasicEff.img/professions/alchemy", 92040000);
+        * 
+        */
     }
 
     public static enum CraftRanking {
@@ -89,7 +76,7 @@ public class ItemMakerHandler {
         }
     }
 
-    public static final void ItemMaker(final LittleEndianAccessor slea, final MapleClient c) {
+    public static void ItemMaker(final LittleEndianAccessor slea, final MapleClient c) {
         //System.out.println(slea.toString()); //change?
         final int makerType = slea.readInt();
 
@@ -219,7 +206,7 @@ public class ItemMakerHandler {
             }
             case 4: { // Disassembling EQ.
                 final int itemId = slea.readInt();
-                c.getPlayer().updateTick(slea.readInt());
+                slea.readInt();
                 final byte slot = (byte) slea.readInt();
 
                 final Item toUse = c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem(slot);
@@ -228,7 +215,7 @@ public class ItemMakerHandler {
                 }
                 final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
 
-                if (!ii.isDropRestricted(itemId) && !ii.isAccountShared(itemId)) {
+                if (!ii.isAccountShared(itemId)) {
                     final int[] toGive = getCrystal(itemId, ii.getReqLevel(itemId));
                     MapleInventoryManipulator.addById(c, toGive[0], (byte) toGive[1], "Made by disassemble " + itemId + " on " + FileoutputUtil.CurrentReadable_Date());
                     MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.EQUIP, slot, (byte) 1, false);
@@ -240,7 +227,7 @@ public class ItemMakerHandler {
         }
     }
 
-    private static final int getCreateCrystal(final int etc) {
+    private static int getCreateCrystal(final int etc) {
         int itemid;
         final short level = MapleItemInformationProvider.getInstance().getItemMakeLevel(etc);
 
@@ -268,7 +255,7 @@ public class ItemMakerHandler {
         return itemid;
     }
 
-    private static final int[] getCrystal(final int itemid, final int level) {
+    private static int[] getCrystal(final int itemid, final int level) {
         int[] all = new int[2];
         all[0] = -1;
         if (level >= 31 && level <= 50) {
@@ -300,7 +287,7 @@ public class ItemMakerHandler {
         return all;
     }
 
-    private static final void addEnchantStats(final Map<String, Integer> stats, final Equip item) {
+    private static void addEnchantStats(final Map<String, Integer> stats, final Equip item) {
         Integer s = stats.get("PAD");
         if (s != null && s != 0) {
             item.setWatk((short) (item.getWatk() + s));
@@ -377,9 +364,9 @@ public class ItemMakerHandler {
         }
     }
 
-    private static final int getRandomGem(final List<Pair<Integer, Integer>> rewards) {
+    private static int getRandomGem(final List<Pair<Integer, Integer>> rewards) {
         int itemid;
-        final List<Integer> items = new ArrayList<Integer>();
+        final List<Integer> items = new ArrayList<>();
 
         for (final Pair p : rewards) {
             itemid = (Integer) p.getLeft();
@@ -390,7 +377,7 @@ public class ItemMakerHandler {
         return items.get(Randomizer.nextInt(items.size()));
     }
 
-    private static final int checkRequiredNRemove(final MapleClient c, final List<Pair<Integer, Integer>> recipe) {
+    private static int checkRequiredNRemove(final MapleClient c, final List<Pair<Integer, Integer>> recipe) {
         int itemid = 0;
         for (final Pair<Integer, Integer> p : recipe) {
             if (!c.getPlayer().haveItem(p.getLeft(), p.getRight(), false, true)) {
@@ -404,16 +391,16 @@ public class ItemMakerHandler {
         return itemid;
     }
 
-    private static final boolean hasSkill(final MapleClient c, final int reqlvl) {
-        return c.getPlayer().getSkillLevel(SkillFactory.getSkill(c.getPlayer().getStat().getSkillByJob(1007, c.getPlayer().getJob()))) >= reqlvl;
+    private static boolean hasSkill(final MapleClient c, final int reqlvl) {
+        return c.getPlayer().getSkillLevel(SkillFactory.getSkill(PlayerStats.getSkillByJob(1007, c.getPlayer().getJob()))) >= reqlvl;
     }
 
-    public static final void UseRecipe(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void UseRecipe(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null || !chr.isAlive() || chr.getMap() == null || chr.hasBlockedInventory()) {
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
-        c.getPlayer().updateTick(slea.readInt());
+        slea.readInt();
         final byte slot = (byte) slea.readShort();
         final int itemId = slea.readInt();
         final Item toUse = chr.getInventory(MapleInventoryType.USE).getItem(slot);
@@ -427,7 +414,7 @@ public class ItemMakerHandler {
         }
     }
 
-    public static final void MakeExtractor(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void MakeExtractor(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null || !chr.isAlive() || chr.getMap() == null || chr.hasBlockedInventory()) {
             c.getSession().write(CWvsContext.enableActions());
             return;
@@ -446,12 +433,12 @@ public class ItemMakerHandler {
         //MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.SETUP, toUse.getPosition(), (short) 1, false);
     }
 
-    public static final void UseBag(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void UseBag(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null || !chr.isAlive() || chr.getMap() == null || chr.hasBlockedInventory()) {
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
-        c.getPlayer().updateTick(slea.readInt());
+       slea.readInt();
         final byte slot = (byte) slea.readShort();
         final int itemId = slea.readInt();
         final Item toUse = chr.getInventory(MapleInventoryType.ETC).getItem(slot);
@@ -474,10 +461,10 @@ public class ItemMakerHandler {
         c.getSession().write(CWvsContext.enableActions());
     }
 
-    public static final void StartHarvest(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void StartHarvest(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         //its ok if a hacker bypasses this as we do everything in the reactor anyway
         final MapleReactor reactor = c.getPlayer().getMap().getReactorByOid(slea.readInt());
-        if (reactor == null || !reactor.isAlive() || reactor.getReactorId() > 200011 || chr.getStat().harvestingTool <= 0 || reactor.getTruePosition().distanceSq(chr.getTruePosition()) > 10000 || c.getPlayer().getFatigue() >= (GameConstants.GMS ? 200 : 100) || !c.getPlayer().isAlive()) {
+        if (reactor == null || !reactor.isAlive() || reactor.getReactorId() > 200011 || chr.getStat().harvestingTool <= 0 || reactor.getTruePosition().distanceSq(chr.getTruePosition()) > 10000 || c.getPlayer().getFatigue() >= (GameConstants.GMS ? 200 : 100)) {
             return;
         }
         Item item = c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem((short) c.getPlayer().getStat().harvestingTool);
@@ -485,21 +472,21 @@ public class ItemMakerHandler {
             c.getPlayer().getStat().handleProfessionTool(c.getPlayer());
             return;
         }
-        MapleQuestStatus harvest_quest_data = c.getPlayer().getQuestNAdd(MapleQuest.getInstance(GameConstants.HARVEST_TIME));
-        if (harvest_quest_data.getCustomData() == null) {
-            harvest_quest_data.setCustomData("0");
+        MapleQuestStatus marr = c.getPlayer().getQuestNAdd(MapleQuest.getInstance(GameConstants.HARVEST_TIME));
+        if (marr.getCustomData() == null) {
+            marr.setCustomData("0");
         }
-        long lastTime = Long.parseLong(harvest_quest_data.getCustomData());
-        if (lastTime + (7000) > System.currentTimeMillis()) { //GMS is 8 sec
+        long lastTime = Long.parseLong(marr.getCustomData());
+        if (lastTime + (5000) > System.currentTimeMillis()) {
             c.getPlayer().dropMessage(5, "You may not harvest yet.");
         } else {
-            harvest_quest_data.setCustomData(String.valueOf(System.currentTimeMillis()));
+            marr.setCustomData(String.valueOf(System.currentTimeMillis()));
             c.getSession().write(CField.harvestMessage(reactor.getObjectId(), GameConstants.GMS ? 13 : 11)); //ok to harvest, gogo
-            c.getPlayer().getMap().broadcastMessage(chr, CField.showHarvesting(c, item.getItemId()), false);
+            c.getPlayer().getMap().broadcastMessage(chr, CField.showHarvesting(chr.getId(), item.getItemId()), false);
         }
     }
 
-    public static final void StopHarvest(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void StopHarvest(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         //its ok if a hacker bypasses this as we do everything in the reactor anyway
         /*final MapleReactor reactor = c.getPlayer().getMap().getReactorByOid(slea.readInt());
         if (reactor == null || !reactor.isAlive() || reactor.getReactorId() > 200011 || chr.getStat().harvestingTool <= 0 || reactor.getTruePosition().distanceSq(chr.getTruePosition()) > 40000.0 || reactor.getState() < 3 || c.getPlayer().getFatigue() >= 100) { //bug in global, so we use this to bug fix
@@ -514,7 +501,7 @@ public class ItemMakerHandler {
         ReactorScriptManager.getInstance().act(c, reactor);*/
     }
 
-    public static final void ProfessionInfo(final LittleEndianAccessor slea, final MapleClient c) { //so pointless
+    public static void ProfessionInfo(final LittleEndianAccessor slea, final MapleClient c) { //so pointless
         try {
             String asdf = slea.readMapleAsciiString();
             int level1 = slea.readInt();
@@ -523,7 +510,7 @@ public class ItemMakerHandler {
         } //idc
     }
 
-    public static final void CraftEffect(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void CraftEffect(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr.getMapId() != 910001000 && chr.getMap().getExtractorSize() <= 0) {
             return; //ardent mill
         }
@@ -539,7 +526,7 @@ public class ItemMakerHandler {
         }
     }
 
-    public static final void CraftMake(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void CraftMake(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr.getMapId() != 910001000 && chr.getMap().getExtractorSize() <= 0) {
             return; //ardent mill
         }
@@ -553,230 +540,228 @@ public class ItemMakerHandler {
         //}
     }
 
-    public static final void CraftComplete(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
-        final int craftID = slea.readInt();
-        final CraftingEntry ce = SkillFactory.getCraft(craftID);
-        final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        if ((chr.getMapId() != 910001000 && (craftID != 92049000 || chr.getMap().getExtractorSize() <= 0)) || ce == null || chr.getFatigue() >= (GameConstants.GMS ? 200 : 100)) {
-            return;
-        }
-        final int theLevl = c.getPlayer().getProfessionLevel((craftID / 10000) * 10000);
-        if (theLevl <= 0 && craftID != 92049000) {
-            return;
-        }
-        int toGet = 0, expGain = 0, fatigue = 0;
-        short quantity = 1;
-        CraftRanking cr = CraftRanking.GOOD;
-        if (craftID == 92049000) { //disassembling
-            final int extractorId = slea.readInt();
-            final int itemId = slea.readInt();
-            final long invId = slea.readLong();
-            final int reqLevel = ii.getReqLevel(itemId);
-            final Item item = chr.getInventory(MapleInventoryType.EQUIP).findByInventoryId(invId, itemId);
-            if (item == null || chr.getInventory(MapleInventoryType.ETC).isFull()) {
-                return;
-            }
-            if (extractorId <= 0 && (theLevl == 0 || theLevl < (reqLevel > 130 ? 6 : ((reqLevel - 30) / 20)))) {
-                return;
-            } else if (extractorId > 0) {
-                final MapleCharacter extract = chr.getMap().getCharacterById(extractorId);
-                if (extract == null || extract.getExtractor() == null) {
-                    return;
-                }
-                final MapleExtractor extractor = extract.getExtractor();
-                if (extractor.owner != chr.getId()) { //fee
-                    if (chr.getMeso() < extractor.fee) {
-                        return;
-                    }
-                    final MapleStatEffect eff = ii.getItemEffect(extractor.itemId);
-                    if (eff != null && eff.getUseLevel() < reqLevel) {
-                        return;
-                    }
-                    chr.gainMeso(-extractor.fee, true);
-                    final MapleCharacter owner = chr.getMap().getCharacterById(extractor.owner);
-                    if (owner != null && owner.getMeso() < (Integer.MAX_VALUE - extractor.fee)) {
-                        owner.gainMeso(extractor.fee, false);
-                    }
-                }
-            }
-            toGet = 4021016;
-            quantity = (short) Randomizer.rand(3, GameConstants.isWeapon(itemId) || GameConstants.isOverall(itemId) ? 11 : 7);
-            if (reqLevel <= 60) {
-                toGet = 4021013;
-            } else if (reqLevel <= 90) {
-                toGet = 4021014;
-            } else if (reqLevel <= 120) {
-                toGet = 4021015;
-            }
-            if (quantity <= 5) {
-                cr = CraftRanking.SOSO;
-            }
-            if (Randomizer.nextInt(5) == 0 && toGet != 4021016) {
-                toGet++;
-                quantity = 1;
-                cr = CraftRanking.COOL;
-            }
-            fatigue = 3;
-            MapleInventoryManipulator.addById(c, toGet, quantity, "Made by disassemble " + itemId + " on " + FileoutputUtil.CurrentReadable_Date());
-            MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.EQUIP, item.getPosition(), (byte) 1, false);
-        } else if (craftID == 92049001) { //fusing. /mindfuck
-            final int itemId = slea.readInt();
-            final long invId1 = slea.readLong();
-            final long invId2 = slea.readLong();
-            final int reqLevel = ii.getReqLevel(itemId);
-            Equip item1 = (Equip) chr.getInventory(MapleInventoryType.EQUIP).findByInventoryIdOnly(invId1, itemId);
-            Equip item2 = (Equip) chr.getInventory(MapleInventoryType.EQUIP).findByInventoryIdOnly(invId2, itemId);
-            for (short i = 0; i < chr.getInventory(MapleInventoryType.EQUIP).getSlotLimit(); i++) {
-                Item item = chr.getInventory(MapleInventoryType.EQUIP).getItem(i);
-                if (item != null && item.getItemId() == itemId && item != item1 && item != item2) {
-                    if (item1 == null) {
-                        item1 = (Equip) item;
-                    } else if (item2 == null) {
-                        item2 = (Equip) item;
-                        break;
-                    }
-                }
-            }
-            if (item1 == null || item2 == null) {
-                return;
-            }
-            if (theLevl < (reqLevel > 130 ? 6 : ((reqLevel - 30) / 20))) {
-                return;
-            }
-            int potentialState = 17, potentialChance = (theLevl * 2);
-            if (item1.getState() > 0 && item2.getState() > 0) {
-                potentialChance = 100;
-            } else if (item1.getState() > 0 || item2.getState() > 0) {
-                potentialChance *= 2;
-            }
-            if (item1.getState() == item2.getState() && item1.getState() > 17) {
-                potentialState = item1.getState();
-            }
-            //use average stats if scrolled.
-            Equip newEquip = ii.fuse(item1.getLevel() > 0 ? (Equip) ii.getEquipById(itemId) : item1, item2.getLevel() > 0 ? (Equip) ii.getEquipById(itemId) : item2);
-            final int newStat = ii.getTotalStat(newEquip);
-            if (newStat > ii.getTotalStat(item1) || newStat > ii.getTotalStat(item2)) {
-                cr = CraftRanking.COOL;
-            } else if (newStat < ii.getTotalStat(item1) || newStat < ii.getTotalStat(item2)) {
-                cr = CraftRanking.SOSO;
-            }
-            if (Randomizer.nextInt(100) < (newEquip.getUpgradeSlots() > 0 || potentialChance >= 100 ? potentialChance : (potentialChance / 2))) {
-                newEquip.resetPotential_Fuse(theLevl > 5, potentialState);
-            }
-            newEquip.setFlag((short) ItemFlag.CRAFTED.getValue());
-            newEquip.setOwner(chr.getName());
-            toGet = newEquip.getItemId();
-            expGain = (60 - ((theLevl - 1) * 2)) * (GameConstants.GMS ? 2 : 1);
-            fatigue = 3;
+/*     */   public static final void CraftComplete(LittleEndianAccessor slea, MapleClient c, MapleCharacter chr)
+/*     */   {
+/* 556 */     int craftID = slea.readInt();
+/* 557 */     SkillFactory.CraftingEntry ce = SkillFactory.getCraft(craftID);
+/* 558 */     MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
+/* 559 */     if (((chr.getMapId() == 910001000) || ((craftID == 92049000) && (chr.getMap().getExtractorSize() > 0))) && (ce != null)) { if (chr.getFatigue() < (GameConstants.GMS ? 200 : 100)); } else return;
+/*     */ 
+/* 562 */     int theLevl = c.getPlayer().getProfessionLevel(craftID / 10000 * 10000);
+/* 563 */     if ((theLevl <= 0) && (craftID != 92049000)) {
+/* 564 */       return;
+/*     */     }
+/* 566 */     int toGet = 0; int expGain = 0; int fatigue = 0;
+/* 567 */     short quantity = 1;
+/* 568 */     CraftRanking cr = CraftRanking.GOOD;
+/* 569 */     if (craftID == 92049000) {
+/* 570 */       int extractorId = slea.readInt();
+/* 571 */       int itemId = slea.readInt();
+/* 572 */       long invId = slea.readLong();
+/* 573 */       int reqLevel = ii.getReqLevel(itemId);
+/* 574 */       Item item = chr.getInventory(MapleInventoryType.EQUIP).findByInventoryId(invId, itemId);
+/* 575 */       if ((item == null) || (chr.getInventory(MapleInventoryType.ETC).isFull())) {
+/* 576 */         return;
+/*     */       }
+/* 578 */       if (extractorId <= 0) if (theLevl != 0) { if (theLevl >= (reqLevel > 130 ? 6 : (reqLevel - 30) / 20)); } else return;
+/* 580 */       if (extractorId > 0) {
+/* 581 */         MapleCharacter extract = chr.getMap().getCharacterById(extractorId);
+/* 582 */         if ((extract == null) || (extract.getExtractor() == null)) {
+/* 583 */           return;
+/*     */         }
+/* 585 */         MapleExtractor extractor = extract.getExtractor();
+/* 586 */         if (extractor.owner != chr.getId()) {
+/* 587 */           if (chr.getMeso() < extractor.fee) {
+/* 588 */             return;
+/*     */           }
+/* 590 */           MapleStatEffect eff = ii.getItemEffect(extractor.itemId);
+/* 591 */           if ((eff != null) && (eff.getUseLevel() < reqLevel)) {
+/* 592 */             return;
+/*     */           }
+/* 594 */           chr.gainMeso(-extractor.fee, true);
+/* 595 */           MapleCharacter owner = chr.getMap().getCharacterById(extractor.owner);
+/* 596 */           if ((owner != null) && (owner.getMeso() < 2147483647 - extractor.fee)) {
+/* 597 */             owner.gainMeso(extractor.fee, false);
+/*     */           }
+/*     */         }
+/*     */       }
+/* 601 */       toGet = 4031016;
+/* 602 */       quantity = (short)Randomizer.rand(3, (GameConstants.isWeapon(itemId)) || (GameConstants.isOverall(itemId)) ? 11 : 7);
+/* 603 */       if (reqLevel <= 60)
+/* 604 */         toGet = 4021013;
+/* 605 */       else if (reqLevel <= 90)
+/* 606 */         toGet = 4021014;
+/* 607 */       else if (reqLevel <= 120) {
+/* 608 */         toGet = 4021015;
+/*     */       }
+/* 610 */       if (quantity <= 5) {
+/* 611 */         cr = CraftRanking.SOSO;
+/*     */       }
+/* 613 */       if ((Randomizer.nextInt(5) == 0) && (toGet != 4031016)) {
+/* 614 */         toGet++;
+/* 615 */         quantity = 1;
+/* 616 */         cr = CraftRanking.COOL;
+/*     */       }
+/* 618 */       fatigue = 3;
+/* 619 */       MapleInventoryManipulator.addById(c, toGet, quantity, "Made by disassemble " + itemId + " on " + FileoutputUtil.CurrentReadable_Date());
+/* 620 */       MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.EQUIP, item.getPosition(), (byte) 1, false);
+/* 621 */     } else if (craftID == 92049001) {
+/* 622 */       int itemId = slea.readInt();
+/* 623 */       long invId1 = slea.readLong();
+/* 624 */       long invId2 = slea.readLong();
+/* 625 */       int reqLevel = ii.getReqLevel(itemId);
+/* 626 */       Equip item1 = (Equip)chr.getInventory(MapleInventoryType.EQUIP).findByInventoryIdOnly(invId1, itemId);
+/* 627 */       Equip item2 = (Equip)chr.getInventory(MapleInventoryType.EQUIP).findByInventoryIdOnly(invId2, itemId);
+/* 628 */       for (short i = 0; i < chr.getInventory(MapleInventoryType.EQUIP).getSlotLimit(); i = (short)(i + 1)) {
+/* 629 */         Item item = chr.getInventory(MapleInventoryType.EQUIP).getItem(i);
+/* 630 */         if ((item != null) && (item.getItemId() == itemId) && (item != item1) && (item != item2)) {
+/* 631 */           if (item1 == null) {
+/* 632 */             item1 = (Equip)item;
+/* 633 */           } else if (item2 == null) {
+/* 634 */             item2 = (Equip)item;
+/* 635 */             break;
+/*     */           }
+/*     */         }
+/*     */       }
+/* 639 */       if ((item1 == null) || (item2 == null)) {
+/* 640 */         return;
+/*     */       }
+/* 642 */       if (theLevl < (reqLevel > 130 ? 6 : (reqLevel - 30) / 20)) {
+/* 643 */         return;
+/*     */       }
+/* 645 */       int potentialState = 17; int potentialChance = theLevl * 2;
+/* 646 */       if ((item1.getState() > 0) && (item2.getState() > 0))
+/* 647 */         potentialChance = 100;
+/* 648 */       else if ((item1.getState() > 0) || (item2.getState() > 0)) {
+/* 649 */         potentialChance *= 2;
+/*     */       }
+/* 651 */       if ((item1.getState() == item2.getState()) && (item1.getState() > 17)) {
+/* 652 */         potentialState = item1.getState();
+/*     */       }
+/*     */ 
+/* 655 */       Equip newEquip = ii.fuse(item1.getLevel() > 0 ? (Equip)ii.getEquipById(itemId) : item1, item2.getLevel() > 0 ? (Equip)ii.getEquipById(itemId) : item2);
+/* 656 */       int newStat = ii.getTotalStat(newEquip);
+/* 657 */       if ((newStat > ii.getTotalStat(item1)) || (newStat > ii.getTotalStat(item2)))
+/* 658 */         cr = CraftRanking.COOL;
+/* 659 */       else if ((newStat < ii.getTotalStat(item1)) || (newStat < ii.getTotalStat(item2))) {
+/* 660 */         cr = CraftRanking.SOSO;
+/*     */       }
+/* 662 */       if (Randomizer.nextInt(100) < ((newEquip.getUpgradeSlots() > 0) || (potentialChance >= 100) ? potentialChance : potentialChance / 2)) {
+/* 663 */         newEquip.resetPotential_Fuse(theLevl > 5, potentialState);
+/*     */       }
+/* 665 */       newEquip.setFlag((short)ItemFlag.CRAFTED.getValue());
+/* 666 */       newEquip.setOwner(chr.getName());
+/* 667 */       toGet = newEquip.getItemId();
+/* 668 */       expGain = (60 - (theLevl - 1) * 2) * (GameConstants.GMS ? 2 : 1);
+/* 669 */       fatigue = 3;
             MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.EQUIP, item1.getPosition(), (byte) 1, false);
             MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.EQUIP, item2.getPosition(), (byte) 1, false);
-            MapleInventoryManipulator.addbyItem(c, newEquip);
-        } else {
-            if (ce.needOpenItem && chr.getSkillLevel(craftID) <= 0) {
-                return;
-            }
-            for (Entry<Integer, Integer> e : ce.reqItems.entrySet()) {
-                if (!chr.haveItem(e.getKey(), e.getValue())) {
-                    return;
-                }
-            }
-            for (Triple<Integer, Integer, Integer> i : ce.targetItems) {
-                if (!MapleInventoryManipulator.checkSpace(c, i.left, i.mid, "")) {
-                    return;
-                }
-            }
-            for (Entry<Integer, Integer> e : ce.reqItems.entrySet()) {
-                MapleInventoryManipulator.removeById(c, GameConstants.getInventoryType(e.getKey()), e.getKey(), e.getValue(), false, false);
-            }
-            if (Randomizer.nextInt(100) < (100 - (ce.reqSkillLevel - theLevl) * 20) || (craftID / 10000 <= 9201)) {
-                final Map<Skill, SkillEntry> sa = new HashMap<>();
-                while (true) {
-                    boolean passed = false;
-                    for (Triple<Integer, Integer, Integer> i : ce.targetItems) {
-                        if (Randomizer.nextInt(100) < i.right) {
-                            toGet = i.left;
-                            quantity = i.mid.shortValue();
-                            Item receive = null;
-                            if (GameConstants.getInventoryType(toGet) == MapleInventoryType.EQUIP) {
-                                Equip first = (Equip) ii.getEquipById(toGet);
-                                if (Randomizer.nextInt(100) < (theLevl * 2)) {
-                                    first = (Equip) ii.randomizeStats(first);
-                                    cr = CraftRanking.COOL;
-                                }
-                                if (Randomizer.nextInt(100) < (theLevl * (first.getUpgradeSlots() > 0 ? 2 : 1))) {
-                                    first.resetPotential();
-                                    cr = CraftRanking.COOL;
-                                }
-                                receive = first;
-                                receive.setFlag((short) ItemFlag.CRAFTED.getValue());
-                            } else {
-                                receive = new Item(toGet, (short) 0, quantity, (short) (ItemFlag.CRAFTED_USE.getValue()));
-                            }
-                            if (ce.period > 0) {
-                                receive.setExpiration(System.currentTimeMillis() + (ce.period * 60000)); //period is in minutes
-                            }
-                            receive.setOwner(chr.getName());
-                            receive.setGMLog("Crafted from " + craftID + " on " + FileoutputUtil.CurrentReadable_Date());
-                            MapleInventoryManipulator.addFromDrop(c, receive, true, false);
-                            if (ce.needOpenItem) {
-                                byte mLevel = chr.getMasterLevel(craftID);
-                                if (mLevel == 1) {
-                                    sa.put(ce, new SkillEntry(0, (byte) 0, SkillFactory.getDefaultSExpiry(ce)));
-                                } else if (mLevel > 1) {
-                                    sa.put(ce, new SkillEntry(Integer.MAX_VALUE, (byte) (chr.getMasterLevel(craftID) - 1), SkillFactory.getDefaultSExpiry(ce)));
-                                }
-                            }
-                            fatigue = ce.incFatigability;
-                            expGain = ce.incSkillProficiency == 0 ? (((fatigue * 20) - (ce.reqSkillLevel - theLevl) * 2) * (GameConstants.GMS ? 2 : 1)) : ce.incSkillProficiency;
-                            chr.getTrait(MapleTraitType.craft).addExp(cr.craft, chr);
-                            passed = true;
-                            break;
-                        }
-                    }
-                    if (passed) {
-                        break;
-                    }
-                }
-                chr.changeSkillsLevel(sa);
-            } else {
-                quantity = 0;
-                cr = CraftRanking.SOSO;
-            }
-        }
-        if (expGain > 0 && theLevl < 10) {
-            expGain *= chr.getClient().getChannelServer().getTraitRate();
-            if (Randomizer.nextInt(100) < chr.getTrait(MapleTraitType.craft).getLevel() / 5) {
-                expGain *= 2;
-            }
-            String s = "Alchemy";
-            switch (craftID / 10000) {
-                case 9200:
-                    s = "Herbalism";
-                    break;
-                case 9201:
-                    s = "Mining";
-                    break;
-                case 9202:
-                    s = "Smithing";
-                    break;
-                case 9203:
-                    s = "Accessory Crafting";
-                    break;
-            }
-            chr.dropMessage(-5, s + "'s mastery increased. (+" + expGain + ")");
-            if (chr.addProfessionExp((craftID / 10000) * 10000, expGain)) {
-                chr.dropMessage(-5, s + " has gained a level.");
-            }
-        } else {
-            expGain = 0;
-        }
-        MapleQuest.getInstance(2550).forceStart(c.getPlayer(), 9031000, "1"); //removes tutorial stuff
-        chr.setFatigue((byte) (chr.getFatigue() + fatigue));
-        chr.getMap().broadcastMessage(CField.craftFinished(chr.getId(), craftID, cr.i, toGet, quantity, expGain));
-    }
+/* 672 */       MapleInventoryManipulator.addbyItem(c, newEquip);
+/*     */     } else {
+/* 674 */       if ((ce.needOpenItem) && (chr.getSkillLevel(craftID) <= 0)) {
+/* 675 */         return;
+/*     */       }
+/* 677 */       for (Map.Entry e : ce.reqItems.entrySet()) {
+/* 678 */         if (!chr.haveItem(((Integer)e.getKey()).intValue(), ((Integer)e.getValue()).intValue())) {
+/* 679 */           return;
+/*     */         }
+/*     */       }
+/* 682 */       for (Triple i : ce.targetItems) {
+/* 683 */         if (!MapleInventoryManipulator.checkSpace(c, ((Integer)i.left).intValue(), ((Integer)i.mid).intValue(), "")) {
+/* 684 */           return;
+/*     */         }
+/*     */       }
+/* 687 */       for (Map.Entry e : ce.reqItems.entrySet()) {
+/* 688 */         MapleInventoryManipulator.removeById(c, GameConstants.getInventoryType(((Integer)e.getKey()).intValue()), ((Integer)e.getKey()).intValue(), ((Integer)e.getValue()).intValue(), false, false);
+/*     */       }
+/* 690 */       if ((Randomizer.nextInt(100) < 100 - (ce.reqSkillLevel - theLevl) * 20) || (craftID / 10000 <= 9201)) {
+/* 691 */         Map sa = new HashMap();
+/*     */         while (true) {
+/* 693 */           boolean passed = false;
+/* 694 */           for (Triple i : ce.targetItems) {
+/* 695 */             if (Randomizer.nextInt(100) < ((Integer)i.right).intValue()) {
+/* 696 */               toGet = ((Integer)i.left).intValue();
+/* 697 */               quantity = ((Integer)i.mid).shortValue();
+/* 698 */               Item receive = null;
+/* 699 */               if (GameConstants.getInventoryType(toGet) == MapleInventoryType.EQUIP) {
+/* 700 */                 Equip first = (Equip)ii.getEquipById(toGet);
+/* 701 */                 if (Randomizer.nextInt(100) < theLevl * 2) {
+/* 702 */                   first = ii.randomizeStats(first);
+/* 703 */                   cr = CraftRanking.COOL;
+/*     */                 }
+/* 705 */                 if (Randomizer.nextInt(100) < theLevl * (first.getUpgradeSlots() > 0 ? 2 : 1)) {
+/* 706 */                   first.resetPotential();
+/* 707 */                   cr = CraftRanking.COOL;
+/*     */                 }
+/* 709 */                 receive = first;
+/* 710 */                 receive.setFlag((short)ItemFlag.CRAFTED.getValue());
+/*     */               } else {
+/* 712 */                 receive = new Item(toGet, (short) 0, quantity, (short) (ItemFlag.CRAFTED_USE.getValue()));
+/*     */               }
+/* 714 */               if (ce.period > 0) {
+/* 715 */                 receive.setExpiration(System.currentTimeMillis() + ce.period * 60000);
+/*     */               }
+/* 717 */               receive.setOwner(chr.getName());
+/* 718 */               receive.setGMLog("Crafted from " + craftID + " on " + FileoutputUtil.CurrentReadable_Date());
+/* 719 */               MapleInventoryManipulator.addFromDrop(c, receive, true, false);
+/* 720 */               if (ce.needOpenItem) {
+/* 721 */                 int mLevel = chr.getMasterLevel(craftID);
+/* 722 */                 if (mLevel == 1)
+/* 723 */                   sa.put(ce, new SkillEntry(0, 0, SkillFactory.getDefaultSExpiry(ce)));
+/* 724 */                 else if (mLevel > 1) {
+/* 725 */                   sa.put(ce, new SkillEntry(2147483647,(chr.getMasterLevel(craftID) - 1), SkillFactory.getDefaultSExpiry(ce)));
+/*     */                 }
+/*     */               }
+/* 728 */               fatigue = ce.incFatigability;
+/* 729 */               expGain = ce.incSkillProficiency == 0 ? (fatigue * 20 - (ce.reqSkillLevel - theLevl) * 2) * (GameConstants.GMS ? 2 : 1) : ce.incSkillProficiency;
+/* 730 */               chr.getTrait(MapleTrait.MapleTraitType.craft).addExp(cr.craft, chr);
+/* 731 */               passed = true;
+/* 732 */               break;
+/*     */             }
+/*     */           }
+/* 735 */           if (passed) {
+/*     */             break;
+/*     */           }
+/*     */         }
+/* 739 */         chr.changeSkillsLevel(sa);
+/*     */       } else {
+/* 741 */         quantity = 0;
+/* 742 */         cr = CraftRanking.SOSO;
+/*     */       }
+/*     */     }
+/* 745 */     if ((expGain > 0) && (theLevl < 10)) {
+/* 746 */       expGain *= chr.getClient().getWorldServer().getTraitRate();
+/* 747 */       if (Randomizer.nextInt(100) < chr.getTrait(MapleTrait.MapleTraitType.craft).getLevel() / 5) {
+/* 748 */         expGain *= 2;
+/*     */       }
+/* 750 */       String s = "Alchemy";
+/* 751 */       switch (craftID / 10000) {
+/*     */       case 9200:
+/* 753 */         s = "Herbalism";
+/* 754 */         break;
+/*     */       case 9201:
+/* 756 */         s = "Mining";
+/* 757 */         break;
+/*     */       case 9202:
+/* 759 */         s = "Smithing";
+/* 760 */         break;
+/*     */       case 9203:
+/* 762 */         s = "Accessory Crafting";
+/*     */       }
+/*     */ 
+/* 765 */       chr.dropMessage(-5, s + "'s mastery increased. (+" + expGain + ")");
+/* 766 */       if (chr.addProfessionExp(craftID / 10000 * 10000, expGain))
+/* 767 */         chr.dropMessage(-5, s + " has gained a level.");
+/*     */     }
+/*     */     else {
+/* 770 */       expGain = 0;
+/*     */     }
+/* 772 */     MapleQuest.getInstance(2550).forceStart(c.getPlayer(), 9031000, "1");
+/* 773 */     chr.setFatigue((byte)(chr.getFatigue() + fatigue));
+/* 774 */     chr.getMap().broadcastMessage(CField.craftFinished(chr.getId(), craftID, cr.i, toGet, quantity, expGain));
+/*     */   }
 
-    public static final void UsePot(final LittleEndianAccessor slea, final MapleClient c) {
-        //D6 00  | 41 3B 25 00 | 07 00 | 00 00 00 00 00 00 
+    public static void UsePot(final LittleEndianAccessor slea, final MapleClient c) {
         final int itemid = slea.readInt();
         final Item slot = c.getPlayer().getInventory(MapleInventoryType.USE).getItem(slea.readShort());
         if (slot == null || slot.getQuantity() <= 0 || slot.getItemId() != itemid || itemid / 10000 != 244 || MapleItemInformationProvider.getInstance().getPot(itemid) == null) {
@@ -786,11 +771,6 @@ public class ItemMakerHandler {
         c.getSession().write(CWvsContext.enableActions());
         for (int i = 0; i < c.getPlayer().getImps().length; i++) {
             if (c.getPlayer().getImps()[i] == null) {
-                    if(i==2 && c.getPlayer().getProfessions().isEmpty()){ //You only have two (0, 1) slots available if you do not have a profession. 
-                        //This prevents any packet editing attempt to create a third one without a profession.
-                        c.getPlayer().dropMessage(MessageType.POPUP, "All item pots are currently in use.");
-                        return;
-                    }
                 c.getPlayer().getImps()[i] = new MapleImp(itemid);
                 c.getSession().write(CWvsContext.updateImp(c.getPlayer().getImps()[i], ImpFlag.SUMMONED.getValue(), i, false));
                 MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, slot.getPosition(), (short) 1, false, false);
@@ -800,7 +780,7 @@ public class ItemMakerHandler {
 
     }
 
-    public static final void ClearPot(final LittleEndianAccessor slea, final MapleClient c) {
+    public static void ClearPot(final LittleEndianAccessor slea, final MapleClient c) {
         final int index = slea.readInt() - 1;
         if (index < 0 || index >= c.getPlayer().getImps().length || c.getPlayer().getImps()[index] == null) {
             c.getSession().write(CWvsContext.enableActions());
@@ -810,7 +790,7 @@ public class ItemMakerHandler {
         c.getPlayer().getImps()[index] = null;
     }
 
-    public static final void FeedPot(final LittleEndianAccessor slea, final MapleClient c) {
+    public static void FeedPot(final LittleEndianAccessor slea, final MapleClient c) {
         final int itemid = slea.readInt();
         final Item slot = c.getPlayer().getInventory(GameConstants.getInventoryType(itemid)).getItem((short) slea.readInt());
         if (slot == null || slot.getQuantity() <= 0 || slot.getItemId() != itemid) {
@@ -818,8 +798,8 @@ public class ItemMakerHandler {
             return;
         }
         final int level = GameConstants.getInventoryType(itemid) == MapleInventoryType.ETC ? MapleItemInformationProvider.getInstance().getItemMakeLevel(itemid) : MapleItemInformationProvider.getInstance().getReqLevel(itemid);
-        if (level <= 0 || level < (Math.min(120, c.getPlayer().getLevel()) - 75) || (GameConstants.getInventoryType(itemid) != MapleInventoryType.ETC && GameConstants.getInventoryType(itemid) != MapleInventoryType.EQUIP)) {
-            c.getPlayer().dropMessage(1, "The item must be within 75 levels of your character.");
+        if (level <= 0 || level < (Math.min(120, c.getPlayer().getLevel()) - 50) || (GameConstants.getInventoryType(itemid) != MapleInventoryType.ETC && GameConstants.getInventoryType(itemid) != MapleInventoryType.EQUIP)) {
+            c.getPlayer().dropMessage(1, "The item must be within 50 levels of you.");
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
@@ -837,7 +817,7 @@ public class ItemMakerHandler {
         if (Randomizer.nextBoolean()) {
             mask |= ImpFlag.CLOSENESS.getValue();
             c.getPlayer().getImps()[index].setCloseness(c.getPlayer().getImps()[index].getCloseness() + 1 + (Randomizer.nextInt(5 * (GameConstants.getInventoryType(itemid) == MapleInventoryType.EQUIP ? 2 : 1))));
-        } else if (Randomizer.nextInt(10) == 0) { //1/10 chance of sickness
+        } else if (Randomizer.nextInt(5) == 0) { //1/10 chance of sickness
             c.getPlayer().getImps()[index].setState(4); //sick
             mask |= ImpFlag.STATE.getValue();
         }
@@ -854,7 +834,7 @@ public class ItemMakerHandler {
         c.getSession().write(CWvsContext.updateImp(c.getPlayer().getImps()[index], mask, index, false));
     }
 
-    public static final void CurePot(final LittleEndianAccessor slea, final MapleClient c) {
+    public static void CurePot(final LittleEndianAccessor slea, final MapleClient c) {
         final int itemid = slea.readInt();
         final Item slot = c.getPlayer().getInventory(MapleInventoryType.ETC).getItem((short) slea.readInt());
         if (slot == null || slot.getQuantity() <= 0 || slot.getItemId() != itemid || itemid / 10000 != 434) {
@@ -871,10 +851,10 @@ public class ItemMakerHandler {
         MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.ETC, slot.getPosition(), (short) 1, false, false);
     }
 
-    public static final void RewardPot(final LittleEndianAccessor slea, final MapleClient c) {
+    public static void RewardPot(final LittleEndianAccessor slea, final MapleClient c) {
         final int index = slea.readInt() - 1;
         if (index < 0 || index >= c.getPlayer().getImps().length || c.getPlayer().getImps()[index] == null || c.getPlayer().getImps()[index].getLevel() < (MapleItemInformationProvider.getInstance().getPot(c.getPlayer().getImps()[index].getItemId()).right - 1)) {
-            System.out.println("index: " + index);c.getSession().write(CWvsContext.enableActions());
+            c.getSession().write(CWvsContext.enableActions());
             return;
         }
         final int itemid = GameConstants.getRewardPot(c.getPlayer().getImps()[index].getItemId(), c.getPlayer().getImps()[index].getCloseness());

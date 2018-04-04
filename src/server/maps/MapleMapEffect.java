@@ -22,7 +22,6 @@ package server.maps;
 
 import client.MapleClient;
 import tools.packet.CField;
-
 import tools.packet.MTSCSPacket;
 
 public class MapleMapEffect {

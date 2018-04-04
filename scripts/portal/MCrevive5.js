@@ -3,7 +3,7 @@
  * @script: MCrevive<(mapid%1000)/100>
  * @func: warps players back to arena and fixes their score back to normal
 */
-// Development v117.2 - Monster Carnival Reviving Field 5
+// Amethyst v117.2 - Monster Carnival Reviving Field 5
 
 function enter(pi) {
     if (pi.getPlayer().getCarnivalParty().getTeam() == 0) {

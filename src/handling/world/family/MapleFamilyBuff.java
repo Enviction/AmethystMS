@@ -73,7 +73,7 @@ public enum MapleFamilyBuff {
 
 	public final void setEffects() {
 		//custom
-		this.effects = new EnumMap<MapleBuffStat, Integer>(MapleBuffStat.class);
+		this.effects = new EnumMap<>(MapleBuffStat.class);
 		switch(type) {
 			case 2: //drop
 				effects.put(MapleBuffStat.DROP_RATE, effect);

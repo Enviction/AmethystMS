@@ -23,9 +23,7 @@ package server;
 import java.awt.Point;
 
 import client.MapleClient;
-import client.anticheat.CheatingOffense;
 import constants.MapConstants;
-import constants.TutorialConstants;
 import handling.channel.ChannelServer;
 import scripting.PortalScriptManager;
 import server.maps.MapleMap;
@@ -109,10 +107,10 @@ public class MaplePortal {
     public final void enterPortal(final MapleClient c) {
         if (getPosition().distanceSq(c.getPlayer().getPosition()) > 40000 && !c.getPlayer().isGM()) {
             c.getSession().write(CWvsContext.enableActions());
-            c.getPlayer().getCheatTracker().registerOffense(CheatingOffense.USING_FARAWAY_PORTAL);
 	    return;
         }
         final MapleMap currentmap = c.getPlayer().getMap();
+        // c.getPlayer().setLastMap(currentmap.getId(),this);
         if (!c.getPlayer().hasBlockedInventory() && (portalState || c.getPlayer().isGM())) {
             if (getScriptName() != null) {
                 c.getPlayer().checkFollow();
@@ -122,7 +120,7 @@ public class MaplePortal {
                     e.printStackTrace();
                 }
             } else if (getTargetMapId() != 999999999) {
-                final MapleMap to = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(getTargetMapId());
+                final MapleMap to = ChannelServer.getInstance(c.getWorld(), c.getChannel()).getMapFactory().getMap(getTargetMapId());
 				if (to == null) {
             	    c.getSession().write(CWvsContext.enableActions());
 					return;
@@ -130,12 +128,6 @@ public class MaplePortal {
                 if (!c.getPlayer().isGM()) {
                     if (to.getLevelLimit() > 0 && to.getLevelLimit() > c.getPlayer().getLevel()) {
                         c.getPlayer().dropMessage(-1, "You are too low of a level to enter this place.");
-                        c.getSession().write(CWvsContext.enableActions());
-                        return;
-                    }
-                } else if (to.getId() == c.getPlayer().getMapId() + 10000 && MapConstants.isStorylineMap(c.getPlayer().getMapId())) {
-                    if (c.getPlayer().getQuestStatus(TutorialConstants.getQuest(c.getPlayer(), c.getPlayer().getMapId())) != 2) {
-                        c.getPlayer().dropMessage(1, TutorialConstants.getPortalBlockedMsg());
                         c.getSession().write(CWvsContext.enableActions());
                         return;
                     }

@@ -30,14 +30,14 @@ import tools.packet.CWvsContext;
 
 public class MapleCoconut extends MapleEvent {
 
-    private List<MapleCoconuts> coconuts = new LinkedList<MapleCoconuts>();
+    private List<MapleCoconuts> coconuts = new LinkedList<>();
     private int[] coconutscore = new int[2];
     private int countBombing = 0;
     private int countFalling = 0;
     private int countStopped = 0;
 
-    public MapleCoconut(final int channel, final MapleEventType type) {
-	super(channel,type);
+    public MapleCoconut(final int world, final int channel, final MapleEventType type) {
+	super(world,channel,type);
     }
 
     @Override

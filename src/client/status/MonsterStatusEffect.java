@@ -90,7 +90,7 @@ public class MonsterStatusEffect {
 
     public final void setPoisonSchedule(final int poisonSchedule, MapleCharacter chrr) {
         this.poisonSchedule = poisonSchedule;
-	this.weakChr = new WeakReference<MapleCharacter>(chrr);
+	this.weakChr = new WeakReference<>(chrr);
     }
 
     public final int getPoisonSchedule() {
@@ -119,7 +119,7 @@ public class MonsterStatusEffect {
 	this.weakChr = null;
     }
 
-    public final static int genericSkill(MonsterStatus stat) {
+    public static int genericSkill(MonsterStatus stat) {
 	switch(stat) {
 	    case STUN:
 		return 90001001;

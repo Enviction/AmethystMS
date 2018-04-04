@@ -24,7 +24,6 @@
 package handling.world.family;
 
 import client.MapleCharacter;
-import handling.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class MapleFamilyCharacter implements java.io.Serializable {
 	private int level, id, channel = -1, jobid, familyid, seniorid, currentrep, totalrep, junior1, junior2;
 	private boolean online;
 	private String name;
- 	private List<Integer> pedigree = new ArrayList<Integer>(); //recalculate
+ 	private List<Integer> pedigree = new ArrayList<>(); //recalculate
 	private int descendants = 0;
 
 	// either read from active character...
@@ -169,7 +168,7 @@ public class MapleFamilyCharacter implements java.io.Serializable {
 	}
 
   	public List<MapleFamilyCharacter> getAllJuniors(MapleFamily fam) { //to be used scarcely
-		List<MapleFamilyCharacter> ret = new ArrayList<MapleFamilyCharacter>();
+		List<MapleFamilyCharacter> ret = new ArrayList<>();
 		ret.add(this);
 		if (junior1 > 0) {
 			MapleFamilyCharacter chr = fam.getMFC(junior1);
@@ -191,7 +190,7 @@ public class MapleFamilyCharacter implements java.io.Serializable {
 	}
 
   	public List<MapleFamilyCharacter> getOnlineJuniors(MapleFamily fam) { //to be used scarcely
-		List<MapleFamilyCharacter> ret = new ArrayList<MapleFamilyCharacter>();
+		List<MapleFamilyCharacter> ret = new ArrayList<>();
 		ret.add(this);
 		if (junior1 > 0) {
 			MapleFamilyCharacter chr = fam.getMFC(junior1);
@@ -245,7 +244,7 @@ public class MapleFamilyCharacter implements java.io.Serializable {
 	}
 
 	public void resetPedigree(MapleFamily fam) { //not in order
-		pedigree = new ArrayList<Integer>();
+		pedigree = new ArrayList<>();
 		pedigree.add(id); //lol
 		if (seniorid > 0) {
 			MapleFamilyCharacter chr = fam.getMFC(seniorid);

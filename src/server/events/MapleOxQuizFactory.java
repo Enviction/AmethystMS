@@ -21,21 +21,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.events;
 
-import java.util.HashMap;
-import java.util.Map;
+import database.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import database.DatabaseConnection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import server.Randomizer;
 import tools.Pair;
 
 public class MapleOxQuizFactory {
 
-    private final Map<Pair<Integer, Integer>, MapleOxQuizEntry> questionCache = new HashMap<Pair<Integer, Integer>, MapleOxQuizEntry>();
+    private final Map<Pair<Integer, Integer>, MapleOxQuizEntry> questionCache = new HashMap<>();
     private static final MapleOxQuizFactory instance = new MapleOxQuizFactory();
 
     public MapleOxQuizFactory() {
@@ -60,15 +59,13 @@ public class MapleOxQuizFactory {
     private void initialize() {
         try {
             Connection con = DatabaseConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM wz_oxdata");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                questionCache.put(new Pair<Integer, Integer>(rs.getInt("questionset"), rs.getInt("questionid")), get(rs));
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM wz_oxdata"); 
+                    ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    questionCache.put(new Pair<>(rs.getInt("questionset"), rs.getInt("questionid")), get(rs));
+                }
             }
-            rs.close();
-            ps.close();
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

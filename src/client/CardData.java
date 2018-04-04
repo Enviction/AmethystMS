@@ -1,42 +1,29 @@
-/*
- * This file is part of the OdinMS MapleStory Private Server
- * Copyright (C) 2011 Patrick Huy and Matthias Butz
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*    */ package client;
+/*    */ 
+/*    */ import java.io.Serializable;
+/*    */ 
+/*    */ public class CardData
+/*    */   implements Serializable
+/*    */ {
+/*    */   private static final long serialVersionUID = 2550550428979893978L;
+/*    */   public int cid;
+/*    */   public short job;
+/*    */   public short level;
+/*    */ 
+/*    */   public CardData(int cid, short level, short job)
+/*    */   {
+/* 33 */     this.cid = cid;
+/* 34 */     this.level = level;
+/* 35 */     this.job = job;
+/*    */   }
+/*    */ 
+/*    */   public String toString()
+/*    */   {
+/* 40 */     return "CID: " + this.cid + ", Job: " + this.job + ", Level: " + this.level;
+/*    */   }
+/*    */ }
+
+/* Location:           C:\Users\DKB\Desktop\ololol\v113.jar
+ * Qualified Name:     client.CardData
+ * JD-Core Version:    0.6.0
  */
-package client;
-
-import java.io.Serializable;
-
-/**
- *
- * @author AlphaEta
- */
-public class CardData implements Serializable {
-
-    private static final long serialVersionUID = 2550550428979893978L;
-    public int cid;
-    public short job, level;
-
-    public CardData(int cid, short level, short job) {
-        this.cid = cid;
-        this.level = level;
-        this.job = job;
-    }
-
-    @Override
-    public String toString() {
-        return "CID: " + cid + ", Job: " + job + ", Level: " + level;
-    }
-}

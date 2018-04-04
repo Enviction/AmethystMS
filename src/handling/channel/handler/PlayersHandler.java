@@ -1,47 +1,37 @@
 /*
-This file is part of the OdinMS Maple Story Server
-Copyright (C) 2008 ~ 2010 Patrick Huy <patrick.huy@frz.cc> 
-Matthias Butz <matze@odinms.de>
-Jan Christian Meyer <vimes@odinms.de>
+ This file is part of the OdinMS Maple Story Server
+ Copyright (C) 2008 ~ 2010 Patrick Huy <patrick.huy@frz.cc> 
+ Matthias Butz <matze@odinms.de>
+ Jan Christian Meyer <vimes@odinms.de>
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License version 3
-as published by the Free Software Foundation. You may not use, modify
-or distribute this program under any other version of the
-GNU Affero General Public License.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License version 3
+ as published by the Free Software Foundation. You may not use, modify
+ or distribute this program under any other version of the
+ GNU Affero General Public License.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
 
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package handling.channel.handler;
 
 import client.*;
+import client.inventory.Equip;
 import client.inventory.Item;
 import client.inventory.MapleInventoryType;
-import client.anticheat.CheatTracker;
-import client.anticheat.CheatingOffense;
-import client.anticheat.ReportType;
-import client.inventory.Equip;
 import client.inventory.MapleRing;
-import client.messages.MessageType;
 import client.status.MonsterStatus;
 import constants.GameConstants;
-import database.DatabaseConnection;
-import handling.channel.ChannelServer;
 import handling.world.MaplePartyCharacter;
+import handling.world.World;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -50,23 +40,17 @@ import java.util.concurrent.locks.ReentrantLock;
 import scripting.EventInstanceManager;
 import scripting.EventManager;
 import scripting.ReactorScriptManager;
-import server.events.MapleCoconut;
-import server.events.MapleCoconut.MapleCoconuts;
 import server.MapleInventoryManipulator;
 import server.MapleItemInformationProvider;
 import server.MapleStatEffect;
 import server.Randomizer;
+import server.events.MapleCoconut;
+import server.events.MapleCoconut.MapleCoconuts;
 import server.events.MapleEventType;
-import server.life.MapleMonster;
 import server.life.MapleMonsterInformationProvider;
 import server.life.MonsterDropEntry;
 import server.life.MonsterGlobalDropEntry;
-import server.maps.MapleDoor;
-import server.maps.MapleMap;
-import server.maps.MapleMapObject;
-import server.maps.MapleMist;
-import server.maps.MapleReactor;
-import server.maps.MechDoor;
+import server.maps.*;
 import server.quest.MapleQuest;
 import tools.AttackPair;
 import tools.FileoutputUtil;
@@ -95,7 +79,6 @@ public class PlayersHandler {
                     chr.sendNote(name, msg, fame ? 1 : 0);
                     chr.getCashInventory().sendedNote(itemz.getUniqueId());
                 } catch (Exception e) {
-                    e.printStackTrace();
                 }
                 break;
             case 1:
@@ -113,6 +96,96 @@ public class PlayersHandler {
                 System.out.println("Unhandled note action, " + type + "");
         }
     }
+    
+    // Lie Detector Test - Original Code Credits to AuroX
+    public static void LieDetector(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr, final boolean isItem) { // Person who used 
+        if (chr == null || chr.getMap() == null) { 
+            return; 
+        } 
+        final String target = slea.readMapleAsciiString(); 
+        byte slot = 0; 
+        if (isItem) { 
+            slot = (byte) slea.readShort(); // 01 00 (first pos in use) 
+            final int itemId = slea.readInt(); // B0 6A 21 00 
+            final Item toUse = chr.getInventory(MapleInventoryType.USE).getItem(slot); 
+            if (toUse == null || toUse.getQuantity() <= 0 || toUse.getItemId() != itemId || itemId != 2190000) { 
+                c.getSession().write(CWvsContext.enableActions()); 
+                return; 
+            } 
+        } else if (!chr.isGM() && chr.getJob() != 800) { // Manager using skill. Lie Detector Skill 
+            c.getSession().close(); 
+            return; 
+        } 
+        if ((FieldLimitType.PotionUse.check(chr.getMap().getFieldLimit()) && isItem) || chr.getMap().getReturnMapId() == chr.getMapId() || chr.getMap().getReturnMapId() == 999999999) { 
+            chr.dropMessage(5, "You may not use the Lie Detector on this area."); 
+            c.getSession().write(CWvsContext.enableActions()); 
+            return; 
+        } 
+        final MapleCharacter search_chr = chr.getMap().getCharacterByName(target); 
+        if (search_chr == null || search_chr.getId() == chr.getId() || search_chr.isGM() && !chr.isGM()) { 
+            chr.dropMessage(1, "The user cannot be found."); 
+            c.getSession().write(CWvsContext.enableActions()); 
+            return; 
+        } 
+        if (search_chr.getEventInstance() != null) { 
+            chr.dropMessage(5, "You may not use the Lie Detector on this area."); 
+            c.getSession().write(CWvsContext.enableActions()); 
+            return; 
+        } 
+        if (search_chr.getAntiMacro().inProgress()) { 
+            c.getSession().write(CWvsContext.LieDetectorResponse((byte) 3)); 
+            c.getSession().write(CWvsContext.enableActions()); 
+            return; 
+        } 
+        if (search_chr.getAntiMacro().isPassed() && isItem || search_chr.getAntiMacro().getAttempt() == 2) { 
+            c.getSession().write(CWvsContext.LieDetectorResponse((byte) 2)); 
+            c.getSession().write(CWvsContext.enableActions()); 
+            return; 
+        } 
+        if (!search_chr.getAntiMacro().startLieDetector(chr.getName(), isItem, false)) { 
+            chr.dropMessage(5, "Sorry! The Captcha Server is not available now, please try again later."); //error occured, usually cannot access to captcha server 
+            c.getSession().write(CWvsContext.enableActions()); 
+            return; 
+        } 
+        if (isItem) { 
+            MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, slot, (short) 1, false); 
+        } 
+        search_chr.dropMessage(5, chr.getName() + " has used the Lie Detector Test."); 
+    } 
+
+    public static void LieDetectorResponse(final LittleEndianAccessor slea, final MapleClient c) { // Person who typed 
+        if (c.getPlayer() == null || c.getPlayer().getMap() == null) { 
+            return; 
+        } 
+        final String answer = slea.readMapleAsciiString(); 
+
+        final MapleLieDetector ld = c.getPlayer().getAntiMacro(); 
+        if (!ld.inProgress() || (ld.isPassed() && ld.getLastType() == 0) || ld.getAnswer() == null || answer.length() <= 0) { 
+            c.getSession().write(CWvsContext.enableActions()); 
+            return; 
+        } 
+        if (answer.equals(ld.getAnswer())) { 
+            final MapleCharacter search_chr = c.getPlayer().getMap().getCharacterByName(ld.getTester()); 
+            if (search_chr != null && search_chr.getId() != c.getPlayer().getId()) { 
+                search_chr.dropMessage(5, "The user have passed the Lie Detector Test."); 
+            } 
+            c.getSession().write(CWvsContext.LieDetectorResponse((byte) 9, (byte) 1));
+            c.getPlayer().gainMeso(5000, true); 
+            ld.end(); 
+        } else if (ld.getAttempt() < 2) { // redo again 
+            ld.startLieDetector(ld.getTester(), ld.getLastType() == 0, true); // new attempt 
+        } else { 
+            final MapleCharacter search_chr = c.getPlayer().getMap().getCharacterByName(ld.getTester()); 
+            if (search_chr != null && search_chr.getId() != c.getPlayer().getId()) { 
+                search_chr.dropMessage(5, "The user has failed the Lie Detector Test. You'll be rewarded 7000 mesos from the user."); 
+                search_chr.gainMeso(7000, true); 
+            } 
+            ld.end(); 
+            c.getPlayer().getClient().getSession().write(CWvsContext.LieDetectorResponse((byte) 7, (byte) 4)); 
+            final MapleMap to = c.getPlayer().getMap().getReturnMap(); 
+            c.getPlayer().changeMap(to, to.getPortal(0)); 
+        } 
+    }  
 
     public static void GiveFame(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         final int who = slea.readInt();
@@ -121,7 +194,7 @@ public class PlayersHandler {
         final int famechange = mode == 0 ? -1 : 1;
         final MapleCharacter target = chr.getMap().getCharacterById(who);
 
-        if (target == null || target == chr) { // faming self
+        if (target == null || target == chr || target.wantFame() == 1) { // faming self
             c.getSession().write(CWvsContext.giveFameErrorResponse(1));
             return;
         } else if (chr.getLevel() < 15) {
@@ -162,6 +235,270 @@ public class PlayersHandler {
         }
     }
 
+    /*
+     * */
+    /*
+     * */ public static void UpdateEquippedSkills(LittleEndianAccessor slea, MapleClient c, MapleCharacter chr) /*
+     * */ {
+        /*
+         * 180
+         */ if (!GameConstants.isPhantom(chr.getJob())) {
+            /*
+             * 181
+             */ return;
+            /*
+             *         */        }
+        /*
+         * 183
+         */ int skillid = slea.readInt();
+        /*
+         * 184
+         */ int equippedid = slea.readInt();
+        /*
+         * 185
+         */ int slot = 0;
+        /*
+         * 186
+         */ switch (skillid) {
+            /*
+             *         */ case 24001001:
+                /*
+                 * 188
+                 */ slot = 1;
+                /*
+                 * 189
+                 */ break;
+            /*
+             *         */ case 24101001:
+                /*
+                 * 191
+                 */ slot = 2;
+                /*
+                 * 192
+                 */ break;
+            /*
+             *         */ case 24111001:
+                /*
+                 * 194
+                 */ slot = 3;
+                /*
+                 * 195
+                 */ break;
+            /*
+             *         */ case 24121001:
+                /*
+                 * 197
+                 */ slot = 4;
+            /*
+             *         */        }
+        /*
+         *     */
+        /*
+         * 200
+         */ if (slot <= 0) {
+            /*
+             * 201
+             */ return;
+            /*
+             *         */        }
+        /*
+         * 203
+         */ chr.unequipPhantomSkill(slot);
+        /*
+         * 204
+         */ if (equippedid > 0) {
+            /*
+             * 205
+             */ Skill base = SkillFactory.getSkill(skillid);
+            /*
+             * 206
+             */ int skillLevel = chr.getSkillLevel(base);
+            /*
+             * 207
+             */ Skill equip = SkillFactory.getSkill(equippedid);
+            /*
+             * 208
+             */ int skillLevelE = chr.getSkillLevel(equip);
+            /*
+             * 209
+             */ byte SkillSlot = chr.getSkillSlot(equip);
+            /*
+             * 210
+             */ if ((!chr.isStolenSkill(equip)) || (!GameConstants.canBeStolen(equippedid)) || (SkillSlot < 0) || (skillLevel <= 0) || (skillLevelE <= 0) || (chr.getSkillExpiry(equip) != -1L) || (chr.getSkillExpiry(base) != -1L)) {
+                /*
+                 * 211
+                 */ return;
+                /*
+                 *             */            }
+            /*
+             * 213
+             */ chr.changeSingleSkillLevel(equip, skillLevelE, (byte) equip.getMasterLevel(), -1L, SkillSlot, (byte) slot);
+            /*
+             *         */        }
+        /*
+         *     */
+        /*
+         * 218
+         */ c.getSession().write(CWvsContext.updateEquippedSkill(skillid, equippedid));
+        /*
+         *     */    }
+    /*
+     * */
+    /*
+     * */ public static void UpdateStolenSkills(LittleEndianAccessor slea, MapleClient c, MapleCharacter chr) /*
+     * */ {
+        /*
+         * 223
+         */ int skillid = slea.readInt();
+        /*
+         * 224
+         */ int targetid = slea.readInt();
+        /*
+         * 225
+         */ boolean remove = slea.readByte() > 0;
+        /*
+         * 226
+         */ MapleCharacter target = chr.getMap().getCharacterById(targetid);
+        /*
+         * 227
+         */ if ((skillid == 0) || (!GameConstants.isPhantom(chr.getJob())) || ((remove) && (targetid > 0)) || ((!remove) && ((targetid != chr.getStealTarget()) || (target == null) || ((target.isGM()) && (!chr.isGM())) || (!GameConstants.isAdventurer(target.getJob())) || (GameConstants.isCannon(target.getJob())) || (GameConstants.isJett(target.getJob()))))) {
+            /*
+             * 228
+             */ chr.setStealTarget(0);
+            /*
+             * 229
+             */ c.getSession().write(CWvsContext.updateStolenSkills(1));
+            /*
+             * 230
+             */ return;
+            /*
+             *         */        }
+        /*
+         * 232
+         */ Skill sx = SkillFactory.getSkill(skillid);
+        /*
+         * 233
+         */ byte newSlot = chr.getNextStolenSlot(skillid);
+        /*
+         * 234
+         */ int skillLevel = remove ? 1 : target.getSkillLevel(sx);
+        /*
+         * 235
+         */ if ((skillLevel <= 0) || ((!remove) && ((target.getSkillExpiry(sx) != -1L) || (newSlot < 0) || (!GameConstants.canBeStolen(skillid, target.getJob())) || (skillid / 10000 % 10 > chr.getJob() % 10)))) {
+            /*
+             * 236
+             */ chr.setStealTarget(0);
+            /*
+             * 237
+             */ c.getSession().write(CWvsContext.updateStolenSkills(2));
+            /*
+             * 238
+             */ return;
+            /*
+             *         */        }
+        /*
+         * 240
+         */ if (remove) {
+            /*
+             * 241
+             */ byte oldSlot = chr.getSkillSlot(sx);
+            /*
+             * 242
+             */ byte equipped = chr.getSkillEquipped(sx);
+            /*
+             * 243
+             */     //  chr.removeStolenSkill(sx);
+
+            /*
+             * 245
+             */ if (equipped > 0) {
+                chr.changeSingleSkillLevel(sx, chr.getSkillLevel(skillid), chr.getSkillLevel(skillid), -1, (byte) 0, (byte) 0);
+                /*
+                 * 246
+                 */ c.getSession().write(CWvsContext.updateEquippedSkill(GameConstants.getPhantomBookSkill(equipped), 0));
+                /*
+                 *             */            } else {
+                chr.changeSingleSkillLevel(sx, chr.getSkillLevel(skillid), chr.getSkillLevel(skillid), -1, (byte) -1, (byte) -1);
+                /*
+                 * 244
+                 */ c.getSession().write(CWvsContext.updateStolenSkills(3, skillid, 0, oldSlot));
+            }
+            /*
+             *         */        } /*
+         *     */ else /*
+         *     */ {
+            /*
+             * 251
+             */ chr.changeSingleSkillLevel(sx, skillLevel, (byte) sx.getMasterLevel(), -1L, newSlot, (byte) 0);
+            /*
+             * 252
+             */ c.getSession().write(CWvsContext.updateStolenSkills(0, skillid, skillLevel, newSlot));
+            /*
+             *         */        }
+        /*
+         * 254
+         */ chr.setStealTarget(0);
+        /*
+         *     */    }
+    /*
+     * */
+    /*
+     * */ public static void SkillSwipeRequest(LittleEndianAccessor slea, MapleClient c, MapleCharacter chr) /*
+     * */ {
+        /*
+         * 259
+         */ MapleCharacter target = chr.getMap().getCharacterById(slea.readInt());
+        /*
+         * 260
+         */ if ((target == null) || ((target.isGM()) && (!chr.isGM())) || (!GameConstants.isAdventurer(target.getJob())) || (GameConstants.isCannon(target.getJob())) || (GameConstants.isJett(target.getJob())) || (!GameConstants.isPhantom(chr.getJob()))) {
+            /*
+             * 261
+             */ c.getSession().write(CWvsContext.updateStolenSkills(1));
+            /*
+             * 262
+             */ return;
+            /*
+             *         */        }
+        /*
+         * 264
+         */ chr.setStealTarget(target.getId());
+        /*
+         * 265
+         */ List<Integer> skills = new ArrayList();
+        /*
+         *     */
+        /*
+         * 267
+         */ for (Map.Entry skill : target.getSkills().entrySet()) {
+            /*
+             * 268
+             */ int skillid = ((Skill) skill.getKey()).getId();
+            /*
+             * 269
+             */ if ((GameConstants.canBeStolen(skillid, target.getJob())) && (((SkillEntry) skill.getValue()).skillevel > 0) && (((SkillEntry) skill.getValue()).expiration == -1L)) {
+                /*
+                 * 270
+                 */ MapleStatEffect stat = ((Skill) skill.getKey()).getEffect(1);
+                /*
+                 * 271
+                 */ if ((stat != null)) {
+                    /*
+                     * 272
+                     */ skills.add(Integer.valueOf(skillid));
+                    /*
+                     *                 */                }
+                /*
+                 *             */            }
+            /*
+             *         */        }
+        /*
+         * 276
+         */ c.getSession().write(CWvsContext.showTargetSkills(target.getId(), target.getJob(), skills));
+        /*
+         *     */    }
+    /*
+     * */
+
     public static void UseMechDoor(final LittleEndianAccessor slea, final MapleCharacter chr) {
         final int oid = slea.readInt();
         final Point pos = slea.readPos();
@@ -182,7 +519,7 @@ public class PlayersHandler {
         // 11 00
         // A0 C0 21 00
         // 07 00 64 66 62 64 66 62 64
-        chr.updateTick(slea.readInt());
+        slea.readInt();
         final byte slot = (byte) slea.readShort();
         final int itemId = slea.readInt();
         final String target = slea.readMapleAsciiString();
@@ -247,9 +584,8 @@ public class PlayersHandler {
     }
 
     public static void hitCoconut(LittleEndianAccessor slea, MapleClient c) {
-        /*CB 00 A6 00 06 01
-         * A6 00 = coconut id
-         * 06 01 = ?
+        /*
+         * CB 00 A6 00 06 01 A6 00 = coconut id 06 01 = ?
          */
         int id = slea.readShort();
         String co = "coconut";
@@ -395,6 +731,7 @@ public class PlayersHandler {
     }
 
     public static void RingAction(final LittleEndianAccessor slea, final MapleClient c) {
+        c.announce(CWvsContext.enableActions());
         final byte mode = slea.readByte();
         if (mode == 0) {
             DoRing(c, slea.readMapleAsciiString(), slea.readInt());
@@ -459,14 +796,17 @@ public class PlayersHandler {
             if (item != null && type == MapleInventoryType.ETC && itemId / 10000 == 421) {
                 MapleInventoryManipulator.drop(c, type, item.getPosition(), item.getQuantity());
             }
+        } else if (mode == 6) {
+            System.out.println("Wedding Invitation Sending:\r\nMode: " + mode + " | Slot: " + slea.readByte() + " | ItemID: " + slea.readInt());
         }
     }
 
     public static void Solomon(final LittleEndianAccessor slea, final MapleClient c) {
         c.getSession().write(CWvsContext.enableActions());
-        c.getPlayer().updateTick(slea.readInt());
+        slea.readInt();
         Item item = c.getPlayer().getInventory(MapleInventoryType.USE).getItem(slea.readShort());
         if (item == null || item.getItemId() != slea.readInt() || item.getQuantity() <= 0 || c.getPlayer().getGachExp() > 0 || c.getPlayer().getLevel() > 50 || MapleItemInformationProvider.getInstance().getItemEffect(item.getItemId()).getEXP() <= 0) {
+            c.getSession().write(CWvsContext.enableActions());
             return;
         }
         c.getPlayer().setGachExp(c.getPlayer().getGachExp() + MapleItemInformationProvider.getInstance().getItemEffect(item.getItemId()).getEXP());
@@ -476,7 +816,7 @@ public class PlayersHandler {
 
     public static void GachExp(final LittleEndianAccessor slea, final MapleClient c) {
         c.getSession().write(CWvsContext.enableActions());
-        c.getPlayer().updateTick(slea.readInt());
+        slea.readInt();
         if (c.getPlayer().getGachExp() <= 0) {
             return;
         }
@@ -485,19 +825,13 @@ public class PlayersHandler {
         c.getPlayer().updateSingleStat(MapleStat.GACHAPONEXP, 0);
     }
 
-    public static void Report(final LittleEndianAccessor slea, final MapleClient c) {
-        //0 = success 1 = unable to locate 2 = once a day 3 = you've been reported 4+ = unknown reason
-        MapleCharacter other;
-        ReportType type;
-        if (!GameConstants.GMS) {
-            other = c.getPlayer().getMap().getCharacterById(slea.readInt());
-            type = ReportType.getById(slea.readByte());
-        } else {
-            type = ReportType.getById(slea.readByte());
-            other = c.getPlayer().getMap().getCharacterByName(slea.readMapleAsciiString());
-            //then,byte(?) and string(reason)
-        }
-        if (other == null || type == null || other.isIntern()) {
+   public static void Report(final LittleEndianAccessor slea, final MapleClient c) {
+       //0 = success 1 = unable to locate 2 = once a day 3 = you've been reported 4+ = unknown reason
+       ReportType type = ReportType.getById(slea.readByte());
+       MapleCharacter cheater = c.getChannelServer().getPlayerStorage().getCharacterByName(slea.readMapleAsciiString());
+       byte a = slea.readByte(); // 09 00? unk
+       String reason = slea.readMapleAsciiString();
+       if (cheater == null || type == null || cheater.isGM()) {
             c.getSession().write(CWvsContext.report(4));
             return;
         }
@@ -511,31 +845,30 @@ public class PlayersHandler {
             c.getSession().write(CWvsContext.enableActions());
             c.getPlayer().dropMessage(5, "You may only report every 2 hours.");
         } else {
+            World.Broadcast.broadcastGMMessage(cheater.getWorld(), CWvsContext.serverNotice(5, cheater.getName() + " was reported for: " + reason));
             stat.setCustomData(String.valueOf(currentTime));
-            other.addReport(type);
+            cheater.addReport(type);
             c.getSession().write(CWvsContext.report(2));
         }
     }
 
-    public static final void MonsterBookInfoRequest(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void MonsterBookInfoRequest(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (c.getPlayer() == null || c.getPlayer().getMap() == null) {
             return;
         }
         slea.readInt(); // tick
         final MapleCharacter player = c.getPlayer().getMap().getCharacterById(slea.readInt());
         c.getSession().write(CWvsContext.enableActions());
-        if (player != null && !player.isClone()) {
-            if (!player.isGM() || c.getPlayer().isGM()) {
-                c.getSession().write(CWvsContext.getMonsterBookInfo(player));
-            }
+        if (player != null) {
+            c.getSession().write(CWvsContext.getMonsterBookInfo(player));
         }
     }
 
-    public static final void MonsterBookDropsRequest(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void MonsterBookDropsRequest(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (c.getPlayer() == null || c.getPlayer().getMap() == null) {
             return;
         }
-        chr.updateTick(slea.readInt()); // tick
+        slea.readInt();
         final int cardid = slea.readInt();
         final int mobid = MapleItemInformationProvider.getInstance().getCardMobId(cardid);
         if (mobid <= 0 || !chr.getMonsterBook().hasCard(cardid)) {
@@ -557,7 +890,49 @@ public class PlayersHandler {
         c.getSession().write(CWvsContext.getCardDrops(cardid, newDrops));
     }
 
-    public static final void ChangeSet(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static void findFriend(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+        byte boob = slea.readByte();
+        if (boob == 5) {
+            if (chr.getBIRTHDAY() == 0 && chr.getTODO() == 0 && chr.getLOCATION() == 0 && chr.getFOUND() == 0) {
+                c.getSession().write(CWvsContext.myInfoResult(0));
+            } else {
+                c.getSession().write(CWvsContext.myInfoResult(1));
+            }
+        } else if (boob == 7) {
+            List<MapleCharacter> frends = new LinkedList<>();
+            for (MapleCharacter mch : c.getChannelServer().getPlayerStorage().getAllCharacters()) {
+                if (mch.getId() != c.getPlayer().getId()) {
+                    frends.add(mch);
+                }
+            }
+            c.getSession().write(CWvsContext.findFriendResult(frends));
+        } else if (boob == 10) {
+            int cid = slea.readInt();
+            c.getSession().write(CWvsContext.friendCharacterInfo(c.getChannelServer().getPlayerStorage().getCharacterById(cid)));
+        }
+    }
+
+    public static void loadInfo(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+        int boob = slea.readByte();
+        if (boob != 1) {
+            if (chr.getBIRTHDAY() == 0 && chr.getTODO() == 0 && chr.getLOCATION() == 0 && chr.getFOUND() == 0) {
+                chr.gainItem(5390009); // in gms you get this lol
+            }    
+            int location = slea.readInt();
+            int birthday = slea.readInt();
+            int todo = slea.readInt();
+            int found = slea.readInt();
+            chr.setBIRTHDAY(birthday);
+            chr.setTODO(todo);
+            chr.setFOUND(found);
+            chr.setLOCATION(location);
+            c.getSession().write(CWvsContext.saveInformation(false));
+        } else {
+            c.getSession().write(CWvsContext.loadInformation(chr.getLOCATION(), chr.getTODO(), chr.getBIRTHDAY(), chr.getFOUND()));
+        }
+    }
+
+    public static void ChangeSet(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (c.getPlayer() == null || c.getPlayer().getMap() == null) {
             return;
         }
@@ -568,21 +943,81 @@ public class PlayersHandler {
             c.getSession().write(CWvsContext.changeCardSet(set));
         }
     }
+    
+    public static final void EnterAzwan(final LittleEndianAccessor slea, final MapleClient c) {
+        if (c.getPlayer() == null || c.getPlayer().getMap() == null || c.getPlayer().getMapId() != 262000300) {
+            c.getSession().write(CField.pvpBlocked(1));
+            c.getSession().write(CWvsContext.enableActions());
+            return;
+        }
+        if (c.getPlayer().getLevel() < 40) {
+            c.getSession().write(CField.pvpBlocked(1));
+            c.getSession().write(CWvsContext.enableActions());
+            return;
+        }
+        byte mode = slea.readByte();
+        byte difficult = slea.readByte();
+        byte party = slea.readByte();
+        int mapid = 262020000 + (mode * 1000) + difficult; //Supply doesn't have difficult but it's always 0 so idc
+        if (party == 1 && c.getPlayer().getParty() == null) {
+            c.getSession().write(CField.pvpBlocked(9));
+            c.getSession().write(CWvsContext.enableActions());
+        }
+        if (party == 1 && c.getPlayer().getParty() != null) {
+            for (MaplePartyCharacter partymembers : c.getPlayer().getParty().getMembers()) {
+                if (c.getChannelServer().getPlayerStorage().getCharacterById(partymembers.getId()).getMapId() != 262000300) {
+                    c.getPlayer().dropMessage(1, "Please make sure all of your party members are in the same map.");
+                    c.getSession().write(CWvsContext.enableActions());
+                }
+            }
+        }
+        if (party == 1 && c.getPlayer().getParty() != null) {
+            for (MaplePartyCharacter partymembers : c.getPlayer().getParty().getMembers()) {
+                c.getChannelServer().getPlayerStorage().getCharacterById(partymembers.getId()).changeMap(c.getChannelServer().getMapFactory().getMap(mapid));
+            }
+        } else {
+            c.getPlayer().changeMap(c.getChannelServer().getMapFactory().getMap(mapid));
+        }
+    }
 
-    public static final void EnterPVP(final LittleEndianAccessor slea, final MapleClient c) {
+    public static final void EnterAzwanEvent(final LittleEndianAccessor slea, final MapleClient c) {
+        if (c.getPlayer() == null || c.getPlayer().getMap() == null) {
+            c.getSession().write(CField.pvpBlocked(1));
+            c.getSession().write(CWvsContext.enableActions());
+            return;
+        }
+        int mapid = slea.readInt();
+        c.getPlayer().changeMap(c.getChannelServer().getMapFactory().getMap(mapid));
+    }
+
+    public static final void LeaveAzwan(final LittleEndianAccessor slea, final MapleClient c) {
+        if (c.getPlayer() == null || c.getPlayer().getMap() == null || !c.getPlayer().inAzwan()) {
+            c.getSession().write(CField.pvpBlocked(6));
+            c.getSession().write(CWvsContext.enableActions());
+            return;
+        }
+        c.getPlayer().cancelAllBuffs();
+        c.getPlayer().changeRemoval();
+        c.getPlayer().dispelDebuffs();
+        c.getPlayer().clearAllCooldowns();
+        c.getSession().write(CWvsContext.clearMidMsg());
+        c.getPlayer().changeMap(c.getChannelServer().getMapFactory().getMap(262000200));
+        c.getPlayer().getStat().recalcLocalStats(c.getPlayer());
+        c.getPlayer().getStat().heal(c.getPlayer());
+    }
+
+    public static void EnterPVP(final LittleEndianAccessor slea, final MapleClient c) {
         if (c.getPlayer() == null || c.getPlayer().getMap() == null || c.getPlayer().getMapId() != 960000000) {
-            //c.getSession().write(CField.pvpBlocked(1));
-            c.getPlayer().dropMessage(1, "An error has occurred. Please try again later.");
+            c.getSession().write(CField.pvpBlocked(1));
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
         if (c.getPlayer().getParty() != null) {
-            //c.getSession().write(CField.pvpBlocked(9));
-            c.getPlayer().dropMessage(1, "Parties are not supported at this time.");
+            c.getSession().write(CField.pvpBlocked(9));
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
-        c.getPlayer().updateTick(slea.readInt());
+        slea.readInt();
         slea.skip(1);
         int type = slea.readByte(), lvl = slea.readByte(), playerCount = 0;
         boolean passed = false;
@@ -602,12 +1037,11 @@ public class PlayersHandler {
         }
         final EventManager em = c.getChannelServer().getEventSM().getEventManager("PVP");
         if (!passed || em == null) {
-            //c.getSession().write(CField.pvpBlocked(1));
-            c.getPlayer().dropMessage(1, "An error has occurred. Please try again later.");
+            c.getSession().write(CField.pvpBlocked(1));
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
-        final List<Integer> maps = new ArrayList<Integer>();
+        final List<Integer> maps = new ArrayList<>();
         switch (type) {
             case 0:
                 maps.add(960010100);
@@ -632,8 +1066,7 @@ public class PlayersHandler {
                 break;
         }
         if (!passed) {
-            c.getPlayer().dropMessage(1, "An error has occurred. Please try again later.");
-            //c.getSession().write(CField.pvpBlocked(1));
+            c.getSession().write(CField.pvpBlocked(1));
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
@@ -656,17 +1089,58 @@ public class PlayersHandler {
         em.startInstance_Solo(key.append(maps.get(Randomizer.nextInt(maps.size()))).toString(), c.getPlayer());
     }
 
-    public static final void RespawnPVP(final LittleEndianAccessor slea, final MapleClient c) {
+    /*
+     * public static void RespawnPVP(final LittleEndianAccessor slea, final
+     * MapleClient c) { final Lock ThreadLock = new ReentrantLock(); /*if
+     * (c.getPlayer() == null || c.getPlayer().getMap() == null ||
+     * !c.getPlayer().inPVP() || c.getPlayer().isAlive()) {
+     * c.getSession().write(CWvsContext.enableActions()); return;
+     }
+     */
+    /*
+     * final int type =
+     * Integer.parseInt(c.getPlayer().getEventInstance().getProperty("type"));
+     * byte lvl = 0; c.getPlayer().getStat().heal_noUpdate(c.getPlayer());
+     * c.getPlayer().updateSingleStat(MapleStat.MP,
+     * c.getPlayer().getStat().getMp());
+     * //c.getPlayer().getEventInstance().schedule("broadcastType", 500);
+     * ThreadLock.lock(); try {
+     * c.getPlayer().getEventInstance().schedule("updateScoreboard", 500); }
+     * finally { ThreadLock.unlock(); }
+     * c.getPlayer().changeMap(c.getPlayer().getMap(),
+     * c.getPlayer().getMap().getPortal(type == 0 ? 0 : (type == 3 ?
+     * (c.getPlayer().getTeam() == 0 ? 3 : 1) : (c.getPlayer().getTeam() == 0 ?
+     * 2 : 3))));
+     * c.getSession().write(CField.getPVPScore(Integer.parseInt(c.getPlayer().getEventInstance().getProperty(String.valueOf(c.getPlayer().getId()))),
+     * false));
+     *
+     * if (c.getPlayer().getLevel() >= 30 && c.getPlayer().getLevel() < 70) {
+     * lvl = 0; } else if (c.getPlayer().getLevel() >= 70 &&
+     * c.getPlayer().getLevel() < 120) { lvl = 1; } else if
+     * (c.getPlayer().getLevel() >= 120 && c.getPlayer().getLevel() < 180) { lvl
+     * = 2; } else if (c.getPlayer().getLevel() >= 180) { lvl = 3; }
+     *
+     * List<MapleCharacter> players =
+     * c.getPlayer().getEventInstance().getPlayers(); List<Pair<Integer,
+     * String>> players1 = new LinkedList<>(); for (int xx = 0; xx <
+     * players.size(); xx++) { players1.add(new Pair<>(players.get(xx).getId(),
+     * players.get(xx).getName())); }
+     * c.getSession().write(CField.getPVPType(type, players1,
+     * c.getPlayer().getTeam(), true, lvl));
+     * c.getSession().write(CField.enablePVP(true)); }
+     *
+     *
+     */
+    public static void RespawnPVP(final LittleEndianAccessor slea, final MapleClient c) {
         final Lock ThreadLock = new ReentrantLock();
-        /*if (c.getPlayer() == null || c.getPlayer().getMap() == null || !c.getPlayer().inPVP() || c.getPlayer().isAlive()) {
-        c.getSession().write(CWvsContext.enableActions());
-        return;
-        }*/
+        if (c.getPlayer() == null || c.getPlayer().getMap() == null || !c.getPlayer().inPVP() || c.getPlayer().isAlive()) {
+            c.getSession().write(CWvsContext.enableActions());
+            return;
+        }
         final int type = Integer.parseInt(c.getPlayer().getEventInstance().getProperty("type"));
         byte lvl = 0;
         c.getPlayer().getStat().heal_noUpdate(c.getPlayer());
         c.getPlayer().updateSingleStat(MapleStat.MP, c.getPlayer().getStat().getMp());
-        //c.getPlayer().getEventInstance().schedule("broadcastType", 500);   
         ThreadLock.lock();
         try {
             c.getPlayer().getEventInstance().schedule("updateScoreboard", 500);
@@ -685,7 +1159,6 @@ public class PlayersHandler {
         } else if (c.getPlayer().getLevel() >= 180) {
             lvl = 3;
         }
-
         List<MapleCharacter> players = c.getPlayer().getEventInstance().getPlayers();
         List<Pair<Integer, String>> players1 = new LinkedList<>();
         for (int xx = 0; xx < players.size(); xx++) {
@@ -695,11 +1168,9 @@ public class PlayersHandler {
         c.getSession().write(CField.enablePVP(true));
     }
 
-    public static final void LeavePVP(final LittleEndianAccessor slea, final MapleClient c) {
-        System.out.println("Leaving PVP!: ");
+    public static void LeavePVP(final LittleEndianAccessor slea, final MapleClient c) {
         if (c.getPlayer() == null || c.getPlayer().getMap() == null || !c.getPlayer().inPVP()) {
-            //c.getSession().write(CField.pvpBlocked(6));
-            c.getPlayer().dropMessage(1, "An error has occurred. Please try again later.");
+            c.getSession().write(CField.pvpBlocked(6));
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
@@ -714,229 +1185,13 @@ public class PlayersHandler {
         c.getPlayer().changeRemoval();
         c.getPlayer().dispelDebuffs();
         c.getPlayer().clearAllCooldowns();
-        c.getPlayer().updateTick(slea.readInt());
+        slea.readInt();
         c.getSession().write(CWvsContext.clearMidMsg());
         c.getPlayer().changeMap(c.getChannelServer().getMapFactory().getMap(960000000));
         c.getPlayer().getStat().recalcLocalStats(c.getPlayer());
         c.getPlayer().getStat().heal(c.getPlayer());
     }
-public static final void EnterAzwan(final LittleEndianAccessor slea, final MapleClient c) {
-        if (c.getPlayer() == null || c.getPlayer().getMap() == null || c.getPlayer().getMapId() != 262000300) {
-            c.getPlayer().dropMessage(MessageType.POPUP, "System error.");
-            c.getSession().write(CWvsContext.enableActions());
-            return;
-        }
-        if (c.getPlayer().getLevel() < 40) {
-            c.getPlayer().dropMessage(MessageType.POPUP, "You must be at least Level 40 to attempt Azwan.");
-            c.getSession().write(CWvsContext.enableActions());
-            return;
-        }
-        byte mode = slea.readByte();
-        byte difficult = slea.readByte();
-        byte party = slea.readByte();
-        int mapid = 262020000 + (mode * 1000) + difficult;
-        
-        if(mode != 3){
-            c.getPlayer().dropMessage(MessageType.POPUP, "This feature is currently disabled. \r\nOnly Supply Mode is currently available.");
-            c.getSession().write(CWvsContext.enableActions());
-            return;
-        }
-        if (party == 1 && c.getPlayer().getParty() == null) {
-            //c.getSession().write(CField.pvpBlocked(9));
-            c.getPlayer().dropMessage(MessageType.POPUP, "You are not in a party.");
-            c.getSession().write(CWvsContext.enableActions());
-            return;
-        }
-        if (party == 1 && c.getPlayer().getParty() != null) {
-            for (MaplePartyCharacter partymembers : c.getPlayer().getParty().getMembers()) {
-                if (c.getChannelServer().getPlayerStorage().getCharacterById(partymembers.getId()).getMapId() != 262000300) {
-                    c.getPlayer().dropMessage(1, "Please make sure all of your party members are in the same map.");
-                    c.getSession().write(CWvsContext.enableActions());
-                    return;
-                }
-            }
-        }
-        if(mode == 3){
-            //Initialize the event.
-            EventManager em = c.getChannelServer().getEventSM().getEventManager("AzwanSupply");
-            
-            if(em == null){
-                c.getPlayer().dropMessage(1, "The EventManager is null, report it to Cloud!");
-                c.getSession().write(CWvsContext.enableActions());
-                return;
-            }
-            
-            EventInstanceManager eim = em.newInstance("AzwanSupply");
-            String eim_status = em.getProperty("state");
-                //Checks to see if it's currently in proccess, if not, create a new one.
-            if (eim_status == null || eim_status.equals("0")) {
 
-                //Set the properties
-                MapleMap map = eim.setInstanceMap(mapid);
-                eim.setProperty("Global_StartMap", mapid+"");
-                eim.setProperty("Global_MinPerson", "1");
-                eim.setProperty("Global_ExitMap", "262000200");
-
-                //Prepare the timer.
-                eim.startEventTimer(3600000);
-
-                //Prepare the mobs, adjust according to level.
-                map.killAllMonsters(false);
-                map.respawn(true);
-                
-                //Doing Party Supply Mode
-                if(party == 1 && c.getPlayer().getParty() != null){
-                    //Sets aggro?
-                    map.setChangeableMobOrigin(ChannelServer.getInstance(c.getChannel()).getPlayerStorage().getCharacterById(c.getPlayer().getParty().getLeader().getId()));
-
-                    //Get highest level of the party.
-                    int highestLevel = 0;
-                    for(MaplePartyCharacter partyChar : c.getPlayer().getParty().getMembers()){
-                        if(partyChar.getLevel() >= highestLevel)
-                            highestLevel = partyChar.getLevel();
-                    }
-                    
-                    //Adjust mob stats to party's highest level.
-                    for(MapleMonster mm : map.getAllMonstersThreadsafe())
-                    mm.hellChangeLevel(highestLevel-10, 1, 1, 1.5);
-                    
-                    //Register people for the event.
-                    eim.registerPlayer(c.getPlayer());
-                    for(MaplePartyCharacter partyChar : c.getPlayer().getParty().getMembers()){
-                        eim.registerPlayer(c.getChannelServer().getPlayerStorage().getCharacterById(partyChar.getId()));
-                        c.getSession().write(CWvsContext.enableActions());
-                    }
-                        
-                    //Start the instance.
-                    em.startInstance_Party(mapid+"", c.getPlayer());
-                    //Finally, warp them to the map.
-                    for (MaplePartyCharacter partymembers : c.getPlayer().getParty().getMembers())
-                        c.getChannelServer().getPlayerStorage().getCharacterById(partymembers.getId()).changeMap(map);
-
-                } else {//Otherwise, single person; not in a party.
-                    
-                    //Sets aggro?
-                    map.setChangeableMobOrigin(c.getPlayer());
-                    
-                    //Adjust mob stats to players level.
-                    for(MapleMonster mm : map.getAllMonstersThreadsafe())
-                    mm.hellChangeLevel(c.getPlayer().getLevel()-10, 1, 1, 1.5);
-                    
-                    //Register the person for the event.
-                    eim.registerPlayer(c.getPlayer());
-
-                    //Start the instance.
-                    em.startInstance(c.getPlayer());
-                    c.getPlayer().changeMap(map);
-                    }
-            }else {
-                c.getPlayer().dropMessage(MessageType.ERROR, "Sorry, it looks like a battle is already taking place!");
-            }
-        }
-    }
-        
-
-    public static final void EnterAzwanEvent(final LittleEndianAccessor slea, final MapleClient c) {
-        if (c.getPlayer() == null || c.getPlayer().getMap() == null) {
-            //c.getSession().write(CField.pvpBlocked(1));
-            c.getPlayer().dropMessage(MessageType.POPUP, "System error.");
-            c.getSession().write(CWvsContext.enableActions());
-            return;
-        }
-        int mapid = slea.readInt();
-        c.getPlayer().changeMap(c.getChannelServer().getMapFactory().getMap(mapid));
-    }
-
-    public static final void LeaveAzwan(final LittleEndianAccessor slea, final MapleClient c) {
-        if (c.getPlayer() == null || c.getPlayer().getMap() == null || !c.getPlayer().inAzwan()) {
-            //c.getSession().write(CField.pvpBlocked(6));
-            c.getPlayer().dropMessage(1, "An error has occurred. Please try again later.");
-            c.getSession().write(CWvsContext.enableActions());
-            return;
-        }
-        c.getPlayer().cancelAllBuffs();
-        c.getPlayer().changeRemoval();
-        c.getPlayer().dispelDebuffs();
-        c.getPlayer().clearAllCooldowns();
-        c.getSession().write(CWvsContext.clearMidMsg());
-        c.getPlayer().changeMap(c.getChannelServer().getMapFactory().getMap(262000200));
-        c.getPlayer().getStat().recalcLocalStats(c.getPlayer());
-        c.getPlayer().getStat().heal(c.getPlayer());
-    }
-
-    public static final void updateRedLeafHigh(LittleEndianAccessor slea, MapleClient c) { //not finished yet
-        //TODO: load and set red leaf high in sql
-        slea.readInt(); //questid or something
-        slea.readInt(); //joe joe
-        int joejoe = slea.readInt();
-        slea.readInt(); //hermoninny
-        int hermoninny = slea.readInt();
-        slea.readInt(); //little dragon
-        int littledragon = slea.readInt();
-        slea.readInt(); //ika
-        int ika = slea.readInt();
-        if (joejoe < 0 || hermoninny < 0 || littledragon < 0 || ika < 0) {
-            CWvsContext.enableActions();
-            return;
-        }
-        if (joejoe > 20 || hermoninny > 20 || littledragon > 20 || ika > 20) {
-            CWvsContext.enableActions();
-            return;
-        }
-        if (!GameConstants.isRedLeaf(c.getPlayer().getMapId())) {
-            CWvsContext.enableActions();
-            return;
-        }
-        c.getPlayer().setFriendShipPoints(joejoe, hermoninny, littledragon, ika);
-    }
-    
-     public static final void StealSkill(LittleEndianAccessor slea, MapleClient c) {
-        if (c.getPlayer() == null || c.getPlayer().getMap() == null || !GameConstants.isPhantom(c.getPlayer().getJob())) {
-            c.getSession().write(CWvsContext.enableActions());
-            return;
-        }
-        final int skill = slea.readInt();
-        final int cid = slea.readInt();
-
-
-        //then a byte, 0 = learning, 1 = removing, but it doesnt matter since we can just use cid
-        if (cid <= 0) {
-            c.getPlayer().removeStolenSkill(skill);
-        } else {
-            final MapleCharacter other = c.getPlayer().getMap().getCharacterById(cid);
-            if (other != null && other.getId() != c.getPlayer().getId() && other.getTotalSkillLevel(skill) > 0) {
-                c.getPlayer().addStolenSkill(skill, other.getTotalSkillLevel(skill));
-            }
-        }
-    }
-
-    public static final void ChooseSkill(LittleEndianAccessor slea, MapleClient c) {
-        if (c.getPlayer() == null || c.getPlayer().getMap() == null || !GameConstants.isPhantom(c.getPlayer().getJob())) {
-            c.getSession().write(CWvsContext.enableActions());
-            return;
-        }
-        final int base = slea.readInt();
-        final int skill = slea.readInt();
-        if (skill <= 0) {
-            c.getPlayer().unchooseStolenSkill(base);
-        } else {
-            c.getPlayer().chooseStolenSkill(skill);
-        }
-    }
-    
-    public static final void viewSkills(final LittleEndianAccessor slea, final MapleClient c) {
-        int victim = slea.readInt();
-        int jobid = c.getChannelServer().getPlayerStorage().getCharacterById(victim).getJob();
-            List<Integer> list = SkillFactory.getSkillsByJob(jobid);
-            if (!c.getChannelServer().getPlayerStorage().getCharacterById(victim).getSkills().isEmpty() && GameConstants.isAdventurer(jobid)) {
-                c.getSession().write(CField.viewSkills(c.getChannelServer().getPlayerStorage().getCharacterById(victim)));
-            } else {
-                c.getPlayer().dropMessage(6, "You cannot take skills off non-adventurer's");
-            }
-        }
-    
-    
-    
     public static final void AttackPVP(final LittleEndianAccessor slea, final MapleClient c) {
         final Lock ThreadLock = new ReentrantLock();
         final MapleCharacter chr = c.getPlayer();
@@ -950,7 +1205,7 @@ public static final void EnterAzwan(final LittleEndianAccessor slea, final Maple
         final int type = Integer.parseInt(chr.getEventInstance().getProperty("type"));
         final int ice = Integer.parseInt(chr.getEventInstance().getProperty("ice"));
         final int ourScore = Integer.parseInt(chr.getEventInstance().getProperty(String.valueOf(chr.getId())));
-        int addedScore = 0, skillLevel = 0, trueSkillLevel = 0, animation = -1, attackCount = 1, mobCount = 1, fakeMastery = chr.getStat().passive_mastery(), ignoreDEF = (int)chr.getStat().ignoreTargetDEF, critRate = chr.getStat().passive_sharpeye_rate(), skillDamage = 100;
+        int addedScore = 0, skillLevel = 0, trueSkillLevel = 0, animation = -1, attackCount = 1, mobCount = 1, fakeMastery = chr.getStat().passive_mastery(), ignoreDEF = chr.getStat().ignoreTargetDEF, critRate = chr.getStat().passive_sharpeye_rate(), skillDamage = 100;
         boolean magic = false, move = false, pull = false, push = false;
 
         double maxdamage = lvl == 3 ? chr.getStat().getCurrentMaxBasePVPDamageL() : chr.getStat().getCurrentMaxBasePVPDamage();
@@ -985,7 +1240,7 @@ public static final void EnterAzwan(final LittleEndianAccessor slea, final Maple
             pull = skil.isPull();
             if (chr.getTotalSkillLevel(GameConstants.getLinkedAranSkill(skillid)) <= 0) {
                 if (!GameConstants.isIceKnightSkill(skillid) && chr.getTotalSkillLevel(GameConstants.getLinkedAranSkill(skillid)) <= 0) {
-                    c.getSession().close();
+                    c.getSession().close(true);
                     return;
                 }
                 if (GameConstants.isIceKnightSkill(skillid) && chr.getBuffSource(MapleBuffStat.MORPH) % 10000 != 1105) {
@@ -1087,7 +1342,6 @@ public static final void EnterAzwan(final LittleEndianAccessor slea, final Maple
             }
             box = MapleStatEffect.calculateBoundingBox(chr.getTruePosition(), facingLeft, lt, rb, chr.getStat().defRange);
         }
-        chr.getCheatTracker().checkPVPAttack(skillid);
         final MapleStatEffect shad = chr.getStatForBuff(MapleBuffStat.SHADOWPARTNER);
         final int originalAttackCount = attackCount;
         attackCount *= (shad != null ? 2 : 1);
@@ -1139,7 +1393,7 @@ public static final void EnterAzwan(final LittleEndianAccessor slea, final Maple
                             boolean critical_ = false;
                             int mploss = 0;
                             double ourDamage = Randomizer.nextInt((int) Math.abs(Math.round(rawDamage - min)) + 2) + min;
-                            if (attacked.getStat().evaR > 0 && Randomizer.nextInt(100) < attacked.getStat().evaR) {
+                            if (attacked.getStat().dodgeChance > 0 && Randomizer.nextInt(100) < attacked.getStat().dodgeChance) {
                                 ourDamage = 0;
                             } else if (attacked.hasDisease(MapleDisease.DARKNESS) && Randomizer.nextInt(100) < 50) {
                                 ourDamage = 0;
@@ -1189,8 +1443,8 @@ public static final void EnterAzwan(final LittleEndianAccessor slea, final Maple
                     addedScore += Math.min(attacked.getStat().getHp() / 100, (totalHPLoss / 100) + (totalMPLoss / 100)); //ive NO idea
                     attacked.addMPHP(-totalHPLoss, -totalMPLoss);
                     ourAttacks.add(new AttackPair(attacked.getId(), attacked.getPosition(), attacks));
-                    chr.onAttack(attacked.getStat().getCurrentMaxHp(), attacked.getStat().getCurrentMaxMp(attacked.getJob()), skillid, attacked.getObjectId(), totalHPLoss, 0);
-                    attacked.getCheatTracker().setAttacksWithoutHit(false);
+                    chr.onAttack(attacked.getStat().getCurrentMaxHp(), attacked.getStat().getCurrentMaxMp(attacked.getJob()), skillid, attacked.getObjectId(), totalHPLoss);
+
                     if (totalHPLoss > 0) {
                         didAttack = true;
                     }
@@ -1288,7 +1542,7 @@ public static final void EnterAzwan(final LittleEndianAccessor slea, final Maple
                 chr.getEventInstance().broadcastPlayerMsg(-7, "Blue Team has scored a point!");
                 chr.getMap().spawnAutoDrop(2910000, chr.getMap().getGuardians().get(0).left);
                 chr.getEventInstance().broadcastPacket(CField.getCapturePosition(chr.getMap()));
-                chr.getEventInstance().broadcastPacket(CField.resetCapture());
+                // chr.getEventInstance().broadcastPacket(CField.resetCapture());
                 chr.getEventInstance().schedule("updateScoreboard", 1000);
             } else if (Integer.parseInt(chr.getEventInstance().getProperty("blueflag")) == chr.getId() && chr.getMap().getArea(0).contains(chr.getTruePosition())) {
                 chr.getEventInstance().setProperty("blueflag", "0");
@@ -1296,7 +1550,7 @@ public static final void EnterAzwan(final LittleEndianAccessor slea, final Maple
                 chr.getEventInstance().broadcastPlayerMsg(-7, "Red Team has scored a point!");
                 chr.getMap().spawnAutoDrop(2910001, chr.getMap().getGuardians().get(1).left);
                 chr.getEventInstance().broadcastPacket(CField.getCapturePosition(chr.getMap()));
-                chr.getEventInstance().broadcastPacket(CField.resetCapture());
+                // chr.getEventInstance().broadcastPacket(CField.resetCapture());
                 chr.getEventInstance().schedule("updateScoreboard", 1000);
             }
         }
@@ -1324,14 +1578,6 @@ public static final void EnterAzwan(final LittleEndianAccessor slea, final Maple
             c.getSession().write(CWvsContext.enableActions());
         }
         chr.getMap().broadcastMessage(CField.pvpAttack(chr.getId(), chr.getLevel(), trueSkill, trueSkillLevel, speed, fakeMastery, visProjectile, attackCount, chargeTime, animation, facingLeft ? 1 : 0, chr.getStat().defRange, skillid, skillLevel, move, push, pull, ourAttacks));
-        if (addedScore > 0 && GameConstants.getAttackDelay(skillid, SkillFactory.getSkill(skillid)) >= 100) {
-            final CheatTracker tracker = chr.getCheatTracker();
-
-            tracker.setAttacksWithoutHit(true);
-            if (tracker.getAttacksWithoutHit() > 1000) {
-                tracker.registerOffense(CheatingOffense.ATTACK_WITHOUT_GETTING_HIT, Integer.toString(tracker.getAttacksWithoutHit()));
-            }
-        }
     }
 
     public static boolean inArea(MapleCharacter chr) {
@@ -1347,88 +1593,4 @@ public static final void EnterAzwan(final LittleEndianAccessor slea, final Maple
         }
         return false;
     }
-
-    public static void GemAutoBuff(LittleEndianAccessor slea, MapleClient c) {
-        //B0 00 [Header]
-        //00 00 00 00 [unk]
-        //6A 88 1E 00 [skillid]
-        //00 [unk]
-        final int unk = slea.readInt();
-        final int SkillID = slea.readInt();
-        final byte unk1 = slea.readByte();
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public static void KeepBuffs(LittleEndianAccessor slea, MapleClient c) {
-        //[E2 00] [CA 8E 38 0C] 
-        //205033162 Timestamp
-        final int timeStamp = slea.readInt();
-        c.getPlayer().setKeepBuffs(true);
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public static void ApplyLinkedSkill(LittleEndianAccessor slea, MapleClient c) throws SQLException {
-        //LINKED SKILLS
-        //[A1 00] //Linked Skills header (161d, 0xA1)
-        //[FC A2 31 01] //Skill ID (20030204d, Phantom Instinct)
-        //[0F 00 00 00] //Character ID of the character receiving it.(15, CloudSky)
-         final int skillID = slea.readInt();
-         final int characterID = slea.readInt();
-         
-         if(!GameConstants.isValidLinkSkillForJob(skillID, c.getPlayer().getJob())){
-             c.getPlayer().dropMessage(MessageType.ERROR, "You cannot transfer this link skill yet.");
-             c.getSession().write(CWvsContext.enableActions());
-             return;
-         }
-         
-         final int addSkillID = GameConstants.getRelatedLinkSkill(skillID);
-         if(addSkillID == 0){ //trying to add invalid link skill
-             c.getSession().write(CWvsContext.enableActions());
-             return;
-         }
-         
-         final int accountID = c.getAccID();
-         //Get all characters in the current account, delete the skill if already exists, then add.
-         Connection con = DatabaseConnection.getConnection();
-         PreparedStatement ps = con.prepareStatement("SELECT id FROM characters WHERE id != ? AND accountid = ?"); //ignore current char
-         ps.setInt(1, c.getPlayer().getId());
-         ps.setInt(2, accountID);
-         ResultSet rs = ps.executeQuery();
-         
-         List<Integer> receivingCharacters = new ArrayList<>();
-         while(rs.next()){
-             receivingCharacters.add(rs.getInt("id"));
-         }
-         ps.close();
-         
-         for(Integer receivingChar : receivingCharacters){
-             PreparedStatement deleteSkillQuery = con.prepareStatement("DELETE FROM skills WHERE characterid = ? AND skillid = ?");
-             deleteSkillQuery.setInt(1, receivingChar);
-             deleteSkillQuery.setInt(2, addSkillID);
-             deleteSkillQuery.executeUpdate();
-             deleteSkillQuery.close();
-             //Deleted the existing skill entries, if they exist -- now need to add the new ones.
-             PreparedStatement addLinkSkills = 
-                con.prepareStatement("INSERT INTO skills (id, characterid, skillid, skilllevel, masterlevel, expiration, victimid) VALUES (NULL, ?, ?, ?, ?, DEFAULT, DEFAULT)");
-             addLinkSkills.setInt(1, receivingChar);
-             addLinkSkills.setInt(2, addSkillID);
-             addLinkSkills.setInt(3, 1);
-             addLinkSkills.setInt(4, 1);
-             addLinkSkills.executeUpdate();
-             addLinkSkills.close();
-         }
-         c.getPlayer().dropMessage(MessageType.POPUP, "The link skill has been given to all characters in the account.");
-    }
-
-    public static void DoubleDownUnk(LittleEndianAccessor slea, MapleClient c) {
-        //This is sent to the server after gaining a double down buff and after one expires or is cancelled.
-        /* 153 Packet struct:
-         * [53 01]//Header
-         * [51 45 FD 44]//Timestamp 
-         * [00] unk byte 
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-
 }

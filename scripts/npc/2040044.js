@@ -1,56 +1,52 @@
-/*
-	Violet Balloon - LudiPQ Crack on the Wall NPC
-**/
+/**
+ * @author: Eric
+ * @npc: Violet Balloon
+ * @func: LudiPQ 6th (was 9th) stage NPC
+*/
 
-var status;
-			
+var status = 0;
+
 function start() {
     status = -1;
     action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (status == -1 && cm.isLeader()) {
+	(mode == 1 ? status++ : mode == 0 ? status-- : cm.dispose());
 	var eim = cm.getEventInstance();
-
-	if (eim.getProperty("crackLeaderPreamble") == null) {
-	    eim.setProperty("crackLeaderPreamble", "done");
-	    cm.sendNext("This is the final stage; it'll be a final test of your strength. Give the #rKey of Dimension#k that he drops to me, and you will have succeeded. Good luck!");
-	    cm.dispose();
-	} else {
-	    if (cm.haveItem(4001023)) {
-		status = 0;
-		cm.sendNext("Congratulations! You have defeated the boss, #bAlishar#k. Would you like to go to the reward stage now?");
-	    } else {
-		cm.sendNext("Please bring me the #bKeys of Dimension#k by defeating #bAlishar#k.");
+	if (status == 0) {
+		if (!cm.isLeader()) {
+			cm.sendNext("Now that you've come this far, it's time to defeat the one responsible for this mess, #b#o9300012#.#k I suggest you be careful, though, as he is not in a very good mood.\r\nIf you and your party members defeat him, the Dimensional Schism will close forever. I'm counting on you!");
+			cm.dispose();
+			return;
+		}
+		if (eim.getProperty("crackLeaderPreamble") == null) {
+			eim.setProperty("crackLeaderPreamble", "done");
+			cm.sendNext("Now that you've come this far, it's time to defeat the one responsible for this mess, #b#o9300012#.#k I suggest you be careful, though, as he is not in a very good mood.\r\nIf you and your party members defeat him, the Dimensional Schism will close forever. I'm counting on you!");
+			cm.dispose();
+		} else {
+			if (cm.getMap().getAllMonstersThreadsafe().size() == 0) {
+				status = 0;
+				cm.sendNext("You've defeated #b#o9300012#!#k Magnificent! Thanks to you, the Dimensional Schism has been safely closed. I will now help you leave this place.");
+			} else {
+				cm.sendNext("Now that you've come this far, it's time to defeat the one responsible for this mess, #b#o9300012#.#k I suggest you be careful, though, as he is not in a very good mood.\r\nIf you and your party members defeat him, the Dimensional Schism will close forever. I'm counting on you!");
+				cm.dispose();
+			}
+		}
+	} else if (status == 1) {
+		clear(9, eim, cm);
+		cm.removeAll(4001023);
+		var players = eim.getPlayers();
+		cm.givePartyExp_PQ(70, 1.0, players);
+		eim.setProperty("cleared", "true"); //set determine
+		eim.restartEventTimer(60000);
+		cm.warpParty(922011100, 0);
 		cm.dispose();
-	    }
 	}
-    } else if (status == -1 && !cm.isLeader()) {
-	cm.sendNext("Get the leader of your party to hand the #rKey of Dimension#k that #bAlishar#k drops to me, and you will have succeeded. Good luck!");
-	cm.dispose();
-    } else if (status == 0 && cm.isLeader()) {
-	var eim = cm.getEventInstance();
-	clear(9,eim,cm);
-	cm.gainItem(4001023,-1);
-
-	var players = eim.getPlayers();
-	cm.givePartyExp_PQ(70, 1.0, players);
-	eim.setProperty("cleared", "true"); //set determine
-	eim.restartEventTimer(60000);
-	var bonusmap = cm.getMap(922011100);
-	for (var i = 0; i < players.size(); i++) {
-	    players.get(i).changeMap(bonusmap, bonusmap.getPortal(0));
-	}
-	cm.dispose();
-    } else {
-	cm.dispose();
-    }
 }
 
 function clear(stage, eim) {
-    eim.setProperty("stage" + stage.toString() + "status","clear");
-
+    eim.setProperty("stage" + stage.toString() + "status", "clear");
     cm.showEffect(true, "quest/party/clear");
     cm.playSound(true, "Party1/Clear");
 }

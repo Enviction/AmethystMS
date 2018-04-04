@@ -26,7 +26,7 @@ public class ServerProperties {
 		if (getProperty("GMS") != null) {
 			GameConstants.GMS = Boolean.parseBoolean(getProperty("GMS"));
 		}
-        try {
+      /*  try {
             PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM auth_server_channel_ip");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -41,8 +41,8 @@ public class ServerProperties {
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.exit(0); //Big ass error.
-        }
-        toLoad = GameConstants.GMS ? "worldGMS.properties" : "world.properties";
+        }*/
+        toLoad = GameConstants.GMS ? "server.properties" : "server.properties";
         loadProperties(toLoad);
 
     }

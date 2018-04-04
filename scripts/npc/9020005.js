@@ -10,7 +10,7 @@ function action(mode, type, selection) {
 	status--;
     }
     if (status == 0) {
-	cm.sendSimple("#b#L2#Go break out of prison with a party.#l\r\n#L3#Marx Von Leon Belt (50 Guard Keys) (STR/DEX)#l\r\n#L4#Alma Von Leon Belt (50 Guard Keys) (INT/LUK)#l\r\n#L5#Fox Von Leon Belt (50 Guard Keys) (STR/DEX)#l\r\n#L6#Nox Von Leon Belt (50 Guard Keys) (DEX/LUK)#l\r\n#L7#Cora Von Leon Belt (50 Guard Keys) (STR/DEX)#l#k");
+	cm.sendSimple("\r\n#b#L2#Go break out of prison with a party.#l\r\n#L3#Marx Von Leon Belt (50 Guard Keys) (STR/DEX)#l\r\n#L4#Alma Von Leon Belt (50 Guard Keys) (INT/LUK)#l\r\n#L5#Fox Von Leon Belt (50 Guard Keys) (STR/DEX)#l\r\n#L6#Nox Von Leon Belt (50 Guard Keys) (DEX/LUK)#l\r\n#L7#Cora Von Leon Belt (50 Guard Keys) (STR/DEX)#l#k");
     } else if (status == 1) {
 	if (selection == 2) {
 	    if (cm.getPlayer().getParty() == null || !cm.isLeader()) {
@@ -53,7 +53,7 @@ function action(mode, type, selection) {
 			cm.gainItem(1132091 + selection, 1);
 			cm.gainItem(4001534, -50);
 		} else {
-			cm.sendOk("Come back with 50 Guard Key.");
+			cm.sendOk("Come back with 50 Guard Keys.");
 		}
 	}
 	cm.dispose();

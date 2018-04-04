@@ -20,15 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.shops;
 
-import java.util.concurrent.ScheduledFuture;
+import client.MapleCharacter;
+import client.MapleClient;
 import client.inventory.Item;
 import client.inventory.ItemFlag;
 import constants.GameConstants;
-import client.MapleCharacter;
-import client.MapleClient;
+import constants.ServerConstants;
 import handling.channel.ChannelServer;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ScheduledFuture;
 import server.MapleInventoryManipulator;
 import server.MapleItemInformationProvider;
 import server.Timer.EtcTimer;
@@ -46,7 +47,7 @@ public class HiredMerchant extends AbstractPlayerStore {
     public HiredMerchant(MapleCharacter owner, int itemId, String desc) {
         super(owner, itemId, desc, "", 6);
         start = System.currentTimeMillis();
-        blacklist = new LinkedList<String>();
+        blacklist = new LinkedList<>();
         this.schedule = EtcTimer.getInstance().schedule(new Runnable() {
 
             @Override
@@ -60,6 +61,7 @@ public class HiredMerchant extends AbstractPlayerStore {
         }, 1000 * 60 * 60 * 24);
     }
 
+    @Override
     public byte getShopType() {
         return IMaplePlayerShop.HIRED_MERCHANT;
     }
@@ -69,7 +71,7 @@ public class HiredMerchant extends AbstractPlayerStore {
     }
 
     public List<MaplePlayerShopItem> searchItem(final int itemSearch) {
-        final List<MaplePlayerShopItem> itemz = new LinkedList<MaplePlayerShopItem>();
+        final List<MaplePlayerShopItem> itemz = new LinkedList<>();
         for (MaplePlayerShopItem item : items) {
             if (item.item.getItemId() == itemSearch && item.bundles > 0) {
                 itemz.add(item);
@@ -102,14 +104,18 @@ public class HiredMerchant extends AbstractPlayerStore {
                 pItem.bundles -= quantity; // Number remaining in the store
                 MapleInventoryManipulator.addFromDrop(c, newItem, false);
                 bought.add(new BoughtItem(newItem.getItemId(), quantity, theQuantity, c.getPlayer().getName()));
-                c.getPlayer().gainMeso(-theQuantity, false);
+                if (ServerConstants.MerchantsUseCurrency) {
+                    c.getPlayer().gainCurrency(-theQuantity, false);
+                } else {
+                    c.getPlayer().gainMeso(-theQuantity, false);
+                }
                 saveItems();
                 MapleCharacter chr = getMCOwnerWorld();
                 if (chr != null) {
                     chr.dropMessage(-5, "Item " + MapleItemInformationProvider.getInstance().getName(newItem.getItemId()) + " (" + perbundle + ") x " + quantity + " has sold in the Hired Merchant. Quantity left: " + pItem.bundles);
                 }
             } else {
-                c.getPlayer().dropMessage(1, "The seller has too many mesos.");
+                c.getPlayer().dropMessage(1, "The seller has too many " + (ServerConstants.MerchantsUseCurrency ? "Munny" : "mesos") + ".");
                 c.getSession().write(CWvsContext.enableActions());
             }
         } else {
@@ -128,7 +134,7 @@ public class HiredMerchant extends AbstractPlayerStore {
             items.clear();
         }
         if (remove) {
-            ChannelServer.getInstance(channel).removeMerchant(this);
+            ChannelServer.getInstance(world, channel).removeMerchant(this);
             getMap().broadcastMessage(PlayerShopPacket.destroyHiredMerchant(getOwnerId()));
         }
         getMap().removeMapObject(this);

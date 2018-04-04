@@ -4,11 +4,10 @@
  */
 package handling.world.family;
 
+import handling.world.World;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
-import handling.world.World;
 import java.util.logging.Logger;
 
 public class FamilyLoad {
@@ -39,8 +38,9 @@ public class FamilyLoad {
 
     private static class FamilyLoadRunnable implements Runnable {
         private Object ToNotify;
-        private ArrayBlockingQueue<Integer> Queue = new ArrayBlockingQueue<Integer>(1000);
+        private ArrayBlockingQueue<Integer> Queue = new ArrayBlockingQueue<>(1000);
 
+        @Override
         public void run() {
             try {
                 while (!Queue.isEmpty()) {

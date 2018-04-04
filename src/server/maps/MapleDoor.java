@@ -21,14 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.maps;
 
+import client.MapleCharacter;
+import client.MapleClient;
 import java.awt.Point;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import client.MapleCharacter;
-import client.MapleClient;
-import java.lang.ref.WeakReference;
 import server.MaplePortal;
 import tools.packet.CField;
 import tools.packet.CWvsContext;
@@ -45,7 +45,7 @@ public class MapleDoor extends MapleMapObject {
 
     public MapleDoor(final MapleCharacter owner, final Point targetPosition, final int skillId) {
         super();
-        this.owner = new WeakReference<MapleCharacter>(owner);
+        this.owner = new WeakReference<>(owner);
         this.ownerId = owner.getId();
         this.target = owner.getMap();
         this.targetPosition = targetPosition;
@@ -57,7 +57,7 @@ public class MapleDoor extends MapleMapObject {
 
     public MapleDoor(final MapleDoor origDoor) {
         super();
-        this.owner = new WeakReference<MapleCharacter>(origDoor.owner.get());
+        this.owner = new WeakReference<>(origDoor.owner.get());
         this.town = origDoor.town;
         this.townPortal = origDoor.townPortal;
         this.target = origDoor.target;
@@ -75,8 +75,8 @@ public class MapleDoor extends MapleMapObject {
         return ownerId;
     }
 
-    private final MaplePortal getFreePortal() {
-        final List<MaplePortal> freePortals = new ArrayList<MaplePortal>();
+    private MaplePortal getFreePortal() {
+        final List<MaplePortal> freePortals = new ArrayList<>();
 
         for (final MaplePortal port : town.getPortals()) {
             if (port.getType() == 6) {

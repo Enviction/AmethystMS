@@ -1,32 +1,32 @@
 var minPlayers = 2;
 
 function init() {
-em.setProperty("state", "0");
+	em.setProperty("state", "0");
 	em.setProperty("leader", "true");
 }
 
 function setup(level, leaderid) {
-em.setProperty("state", "1");
+	em.setProperty("state", "1");
 	em.setProperty("leader", "true");
-    var eim = em.newInstance("Prison" + leaderid);
-        eim.setInstanceMap(921160100).resetPQ(level);
-        eim.setInstanceMap(921160200).resetPQ(level);
-        eim.setInstanceMap(921160300).resetPQ(level);
-        eim.setInstanceMap(921160310).resetPQ(level);
-        eim.setInstanceMap(921160320).resetPQ(level);
-        eim.setInstanceMap(921160330).resetPQ(level);
-        eim.setInstanceMap(921160340).resetPQ(level);
-        eim.setInstanceMap(921160350).resetPQ(level);
-        eim.setInstanceMap(921160400).resetPQ(level);
-        eim.setInstanceMap(921160500).resetPQ(level);
-		eim.setInstanceMap(921160600).resetPQ(level);
-		var map = eim.setInstanceMap(921160700);
-		map.resetPQ(level);
-		map.spawnNpc(9020006, new java.awt.Point(-2161, -186));
-		var mob1 = em.getMonster(9300454);
-		eim.registerMonster(mob1);
-		mob1.changeLevel(level);
-		map.spawnMonsterOnGroundBelow(mob1, new java.awt.Point(-2161, -186));
+	var eim = em.newInstance("Prison" + leaderid);
+    eim.setInstanceMap(921160100).resetPQ(level);
+    eim.setInstanceMap(921160200).resetPQ(level);
+    eim.setInstanceMap(921160300).resetPQ(level);
+    eim.setInstanceMap(921160310).resetPQ(level);
+    eim.setInstanceMap(921160320).resetPQ(level);
+    eim.setInstanceMap(921160330).resetPQ(level);
+    eim.setInstanceMap(921160340).resetPQ(level);
+    eim.setInstanceMap(921160350).resetPQ(level);
+    eim.setInstanceMap(921160400).resetPQ(level);
+    eim.setInstanceMap(921160500).resetPQ(level);
+	eim.setInstanceMap(921160600).resetPQ(level);
+	var map = eim.setInstanceMap(921160700);
+	map.resetPQ(level);
+	map.spawnNpc(9020006, new java.awt.Point(-2161, -186));
+	var mob1 = em.getMonster(9300454);
+	eim.registerMonster(mob1);
+	mob1.changeLevel(level);
+	map.spawnMonsterOnGroundBelow(mob1, new java.awt.Point(-2161, -186));
     eim.startEventTimer(1200000); //20 mins
 	eim.setProperty("entryTimestamp", "" + java.lang.System.currentTimeMillis());
     return eim;
@@ -94,7 +94,7 @@ function playerExit(eim, player) {
 function end(eim) {
     eim.disposeIfPlayerBelow(100, 921160000);
 	em.setProperty("state", "0");
-		em.setProperty("leader", "true");
+	em.setProperty("leader", "true");
 }
 
 function clearPQ(eim) {

@@ -22,17 +22,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package client.inventory;
 
 import constants.GameConstants;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
-import java.util.Map;
 import database.DatabaseConnection;
-import java.util.Arrays;
+import java.sql.*;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import server.MapleItemInformationProvider;
 import tools.Pair;
 
@@ -58,10 +53,11 @@ public enum ItemLoader {
     public int getValue() {
         return value;
     }
+    
 
     //does not need connection con to be auto commit
     public Map<Long, Pair<Item, MapleInventoryType>> loadItems(boolean login, int id) throws SQLException {
-        Map<Long, Pair<Item, MapleInventoryType>> items = new LinkedHashMap<Long, Pair<Item, MapleInventoryType>>();
+        Map<Long, Pair<Item, MapleInventoryType>> items = new LinkedHashMap<>();
         StringBuilder query = new StringBuilder();
         query.append("SELECT * FROM `");
         query.append(table);
@@ -76,102 +72,105 @@ public enum ItemLoader {
             query.append(" AND `inventorytype` = ");
             query.append(MapleInventoryType.EQUIPPED.getType());
         }
-
-        PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(query.toString());
-        ps.setInt(1, value);
-        ps.setInt(2, id);
-        ResultSet rs = ps.executeQuery();
-        final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        while (rs.next()) {
-            if (!ii.itemExists(rs.getInt("itemid"))) { //EXPENSIVE
-                continue;
-            }
-            MapleInventoryType mit = MapleInventoryType.getByType(rs.getByte("inventorytype"));
-
-            if (mit.equals(MapleInventoryType.EQUIP) || mit.equals(MapleInventoryType.EQUIPPED)) {
-                Equip equip = new Equip(rs.getInt("itemid"), rs.getShort("position"), rs.getInt("uniqueid"), rs.getShort("flag"));
-                if (!login && equip.getPosition() != -55) { //monsterbook
-                    equip.setQuantity((short) 1);
-                    equip.setInventoryId(rs.getLong("inventoryitemid"));
-                    equip.setOwner(rs.getString("owner"));
-                    equip.setExpiration(rs.getLong("expiredate"));
-                    equip.setUpgradeSlots(rs.getByte("upgradeslots"));
-                    equip.setLevel(rs.getByte("level"));
-                    equip.setStr(rs.getShort("str"));
-                    equip.setDex(rs.getShort("dex"));
-                    equip.setInt(rs.getShort("int"));
-                    equip.setLuk(rs.getShort("luk"));
-                    equip.setHp(rs.getShort("hp"));
-                    equip.setMp(rs.getShort("mp"));
-                    equip.setWatk(rs.getShort("watk"));
-                    equip.setMatk(rs.getShort("matk"));
-                    equip.setWdef(rs.getShort("wdef"));
-                    equip.setMdef(rs.getShort("mdef"));
-                    equip.setAcc(rs.getShort("acc"));
-                    equip.setAvoid(rs.getShort("avoid"));
-                    equip.setHands(rs.getShort("hands"));
-                    equip.setSpeed(rs.getShort("speed"));
-                    equip.setJump(rs.getShort("jump"));
-                    equip.setViciousHammer(rs.getByte("ViciousHammer"));
-                    equip.setItemEXP(rs.getInt("itemEXP"));
-                    equip.setGMLog(rs.getString("GM_Log"));
-                    equip.setDurability(rs.getInt("durability"));
-                    equip.setEnhance(rs.getByte("enhance"));
-                    equip.setPotential1(rs.getInt("potential1"));
-                    equip.setPotential2(rs.getInt("potential2"));
-                    equip.setPotential3(rs.getInt("potential3"));
-                    equip.setPotential4(rs.getInt("potential4"));
-                    equip.setPotential5(rs.getInt("potential5"));
-                    equip.setSocket1(rs.getInt("socket1"));
-                    equip.setSocket2(rs.getInt("socket2"));
-                    equip.setSocket3(rs.getInt("socket3"));
-                    equip.setGiftFrom(rs.getString("sender"));
-                    equip.setIncSkill(rs.getInt("incSkill"));
-                    equip.setPVPDamage(rs.getShort("pvpDamage"));
-                    equip.setCharmEXP(rs.getShort("charmEXP"));
-                    equip.setCashCover(rs.getByte("cashCover"));
-                    if (equip.getCharmEXP() < 0) { //has not been initialized yet
-                        equip.setCharmEXP(((Equip) ii.getEquipById(equip.getItemId())).getCharmEXP());
+        try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement(query.toString())) {
+            ps.setInt(1, value);
+            ps.setInt(2, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
+                while (rs.next()) {
+                    if (!ii.itemExists(rs.getInt("itemid"))) { //EXPENSIVE
+                        continue;
                     }
-                    if (equip.getUniqueId() > -1) {
-                        if (GameConstants.isEffectRing(rs.getInt("itemid"))) {
-                            MapleRing ring = MapleRing.loadFromDb(equip.getUniqueId(), mit.equals(MapleInventoryType.EQUIPPED));
-                            if (ring != null) {
-                                equip.setRing(ring);
+                    MapleInventoryType mit = MapleInventoryType.getByType(rs.getByte("inventorytype"));
+
+                    if (mit.equals(MapleInventoryType.EQUIP) || mit.equals(MapleInventoryType.EQUIPPED)) {
+                        Equip equip = new Equip(rs.getInt("itemid"), rs.getShort("position"), rs.getInt("uniqueid"), rs.getShort("flag"));
+                        if (!login && equip.getPosition() != -55) { //monsterbook
+                            equip.setQuantity((short) 1);
+                            equip.setInventoryId(rs.getLong("inventoryitemid"));
+                            equip.setOwner(rs.getString("owner"));
+                            equip.setExpiration(rs.getLong("expiredate"));
+                            // equip.setExpiration(2475606994921L);
+                            equip.setUpgradeSlots(rs.getByte("upgradeslots"));
+                            equip.setLevel(rs.getByte("level"));
+                            equip.setStr(rs.getShort("str"));
+                            equip.setDex(rs.getShort("dex"));
+                            equip.setInt(rs.getShort("int"));
+                            equip.setLuk(rs.getShort("luk"));
+                            equip.setHp(rs.getShort("hp"));
+                            equip.setMp(rs.getShort("mp"));
+                            equip.setWatk(rs.getShort("watk"));
+                            equip.setMatk(rs.getShort("matk"));
+                            equip.setWdef(rs.getShort("wdef"));
+                            equip.setMdef(rs.getShort("mdef"));
+                            equip.setAcc(rs.getShort("acc"));
+                            equip.setAvoid(rs.getShort("avoid"));
+                            equip.setHands(rs.getShort("hands"));
+                            equip.setSpeed(rs.getShort("speed"));
+                            equip.setJump(rs.getShort("jump"));
+                            equip.setViciousHammer(rs.getByte("ViciousHammer"));
+                            equip.setItemEXP(rs.getInt("itemEXP"));
+                            equip.setGMLog(rs.getString("GM_Log"));
+                            equip.setDurability(rs.getInt("durability"));
+                            equip.setEnhance(rs.getByte("enhance"));
+                            equip.setPotential1(rs.getInt("potential1"));
+                            equip.setPotential2(rs.getInt("potential2"));
+                            equip.setPotential3(rs.getInt("potential3"));
+                            equip.setPotential4(rs.getInt("potential4"));
+                            equip.setPotential5(rs.getInt("potential5"));
+                            equip.setSocket1(rs.getInt("socket1"));
+                            equip.setSocket2(rs.getInt("socket2"));
+                            equip.setSocket3(rs.getInt("socket3"));
+                            equip.setGiftFrom(rs.getString("sender"));
+                            equip.setIncSkill(rs.getInt("incSkill"));
+                            equip.setPVPDamage(rs.getShort("pvpDamage"));
+                            equip.setEquipLevel(rs.getInt("equipLevel")); // EUS
+                            equip.setEquipExp(rs.getInt("equipExp")); // EUS
+                            equip.setEquipMSIUpgrades(rs.getInt("equipMSIUpgrades")); // EUS
+                            equip.setCharmEXP(rs.getShort("charmEXP"));
+                            if (equip.getCharmEXP() < 0) { //has not been initialized yet
+                                equip.setCharmEXP(((Equip) MapleItemInformationProvider.getEquipById(equip.getItemId())).getCharmEXP());
                             }
-                        } else if (equip.getItemId() / 10000 == 166) {
-                            MapleAndroid ring = MapleAndroid.loadFromDb(equip.getItemId(), equip.getUniqueId());
-                            if (ring != null) {
-                                equip.setAndroid(ring);
+                            if (equip.getUniqueId() > -1) {
+                                if (GameConstants.isEffectRing(rs.getInt("itemid"))) {
+                                    MapleRing ring = MapleRing.loadFromDb(equip.getUniqueId(), mit.equals(MapleInventoryType.EQUIPPED));
+                                    if (ring != null) {
+                                        equip.setRing(ring);
+                                    }
+                                } else if (equip.getItemId() / 10000 == 166) {
+                                    MapleAndroid ring = MapleAndroid.loadFromDb(equip.getItemId(), equip.getUniqueId());
+                                    if (ring != null) {
+                                        equip.setAndroid(ring);
+                                    }
+                                }
                             }
                         }
-                    }
-                }
-                items.put(rs.getLong("inventoryitemid"), new Pair<Item, MapleInventoryType>(equip.copy(), mit));
-            } else {
-                Item item = new Item(rs.getInt("itemid"), rs.getShort("position"), rs.getShort("quantity"), rs.getShort("flag"), rs.getInt("uniqueid"));
-                item.setOwner(rs.getString("owner"));
-                item.setInventoryId(rs.getLong("inventoryitemid"));
-                item.setExpiration(rs.getLong("expiredate"));
-                item.setGMLog(rs.getString("GM_Log"));
-                item.setGiftFrom(rs.getString("sender"));
-                if (GameConstants.isPet(item.getItemId())) {
-                    if (item.getUniqueId() > -1) {
-                        MaplePet pet = MaplePet.loadFromDb(item.getItemId(), item.getUniqueId(), item.getPosition());
-                        if (pet != null) {
-                            item.setPet(pet);
-                        }
+                        items.put(rs.getLong("inventoryitemid"), new Pair<>(equip.copy(), mit));
                     } else {
-                        //O_O hackish fix
-                        item.setPet(MaplePet.createPet(item.getItemId(), MapleInventoryIdentifier.getInstance()));
+                        Item item = new Item(rs.getInt("itemid"), rs.getShort("position"), rs.getShort("quantity"), rs.getShort("flag"), rs.getInt("uniqueid"));
+                        item.setOwner(rs.getString("owner"));
+                        item.setInventoryId(rs.getLong("inventoryitemid"));
+                        item.setExpiration(rs.getLong("expiredate"));
+                        // item.setExpiration(2475606994921L);
+                        item.setGMLog(rs.getString("GM_Log"));
+                        item.setGiftFrom(rs.getString("sender"));
+                        if (GameConstants.isPet(item.getItemId())) {
+                            if (item.getUniqueId() > -1) {
+                                MaplePet pet = MaplePet.loadFromDb(item.getItemId(), item.getUniqueId(), item.getPosition());
+                                if (pet != null) {
+                                    item.setPet(pet);
+                                }
+                            } else {
+                                //O_O hackish fix
+                                item.setPet(MaplePet.createPet(item.getItemId(), MapleInventoryIdentifier.getInstance()));
+                            }
+                        }
+                        items.put(rs.getLong("inventoryitemid"), new Pair<>(item.copy(), mit));
                     }
                 }
-                items.put(rs.getLong("inventoryitemid"), new Pair<Item, MapleInventoryType>(item.copy(), mit));
             }
         }
 
-        rs.close();
-        ps.close();
         return items;
     }
 
@@ -201,7 +200,7 @@ public enum ItemLoader {
         query_2.append(arg);
         query_2.append(", itemid, inventorytype, position, quantity, owner, GM_Log, uniqueid, expiredate, flag, `type`, sender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         ps = con.prepareStatement(query_2.toString(), Statement.RETURN_GENERATED_KEYS);
-        PreparedStatement pse = con.prepareStatement("INSERT INTO " + table_equip + " VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement pse = con.prepareStatement("INSERT INTO " + table_equip + " VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         final Iterator<Pair<Item, MapleInventoryType>> iter = items.iterator();
         Pair<Item, MapleInventoryType> pair;
         while (iter.hasNext()) {
@@ -228,16 +227,15 @@ public enum ItemLoader {
             ps.setShort(10, item.getFlag());
             ps.setByte(11, (byte) value);
             ps.setString(12, item.getGiftFrom());
-
             ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-
-            if (!rs.next()) {
-                rs.close();
-                continue;
+            final long iid;
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (!rs.next()) {
+                    rs.close();
+                    continue;
+                }
+                iid = rs.getLong(1);
             }
-            final long iid = rs.getLong(1);
-            rs.close();
 
             item.setInventoryId(iid);
             if (mit.equals(MapleInventoryType.EQUIP) || mit.equals(MapleInventoryType.EQUIPPED)) {
@@ -275,13 +273,10 @@ public enum ItemLoader {
                 pse.setInt(31, equip.getIncSkill());
                 pse.setShort(32, equip.getCharmEXP());
                 pse.setShort(33, equip.getPVPDamage());
-                pse.setByte(34, equip.getCashCover());
-                try{
+                pse.setInt(34, equip.getEquipmentLevel()); // EUS
+                pse.setInt(35, equip.getEquipmentExp()); // EUS
+                pse.setInt(36, equip.getEquipMSIUpgrades()); // EUS
                 pse.executeUpdate();
-                }
-                catch(Exception ex){
-                    System.out.print("\r\nquery: " +pse.toString()+ ".ex:" + ex);
-                }
             }
         }
         pse.close();

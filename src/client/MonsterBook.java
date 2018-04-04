@@ -23,20 +23,15 @@ package client;
 import client.inventory.Equip;
 import client.inventory.MapleInventoryType;
 import constants.GameConstants;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import database.DatabaseConnection;
+import handling.RecvPacketOpcode;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.io.Serializable;
-
-import database.DatabaseConnection;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.Map.Entry;
 import server.MapleItemInformationProvider;
 import server.quest.MapleQuest;
 import tools.Pair;
@@ -44,14 +39,14 @@ import tools.Triple;
 import tools.data.MaplePacketLittleEndianWriter;
 import tools.packet.CField.EffectPacket;
 
-public class MonsterBook implements Serializable {
+public final class MonsterBook implements Serializable {
 
     private static final long serialVersionUID = 7179541993413738569L;
     private boolean changed = false;
     private int currentSet = -1, level = 0, setScore, finishedSets;
     private Map<Integer, Integer> cards;
-    private List<Integer> cardItems = new ArrayList<Integer>();
-    private Map<Integer, Pair<Integer, Boolean>> sets = new HashMap<Integer, Pair<Integer, Boolean>>();
+    private List<Integer> cardItems = new ArrayList<>();
+    private Map<Integer, Pair<Integer, Boolean>> sets = new HashMap<>();
 
     public MonsterBook(Map<Integer, Integer> cards, MapleCharacter chr) {
         this.cards = cards;
@@ -99,7 +94,7 @@ public class MonsterBook implements Serializable {
                 final Triple<Integer, List<Integer>, List<Integer>> set = ii.getMonsterBookInfo(x);
                 if (set != null) {
                     if (!sets.containsKey(x)) {
-                        sets.put(x, new Pair<Integer, Boolean>(1, Boolean.FALSE));
+                        sets.put(x, new Pair<>(1, Boolean.FALSE));
                     } else {
                         sets.get(x).left++;
                     }
@@ -132,7 +127,7 @@ public class MonsterBook implements Serializable {
 
     public void writeCharInfoPacket(MaplePacketLittleEndianWriter mplew) {
         //cid, then the character's level
-        List<Integer> cardSize = new ArrayList<Integer>(10); //0 = total, 1-9 = card types..
+        List<Integer> cardSize = new ArrayList<>(10); //0 = total, 1-9 = card types..
         for (int i = 0; i < 10; i++) {
             cardSize.add(0);
         }
@@ -152,7 +147,7 @@ public class MonsterBook implements Serializable {
         MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
         mplew.write(1);
         mplew.writeShort(cardItems.size());
-        final List<Integer> mbList = new ArrayList<Integer>(ii.getMonsterBookList());
+        final List<Integer> mbList = new ArrayList<>(ii.getMonsterBookList());
         Collections.sort(mbList);
         final int fullCards = (mbList.size() / 8) + (mbList.size() % 8 > 0 ? 1 : 0);
         mplew.writeShort(fullCards); //which cards of all you have; more efficient than writing each card
@@ -283,19 +278,16 @@ public class MonsterBook implements Serializable {
     }
 
     public static MonsterBook loadCards(final int charid, final MapleCharacter chr) throws SQLException {
-        final PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM monsterbook WHERE charid = ? ORDER BY cardid ASC");
-        ps.setInt(1, charid);
-        final ResultSet rs = ps.executeQuery();
-        Map<Integer, Integer> cards = new LinkedHashMap<>();
-        int cardid, level;
-
-        while (rs.next()) {
-            cardid = rs.getInt("cardid");
-            level = rs.getInt("level");
-            cards.put(cardid, level);
+        Map<Integer, Integer> cards;
+        try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT * FROM monsterbook WHERE charid = ? ORDER BY cardid ASC")) {
+            ps.setInt(1, charid);
+            try (ResultSet rs = ps.executeQuery()) {
+                cards = new LinkedHashMap<>();
+                while (rs.next()) {
+                    cards.put(rs.getInt("cardid"), rs.getInt("level"));
+                }
+            }
         }
-        rs.close();
-        ps.close();
         return new MonsterBook(cards, chr);
     }
 
@@ -338,7 +330,7 @@ public class MonsterBook implements Serializable {
     public final boolean monsterCaught(final MapleClient c, final int cardid, final String cardname) {
         if (!cards.containsKey(cardid) || cards.get(cardid) < 2) {
             changed = true;
-            c.getPlayer().dropMessage(5, "Book entry updated - " + cardname);
+            c.getPlayer().dropMessage(-6, "Book entry updated - " + cardname);
             c.getSession().write(EffectPacket.showForeignEffect(16));
             cards.put(cardid, 2);
             if (GameConstants.GMS) {
@@ -354,7 +346,7 @@ public class MonsterBook implements Serializable {
                     if (c.getPlayer().getQuestStatus(50197) != 1) {
                         MapleQuest.getInstance(50197).forceStart(c.getPlayer(), 9010000, "1"); //this quest signifies that a set is done
                     }
-                    c.getSession().write(EffectPacket.showForeignEffect(43));
+                    c.getSession().write(EffectPacket.showForeignEffect(RecvPacketOpcode.MCAUGHTEFF.getValue()));
                     if (rr > 1) {
                         applyBook(c.getPlayer(), false);
                     }
@@ -375,7 +367,7 @@ public class MonsterBook implements Serializable {
         }
         changed = true;
         // New card
-        c.getPlayer().dropMessage(5, "New book entry - " + cardname);
+        c.getPlayer().dropMessage(-6, "New book entry - " + cardname);
         cards.put(cardid, 1);
         c.getSession().write(EffectPacket.showForeignEffect(16));
     }

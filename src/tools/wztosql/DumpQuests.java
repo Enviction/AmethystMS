@@ -22,13 +22,13 @@
 
 package tools.wztosql;
 
+import database.DatabaseConnection;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.List;
-import database.DatabaseConnection;
 import java.sql.ResultSet;
 import java.util.LinkedList;
+import java.util.List;
 import provider.MapleData;
 import provider.MapleDataProvider;
 import provider.MapleDataProviderFactory;
@@ -69,7 +69,6 @@ public class DumpQuests {
 				dumpQuests(psai, psas, psaq, ps, psr, psq, psa);
 			} catch (Exception e) {
 				System.out.println(id + " quest.");
-				e.printStackTrace();
 				hadError = true;
 			} finally {
 				psai.executeBatch();
@@ -92,17 +91,16 @@ public class DumpQuests {
 
 
 	public void delete(String sql) throws Exception {
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.executeUpdate();
-		ps.close();
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.executeUpdate();
+        }
 	}
 
 	public boolean doesExist(String sql) throws Exception {
-		PreparedStatement ps = con.prepareStatement(sql);
-		ResultSet rs = ps.executeQuery();
-		boolean ret = rs.next();
-		rs.close();
-		ps.close();
+        boolean ret;
+        try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            ret = rs.next();
+        }
 		return ret;
 	}
 
@@ -140,72 +138,99 @@ public class DumpQuests {
 							continue; //un-needed
 						}
 						psr.setString(3, req.getName());
-						if (req.getName().equals("fieldEnter")) { //diff
-							psr.setString(4, String.valueOf(MapleDataTool.getIntConvert("0", req, 0)));
-						} else if (req.getName().equals("end") || req.getName().equals("startscript") || req.getName().equals("endscript")) {
-							psr.setString(4, MapleDataTool.getString(req, ""));
-						} else {
-							psr.setString(4, String.valueOf(MapleDataTool.getInt(req, 0)));
-						}
+                        switch (req.getName()) {
+                            case "fieldEnter":
+                                //diff
+                                psr.setString(4, String.valueOf(MapleDataTool.getIntConvert("0", req, 0)));
+                                break;
+                            case "end":
+                            case "startscript":
+                            case "endscript":
+                                psr.setString(4, MapleDataTool.getString(req, ""));
+                                break;
+                            default:
+                                psr.setString(4, String.valueOf(MapleDataTool.getInt(req, 0)));
+                                break;
+                        }
 						StringBuilder intStore1 = new StringBuilder();
 						StringBuilder intStore2 = new StringBuilder();
-						List<Pair<Integer, Integer>> dataStore = new LinkedList<Pair<Integer, Integer>>();
-						if (req.getName().equals("job")) {
-                					final List<MapleData> child = req.getChildren();
-                					for (int x = 0; x < child.size(); x++) {
-                    						dataStore.add(new Pair<Integer, Integer>(i, MapleDataTool.getInt(child.get(x), -1)));
-                					}
-						} else if (req.getName().equals("skill")) {
-                					final List<MapleData> child = req.getChildren();
-                					for (int x = 0; x < child.size(); x++) {
-                    						final MapleData childdata = child.get(x);
-		    						if (childdata == null) {
-									continue;
-		    						}
-                    						dataStore.add(new Pair<Integer, Integer>(MapleDataTool.getInt(childdata.getChildByPath("id"), 0),
-                            						MapleDataTool.getInt(childdata.getChildByPath("acquire"), 0)));
-                					}
-						} else if (req.getName().equals("quest")) {
-                					final List<MapleData> child = req.getChildren();
-                					for (int x = 0; x < child.size(); x++) {
-                    						final MapleData childdata = child.get(x);
-		    						if (childdata == null) {
-									continue;
-		    						}
-                    						dataStore.add(new Pair<Integer, Integer>(MapleDataTool.getInt(childdata.getChildByPath("id"), 0),
-                            						MapleDataTool.getInt(childdata.getChildByPath("state"), 0)));
-                					}
-						} else if (req.getName().equals("item") || req.getName().equals("mob")) {
-                					final List<MapleData> child = req.getChildren();
-                					for (int x = 0; x < child.size(); x++) {
-                    						final MapleData childdata = child.get(x);
-		    						if (childdata == null) {
-									continue;
-		    						}
-                    						dataStore.add(new Pair<Integer, Integer>(MapleDataTool.getInt(childdata.getChildByPath("id"), 0),
-                            						MapleDataTool.getInt(childdata.getChildByPath("count"), 0)));
-                					}
-						} else if (req.getName().equals("mbcard")) {
-                					final List<MapleData> child = req.getChildren();
-                					for (int x = 0; x < child.size(); x++) {
-                    						final MapleData childdata = child.get(x);
-		    						if (childdata == null) {
-									continue;
-		    						}
-                    						dataStore.add(new Pair<Integer, Integer>(MapleDataTool.getInt(childdata.getChildByPath("id"), 0),
-                            						MapleDataTool.getInt(childdata.getChildByPath("min"), 0)));
-                					}
-						} else if (req.getName().equals("pet")) {
-                					final List<MapleData> child = req.getChildren();
-                					for (int x = 0; x < child.size(); x++) {
-                    						final MapleData childdata = child.get(x);
-		    						if (childdata == null) {
-									continue;
-		    						}
-                    						dataStore.add(new Pair<Integer, Integer>(i,
-                            						MapleDataTool.getInt(childdata.getChildByPath("id"), 0)));
-                					}
-						}
+						List<Pair<Integer, Integer>> dataStore = new LinkedList<>();
+                        switch (req.getName()) {
+                            case "job":
+                                {
+                                    final List<MapleData> child = req.getChildren();
+                                    for (int x = 0; x < child.size(); x++) {
+                                                dataStore.add(new Pair<>(i, MapleDataTool.getInt(child.get(x), -1)));
+                                    }
+                                    break;
+                                }
+                            case "skill":
+                                {
+                                    final List<MapleData> child = req.getChildren();
+                                    for (int x = 0; x < child.size(); x++) {
+                                                final MapleData childdata = child.get(x);
+                                                if (childdata == null) {
+                                                    continue;
+                                                }
+                                                dataStore.add(new Pair<>(MapleDataTool.getInt(childdata.getChildByPath("id"), 0),
+                                                        MapleDataTool.getInt(childdata.getChildByPath("acquire"), 0)));
+                                    }
+                                    break;
+                                }
+                            case "quest":
+                                {
+                                    final List<MapleData> child = req.getChildren();
+                                    for (int x = 0; x < child.size(); x++) {
+                                                final MapleData childdata = child.get(x);
+                                                if (childdata == null) {
+                                                    continue;
+                                                }
+                                                dataStore.add(new Pair<>(MapleDataTool.getInt(childdata.getChildByPath("id"), 0),
+                                                        MapleDataTool.getInt(childdata.getChildByPath("state"), 0)));
+                                    }
+                                    break;
+                                }
+                            case "item":
+                            case "mob":
+                                {
+                                    final List<MapleData> child = req.getChildren();
+                                    for (int x = 0; x < child.size(); x++) {
+                                                final MapleData childdata = child.get(x);
+                                                if (childdata == null) {
+                                                    continue;
+                                                }
+                                                dataStore.add(new Pair<>(MapleDataTool.getInt(childdata.getChildByPath("id"), 0),
+                                                        MapleDataTool.getInt(childdata.getChildByPath("count"), 0)));
+                                    }
+                                    break;
+                                }
+                            case "mbcard":
+                                {
+                                    final List<MapleData> child = req.getChildren();
+                                    for (int x = 0; x < child.size(); x++) {
+                                                final MapleData childdata = child.get(x);
+                                                if (childdata == null) {
+                                                    continue;
+                                                }
+                                                dataStore.add(new Pair<>(MapleDataTool.getInt(childdata.getChildByPath("id"), 0),
+                                                        MapleDataTool.getInt(childdata.getChildByPath("min"), 0)));
+                                    }
+                                    break;
+                                }
+                            case "pet":
+                                {
+                                    final List<MapleData> child = req.getChildren();
+                                    for (int x = 0; x < child.size(); x++) {
+                                                final MapleData childdata = child.get(x);
+                                                if (childdata == null) {
+                                                    continue;
+                                                }
+                                                dataStore.add(new Pair<>(i,
+                                                        MapleDataTool.getInt(childdata.getChildByPath("id"), 0)));
+                                    }
+                                    break;
+                                }
+                        }
 						for (Pair<Integer, Integer> data : dataStore) {
 							if (intStore1.length() > 0) {
 								intStore1.append(", ");
@@ -261,44 +286,49 @@ public class DumpQuests {
 						}
 						psa.setString(5, applicableJobs.toString());
 						psa.setInt(6, -1);
-						if (act.getName().equals("item")) { //prop, job, gender, id, count
-							uniqueid++;
-							psa.setInt(6, uniqueid);
-							psai.setInt(1, uniqueid);
-							for (MapleData iEntry : act.getChildren()) {
-								psai.setInt(2, MapleDataTool.getInt("id", iEntry, 0));
-								psai.setInt(3, MapleDataTool.getInt("count", iEntry, 0));
-								psai.setInt(4, MapleDataTool.getInt("period", iEntry, 0));
-								psai.setInt(5, MapleDataTool.getInt("gender", iEntry, 2));
-								psai.setInt(6, MapleDataTool.getInt("job", iEntry, -1));
-								psai.setInt(7, MapleDataTool.getInt("jobEx", iEntry, -1));
-								if (iEntry.getChildByPath("prop") == null) {
-									psai.setInt(8, -2);
-								} else {
-									psai.setInt(8, MapleDataTool.getInt("prop", iEntry, -1));
-								}
-								psai.addBatch();
-							}
-						} else if (act.getName().equals("skill")) {
-							uniqueid++;
-							psa.setInt(6, uniqueid);
-							psas.setInt(1, uniqueid);
-							for (MapleData sEntry : act) {
-								psas.setInt(2, MapleDataTool.getInt("id", sEntry, 0));
-								psas.setInt(3, MapleDataTool.getInt("skillLevel", sEntry, 0));
-								psas.setInt(4, MapleDataTool.getInt("masterLevel", sEntry, 0));
-								psas.addBatch();
-							}
-						} else if (act.getName().equals("quest")) {
-							uniqueid++;
-							psa.setInt(6, uniqueid);
-							psaq.setInt(1, uniqueid);
-							for (MapleData sEntry : act) {
-								psaq.setInt(2, MapleDataTool.getInt("id", sEntry, 0));
-								psaq.setInt(3, MapleDataTool.getInt("state", sEntry, 0));
-								psaq.addBatch();
-							}
-						}
+                        switch (act.getName()) {
+                            case "item":
+                                //prop, job, gender, id, count
+                                uniqueid++;
+                                psa.setInt(6, uniqueid);
+                                psai.setInt(1, uniqueid);
+                                for (MapleData iEntry : act.getChildren()) {
+                                        psai.setInt(2, MapleDataTool.getInt("id", iEntry, 0));
+                                        psai.setInt(3, MapleDataTool.getInt("count", iEntry, 0));
+                                        psai.setInt(4, MapleDataTool.getInt("period", iEntry, 0));
+                                        psai.setInt(5, MapleDataTool.getInt("gender", iEntry, 2));
+                                        psai.setInt(6, MapleDataTool.getInt("job", iEntry, -1));
+                                        psai.setInt(7, MapleDataTool.getInt("jobEx", iEntry, -1));
+                                        if (iEntry.getChildByPath("prop") == null) {
+                                                psai.setInt(8, -2);
+                                        } else {
+                                                psai.setInt(8, MapleDataTool.getInt("prop", iEntry, -1));
+                                        }
+                                        psai.addBatch();
+                                }
+                                break;
+                            case "skill":
+                                uniqueid++;
+                                psa.setInt(6, uniqueid);
+                                psas.setInt(1, uniqueid);
+                                for (MapleData sEntry : act) {
+                                        psas.setInt(2, MapleDataTool.getInt("id", sEntry, 0));
+                                        psas.setInt(3, MapleDataTool.getInt("skillLevel", sEntry, 0));
+                                        psas.setInt(4, MapleDataTool.getInt("masterLevel", sEntry, 0));
+                                        psas.addBatch();
+                                }
+                                break;
+                            case "quest":
+                                uniqueid++;
+                                psa.setInt(6, uniqueid);
+                                psaq.setInt(1, uniqueid);
+                                for (MapleData sEntry : act) {
+                                        psaq.setInt(2, MapleDataTool.getInt("id", sEntry, 0));
+                                        psaq.setInt(3, MapleDataTool.getInt("state", sEntry, 0));
+                                        psaq.addBatch();
+                                }
+                                break;
+                        }
 						psa.addBatch();
 					}
 				}
@@ -364,10 +394,8 @@ public class DumpQuests {
 			System.out.println("Dumping quests");
 			dq.dumpQuests();
 			hadError |= dq.isHadError();
-			currentQuest = dq.currentId();
 		} catch (Exception e) {
 			hadError = true;
-			e.printStackTrace();
 			System.out.println(currentQuest + " quest.");
 		}
 		long endTime = System.currentTimeMillis();

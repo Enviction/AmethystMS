@@ -21,56 +21,50 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package scripting;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.locks.Lock;
-import javax.script.ScriptException;
-
 import client.MapleCharacter;
 import client.MapleQuestStatus;
 import client.MapleTrait.MapleTraitType;
 import client.SkillFactory;
+import constants.ServerConstants;
+import constants.WorldConstants;
 import handling.channel.ChannelServer;
+import handling.login.LoginServer;
 import handling.world.MapleParty;
 import handling.world.MaplePartyCharacter;
 import handling.world.World;
 import handling.world.exped.PartySearch;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import javax.script.ScriptException;
 import server.MapleCarnivalParty;
-import server.MapleInventoryManipulator;
 import server.MapleItemInformationProvider;
 import server.MapleSquad;
 import server.Timer.EventTimer;
-import server.quest.MapleQuest;
 import server.life.MapleMonster;
 import server.maps.MapleMap;
 import server.maps.MapleMapFactory;
+import server.quest.MapleQuest;
 import tools.FileoutputUtil;
-import tools.packet.CField;
 import tools.Pair;
+import tools.packet.CField;
 import tools.packet.CWvsContext.InfoPacket;
 
 public class EventInstanceManager {
 
-    private List<MapleCharacter> chars = new LinkedList<MapleCharacter>(); //this is messy
-    private List<Integer> dced = new LinkedList<Integer>();
-    private List<MapleMonster> mobs = new LinkedList<MapleMonster>();
-    private Map<Integer, Integer> killCount = new HashMap<Integer, Integer>();
+    private List<MapleCharacter> chars = new LinkedList<>(); //this is messy
+    private List<Integer> dced = new LinkedList<>();
+    private List<MapleMonster> mobs = new LinkedList<>();
+    private Map<Integer, Integer> killCount = new HashMap<>();
     private EventManager em;
     private int channel;
     private String name;
     private Properties props = new Properties();
     private long timeStarted = 0;
     private long eventTime = 0;
-    private List<Integer> mapIds = new LinkedList<Integer>();
-    private List<Boolean> isInstanced = new LinkedList<Boolean>();
+    private List<Integer> mapIds = new LinkedList<>();
+    private List<Boolean> isInstanced = new LinkedList<>();
     private ScheduledFuture<?> eventTimer;
     private final ReentrantReadWriteLock mutex = new ReentrantReadWriteLock();
     private final Lock rL = mutex.readLock(), wL = mutex.writeLock();
@@ -97,7 +91,6 @@ public class EventInstanceManager {
             em.getIv().invokeFunction("playerEntry", this, chr);
         } catch (NullPointerException ex) {
             FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, ex);
-            ex.printStackTrace();
         } catch (Exception ex) {
             FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerEntry:\n" + ex);
             System.out.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerEntry:\n" + ex);
@@ -112,7 +105,7 @@ public class EventInstanceManager {
             em.getIv().invokeFunction("changedMap", this, chr, mapid);
         } catch (NullPointerException npe) {
         } catch (Exception ex) {
-            FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name : " + em.getName() + ", Instance name : " + name + ", method Name : changedMap:\n" + ex);
+            FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + em.getName() + ", Instance name : " + name + ", method Name : changedMap:\n" + ex);
             System.out.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : changedMap:\n" + ex);
         }
     }
@@ -123,13 +116,14 @@ public class EventInstanceManager {
         }
         eventTimer = EventTimer.getInstance().schedule(new Runnable() {
 
+            @Override
             public void run() {
                 if (disposed || eim == null || em == null) {
                     return;
                 }
                 try {
                     em.getIv().invokeFunction("scheduledTimeout", eim);
-                } catch (Exception ex) {
+                } catch (ScriptException | NoSuchMethodException ex) {
                     FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + em.getName() + ", Instance name : " + name + ", method Name : scheduledTimeout:\n" + ex);
                     System.out.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : scheduledTimeout:\n" + ex);
                 }
@@ -170,7 +164,6 @@ public class EventInstanceManager {
         } catch (Exception ex) {
             FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, ex);
             System.out.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : restartEventTimer:\n");
-            ex.printStackTrace();
         }
     }
 
@@ -214,11 +207,13 @@ public class EventInstanceManager {
 
     private boolean unregisterPlayer_NoLock(final MapleCharacter chr) {
         if (name.equals("CWKPQ")) { //hard code it because i said so
-            final MapleSquad squad = ChannelServer.getInstance(channel).getMapleSquad("CWKPQ");//so fkin hacky
-            if (squad != null) {
-                squad.removeMember(chr.getName());
-                if (squad.getLeaderName().equals(chr.getName())) {
-                    em.setProperty("leader", "false");
+            for (World world : LoginServer.getWorlds()) {
+                final MapleSquad squad = ChannelServer.getInstance(world.getWorldId(), channel).getMapleSquad("CWKPQ");//so fkin hacky
+                if (squad != null) {
+                    squad.removeMember(chr.getName());
+                    if (squad.getLeaderName().equals(chr.getName())) {
+                        em.setProperty("leader", "false");
+                    }
                 }
             }
         }
@@ -251,7 +246,7 @@ public class EventInstanceManager {
                         continue;
                     }
                     unregisterPlayer_NoLock(chr);
-                    if (towarp > 0) {
+                    if (chr != null && map != null && towarp > 0) {
                         chr.changeMap(map, map.getPortal(0));
                     }
                 }
@@ -260,7 +255,6 @@ public class EventInstanceManager {
             }
         } catch (Exception ex) {
             FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, ex);
-            ex.printStackTrace();
         } finally {
             wL.unlock();
         }
@@ -279,7 +273,7 @@ public class EventInstanceManager {
             } else {
                 record.setCustomData(String.valueOf(points)); // First time
             }
-            //chr.modifyCSPoints(1, points / 5, true);
+            // chr.modifyCSPoints(1, points / 10, true);
             chr.getTrait(MapleTraitType.will).addExp(points / 100, chr);
         }
     }
@@ -299,7 +293,7 @@ public class EventInstanceManager {
         }
         rL.lock();
         try {
-            return new LinkedList<MapleCharacter>(chars);
+            return new LinkedList<>(chars);
         } finally {
             rL.unlock();
         }
@@ -335,13 +329,11 @@ public class EventInstanceManager {
         if (mobs.isEmpty()) {
             try {
                 em.getIv().invokeFunction("allMonstersDead", this);
-            } catch (Exception ex) {
+            } catch (ScriptException | NoSuchMethodException ex) {
                 FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + em.getName() + ", Instance name : " + name + ", method Name : allMonstersDead:\n" + ex);
                 System.out.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : allMonstersDead:\n" + ex);
             }
         }
-        
-       
     }
 
     public void playerKilled(MapleCharacter chr) {
@@ -350,7 +342,7 @@ public class EventInstanceManager {
         }
         try {
             em.getIv().invokeFunction("playerDead", this, chr);
-        } catch (Exception ex) {
+        } catch (ScriptException | NoSuchMethodException ex) {
             FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerDead:\n" + ex);
             System.out.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerDead:\n" + ex);
         }
@@ -365,7 +357,7 @@ public class EventInstanceManager {
             if (b instanceof Boolean) {
                 return (Boolean) b;
             }
-        } catch (Exception ex) {
+        } catch (ScriptException | NoSuchMethodException ex) {
             FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerRevive:\n" + ex);
             System.out.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerRevive:\n" + ex);
         }
@@ -379,7 +371,7 @@ public class EventInstanceManager {
         byte ret;
         try {
             ret = ((Double) em.getIv().invokeFunction("playerDisconnected", this, chr)).byteValue();
-        } catch (Exception e) {
+        } catch (ScriptException | NoSuchMethodException e) {
             ret = 0;
         }
 
@@ -408,7 +400,6 @@ public class EventInstanceManager {
                 dispose_NoLock();
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
             FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, ex);
         } finally {
             wL.unlock();
@@ -440,34 +431,24 @@ public class EventInstanceManager {
             if (chr.getCarnivalParty() != null && (mob.getStats().getPoint() > 0 || mob.getStats().getCP() > 0)) {
                 em.getIv().invokeFunction("monsterKilled", this, chr, mob.getStats().getCP() > 0 ? mob.getStats().getCP() : mob.getStats().getPoint());
             }
-        } catch (ScriptException ex) {
-            System.out.println("Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
-            FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
-        } catch (NoSuchMethodException ex) {
+        } catch (ScriptException | NoSuchMethodException ex) {
             System.out.println("Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
             FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
         } catch (Exception ex) {
-            ex.printStackTrace();
             FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, ex);
         }
     }
 
     public void monsterDamaged(final MapleCharacter chr, final MapleMonster mob, final int damage) {
-        final List<Integer> mobs = Collections.unmodifiableList(Arrays.asList(
-                9700037, 8850011));
-        if (disposed || !mobs.contains(mob.getId())) { //ghost PQ boss only.
+        if (disposed || mob.getId() != 9700037) { //ghost PQ boss only.
             return;
         }
         try {
             em.getIv().invokeFunction("monsterDamaged", this, chr, mob.getId(), damage);
-        } catch (ScriptException ex) {
-            System.out.println("Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
-            FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
-        } catch (NoSuchMethodException ex) {
+        } catch (ScriptException | NoSuchMethodException ex) {
             System.out.println("Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
             FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
         } catch (Exception ex) {
-            ex.printStackTrace();
             FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, ex);
         }
     }
@@ -478,14 +459,10 @@ public class EventInstanceManager {
         }
         try {
             em.getIv().invokeFunction("addPVPScore", this, chr, score);
-        } catch (ScriptException ex) {
-            System.out.println("Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
-            FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
-        } catch (NoSuchMethodException ex) {
+        } catch (ScriptException | NoSuchMethodException ex) {
             System.out.println("Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
             FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
         } catch (Exception ex) {
-            ex.printStackTrace();
             FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, ex);
         }
     }
@@ -544,7 +521,6 @@ public class EventInstanceManager {
             em.disposeInstance(name);
         } catch (Exception e) {
             System.out.println("Caused by : " + emN + " instance name: " + name + " method: dispose:");
-            e.printStackTrace();
             FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, e);
         }
     }
@@ -560,21 +536,19 @@ public class EventInstanceManager {
     }
 
     public ChannelServer getChannelServer() {
-        return ChannelServer.getInstance(channel);
+        if (WorldConstants.Worlds > 0) {
+            for (World world : LoginServer.getWorlds()) {
+                return ChannelServer.getInstance(world.getWorldId(), channel);
+            }
+        }
+        return ChannelServer.getInstance(0, channel); // Scania
     }
 
     public List<MapleMonster> getMobs() {
         return mobs;
     }
 
-    public final void giveAchievement(final int type) {
-        if (disposed) {
-            return;
-        }
-        for (MapleCharacter chr : getPlayers()) {
-           //chr.finishAchievement(type);
-        }
-    }
+
 
     public final void broadcastPlayerMsg(final int type, final String msg) {
         if (disposed) {
@@ -588,19 +562,19 @@ public class EventInstanceManager {
     //PVP
 
     public final List<Pair<Integer, String>> newPair() {
-        return new ArrayList<Pair<Integer, String>>();
+        return new ArrayList<>();
     }
 
     public void addToPair(List<Pair<Integer, String>> e, int e1, String e2) {
-        e.add(new Pair<Integer, String>(e1, e2));
+        e.add(new Pair<>(e1, e2));
     }
 	
     public final List<Pair<Integer, MapleCharacter>> newPair_chr() {
-        return new ArrayList<Pair<Integer, MapleCharacter>>();
+        return new ArrayList<>();
     }
 	
     public void addToPair_chr(List<Pair<Integer, MapleCharacter>> e, int e1, MapleCharacter e2) {
-        e.add(new Pair<Integer, MapleCharacter>(e1, e2));
+        e.add(new Pair<>(e1, e2));
     }
 
     public final void broadcastPacket(byte[] p) {
@@ -662,7 +636,7 @@ public class EventInstanceManager {
         }
         try {
             boolean instanced = false;
-            int trueMapID = -1;
+            int trueMapID;
             if (args >= mapIds.size()) {
                 //assume real map
                 trueMapID = args;
@@ -670,7 +644,7 @@ public class EventInstanceManager {
                 trueMapID = mapIds.get(args);
                 instanced = isInstanced.get(args);
             }
-            MapleMap map = null;
+            MapleMap map;
             if (!instanced) {
                 map = this.getMapFactory().getMap(trueMapID);
                 if (map == null) {
@@ -697,7 +671,6 @@ public class EventInstanceManager {
             return map;
         } catch (NullPointerException ex) {
             FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, ex);
-            ex.printStackTrace();
             return null;
         }
     }
@@ -708,6 +681,7 @@ public class EventInstanceManager {
         }
         EventTimer.getInstance().schedule(new Runnable() {
 
+            @Override
             public void run() {
                 if (disposed || EventInstanceManager.this == null || em == null) {
                     return;
@@ -727,7 +701,6 @@ public class EventInstanceManager {
         return name;
     }
 
-    
     public final void setProperty(final String key, final String value) {
         if (disposed) {
             return;
@@ -759,7 +732,7 @@ public class EventInstanceManager {
         }
         try {
             em.getIv().invokeFunction("leftParty", this, chr);
-        } catch (Exception ex) {
+        } catch (ScriptException | NoSuchMethodException ex) {
             System.out.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : leftParty:\n" + ex);
             FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + em.getName() + ", Instance name : " + name + ", method Name : leftParty:\n" + ex);
         }
@@ -771,7 +744,7 @@ public class EventInstanceManager {
         }
         try {
             em.getIv().invokeFunction("disbandParty", this);
-        } catch (Exception ex) {
+        } catch (ScriptException | NoSuchMethodException ex) {
             System.out.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : disbandParty:\n" + ex);
             FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + em.getName() + ", Instance name : " + name + ", method Name : disbandParty:\n" + ex);
         }
@@ -784,7 +757,7 @@ public class EventInstanceManager {
         }
         try {
             em.getIv().invokeFunction("clearPQ", this);
-        } catch (Exception ex) {
+        } catch (ScriptException | NoSuchMethodException ex) {
             System.out.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : clearPQ:\n" + ex);
             FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + em.getName() + ", Instance name : " + name + ", method Name : clearPQ:\n" + ex);
         }
@@ -796,7 +769,7 @@ public class EventInstanceManager {
         }
         try {
             em.getIv().invokeFunction("playerExit", this, chr);
-        } catch (Exception ex) {
+        } catch (ScriptException | NoSuchMethodException ex) {
             System.out.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerExit:\n" + ex);
             FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerExit:\n" + ex);
         }
@@ -807,7 +780,7 @@ public class EventInstanceManager {
             return;
         }
         leader.clearCarnivalRequests();
-        List<MapleCharacter> characters = new LinkedList<MapleCharacter>();
+        List<MapleCharacter> characters = new LinkedList<>();
         final MapleParty party = leader.getParty();
 
         if (party == null) {
@@ -904,5 +877,17 @@ public class EventInstanceManager {
 	
     public void applySkill(final MapleCharacter chr, final int id) {
         SkillFactory.getSkill(id).getEffect(1).applyTo(chr);
+    }
+
+    /*
+     * @returns Boolean Whether to allow map change or not. By default (ie if method is undefined) this is true.
+     */
+    public boolean mapChanged(MapleCharacter chr) { //useful to stop people from having their very own instantiated worlds :P
+        try {
+            return (Boolean) em.getIv().invokeFunction("playerMapChange", this, chr);
+        } catch (NoSuchMethodException nsm) {
+        } catch (Exception ex) {
+        }
+        return true;
     }
 }

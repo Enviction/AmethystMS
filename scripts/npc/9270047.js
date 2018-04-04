@@ -11,11 +11,6 @@ function start() {
 			cm.dispose();
 			return;
 		}
-		if (cm.getPlayer().getClient().getChannel() != 3 && cm.getPlayer().getClient().getChannel() != 4 && cm.getPlayer().getClient().getChannel() != 5 && cm.getPlayer().getClient().getChannel() != 6) {
-			cm.sendOk("Scarlion/Targa may only be attempted on channel 3, 4, 5, 6.");
-			cm.dispose();
-			return;
-		}
     var em = cm.getEventManager("ScarTarBattle");
 
     if (em == null) {

@@ -1,5 +1,5 @@
 /*
- * Cygnus 1st Job advancement - do
+ * Cygnus 1st Job advancement - Night Walker
  */
 
 var status = -1;

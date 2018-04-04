@@ -33,9 +33,9 @@ import tools.StringUtil;
 public class MapleReactorFactory {
 
     private static final MapleDataProvider data = MapleDataProviderFactory.getDataProvider(new File(System.getProperty("net.sf.odinms.wzpath") + "/Reactor.wz"));
-    private static Map<Integer, MapleReactorStats> reactorStats = new HashMap<Integer, MapleReactorStats>();
+    private static Map<Integer, MapleReactorStats> reactorStats = new HashMap<>();
 
-    public static final MapleReactorStats getReactor(int rid) {
+    public static MapleReactorStats getReactor(int rid) {
         MapleReactorStats stats = reactorStats.get(Integer.valueOf(rid));
         if (stats == null) {
             int infoId = rid;
@@ -92,7 +92,7 @@ public class MapleReactorFactory {
                         Pair<Integer, Integer> reactItem = null;
                         int type = MapleDataTool.getIntConvert("type", reactorInfoData);
                         if (type == 100) { //reactor waits for item
-                            reactItem = new Pair<Integer, Integer>(MapleDataTool.getIntConvert("0", reactorInfoData), MapleDataTool.getIntConvert("1", reactorInfoData, 1));
+                            reactItem = new Pair<>(MapleDataTool.getIntConvert("0", reactorInfoData), MapleDataTool.getIntConvert("1", reactorInfoData, 1));
                             if (!areaSet) { //only set area of effect for item-triggered reactors once
                                 stats.setTL(MapleDataTool.getPoint("lt", reactorInfoData));
                                 stats.setBR(MapleDataTool.getPoint("rb", reactorInfoData));

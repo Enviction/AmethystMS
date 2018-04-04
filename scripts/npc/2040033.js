@@ -1,39 +1,35 @@
-/*
-	Neru - Ludibrium : Ludibrium Pet Walkway (220000006)
+/**
+ * @author: Eric
+ * @rev: 3.0 - Added in JQ Leveling.
+ * @notes: Warp now warps the world of JQers not just the map.
 */
 
-var status = 0;
+importPackage(Packages.client);
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
+   action(1, 0, 0);
 }
 
+
 function action(mode, type, selection) {
-    if (status >= 0 && mode == 0) {
-	cm.dispose();
-	return;
-    }
-    if (mode == 1)
-	status++;
-    else
-	status--;
-    if (status == 0) {
-	if (cm.haveItem(4031128)) {
-	    cm.sendNext("Eh, that's my brother's letter! Probably scolding me for thinking I'm not working and stuff...Eh? Ahhh...you followed my brother's advice and trained your pet and got up here, huh? Nice!! Since you worked hard to get here, I'll boost your intimacy level with your pet.");
-	} else {
-	    cm.sendOk("My brother told me to take care of the pet obstacle course, but ... since I'm so far away from him, I can't help but wanting to goof around ...hehe, since I don't see him in sight, might as well just chill for a few minutes.");
-	    cm.dispose();
-	}
-    } else if (status == 1) {
-	if (cm.getPlayer().getPet(0) == null) {
-	    cm.sendNextPrev("Hmmm ... did you really get here with your pet? These obstacles are for pets. What are you here for without it?? Get outta here!");
-	    cm.dispose();
-	} else {
-	    cm.gainItem(4031128, -1);
-	    cm.gainClosenessAll(4);
-	    cm.sendNextPrev("What do you think? Don't you think you have gotten much closer with your pet? If you have time, train your pet again on this obstacle course...of course, with my brother's permission.");
-	    cm.dispose();
-	}
+ if (cm.getPlayer().getMapId() == cm.getEventMap()){
+        cm.warpMapAutoJQers(910000000); // warps the entire WORLD of ONLY people in the JQ map! :D
+		cm.gainCurrency(150);
+        cm.setEventMap(0);
+        cm.serverNotice("Congratulations to " + cm.getName() + " on Channel " + cm.getPlayer().getClient().getChannel() + " for winning the JQ and receiving 150 Wiz Coins!");
+        cm.dispose();
+    } else { 
+	  if (cm.getPlayer().isGM()) {
+		cm.warp(100000000, 0);
+		cm.gainJQExp(MapleCharacter.rand(10, 100));
+        cm.dispose();
+		} else if (cm.getPlayer().getJQLevel() < 11) {
+		cm.warp(100000000, 0);
+		cm.gainJQExp(MapleCharacter.rand(10, 100));
+        cm.dispose();
+	    } else {
+		cm.sendOk("What the fuck are you doing here?\r\nThere are currently no #rAuto JQs#k going on!");
+		cm.dispose();
+		}
     }
 }

@@ -18,7 +18,6 @@
 package server.movement;
 
 import java.awt.Point;
-
 import tools.data.MaplePacketLittleEndianWriter;
 
 public class RelativeLifeMovement extends AbstractLifeMovement {
@@ -42,7 +41,7 @@ public class RelativeLifeMovement extends AbstractLifeMovement {
         lew.write(getType());
         lew.writePos(getPosition());
         if (getType() == 18 || getType() == 19) {
-            lew.writeShort(unk);;
+            lew.writeShort(unk);
         }
         lew.write(getNewstate());
         lew.writeShort(getDuration());

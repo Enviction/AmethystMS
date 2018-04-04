@@ -3,7 +3,7 @@ function init() {
 }
 
 function setup(eim) {
-     em.setProperty("noEntry","true");
+    em.setProperty("noEntry","true");
     var eim = em.newInstance("DollHouse"+eim);
     var mapz = eim.setInstanceMap(922000010);
     mapz.resetFully();

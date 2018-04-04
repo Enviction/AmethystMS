@@ -20,34 +20,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package handling.channel.handler;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.HashMap;
-
 import client.MapleCharacter;
 import client.MapleClient;
-
 import client.Skill;
 import client.SkillFactory;
 import handling.world.World;
-import handling.world.guild.*;
+import handling.world.guild.MapleGuild;
+import handling.world.guild.MapleGuildResponse;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import server.MapleStatEffect;
-import tools.packet.CField;
-import tools.data.LittleEndianAccessor;
 import tools.Pair;
+import tools.data.LittleEndianAccessor;
+import tools.packet.CField;
 import tools.packet.CWvsContext.GuildPacket;
 
 public class GuildHandler {
 
-    public static final void DenyGuildRequest(final String from, final MapleClient c) {
+    public static void DenyGuildRequest(final String from, final MapleClient c) {
         final MapleCharacter cfrom = c.getChannelServer().getPlayerStorage().getCharacterByName(from);
         if (cfrom != null && invited.remove(c.getPlayer().getName().toLowerCase()) != null) {
             cfrom.getClient().getSession().write(GuildPacket.denyGuildInvitation(c.getPlayer().getName()));
         }
     }
 
-    private static final boolean isGuildNameAcceptable(final String name) {
+    private static boolean isGuildNameAcceptable(final String name) {
         if (name.length() < 3 || name.length() > 12) {
             return false;
         }
@@ -59,17 +58,17 @@ public class GuildHandler {
         return true;
     }
 
-    private static final void respawnPlayer(final MapleCharacter mc) {
+    private static void respawnPlayer(final MapleCharacter mc) {
         if (mc.getMap() == null) {
             return;
         }
         mc.getMap().broadcastMessage(CField.loadGuildName(mc));
 		mc.getMap().broadcastMessage(CField.loadGuildIcon(mc));
     }
-    private static final Map<String, Pair<Integer, Long>> invited = new HashMap<String, Pair<Integer, Long>>();
+    private static final Map<String, Pair<Integer, Long>> invited = new HashMap<>();
     private static long nextPruneTime = System.currentTimeMillis() + 5 * 60 * 1000;
 
-    public static final void Guild(final LittleEndianAccessor slea, final MapleClient c) {
+    public static void Guild(final LittleEndianAccessor slea, final MapleClient c) {
         final long currentTime = System.currentTimeMillis();
         if (currentTime >= nextPruneTime) {
             Iterator<Entry<String, Pair<Integer, Long>>> itr = invited.entrySet().iterator();
@@ -82,8 +81,8 @@ public class GuildHandler {
             }
             nextPruneTime += 5 * 60 * 1000;
         }
-
-        switch (slea.readByte()) { //AFTERSHOCK: most are +1
+        byte bla = slea.readByte();
+        switch (bla) { //AFTERSHOCK: most are +1
             case 0x02: // Create guild
                 if (c.getPlayer().getGuildId() > 0 || c.getPlayer().getMapId() != 200000301) {
                     c.getPlayer().dropMessage(1, "You cannot create a new Guild while in one.");
@@ -107,7 +106,6 @@ public class GuildHandler {
                 c.getPlayer().setGuildId(guildId);
                 c.getPlayer().setGuildRank((byte) 1);
                 c.getPlayer().saveGuildStatus();
-                c.getPlayer().finishAchievement(35);
                 World.Guild.setGuildMemberOnline(c.getPlayer().getMGC(), true, c.getChannel());
                 //c.getSession().write(GuildPacket.showGuildInfo(c.getPlayer()));
                 c.getSession().write(GuildPacket.newGuildInfo(c.getPlayer()));
@@ -129,7 +127,7 @@ public class GuildHandler {
                 if (mgr != null) {
                     c.getSession().write(mgr.getPacket());
                 } else {
-                    invited.put(name, new Pair<Integer, Long>(c.getPlayer().getGuildId(), currentTime + (20 * 60000))); //20 mins expire
+                    invited.put(name, new Pair<>(c.getPlayer().getGuildId(), currentTime + (20 * 60000))); //20 mins expire
                 }
                 break;
             case 0x06: // accepted guild invitation

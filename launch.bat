@@ -1,5 +1,5 @@
 @echo off
-@title Amethyst v117
+@title Amethyst v117.2
 set CLASSPATH=.;dist\*
-java -client -Dnet.sf.odinms.wzpath=wz server.Start
+java -server -Dnet.sf.odinms.wzpath=wz server.Start
 pause

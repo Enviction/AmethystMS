@@ -1,25 +1,18 @@
 package server;
 
+import client.MapleClient;
+import client.inventory.Item;
+import client.inventory.ItemLoader;
+import client.inventory.MapleInventoryType;
+import constants.GameConstants;
+import database.DatabaseConnection;
+import database.DatabaseException;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.io.Serializable;
-
-import constants.GameConstants;
-import client.inventory.ItemLoader;
-import client.inventory.Item;
-import client.MapleClient;
-import client.inventory.MapleInventoryType;
-import database.DatabaseConnection;
-import database.DatabaseException;
-import java.util.EnumMap;
+import java.util.*;
 import tools.Pair;
 import tools.packet.CField.NPCPacket;
 
@@ -33,33 +26,33 @@ public class MapleStorage implements Serializable {
     private int lastNPC = 0;
     private byte slots;
     private boolean changed = false;
-    private Map<MapleInventoryType, List<Item>> typeItems = new EnumMap<MapleInventoryType, List<Item>>(MapleInventoryType.class);
+    private Map<MapleInventoryType, List<Item>> typeItems = new EnumMap<>(MapleInventoryType.class);
 
     private MapleStorage(int id, byte slots, int meso, int accountId) {
         this.id = id;
         this.slots = slots;
-        this.items = new LinkedList<Item>();
+        this.items = new LinkedList<>();
         this.meso = meso;
         this.accountId = accountId;
     }
 
     public static int create(int id) throws SQLException {
         Connection con = DatabaseConnection.getConnection();
-        PreparedStatement ps = con.prepareStatement("INSERT INTO storages (accountid, slots, meso) VALUES (?, ?, ?)", DatabaseConnection.RETURN_GENERATED_KEYS);
-        ps.setInt(1, id);
-        ps.setInt(2, 4);
-        ps.setInt(3, 0);
-        ps.executeUpdate();
-
-        int storageid;
-        ResultSet rs = ps.getGeneratedKeys();
-        if (rs.next()) {
-            storageid = rs.getInt(1);
-            ps.close();
-            rs.close();
-            return storageid;
+        ResultSet rs;
+        try (PreparedStatement ps = con.prepareStatement("INSERT INTO storages (accountid, slots, meso) VALUES (?, ?, ?)", DatabaseConnection.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, id);
+            ps.setInt(2, 48);
+            ps.setInt(3, 0);
+            ps.executeUpdate();
+            int storageid;
+            rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                storageid = rs.getInt(1);
+                ps.close();
+                rs.close();
+                return storageid;
+            }
         }
-        ps.close();
         rs.close();
         throw new DatabaseException("Inserting char failed.");
     }
@@ -84,7 +77,7 @@ public class MapleStorage implements Serializable {
                 }
             } else {
                 storeId = create(id);
-                ret = new MapleStorage(storeId, (byte) 4, 0, id);
+                ret = new MapleStorage(storeId, (byte) 48, 0, id);
                 rs.close();
                 ps.close();
             }
@@ -95,22 +88,18 @@ public class MapleStorage implements Serializable {
     }
 
     public void saveToDB() {
-        if (!changed) {
-            return;
-        }
         try {
             Connection con = DatabaseConnection.getConnection();
+            try (PreparedStatement ps = con.prepareStatement("UPDATE storages SET slots = ?, meso = ? WHERE storageid = ?")) {
+                ps.setInt(1, slots);
+                ps.setInt(2, meso);
+                ps.setInt(3, id);
+                ps.executeUpdate();
+            }
 
-            PreparedStatement ps = con.prepareStatement("UPDATE storages SET slots = ?, meso = ? WHERE storageid = ?");
-            ps.setInt(1, slots);
-            ps.setInt(2, meso);
-            ps.setInt(3, id);
-            ps.executeUpdate();
-            ps.close();
-
-            List<Pair<Item, MapleInventoryType>> listing = new ArrayList<Pair<Item, MapleInventoryType>>();
+            List<Pair<Item, MapleInventoryType>> listing = new ArrayList<>();
             for (final Item item : items) {
-                listing.add(new Pair<Item, MapleInventoryType>(item, GameConstants.getInventoryType(item.getItemId())));
+                listing.add(new Pair<>(item, GameConstants.getInventoryType(item.getItemId())));
             }
             ItemLoader.STORAGE.saveItems(listing, accountId);
         } catch (SQLException ex) {
@@ -139,6 +128,7 @@ public class MapleStorage implements Serializable {
     public void arrange() { //i believe gms does by itemID
         Collections.sort(items, new Comparator<Item>() {
 
+            @Override
             public int compare(Item o1, Item o2) {
                 if (o1.getItemId() < o2.getItemId()) {
                     return -1;
@@ -159,7 +149,7 @@ public class MapleStorage implements Serializable {
     }
 
     private List<Item> filterItems(MapleInventoryType type) {
-        List<Item> ret = new ArrayList<Item>();
+        List<Item> ret = new ArrayList<>();
 
         for (Item item : items) {
             if (GameConstants.getInventoryType(item.getItemId()) == type) {
@@ -190,6 +180,7 @@ public class MapleStorage implements Serializable {
 	lastNPC = npcId;
         Collections.sort(items, new Comparator<Item>() {
 
+            @Override
             public int compare(Item o1, Item o2) {
                 if (GameConstants.getInventoryType(o1.getItemId()).getType() < GameConstants.getInventoryType(o2.getItemId()).getType()) {
                     return -1;

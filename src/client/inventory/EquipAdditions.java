@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package client.inventory;
 
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 
 public enum EquipAdditions {
     elemboost("elemVol", "elemVol", true),
@@ -58,7 +58,7 @@ public enum EquipAdditions {
 	return element;
     }
 
-    public final static EquipAdditions fromString(String str) {
+    public static EquipAdditions fromString(String str) {
 	for (EquipAdditions s : EquipAdditions.values()) {
 	    if (s.name().equalsIgnoreCase(str)) {
 		return s;

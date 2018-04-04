@@ -1,12 +1,10 @@
-
-var status = 0;
+/**
+ * @author: Eric
+ * @npc: Laku
+ * @func: Monster Park Commemorative Coin Shop
+*/
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
-}
-
-function action(mode, type, selection) {
-    cm.openShopNPC(35);
-    cm.dispose();
+	cm.openShopNPC(35);
+	cm.dispose();
 }

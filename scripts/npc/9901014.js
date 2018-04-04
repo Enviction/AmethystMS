@@ -40,11 +40,11 @@ function action(mode, type, selection) {
             } else if (selection == 0) {  
             if(cm.getPlayer().getLevel() > 119  && !cm.haveItem(1132000) && cm.canHold(1132000)) {
             cm.gainItem (1132000);            
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "str", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "dex", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "int", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "luk", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "watk", 5);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "str", 50);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "dex", 50);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "int", 50);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "luk", 50);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "watk", 5);
             cm.clearDrops();
             cm.reloadChar();
             cm.dispose();
@@ -55,11 +55,11 @@ function action(mode, type, selection) {
             } else if (selection == 1) {  
             if(cm.getPlayer().getRebirths() > 0 && !cm.haveItem(1132001) && cm.canHold(1132001)) {
             cm.gainItem (1132001);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "str", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "dex", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "int", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "luk", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "watk", 5);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132001, "str", 120);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132001, "dex", 120);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132001, "int", 120);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132001, "luk", 120);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132001, "watk", 10);
             cm.clearDrops();
             cm.reloadChar();
             cm.dispose();
@@ -70,11 +70,11 @@ function action(mode, type, selection) {
             } else if (selection == 2) {  
             if(cm.getPlayer().getRebirths() > 4 && !cm.haveItem(1132002) && cm.canHold(1132002)) {
             cm.gainItem (1132002);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "str", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "dex", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "int", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "luk", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "watk", 5);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132002, "str", 220);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132002, "dex", 220);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132002, "int", 220);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132002, "luk", 220);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132002, "watk", 15);
             cm.clearDrops();
             cm.reloadChar();
             cm.dispose();
@@ -85,11 +85,11 @@ function action(mode, type, selection) {
             } else if (selection == 3) {  
             if(cm.getPlayer().getRebirths() > 9 && !cm.haveItem(1132003) && cm.canHold(1132003)) {
             cm.gainItem (1132003);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "str", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "dex", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "int", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "luk", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "watk", 5);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132003, "str", 420);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132003, "dex", 420);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132003, "int", 420);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132003, "luk", 420);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132003, "watk", 20);
             cm.clearDrops();
             cm.reloadChar();
             cm.dispose();
@@ -100,11 +100,11 @@ function action(mode, type, selection) {
             } else if (selection == 4) {  
             if(cm.getPlayer().getRebirths() > 19 && !cm.haveItem(1132004) && cm.canHold(1132004)) {
             cm.gainItem (1132004);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "str", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "dex", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "int", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "luk", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "watk", 5);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132004, "str", 777);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132004, "dex", 777);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132004, "int", 777);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132004, "luk", 777);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1132004, "watk", 30);
             cm.clearDrops();
             cm.reloadChar();
             cm.gainItem(1132003, -1);
@@ -117,12 +117,12 @@ function action(mode, type, selection) {
             if(cm.getPlayer().getRebirths() > 4 && !cm.haveItem(1302036) && cm.canHold(1302036)) {
             cm.gainRebirths (-50);
             cm.gainItem (1302036);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "str", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "dex", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "int", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "luk", 50);
-            Packages.server.Mapleinventory.Manipulator.editEquipById(cm.getPlayer(), 1, 1132000, "watk", 5);
-            cm.clearDrops();
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1302036, "str", 2000);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1302036, "dex", 2000);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1302036, "int", 2000);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1302036, "luk", 2000);
+            Packages.server.Mapleinventory!Manipulator.editEquipById(cm.getPlayer(), 1, 1302036, "watk", 1000);
+            cm.reloadChar();
             cm.dispose();
                } else {
              cm.sendOk ("You must have 50 Rebirths to use this item. Unless you already have the item or you don't have enough space in your inventory!");

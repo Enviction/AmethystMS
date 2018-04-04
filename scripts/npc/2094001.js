@@ -15,7 +15,7 @@ function action(mode, type, selection) {
 	cm.removeAll(4001120);
 	cm.removeAll(4001121);
 	cm.removeAll(4001122);
-	cm.sendSimple("#b#L0#Get me out of here.#l\r\n#L1#Give me Pirate Hat.#l#k");
+	cm.sendSimple("#eCongratulations~#n\r\n#b#L0#Get me out of here.#l\r\n#L1#Give me the Pirate Hat.#l#k");
     } else if (status == 1) {
 	if (selection == 0) {
 		if (!cm.canHold(4001455, 1)) {

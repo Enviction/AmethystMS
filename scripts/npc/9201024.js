@@ -1,55 +1,80 @@
-/*
-	NPC Name: 		Hera
-	Map(s): 		Towns
-	Description: 		Wedding Village Entrance
+/**
+ * @author: Eric
+ * @func: TrollMS Gender Changer (Male, Female, Shemale)
+ * @notes: Need to add requirements, other then coins. 
 */
 
-var status = -1;
+var status = 0; 
 
-function start() {
-    cm.sendSimple("Hello there~  How can I help you with on this lovely day in Maple World? \n\r #b#L0# I would like to go to Wedding village.#l \n\r #L1# I am married and I want my Chair of Love!!! #l");
-}
+function start() { 
+    status = -1; 
+    action(1, 0, 0); 
+} 
 
-function action(mode, type, selection) {
-    if (mode == 1) {
-        status++;
-    } else if (status == 1 && mode == 0) {
-        cm.sendOk("Are you really going to miss this incredible chance? It is a very beautiful place to be. Probably you have yet to meet someone you love? Exactly it is. If you are falling in love with someone then it is impossible to ignore this lovely news.");
-        cm.dispose();
-        return;
-    } else {
-        cm.dispose();
-        return;
-    }
-    if (status == 0) {
-        switch (selection) {
-            case 0:
-                cm.sendNext("Oh! What a wonderful day! The world is so beautiful~! The world seems to be full of love, isn't it? I can feel the spirit of love filling up the wedding village even from here~!");
-                break;
-            case 1:
-	        var marr = cm.getQuestRecord(160001);
-	        var data = marr.getCustomData();
-	        if (data == null) {
-		    marr.setCustomData("0");
-	            data = "0";
-	        }
-		if (cm.getPlayer().getMarriageId() <= 0 || !data.equals("3")) {
-                    cm.sendOk("I am truly sorry my dear.  This Chair of Love is a special gift designed only for the married ones.  You might want to get married first.");
-		} else if (cm.canHold(cm.isGMS() ? 3012015 : 3012000,1) && !cm.haveItem(cm.isGMS() ? 3012015 : 3012000,1)) {
-		    cm.gainItem(cm.isGMS() ? 3012015 : 3012000,1);
+function action(mode, type, selection) { 
+    if (mode == -1) { 
+        cm.dispose(); 
+    } else { 
+        if (mode == 0 && status == 0) { 
+            cm.dispose(); 
+            return; 
+        } 
+        if (mode == 1) 
+            status++; 
+        else 
+            status--; 
+        if (status == 0) { 
+            cm.sendSimple("After I got my first sex change, I noticed how great it was..\r\nWould you like one too?\r\n\r\n#dSex Change : Trasexual (Shemale) | Requirements -\r\n* 50 Wiz Coins\r\n* 50 Rebirths\r\n* 50 Snail Shells #v4000019#\r\n#L0#Become a #eTransexual (Shemale)#n#l#k\r\n\r\n\r\n#rSex Change : Female | Requirements -\r\n* 15 Wiz Coins\r\n* 15 Rebirths\r\n* 15 Red Snail Shells #v4000016#\r\n#L1#Change to a #eFemale#n#l#k\r\n\r\n\r\n#bSex Change : Male | Requirements -\r\n* 15 Wiz Coins\r\n* 15 Rebirths\r\n* 15 Blue Snail Shells #v4000000#\r\n#L2#Change to a #eMale#n#l#k"); 
+        } else if (status == 1) { 
+	  if (selection == 0) {
+		if (cm.getPlayer().getGender() == 2) { 
+			cm.sendOk("#dYou're already a #eTransexual (Shemale)#n.#k");
+			cm.dispose();
 		} else {
-		    cm.sendOk("Please make space or you already have this chair.");
+          if (cm.haveItem(4007099, 50) && cm.haveItem(4000019, 50) && cm.getPlayer().getReborns() >= 50) { 
+            cm.getPlayer().setGender(2); 
+            cm.gainItem(4007099, -50); 
+            cm.reloadChar(); 
+			cm.sendOk("You're now a #dTransexual (Shemale)#k!\r\nNot only do you have #rboobies#k and a #bpenis#k..\r\nBut now you may equip #bMale#k and #rFemale#k clothing!\r\nPlus, don't forget; access both #bKIN#k and #rNimaKIN#k!"); 
+            cm.dispose(); 
+         } else { 
+            cm.sendOk("You either don't have #d50 Wiz Coins#k, #d50 Snail Shells #v4000019##k,\r\nor you don't have #d50 Rebirths#k."); 
+            cm.dipose(); 
+          }
 		}
-                cm.dispose();
-                break;
-        }
-    } else if (status == 1) {
-        cm.sendYesNo("Have you ever been to the wedding village? It is an amazing place where the love is overloading. Loving couple can get married there, How romantic it is? If you want to be there, I'll show you the way.");
-    } else if (status == 2) {
-        cm.sendNext("You made a right decision! You can feel the spirit of love at the wedding village to the fullest. When you want to come back, your destination will be here so don't worry about it.");
-    } else if (status == 3) {
-        cm.saveLocation("AMORIA");
-        cm.warp(680000000, 0);
-        cm.dispose();
-    }
-}
+	  } else if (selection == 1) {
+		if (cm.getPlayer().getGender() == 1) { 
+			cm.sendOk("#rYou're already a #eFemale#n.#k");
+			cm.dispose();
+		} else {
+          if (cm.haveItem(4007099, 15) && cm.haveItem(4000016, 15) && cm.getPlayer().getReborns() >= 15) { 
+             cm.getPlayer().setGender(1); 
+             cm.gainItem(4007099, -15); 
+             cm.reloadChar(); 
+			 cm.sendOk("You're now a #rfemale#k! How do you like your new #rboobies#k?"); 
+             cm.dispose(); 
+          } else { 
+             cm.sendOk("You either don't have #r15 Wiz Coins#k, #r15 Red Snail Shells #v4000016##k,\r\nor you don't have #r15 Rebirths#k."); 
+             cm.dipose(); 
+          }
+		}
+	  } else if (selection == 2) {
+		 if (cm.getPlayer().getGender() == 0) { 
+		    cm.sendOk("#bYou're already a #eMale#n.#k");
+			cm.dispose();
+          } else {
+			if (cm.haveItem(4007099, 15) && cm.haveItem(4000000, 15) && cm.getPlayer().getReborns() >= 15) { 
+              cm.getPlayer().setGender(0); 
+              cm.gainItem(4007099, -15); 
+              cm.reloadChar(); 
+              cm.sendOk("You're now a #bmale#k.\r\nSorry if I made your #bpenis#k too #esmall#n, it's a common mistake."); 
+              cm.dispose(); 
+           } else { 
+              cm.sendOk("You either don't have #b15 Wiz Coins#k, #b15 Blue Snail Shells #v4000000##k,\r\nor you don't have #b15 Rebirths#k."); 
+              cm.dispose(); 
+               } 
+	        }
+         }
+      }
+   } 
+}  

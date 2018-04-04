@@ -20,13 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package handling;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Properties;
-
+import java.util.*;
 import tools.HexTool;
 
 public class ExternalCodeTableGetter {
@@ -37,7 +31,7 @@ public class ExternalCodeTableGetter {
         props = properties;
     }
 
-    private final static <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> T valueOf(final String name, T[] values) {
+    private static <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> T valueOf(final String name, T[] values) {
         for (T val : values) {
             if (val.name().equals(name)) {
                 return val;
@@ -46,7 +40,7 @@ public class ExternalCodeTableGetter {
         return null;
     }
 
-    private final <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> short getValue(final String name, T[] values, final short def) {
+    private <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> short getValue(final String name, T[] values, final short def) {
         String prop = props.getProperty(name);
         if (prop != null && prop.length() > 0) {
             String trimmed = prop.trim();
@@ -71,9 +65,9 @@ public class ExternalCodeTableGetter {
         return def;
     }
 
-    public final static <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> String getOpcodeTable(T[] enumeration) {
+    public static <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> String getOpcodeTable(T[] enumeration) {
         StringBuilder enumVals = new StringBuilder();
-        List<T> all = new ArrayList<T>(); // need a mutable list plawks
+        List<T> all = new ArrayList<>(); // need a mutable list plawks
         all.addAll(Arrays.asList(enumeration));
         Collections.sort(all, new Comparator<WritableIntValueHolder>() {
 
@@ -94,7 +88,7 @@ public class ExternalCodeTableGetter {
         return enumVals.toString();
     }
 
-    public final static <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> void populateValues(Properties properties, T[] values) {
+    public static <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> void populateValues(Properties properties, T[] values) {
         ExternalCodeTableGetter exc = new ExternalCodeTableGetter(properties);
         for (T code : values) {
             code.setValue(exc.getValue(code.name(), values, (short) -2));

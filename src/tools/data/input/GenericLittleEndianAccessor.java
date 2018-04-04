@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package tools.data.input;
 
 import java.awt.Point;
-import java.io.ByteArrayOutputStream;
 
 /**
  * Provides a generic interface to a Little Endian stream of bytes.
@@ -141,6 +140,7 @@ public class GenericLittleEndianAccessor implements LittleEndianAccessor {
      * @param n Number of characters to read.
      * @return The string read.
      */
+    @Override
     public final String readAsciiString(final int n) {
         final char ret[] = new char[n];
         for (int x = 0; x < n; x++) {
@@ -155,6 +155,7 @@ public class GenericLittleEndianAccessor implements LittleEndianAccessor {
      * @return A long integer representing the number of bytes read.
      * @see net.sf.odinms.tools.data.input.ByteInputStream#getBytesRead()
      */
+    @Override
     public final long getBytesRead() {
         return bs.getBytesRead();
     }

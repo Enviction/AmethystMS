@@ -1,15 +1,14 @@
 package server;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import client.inventory.Item;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MerchItemPackage {
 
     private long lastsaved;
     private int mesos = 0, packageid;
-    private List<Item> items = new ArrayList<Item>();
+    private List<Item> items = new ArrayList<>();
 
     public void setItems(List<Item> items) {
         this.items = items;

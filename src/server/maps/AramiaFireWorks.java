@@ -20,10 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.maps;
 
-import java.awt.Point;
-
 import client.MapleCharacter;
 import handling.world.World;
+import java.awt.Point;
 import server.MapleItemInformationProvider;
 import server.Randomizer;
 import server.Timer.EventTimer;
@@ -59,15 +58,15 @@ public class AramiaFireWorks {
         }
     }
 
-    private final void broadcastServer(final MapleCharacter c, final int itemid) {
-        World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, itemid, "<Channel " + c.getClient().getChannel() + "> " + c.getMap().getMapName() + " : The amount of {" + MapleItemInformationProvider.getInstance().getName(itemid) + "} has reached the limit!"));
+    private void broadcastServer(final MapleCharacter c, final int itemid) {
+        World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.serverNotice(6, itemid, "<Channel " + c.getClient().getChannel() + "> " + c.getMap().getMapName() + " : The amount of {" + MapleItemInformationProvider.getInstance().getName(itemid) + "} has reached the limit!"));
     }
 
     public final short getKegsPercentage() {
         return (short) ((kegs / MAX_KEGS) * 10000);
     }
 
-    private final void broadcastEvent(final MapleCharacter c) {
+    private void broadcastEvent(final MapleCharacter c) {
         broadcastServer(c, KEG_ID);
         // Henesys Park
         EventTimer.getInstance().schedule(new Runnable() {
@@ -79,7 +78,7 @@ public class AramiaFireWorks {
         }, 10000);
     }
 
-    private final void startEvent(final MapleMap map) {
+    private void startEvent(final MapleMap map) {
         map.startMapEffect("Who's going crazy with the fireworks?", 5121010);
 
         EventTimer.getInstance().schedule(new Runnable() {
@@ -91,7 +90,7 @@ public class AramiaFireWorks {
         }, 5000);
     }
 
-    private final void spawnMonster(final MapleMap map) {
+    private void spawnMonster(final MapleMap map) {
         Point pos;
 
         for (int i = 0; i < arrayMob.length; i++) {
@@ -135,7 +134,7 @@ public class AramiaFireWorks {
         return (short) ((sunshines / MAX_SUN) * 10000);
     }
 
-    private final void broadcastSun(final MapleCharacter c) {
+    private void broadcastSun(final MapleCharacter c) {
         broadcastServer(c, SUN_ID);
         // Henesys Park
        EventTimer.getInstance().schedule(new Runnable() {
@@ -147,7 +146,7 @@ public class AramiaFireWorks {
         }, 10000);
     }
 
-    private final void startSun(final MapleMap map) {
+    private void startSun(final MapleMap map) {
         map.startMapEffect("The tree is bursting with sunshine!", 5121010);
         for (int i = 0; i < 3; i++) {
             EventTimer.getInstance().schedule(new Runnable() {
@@ -160,7 +159,7 @@ public class AramiaFireWorks {
         }
     }
 
-    private final void spawnItem(final MapleMap map) {
+    private void spawnItem(final MapleMap map) {
         Point pos;
 
         for (int i = 0; i < Randomizer.nextInt(5) + 10; i++) {
@@ -218,7 +217,7 @@ public class AramiaFireWorks {
         return (short) ((decorations / MAX_DEC) * 10000);
     }
 
-    private final void broadcastDec(final MapleCharacter c) {
+    private void broadcastDec(final MapleCharacter c) {
         broadcastServer(c, DEC_ID);
         EventTimer.getInstance().schedule(new Runnable() {
 
@@ -229,7 +228,7 @@ public class AramiaFireWorks {
         }, 10000); //no msg
     }
 
-    private final void startDec(final MapleMap map) {
+    private void startDec(final MapleMap map) {
         map.startMapEffect("The tree is bursting with snow!", 5120000);
         for (int i = 0; i < 3; i++) {
             EventTimer.getInstance().schedule(new Runnable() {
@@ -242,7 +241,7 @@ public class AramiaFireWorks {
         }
     }
 
-    private final void spawnDec(final MapleMap map) {
+    private void spawnDec(final MapleMap map) {
         Point pos;
 
         for (int i = 0; i < Randomizer.nextInt(10) + 40; i++) {

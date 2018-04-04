@@ -39,6 +39,7 @@ public class SpawnPointAreaBoss extends Spawns {
     private String msg;
 
     public SpawnPointAreaBoss(final MapleMonster monster, final Point pos1, final Point pos2, final Point pos3, final int mobTime, final String msg, final boolean shouldSpawn) {
+        if (monster != null) {
         this.monster = monster.getStats();
         this.id = monster.getId();
 	this.fh = monster.getFh();
@@ -49,6 +50,7 @@ public class SpawnPointAreaBoss extends Spawns {
         this.mobTime = (mobTime < 0 ? -1 : (mobTime * 1000));
         this.msg = msg;
         this.nextPossibleSpawn = System.currentTimeMillis() + (shouldSpawn ? 0 : this.mobTime);
+    }
     }
 
     public final int getF() {

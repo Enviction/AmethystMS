@@ -73,7 +73,6 @@ function broadcastUpdate(eim, player, onlypoint) {
 }
 
 function playerEntry(eim, player) {
-    player.disposeClones();
     player.changeMap(eim.getMapInstance(waitingMap), eim.getMapInstance(waitingMap).getPortal(0));
     eim.setProperty(player.getId() + "-Ghost_Point", "0");//ghost point
 

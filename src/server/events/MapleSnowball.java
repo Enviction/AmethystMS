@@ -34,8 +34,8 @@ public class MapleSnowball extends MapleEvent {
 
     private MapleSnowballs[] balls = new MapleSnowballs[2];
 
-    public MapleSnowball(final int channel, final MapleEventType type) {
-	super(channel,type);
+    public MapleSnowball(final int world, final int channel, final MapleEventType type) {
+	super(world,channel,type);
     }
 
     @Override
@@ -162,7 +162,7 @@ public class MapleSnowball extends MapleEvent {
             return getLeftX() + 275; //exact pos where you cant hit it, as it should knockback
         }
 
-        public static final void hitSnowball(final MapleCharacter chr) {
+        public static void hitSnowball(final MapleCharacter chr) {
             /*                             	TEAM
             0 - bottom snowball
             1 - top snowball
@@ -215,7 +215,7 @@ public class MapleSnowball extends MapleEvent {
 
                             for (MapleCharacter chrz : chr.getMap().getCharactersThreadsafe()) {
                                 if ((team == 0 && chrz.getTruePosition().y > -80) || (team == 1 && chrz.getTruePosition().y <= -80)) { //winner
-                                    sb.givePrize(chrz);
+                                    MapleSnowball.givePrize(chrz);
                                 }
                                 sb.warpBack(chrz);
                             }

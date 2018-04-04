@@ -1,7 +1,5 @@
 package client;
 
-import constants.GameConstants;
-
 public enum MapleStat {
 
     SKIN(0x1), // byte
@@ -32,7 +30,7 @@ public enum MapleStat {
     SENSE(0x8000000), // empathy, int
     CHARM(0x10000000), // int
     TRAIT_LIMIT(0x20000000), // 12 bytes
-	BATTLE_EXP(0x40000000), // byte, int, int
+	BATTLE_EXP(0x40000000), // int
 	BATTLE_RANK(0x80000000L), // byte
 	BATTLE_POINTS(0x100000000L),
 	ICE_GAGE(0x200000000L),
@@ -48,7 +46,7 @@ public enum MapleStat {
         return i;
     }
 
-    public static final MapleStat getByValue(final long value) {
+    public static MapleStat getByValue(final long value) {
         for (final MapleStat stat : MapleStat.values()) {
             if (stat.i == value) {
                 return stat;

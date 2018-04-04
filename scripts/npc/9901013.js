@@ -28,7 +28,7 @@ function action(mode, type, selection) {
         
         if (status == 0) {
         Rebirths = cm.getChar().getReborns();
-        cm.sendNext ("#eHey, I'm the Godly Maple Leaves system of #rKazMS!#k");
+        cm.sendNext ("#eHey, I'm the Godly Maple Leaves system of #rMaple Blade!#k");
         }else if (status == 1) { 
           cm.sendSimple ("Alright, if you got enough Maple Leaves#e#d" +
                  "#k\r\n#L10#2000 Maple Leaves Shop" +

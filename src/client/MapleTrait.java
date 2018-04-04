@@ -63,7 +63,7 @@ public class MapleTrait {
     }
 
     public void addExp(int e, MapleCharacter c) {
-        addTrueExp(e * c.getClient().getChannelServer().getTraitRate(), c);
+        addTrueExp(e * c.getClient().getWorldServer().getTraitRate(), c);
     }
 	
     public void addTrueExp(int e, MapleCharacter c) {

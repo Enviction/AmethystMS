@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package server.maps;
 
 import java.awt.Point;
+import java.util.Objects;
 
 public class MapleFoothold implements Comparable<MapleFoothold> {
 
@@ -63,6 +64,7 @@ public class MapleFoothold implements Comparable<MapleFoothold> {
         return p2.y;
     }
 
+    @Override
     public int compareTo(MapleFoothold o) {
         MapleFoothold other = (MapleFoothold) o;
         if (p2.y < other.getY1()) {
@@ -81,6 +83,15 @@ public class MapleFoothold implements Comparable<MapleFoothold> {
         }
         final MapleFoothold oth = (MapleFoothold) o;
         return oth.getY1() == p1.y && oth.getY2() == p2.y && oth.getX1() == p1.x && oth.getX2() == p2.x && id == oth.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.p1);
+        hash = 97 * hash + Objects.hashCode(this.p2);
+        hash = 97 * hash + this.id;
+        return hash;
     }
 
     public int getId() {

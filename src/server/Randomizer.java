@@ -6,47 +6,48 @@ public class Randomizer {
 
     private final static Random rand = new Random();
 
-    public static final int nextInt() {
+    public static int nextInt() {
 	  
         return rand.nextInt();
     }
 
-    public static final int nextInt(final int arg0) {
+    public static int nextInt(final int arg0) {
 	  
         return rand.nextInt(arg0);
     }
 
-    public static final void nextBytes(final byte[] bytes) {
+    public static void nextBytes(final byte[] bytes) {
 	  
         rand.nextBytes(bytes);
     }
 
-    public static final boolean nextBoolean() {
+    public static boolean nextBoolean() {
 	  
         return rand.nextBoolean();
     }
 
-    public static final double nextDouble() {
+    public static double nextDouble() {
 	  
         return rand.nextDouble();
     }
 
-    public static final float nextFloat() {
+    public static float nextFloat() {
 	  
         return rand.nextFloat();
     }
 
-    public static final long nextLong() {
+    public static long nextLong() {
 	  
         return rand.nextLong();
     }
 
-    public static final int rand(final int lbound, final int ubound) {
+    public static int rand(final int lbound, final int ubound) {
 	  
         return nextInt(ubound - lbound + 1) + lbound;
     }
-    
+
     public static boolean isSuccess(int rate) {
         return rate > nextInt(100);
     }
+    
 }

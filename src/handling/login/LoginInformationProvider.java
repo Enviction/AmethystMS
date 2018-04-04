@@ -21,11 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package handling.login;
 
 import constants.GameConstants;
+import constants.MapConstants;
+import constants.ServerConstants;
 import java.io.File;
-import java.util.List;
 import java.util.ArrayList;
-
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import provider.MapleData;
 import provider.MapleDataProvider;
@@ -35,7 +36,8 @@ import tools.Triple;
 
 public class LoginInformationProvider {
 
-    public enum JobType { 
+    public enum JobType {
+
         UltimateAdventurer(-1, "Ultimate", 0, 130000000),
         Resistance(0, "Resistance", 3000, 931000000),
         Adventurer(1, "", 0, 10000),
@@ -76,9 +78,10 @@ public class LoginInformationProvider {
             }
             return Adventurer;
         }
- public static JobType getById(int g) {
+
+        public static JobType getById(int g) {
             for (JobType e : JobType.values()) {
-                if (e.id == g || (g == 508 && e.type == 8)) {
+                if (e.id == g) {
                     return e;
                 }
             }
@@ -86,9 +89,9 @@ public class LoginInformationProvider {
         }
     }
     private final static LoginInformationProvider instance = new LoginInformationProvider();
-    protected final List<String> ForbiddenName = new ArrayList<String>();
+    protected final List<String> ForbiddenName = new ArrayList<>();
     //gender, val, job
-    protected final Map<Triple<Integer, Integer, Integer>, List<Integer>> makeCharInfo = new HashMap<Triple<Integer, Integer, Integer>, List<Integer>>();
+    protected final Map<Triple<Integer, Integer, Integer>, List<Integer>> makeCharInfo = new HashMap<>();
     //0 = eyes 1 = hair 2 = haircolor 3 = skin 4 = top 5 = bottom 6 = shoes 7 = weapon
 
     public static LoginInformationProvider getInstance() {
@@ -117,10 +120,10 @@ public class LoginInformationProvider {
             }
             final int job = JobType.getByJob(dat.getName()).type;
             for (MapleData da : dat) {
-                final Triple<Integer, Integer, Integer> key = new Triple<Integer, Integer, Integer>(val, Integer.parseInt(da.getName()), job);
+                final Triple<Integer, Integer, Integer> key = new Triple<>(val, Integer.parseInt(da.getName()), job);
                 List<Integer> our = makeCharInfo.get(key);
                 if (our == null) {
-                    our = new ArrayList<Integer>();
+                    our = new ArrayList<>();
                     makeCharInfo.put(key, our);
                 }
                 for (MapleData d : da) {
@@ -136,16 +139,16 @@ public class LoginInformationProvider {
                         int val;
                         if (d.getName().endsWith("female")) {
                             val = 1;
-						} else if (d.getName().endsWith("male")) {
+			} else if (d.getName().endsWith("male")) {
                             val = 0;
                         } else {
                             continue;
                         }
                         for (MapleData da : d) {
-                            final Triple<Integer, Integer, Integer> key = new Triple<Integer, Integer, Integer>(val, Integer.parseInt(da.getName()), type);
+                            final Triple<Integer, Integer, Integer> key = new Triple<>(val, Integer.parseInt(da.getName()), type);
                             List<Integer> our = makeCharInfo.get(key);
                             if (our == null) {
-                                our = new ArrayList<Integer>();
+                                our = new ArrayList<>();
                                 makeCharInfo.put(key, our);
                             }
                             for (MapleData dd : da) {
@@ -157,7 +160,7 @@ public class LoginInformationProvider {
                 }
             }
         }
-        final MapleData uA = infoData.getChildByPath("UltimateAdventurer");
+         final MapleData uA = infoData.getChildByPath("UltimateAdventurer");
         for (MapleData dat : uA) {
             final Triple<Integer, Integer, Integer> key = new Triple<Integer, Integer, Integer>(-1, Integer.parseInt(dat.getName()), JobType.UltimateAdventurer.type);
             List<Integer> our = makeCharInfo.get(key);
@@ -171,13 +174,6 @@ public class LoginInformationProvider {
         }
     }
 
-    public static boolean isExtendedSpJob(int jobId) {
-        return jobId >= 5000 && jobId <= 5112 || jobId >= 3100 && jobId <= 3512 || jobId/100 == 22 || jobId / 100 == 23 
-           || jobId ==2002 ||jobId ==2001 || jobId == 3000 || jobId == 3001
-              || jobId == 508 || jobId == 2003 || jobId / 100 == 24 || jobId / 10 == 57;
-    }
-    
-    
     public final boolean isForbiddenName(final String in) {
         for (final String name : ForbiddenName) {
             if (in.toLowerCase().contains(name.toLowerCase())) {
@@ -187,14 +183,14 @@ public class LoginInformationProvider {
         return false;
     }
 
-    public final boolean isEligibleItem(final int gender, final int val, final int job, final int item) {
+    public final boolean isEligibleItem(int gender, int val, int job, int item) {
         if (item < 0) {
             return false;
         }
-        final Triple<Integer, Integer, Integer> key = new Triple<Integer, Integer, Integer>(gender, val, job);
+        final Triple<Integer, Integer, Integer> key = new Triple<>(gender, val, job);
         final List<Integer> our = makeCharInfo.get(key);
         if (our == null) {
-			return false;
+	return false;
         }
         return our.contains(item);
     }

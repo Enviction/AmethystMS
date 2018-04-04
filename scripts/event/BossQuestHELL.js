@@ -1,6 +1,6 @@
 var eventmapid = 610030600;
-var returnmap = 262000300;
-var monster = Array(7120102, 8800100, 8800101, 8800102, 8840000, 9400590, 9400591, 9400592, 9400593, 9400594, 9400409, 9400408, 8820001, 8850011); // 8840006 vonleon
+var returnmap = 980010000;
+var monster = Array(8800100,9400300,8840000, 1,0, 2);
 
 function init() {
 // After loading, ChannelServer
@@ -17,9 +17,9 @@ function setup(partyid) {
 
     eim.setProperty("points", 0);
     eim.setProperty("monster_number", 0);
-   eim.setProperty("n_spawn", 0);
-   eim.setProperty("f_spawn", 0);
-   eim.setProperty("c_spawn", 0);
+    eim.setProperty("n_spawn", 0);
+    eim.setProperty("f_spawn", 0);
+    eim.setProperty("c_spawn", 0);
     beginQuest(eim);
     return eim;
 }
@@ -94,47 +94,42 @@ function monsterSpawn(eim) { // Custom function
 var modified = em.newMonsterStats();
 modified.setOMp(mob.getMobMaxMp());
     switch (monsterid) {
-	case 7120102:
+	case 8840000:
 	    modified.setOExp(mob.getMobExp() * 1.8);
 	    modified.setOHp(mob.getMobMaxHp() * 3); //1b
 	    break;
 	case 8800100:
 	case 8800101:
 	case 8800102:
+	case 9400289:
 	    modified.setOExp(mob.getMobExp() * 2);
 	    modified.setOHp(mob.getMobMaxHp() * 2.2); //1b
 	    break;
-	case 8840000:
+	case 9400300:
 	    modified.setOExp(mob.getMobExp() * 1.5); //goes stack overflow over 2.1b if too high
 	    modified.setOHp(mob.getMobMaxHp() * 8); //1.2b
 	    break;
+	case 9400589:
 	case 9400590:
-	    modified.setOExp(mob.getMobExp() * 2.1);
-	    modified.setOHp(mob.getMobMaxHp() * 4.2); //1.4b total
+	case 9400591:
+	case 9400592:
+	case 9400593:
+	    modified.setOExp(mob.getMobExp() * 1.1);
+	    modified.setOHp(mob.getMobMaxHp() * 1.2); //1.4b total
 	    break;
-        case 9400591:
-	    modified.setOExp(mob.getMobExp() * 2.1);
-	    modified.setOHp(mob.getMobMaxHp() * 4.2); //1.4b total
-	    break;
-        case 9400592:
-	    modified.setOExp(mob.getMobExp() * 2.1);
-	    modified.setOHp(mob.getMobMaxHp() * 4.2); //1.4b total
-	    break;
-        case 9400593:
-	    modified.setOExp(mob.getMobExp() * 2.1);
-	    modified.setOHp(mob.getMobMaxHp() * 4.2); //1.4b total
-	    break;
-        case 9400594:
-	    modified.setOExp(mob.getMobExp() * 2.1);
-	    modified.setOHp(mob.getMobMaxHp() * 4.2); //1.4b total
-	    break;
-	case 8820001:
-	case 8850011:
+	case 8850005:
+	case 8850006:
+	case 8850007:
+	case 8850008:
+	case 8850009:
 	    modified.setOExp(mob.getMobExp() * 1.1);
 	    modified.setOHp(mob.getMobMaxHp() * 2.3); //1.4b total
 	    break;
-	case 9400409:
-	case 9400408:
+	case 8820002:
+	case 8820015:
+	case 8820016:
+	case 8820017:
+	case 8820018:
 	    modified.setOExp(mob.getMobExp() * 1.1);
 	    modified.setOHp(mob.getMobMaxHp() * 1.9); //1.4b total
  	    break;
@@ -191,10 +186,8 @@ function allMonstersDead(eim) {
     if (mobnum < monster.length) {
 	eim.broadcastPlayerMsg(6, "Prepare! The next boss will appear in a glimpse of an eye!");
     } else {
-	eim.saveBossQuest(1200000);
-	eim.saveNX(50000);
-	eim.broadcastPlayerMsg(5, "Your team've beaten the HELL mode and have gained an extra 1,200,000 points and extra 50,000 Cash!");
-	eim.giveAchievement(22);
+	eim.saveBossQuest(15000);
+	eim.broadcastPlayerMsg(5, "Your team've beaten the HELL mode and have gained an extra 15,000 points!");
 	}
 // When invoking unregisterMonster(MapleMonster mob) OR killed
 // Happens only when size = 0

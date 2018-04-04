@@ -1,12 +1,10 @@
-/* Author: Hashed/Prio
- * ID: 1400001
- * Name: Serge
- * Function: Weapon / Armor Seller
- * Uncoded NPC, created with TraNpcExtractor v0.3.0
- * TraNpcExtractor was written by Prio from StaticDEV.com
- */
-
 function start() {
-  cm.sendOk("Im sorry, but I havent been coded yet. Please report my id on the forums or to Syre. (ID: 1400001)");
+	cm.sendNext("Hello, I'm #bSerge#k!\r\nI sell #rCanes#k. Do you want one?");
+}
+
+function action (m, t, s) {
+  if (m > 0 ) {
+	cm.openShop(313);
+  }
   cm.dispose();
 }

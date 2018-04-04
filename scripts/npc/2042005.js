@@ -1,3 +1,9 @@
+/**
+ * @author: Eric
+ * @npc: Spiegelmann
+ * @func: Spiegelmann's Monster Carnival
+*/
+
 var status = 0;
 
 function start() {
@@ -7,6 +13,67 @@ function start() {
 
 
 function action(mode, type, selection) {
+	(mode == 1 ? status++ : cm.dispose());
+	if (status == 0) {
+		cm.sendSimple("#e<Competition: Monster Carnival>#n\r\nIf you're itching for some action, then the Monster Carnival is the place for you!#b\r\n\r\n#L0#I want to participate in the Monster Carnival.\r\n#L1#Tell me more about the Monster Carnival.\r\n#L2#I want to trade in my shiny Maple Coins.");
+	} else if (status == 1) {
+		if (selection == 0) {
+			cm.sendOk("The Monster Carnival's had to close its doors for a bit. Why don't you go find something else to entertain you for now?");
+			cm.dispose();
+		} else if (selection == 1) {
+			status = 4;
+			cm.sendNext("The #bMonster Carnival#k is that magical place where you team up with others to obliterate hordes of monsters faster than the other folks.");
+		} else if (selection == 2) {
+			if (!cm.getPlayer().haveItem(4001254)) {
+				cm.sendOk("What? You don't even have a single Shiny Maple Coin! If you want #i1102556# Spiegelmann's Mighty Mustache or #i1012270# Spiegelmann's Cape of Moxy, #i1122162# Spiegelmann's Mighty Bow Tie, then bring me more #i4001254# #bShiny Maple Coin!#k");
+				cm.dispose();
+			} else {
+				status = 2;
+				cm.sendSimple("\r\n#b#L0#50 Maple Coin = Spiegelmann Necklace#l\r\n#L1#30 Maple Coin = Spiegelmann Marble#l\r\n#L2#50 Sparkling Maple Coin = Spiegelmann Necklace of Chaos#l#k");
+			}
+		}
+	} else if (status == 3) {
+	    if (selection == 0) {
+			if (!cm.haveItem(4001129,50)) {
+				cm.sendOk("You have no items.");
+			} else if (!cm.canHold(1122007,1)) {
+				cm.sendOk("Please make room");
+			} else {
+				cm.gainItem(1122007,1);
+				cm.gainItem(4001129,-50);
+			}
+			cm.dispose();
+	    } else if (selection == 1) {
+			if (!cm.haveItem(4001129,30)) {
+				cm.sendOk("You have no items.");
+			} else if (!cm.canHold(2041211,1)) {
+				cm.sendOk("Please make room");
+			} else {
+				cm.gainItem(2041211,1);
+				cm.gainItem(4001129,-30);
+			}
+			cm.dispose();
+	    } else if (selection == 2) {
+			if (!cm.haveItem(4001254,50)) {
+				cm.sendOk("You have no items.");
+			} else if (!cm.canHold(1122058,1)) {
+				cm.sendOk("Please make room");
+			} else {
+				cm.gainItem(1122058,1);
+				cm.gainItem(4001254,-50);
+			}
+			cm.dispose();
+	    }
+	} else if (status == 5) {
+		cm.sendNextPrev("Don't think you can do it alone? Worry not, my friend, I will enlist others to join you! All you have to tell me is, are you game? If you are, I'll give a holler when I have your group ready.\r\n - #eLevel#n: 110 - 130\r\n - #eRewards#n:\r\n#i1102556# Spiegelmann's Mighty Mustache\r\n#i1012270# Spiegelmann's Cape of Moxy\r\n#i1122162# Spiegelmann's Mighty Bow Tie");
+		cm.dispose();
+	}
+}
+///////////////// The below code is working, and we can use the PQ whenever we wish - v117.2 afaik does not support special PvP formatted TDM boards inside the current fieldLimit, thus making CPQ2 useless. /////////////////
+///////////////// The below code is working, and we can use the PQ whenever we wish - v117.2 afaik does not support special PvP formatted TDM boards inside the current fieldLimit, thus making CPQ2 useless. /////////////////
+///////////////// The below code is working, and we can use the PQ whenever we wish - v117.2 afaik does not support special PvP formatted TDM boards inside the current fieldLimit, thus making CPQ2 useless. /////////////////
+///////////////// The below code is working, and we can use the PQ whenever we wish - v117.2 afaik does not support special PvP formatted TDM boards inside the current fieldLimit, thus making CPQ2 useless. /////////////////
+	/*
     if (mode == 1)
         status++;
     else
@@ -16,26 +83,26 @@ function action(mode, type, selection) {
 	var found = false;
         for (var i = 0; i < 3; i++){
             if (getCPQField(i+1) != "") {
-                selStr += "\r\n#b#L" + i + "# " + getCPQField(i+1) + "#l#k";
-		found = true;
+                selStr += "\r\n#b#L" + i + "# " + getCPQField(i+1) + "#l#k"; // getCPQField(0) : 2v2 only testing
+				found = true;
             }
         }
         if (cm.getParty() == null) {
             cm.sendSimple("You are not in a party.\r\n#L100#Trade Maple Coin.#l");
         } else {
             if (cm.isLeader()) {
-		if (found) {
+				if (found) {
                     cm.sendSimple(selStr);
-		} else {
-		    cm.sendSimple("There are no rooms at the moment.\r\n#L100#Trade Maple Coin.#l");
-		}
+			} else {
+					cm.sendSimple("There are no rooms at the moment.\r\n#L100#Trade Maple Coin.#l");
+			}
             } else {
                 cm.sendSimple("Please tell your party leader to speak with me.\r\n#L100#Trade Maple Coin.#l");
             }
         }
     } else if (status == 1) {
 	if (selection == 100) {
-	    cm.sendSimple("#b#L0#50 Maple Coin = Spiegelmann Necklace#l\r\n#L1#30 Maple Coin = Spiegelmann Marble#l\r\n#L2#50 Sparkling Maple Coin = Spiegelmann Necklace of Chaos#l#k");
+	    cm.sendSimple("\r\n#b#L0#50 Maple Coin = Spiegelmann Necklace#l\r\n#L1#30 Maple Coin = Spiegelmann Marble#l\r\n#L2#50 Sparkling Maple Coin = Spiegelmann Necklace of Chaos#l#k");
 	} else if (selection >= 0 && selection < 3) {
 	    var mapid = 980030000+((selection+1)*1000);
             if (cm.getEventManager("cpq2").getInstance("cpq"+mapid) == null) {
@@ -136,7 +203,7 @@ function getCPQField(fieldnumber) {
     var event1 = cm.getEventManager("cpq2");
     if (event1 != null) {
         var event = event1.getInstance("cpq"+(980030000+(fieldnumber*1000)));
-        if (event == null && fieldnumber < 1) {
+        if (event == null && fieldnumber != 1 && fieldnumber != 2 && fieldnumber != 3) {
             status = "Carnival Field "+fieldnumber+"(2v2)";
         } else if (event == null) {
             status = "Carnival Field "+fieldnumber+"(3v3)";
@@ -150,4 +217,4 @@ function getCPQField(fieldnumber) {
         }
     }
     return status;
-}
+}*/

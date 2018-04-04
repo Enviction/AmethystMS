@@ -11,11 +11,6 @@ function start() {
 			cm.dispose();
 			return;
 		}
-		if (cm.getPlayer().getClient().getChannel() != 4 && cm.getPlayer().getClient().getChannel() != 5) {
-			cm.sendOk("Horntail may only be attempted on channel 4 and 5");
-			cm.dispose();
-			return;
-		}
     var em = cm.getEventManager("HorntailBattle");
 
     if (em == null) {
@@ -36,19 +31,9 @@ function start() {
 	var squadAvailability = cm.getSquadAvailability("Horntail");
 	if (squadAvailability == -1) {
 	    status = 0;
-	    if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
-		cm.sendOk("You have already went to Horntail in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
-		cm.dispose();
-		return;
-	    }
 	    cm.sendYesNo("Are you interested in becoming the leader of the expedition Squad?");
 
 	} else if (squadAvailability == 1) {
-	    if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
-		cm.sendOk("You have already went to Horntail in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
-		cm.dispose();
-		return;
-	    }
 	    // -1 = Cancelled, 0 = not, 1 = true
 	    var type = cm.isSquadLeader("Horntail");
 	    if (type == -1) {
@@ -79,11 +64,6 @@ function start() {
 			if (eim == null) {
 				var squd = cm.getSquad("Horntail");
 				if (squd != null) {
-	    if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
-		cm.sendOk("You have already went to Horntail in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
-		cm.dispose();
-		return;
-	    }
 					cm.sendYesNo("The squad's battle against the boss has already begun.\r\n" + squd.getNextPlayer());
 					status = 3;
 				} else {
@@ -100,11 +80,6 @@ function start() {
 			if (eim == null) {
 				var squd = cm.getSquad("Horntail");
 				if (squd != null) {
-	    if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
-		cm.sendOk("You have already went to Horntail in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
-		cm.dispose();
-		return;
-	    }
 					cm.sendYesNo("The squad's battle against the boss has already begun.\r\n" + squd.getNextPlayer());
 					status = 3;
 				} else {

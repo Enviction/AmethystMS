@@ -1,24 +1,18 @@
 package server;
 
+import client.MapleClient;
+import client.SkillFactory;
+import client.inventory.Item;
+import client.inventory.MapleInventoryIdentifier;
+import client.inventory.MapleInventoryType;
+import client.inventory.MaplePet;
+import constants.GameConstants;
+import database.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import client.inventory.Item;
-import client.SkillFactory;
-import constants.GameConstants;
-import client.inventory.MapleInventoryIdentifier;
-import client.MapleClient;
-import client.inventory.ItemFlag;
-import client.inventory.MapleInventoryType;
-import client.inventory.MaplePet;
-import database.DatabaseConnection;
+import java.util.*;
 import tools.FileoutputUtil;
 import tools.Pair;
 import tools.packet.CField.NPCPacket;
@@ -27,11 +21,11 @@ import tools.packet.CWvsContext.InventoryPacket;
 
 public class MapleShop {
 
-    private static final Set<Integer> rechargeableItems = new LinkedHashSet<Integer>();
+    private static final Set<Integer> rechargeableItems = new LinkedHashSet<>();
     private int id;
     private int npcId;
-    private List<MapleShopItem> items = new LinkedList<MapleShopItem>();
-    private List<Pair<Integer, String>> ranks = new ArrayList<Pair<Integer, String>>();
+    private List<MapleShopItem> items = new LinkedList<>();
+    private List<Pair<Integer, String>> ranks = new ArrayList<>();
 
     static {
         rechargeableItems.add(2070000);
@@ -49,7 +43,7 @@ public class MapleShop {
         rechargeableItems.add(2070012);
         rechargeableItems.add(2070013);
         rechargeableItems.add(2070016);
-        rechargeableItems.add(2070018); // Balanced Fury
+        rechargeableItems.add(2070018);
         rechargeableItems.add(2070023);
         rechargeableItems.add(2070024);
         rechargeableItems.add(2330000);
@@ -59,12 +53,12 @@ public class MapleShop {
         rechargeableItems.add(2330004);
         rechargeableItems.add(2330005);
         rechargeableItems.add(2330008);
-        rechargeableItems.add(2331000); // Capsules
-        rechargeableItems.add(2332000); // Capsules
+        rechargeableItems.add(2331000);
+        rechargeableItems.add(2332000);
     }
 
     /** Creates a new instance of MapleShop */
-    public MapleShop(int id, int npcId) {
+    private MapleShop(int id, int npcId) {
         this.id = id;
         this.npcId = npcId;
     }
@@ -88,14 +82,17 @@ public class MapleShop {
     }
 
     public void buy(MapleClient c, int itemId, short quantity) {
-        
-        /*if (itemId / 10000 == 190 && !GameConstants.isMountItemAvailable(itemId, c.getPlayer().getJob())) {
+        if (quantity <= 0) {
+            c.getPlayer().getClient().getSession().write(CWvsContext.enableActions());
+            return;
+        }
+        if (itemId / 10000 == 190 && !GameConstants.isMountItemAvailable(itemId, c.getPlayer().getJob())) {
             c.getPlayer().dropMessage(1, "You may not buy this item.");
             c.getSession().write(CWvsContext.enableActions());
             return;
-        }*/
+        }
         MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        int x = 0, index = -1;
+     /*   int x = 0, index = -1;
         for (Item i : c.getPlayer().getRebuy()) {
             if (i.getItemId() == itemId) {
                 index = x;
@@ -120,7 +117,7 @@ public class MapleShop {
                 c.getSession().write(NPCPacket.confirmShopTransaction((byte) 0, this, c, -1));
             }
             return;
-        }
+        }*/
         MapleShopItem item = findById(itemId);
         if (item != null && item.getPrice() > 0 && item.getReqItem() == 0) {
             if (item.getRank() >= 0) {
@@ -140,66 +137,33 @@ public class MapleShop {
                 }
             }
             final int price = GameConstants.isRechargable(itemId) ? item.getPrice() : (item.getPrice() * quantity);
-            //BELOW IF BLOCK IS FOR MESO CURRNCY ITEMS BEING BOUGHT.
             if (price >= 0 && c.getPlayer().getMeso() >= price) {
-                short stockQuantity = 1;
                 if (MapleInventoryManipulator.checkSpace(c, itemId, quantity, "")) {
-                    c.getPlayer().gainMeso(-price, true);
+                    c.getPlayer().gainMeso(-price, false);
                     if (GameConstants.isPet(itemId)) {
                         MapleInventoryManipulator.addById(c, itemId, quantity, "", MaplePet.createPet(itemId, MapleInventoryIdentifier.getInstance()), -1, "Bought from shop " + id + ", " + npcId + " on " + FileoutputUtil.CurrentReadable_Date());
                     } else {
                         if (GameConstants.isRechargable(itemId)) {
                             quantity = ii.getSlotMax(item.getItemId());
                         }
-                        if(itemId == 2061000 || itemId == 2060000){
-                           stockQuantity = 2000;
-                        }
-                        MapleInventoryManipulator.addById(c, itemId, (short)(quantity * stockQuantity), "Bought from shop " + id + ", " + npcId + " on " + FileoutputUtil.CurrentReadable_Date());
+
+                        MapleInventoryManipulator.addById(c, itemId, quantity, "Bought from shop " + id + ", " + npcId + " on " + FileoutputUtil.CurrentReadable_Date());
                     }
                 } else {
                     c.getPlayer().dropMessage(1, "Your Inventory is full");
                 }
                 c.getSession().write(NPCPacket.confirmShopTransaction((byte) 0, this, c, -1));
             }
-        } 
-        //BELOW IF BLOCK IS FOR SINGLE QUANTITY TRANSACTIONS ONLY FOR ALTERNATE CURRENCY
-        if (item != null && item.getReqItem() > 0 && quantity == 1 && c.getPlayer().haveItem(item.getReqItem(), item.getReqItemQ(), false, true)) {
-            short stockQuantity = 1;
+        } else if (item != null && item.getReqItem() > 0 && quantity == 1 && c.getPlayer().haveItem(item.getReqItem(), item.getReqItemQ(), false, true)) {
             if (MapleInventoryManipulator.checkSpace(c, itemId, quantity, "")) {
-                MapleInventoryManipulator.removeById(c, GameConstants.getInventoryType(item.getReqItem()), item.getReqItem(), item.getReqItemQ() * quantity, false, false);
+                MapleInventoryManipulator.removeById(c, GameConstants.getInventoryType(item.getReqItem()), item.getReqItem(), item.getReqItemQ(), false, false);
                 if (GameConstants.isPet(itemId)) {
                     MapleInventoryManipulator.addById(c, itemId, quantity, "", MaplePet.createPet(itemId, MapleInventoryIdentifier.getInstance()), -1, "Bought from shop " + id + ", " + npcId + " on " + FileoutputUtil.CurrentReadable_Date());
                 } else {
                     if (GameConstants.isRechargable(itemId)) {
                         quantity = ii.getSlotMax(item.getItemId());
                     }
-                    if(itemId == 4310036){
-                        //Hotfix to fix the Conqueror's Coin only giving 1 instead of 11.
-                        stockQuantity = 11;
-                    }
-                    MapleInventoryManipulator.addById(c, itemId, ((short)(quantity * stockQuantity)), "Bought from shop " + id + ", " + npcId + " on " + FileoutputUtil.CurrentReadable_Date());
-                }
-            } else {
-                c.getPlayer().dropMessage(1, "Your Inventory is full");
-            }
-            c.getSession().write(NPCPacket.confirmShopTransaction((byte) 0, this, c, -1));
-            //BELOW ELSE IF BLOCK IS FOR ANY QUANTITY OVER ONE FOR ALTERNATE CURRENCY.
-        } else if (item != null && item.getReqItem() > 0 && quantity > 1 && c.getPlayer().haveItem(item.getReqItem(), item.getReqItemQ(), false, true)) {
-            short stockQuantity = 1;
-            if (MapleInventoryManipulator.checkSpace(c, itemId, quantity, "")) {
-                MapleInventoryManipulator.removeById(c, GameConstants.getInventoryType(item.getReqItem()), item.getReqItem(), item.getReqItemQ() * quantity, false, false);
-                if (GameConstants.isPet(itemId)) { //Pets do not get quantity.
-                    c.getPlayer().dropMessage(1, "You can only purchase a single pet at a time!");
-                } else {
-                    if (GameConstants.isRechargable(itemId)) {
-                        quantity = ii.getSlotMax(item.getItemId());
-                    }
-                       
-                    if(itemId == 4310036){
-                        //Hotfix to fix the Conqueror's Coin only giving 1 instead of 11.
-                        stockQuantity = 11;
-                    }
-                    MapleInventoryManipulator.addById(c, itemId,((short)(quantity * stockQuantity)), "Bought from shop " + id + ", " + npcId + " on " + FileoutputUtil.CurrentReadable_Date());
+                    MapleInventoryManipulator.addById(c, itemId, quantity, "Bought from shop " + id + ", " + npcId + " on " + FileoutputUtil.CurrentReadable_Date());
                 }
             } else {
                 c.getPlayer().dropMessage(1, "Your Inventory is full");
@@ -220,25 +184,20 @@ public class MapleShop {
         if (GameConstants.isThrowingStar(item.getItemId()) || GameConstants.isBullet(item.getItemId())) {
             quantity = item.getQuantity();
         }
-   
+        if (quantity < 0) {
+            c.getSession().write(CWvsContext.enableActions());
+//            AutobanManager.getInstance().addPoints(c, 1000, 0, "Selling " + quantity + " " + item.getItemId() + " (" + type.name() + "/" + slot + ")");
+            return;
+        }
         short iQuant = item.getQuantity();
         if (iQuant == 0xFFFF) {
             iQuant = 1;
         }
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        if (ii.cantSell(item.getItemId()) || GameConstants.isPet(item.getItemId())) {
+        if (GameConstants.isPet(item.getItemId())) {
             return;
         }
         if (quantity <= iQuant && iQuant > 0) {
-            if (GameConstants.GMS) { //TODO JUMP
-                if (!ItemFlag.UNTRADEABLE.check(item.getFlag())) { //Untradeables do not go into re-buy.
-                    if (item.getQuantity() == quantity) { // selling all
-                        c.getPlayer().getRebuy().add(item.copy()); // we copy all
-                    } else {
-                        c.getPlayer().getRebuy().add(item.copyWithQuantity(quantity));
-                    }
-                }
-            } 
             MapleInventoryManipulator.removeFromSlot(c, type, slot, quantity, false);
             double price;
             if (GameConstants.isThrowingStar(item.getItemId()) || GameConstants.isBullet(item.getItemId())) {
@@ -310,23 +269,23 @@ public class MapleShop {
             ps = con.prepareStatement("SELECT * FROM shopitems WHERE shopid = ? ORDER BY position ASC");
             ps.setInt(1, shopId);
             rs = ps.executeQuery();
-            List<Integer> recharges = new ArrayList<Integer>(rechargeableItems);
+            List<Integer> recharges = new ArrayList<>(rechargeableItems);
             while (rs.next()) {
                 if (!ii.itemExists(rs.getInt("itemid"))) {
                     continue;
                 }
                 if (GameConstants.isThrowingStar(rs.getInt("itemid")) || GameConstants.isBullet(rs.getInt("itemid"))) {
-                    MapleShopItem starItem = new MapleShopItem((short) 1, rs.getInt("itemid"), rs.getInt("price"), rs.getInt("reqitem"), rs.getInt("reqitemq"), rs.getByte("rank"));
+                    MapleShopItem starItem = new MapleShopItem(rs.getInt("itemid"), rs.getInt("price"), rs.getInt("reqitem"), rs.getInt("reqitemq"), rs.getByte("rank"), rs.getInt("category"), rs.getInt("minLevel"), rs.getInt("expiration"));
                     ret.addItem(starItem);
                     if (rechargeableItems.contains(starItem.getItemId())) {
                         recharges.remove(Integer.valueOf(starItem.getItemId()));
                     }
                 } else {
-                    ret.addItem(new MapleShopItem((short) 1000, rs.getInt("itemid"), rs.getInt("price"), rs.getInt("reqitem"), rs.getInt("reqitemq"), rs.getByte("rank")));
+                    ret.addItem(new MapleShopItem(rs.getInt("itemid"), rs.getInt("price"), rs.getInt("reqitem"), rs.getInt("reqitemq"), rs.getByte("rank"), rs.getInt("category"), rs.getInt("minLevel"), rs.getInt("expiration")));
                 }
             }
             for (Integer recharge : recharges) {
-                ret.addItem(new MapleShopItem((short) 1, recharge.intValue(), 0, 0, 0, (byte) 0));
+                ret.addItem(new MapleShopItem(recharge.intValue(), 0, 0, 0, (byte) 0, 0, 0, 0));
             }
             rs.close();
             ps.close();
@@ -338,13 +297,12 @@ public class MapleShop {
                 if (!ii.itemExists(rs.getInt("itemid"))) {
                     continue;
                 }
-                ret.ranks.add(new Pair<Integer, String>(rs.getInt("itemid"), rs.getString("name")));
+                ret.ranks.add(new Pair<>(rs.getInt("itemid"), rs.getString("name")));
             }
             rs.close();
             ps.close();
         } catch (SQLException e) {
             System.err.println("Could not load shop");
-            e.printStackTrace();
         }
         return ret;
     }

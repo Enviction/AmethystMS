@@ -13,7 +13,7 @@ function action(mode, type, selection) {
 		cm.removeAll(4031594);
 		cm.removeAll(4031597);
     if (status == 0) {
-	cm.sendSimple("#b#L0#Get out of here (no refunds)#l\r\n#L1#My party is ready and we want to go in.#l#k");
+	cm.sendSimple("#bWelcome.\r\n#L0#Get out of here (no refunds)#l\r\n#L1#My party is ready and we want to go in.#l#k");
     } else if (status == 1) {
 	if (selection == 0) {
 	    cm.warp(670010000, 0);

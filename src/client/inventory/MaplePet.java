@@ -21,17 +21,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package client.inventory;
 
 import constants.GameConstants;
+import database.DatabaseConnection;
 import java.awt.Point;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.io.Serializable;
-
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import database.DatabaseConnection;
 import server.MapleItemInformationProvider;
 import server.movement.AbsoluteLifeMovement;
 import server.movement.LifeMovement;
@@ -66,7 +65,7 @@ public class MaplePet implements Serializable {
 	    return (flag & i) == i;
 	}
 
-	public static final PetFlag getByAddId(final int itemId) {
+	public static PetFlag getByAddId(final int itemId) {
 	    for (PetFlag flag : PetFlag.values()) {
 		if (flag.item == itemId) {
 		    return flag;
@@ -75,7 +74,7 @@ public class MaplePet implements Serializable {
 	    return null;
 	}
 
-	public static final PetFlag getByDelId(final int itemId) {
+	public static PetFlag getByDelId(final int itemId) {
 	    for (PetFlag flag : PetFlag.values()) {
 		if (flag.remove == itemId) {
 		    return flag;
@@ -91,7 +90,8 @@ public class MaplePet implements Serializable {
     private Point pos;
     private byte fullness = 100, level = 1, summoned = 0;
     private short inventorypos = 0, closeness = 0, flags = 0;
-    private boolean changed = false;
+    public long lastAttack;
+   
 
     private MaplePet(final int petitemid, final int uniqueid) {
         this.petitemid = petitemid;
@@ -104,31 +104,29 @@ public class MaplePet implements Serializable {
         this.inventorypos = inventorypos;
     }
 
-    public static final MaplePet loadFromDb(final int itemid, final int petid, final short inventorypos) {
+
+    public static MaplePet loadFromDb(final int itemid, final int petid, final short inventorypos) {
         try {
             final MaplePet ret = new MaplePet(itemid, petid, inventorypos);
 
             Connection con = DatabaseConnection.getConnection(); // Get a connection to the database
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM pets WHERE petid = ?"); // Get pet details..
-            ps.setInt(1, petid);
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM pets WHERE petid = ?")) {
+                ps.setInt(1, petid);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (!rs.next()) {
+                        rs.close();
+                        ps.close();
+                        return null;
+                    }
 
-            final ResultSet rs = ps.executeQuery();
-            if (!rs.next()) {
-                rs.close();
-                ps.close();
-                return null;
+                    ret.setName(rs.getString("name"));
+                    ret.setCloseness(rs.getShort("closeness"));
+                    ret.setLevel(rs.getByte("level"));
+                    ret.setFullness(rs.getByte("fullness"));
+                    ret.setSecondsLeft(rs.getInt("seconds"));
+                    ret.setFlags(rs.getShort("flags"));
+                }
             }
-
-            ret.setName(rs.getString("name"));
-            ret.setCloseness(rs.getShort("closeness"));
-            ret.setLevel(rs.getByte("level"));
-            ret.setFullness(rs.getByte("fullness"));
-            ret.setSecondsLeft(rs.getInt("seconds"));
-	    ret.setFlags(rs.getShort("flags"));
-	    ret.changed = false;
-
-            rs.close();
-            ps.close();
 
             return ret;
         } catch (SQLException ex) {
@@ -138,47 +136,40 @@ public class MaplePet implements Serializable {
     }
 
     public final void saveToDb() {
-	if (!changed) {
-	    return;
-	}
         try {
-            final PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("UPDATE pets SET name = ?, level = ?, closeness = ?, fullness = ?, seconds = ?, flags = ? WHERE petid = ?");
-            ps.setString(1, name); // Set name
-            ps.setByte(2, level); // Set Level
-            ps.setShort(3, closeness); // Set Closeness
-            ps.setByte(4, fullness); // Set Fullness
-            ps.setInt(5, secondsLeft);
-	    ps.setShort(6, flags);
-            ps.setInt(7, uniqueid); // Set ID
-            ps.executeUpdate(); // Execute statement
-            ps.close();
-	    changed = false;
+            try (PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("UPDATE pets SET name = ?, level = ?, closeness = ?, fullness = ?, seconds = ?, flags = ? WHERE petid = ?")) {
+                ps.setString(1, name); // Set name
+                ps.setByte(2, level); // Set Level
+                ps.setShort(3, closeness); // Set Closeness
+                ps.setByte(4, fullness); // Set Fullness
+                ps.setInt(5, secondsLeft);
+                ps.setShort(6, flags);
+                ps.setInt(7, uniqueid); // Set ID
+                ps.executeUpdate();
+            }
         } catch (final SQLException ex) {
-            ex.printStackTrace();
         }
     }
 
-    public static final MaplePet createPet(final int itemid, final int uniqueid) {
+    public static MaplePet createPet(final int itemid, final int uniqueid) {
         return createPet(itemid, MapleItemInformationProvider.getInstance().getName(itemid), 1, 0, 100, uniqueid, itemid == 5000054 ? 18000 : 0, (short)(itemid == 5000067 && !GameConstants.GMS ? 0x37 : 0));
     }
 
-    public static final MaplePet createPet(int itemid, String name, int level, int closeness, int fullness, int uniqueid, int secondsLeft, short flag) {
+    public static MaplePet createPet(int itemid, String name, int level, int closeness, int fullness, int uniqueid, int secondsLeft, short flag) {
         if (uniqueid <= -1) { //wah
             uniqueid = MapleInventoryIdentifier.getInstance();
         }
-        try { // Commit to db first
-            PreparedStatement pse = DatabaseConnection.getConnection().prepareStatement("INSERT INTO pets (petid, name, level, closeness, fullness, seconds, flags) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            pse.setInt(1, uniqueid);
-            pse.setString(2, name);
-            pse.setByte(3, (byte) level);
-            pse.setShort(4, (short) closeness);
-            pse.setByte(5, (byte) fullness);
-            pse.setInt(6, secondsLeft);
-	    pse.setShort(7, flag);
-            pse.executeUpdate();
-            pse.close();
+        try { try (PreparedStatement pse = DatabaseConnection.getConnection().prepareStatement("INSERT INTO pets (petid, name, level, closeness, fullness, seconds, flags) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+                pse.setInt(1, uniqueid);
+                pse.setString(2, name);
+                pse.setByte(3, (byte) level);
+                pse.setShort(4, (short) closeness);
+                pse.setByte(5, (byte) fullness);
+                pse.setInt(6, secondsLeft);
+                pse.setShort(7, flag);
+                pse.executeUpdate();
+            }
         } catch (final SQLException ex) {
-            ex.printStackTrace();
             return null;
         }
         final MaplePet pet = new MaplePet(itemid, uniqueid);
@@ -198,12 +189,11 @@ public class MaplePet implements Serializable {
 
     public final void setName(final String name) {
         this.name = name;
-	this.changed = true;
     }
 	
-	public final boolean getSummoned() {
-		return summoned > 0;
-	}
+    public final boolean getSummoned() {
+	return summoned > 0;
+    }
 
     public final byte getSummonedValue() {
         return summoned;
@@ -228,10 +218,13 @@ public class MaplePet implements Serializable {
     public final short getCloseness() {
         return closeness;
     }
+    
+    public final void gainCloseness(final int amount) {
+        this.closeness += (short) amount;
+    }
 
     public final void setCloseness(final int closeness) {
         this.closeness = (short) closeness;
-	this.changed = true;
     }
 
     public final byte getLevel() {
@@ -240,16 +233,15 @@ public class MaplePet implements Serializable {
 
     public final void setLevel(final int level) {
         this.level = (byte) level;
-	this.changed = true;
+	
     }
 
     public final byte getFullness() {
-        return fullness;
+        return 100;
     }
 
     public final void setFullness(final int fullness) {
         this.fullness = (byte) fullness;
-	this.changed = true;
     }
 
     public final short getFlags() {
@@ -258,7 +250,7 @@ public class MaplePet implements Serializable {
 
     public final void setFlags(final int fffh) {
         this.flags = (short) fffh;
-	this.changed = true;
+	
     }
 
     public final int getFh() {
@@ -316,7 +308,7 @@ public class MaplePet implements Serializable {
 
     public final void setSecondsLeft(int sl) {
         this.secondsLeft = sl;
-	this.changed = true;
+
     }
 }
 

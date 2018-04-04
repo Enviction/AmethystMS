@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package database;
 
-import com.mysql.jdbc.JDBC4Connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -35,7 +34,7 @@ import java.util.LinkedList;
  */
 public class DatabaseConnection {
 
-    private static ThreadLocal<Connection> con = new DatabaseConnection.ThreadLocalConnection();
+    private static final ThreadLocal<Connection> con = new DatabaseConnection.ThreadLocalConnection();
     public static final int CLOSE_CURRENT_RESULT = 1;
     /**
      * The constant indicating that the current <code>ResultSet</code> object
@@ -81,11 +80,11 @@ public class DatabaseConnection {
      */
     public static final int NO_GENERATED_KEYS = 2;
 
-    public static final Connection getConnection() {
+    public static Connection getConnection() {
         return con.get();
     }
 
-    public static final void closeAll() throws SQLException {
+    public static void closeAll() throws SQLException {
         for (final Connection con : DatabaseConnection.ThreadLocalConnection.allConnections) {
 	    if (con != null) {
             	con.close();
@@ -95,7 +94,7 @@ public class DatabaseConnection {
 
     private static final class ThreadLocalConnection extends ThreadLocal<Connection> {
 
-        public static final Collection<Connection> allConnections = new LinkedList<Connection>();
+        public static final Collection<Connection> allConnections = new LinkedList<>();
 
         @Override
         protected final Connection initialValue() {
@@ -105,9 +104,7 @@ public class DatabaseConnection {
                 System.err.println("ERROR" + e);
             }
             try {
-                final Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/amethyst?autoReconnect=true", 
-					"root", "");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ascension?autoReconnect=true","root", "");
                 allConnections.add(con);
                 return con;
             } catch (SQLException e) {

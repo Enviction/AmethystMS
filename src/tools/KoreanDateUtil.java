@@ -42,7 +42,7 @@ public class KoreanDateUtil {
      * @param realTimestamp The actual timestamp in milliseconds.
      * @return A 64-bit long giving a filetime timestamp
      */
-    public static final long getTempBanTimestamp(final long realTimestamp) {
+    public static long getTempBanTimestamp(final long realTimestamp) {
         // long time = (realTimestamp / 1000);//seconds
         return ((realTimestamp * 10000) + PacketHelper.FT_UT_OFFSET);
     }
@@ -53,7 +53,7 @@ public class KoreanDateUtil {
      * @param realTimestamp The actual timestamp in milliseconds.
      * @return The Korean timestamp for the real timestamp.
      */
-    public static final int getItemTimestamp(final long realTimestamp) {
+    public static int getItemTimestamp(final long realTimestamp) {
         final int time = (int) ((realTimestamp - REAL_YEAR2000) / 1000 / 60); // convert to minutes
         return (int) (time * 35.762787) + ITEM_YEAR2000;
     }

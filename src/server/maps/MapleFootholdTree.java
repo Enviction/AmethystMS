@@ -31,7 +31,7 @@ public class MapleFootholdTree {
     private MapleFootholdTree ne = null;
     private MapleFootholdTree sw = null;
     private MapleFootholdTree se = null;
-    private List<MapleFoothold> footholds = new LinkedList<MapleFoothold>();
+    private List<MapleFoothold> footholds = new LinkedList<>();
     private Point p1;
     private Point p2;
     private Point center;
@@ -93,7 +93,7 @@ public class MapleFootholdTree {
         return getAllRelevants(new LinkedList<MapleFoothold>());
     }
 
-    private final List<MapleFoothold> getAllRelevants(final List<MapleFoothold> list) {
+    private List<MapleFoothold> getAllRelevants(final List<MapleFoothold> list) {
         list.addAll(footholds);
         if (nw != null) {
             nw.getAllRelevants(list);
@@ -104,11 +104,11 @@ public class MapleFootholdTree {
         return list;
 	}
 
-    private final List<MapleFoothold> getRelevants(final Point p) {
+    private List<MapleFoothold> getRelevants(final Point p) {
         return getRelevants(p, new LinkedList<MapleFoothold>());
     }
 
-    private final List<MapleFoothold> getRelevants(final Point p, final List<MapleFoothold> list) {
+    private List<MapleFoothold> getRelevants(final Point p, final List<MapleFoothold> list) {
         list.addAll(footholds);
         if (nw != null) {
             if (p.x <= center.x && p.y <= center.y) {
@@ -124,7 +124,7 @@ public class MapleFootholdTree {
         return list;
     }
 
-    private final MapleFoothold findWallR(final Point p1, final Point p2) {
+    private MapleFoothold findWallR(final Point p1, final Point p2) {
         MapleFoothold ret;
         for (final MapleFoothold f : footholds) {
             //if (f.isWall()) System.out.println(f.getX1() + " " + f.getX2());
@@ -192,7 +192,7 @@ public class MapleFootholdTree {
     public final MapleFoothold findBelow(final Point p) {
         final List<MapleFoothold> relevants = getRelevants(p);
         // find fhs with matching x coordinates
-        final List<MapleFoothold> xMatches = new LinkedList<MapleFoothold>();
+        final List<MapleFoothold> xMatches = new LinkedList<>();
         for (final MapleFoothold fh : relevants) {
             if (fh.getX1() <= p.x && fh.getX2() >= p.x) {
                 xMatches.add(fh);

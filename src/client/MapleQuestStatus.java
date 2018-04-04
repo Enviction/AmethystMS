@@ -21,10 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package client;
 
 import constants.GameConstants;
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.io.Serializable;
-
 import java.util.Map.Entry;
 import server.life.MapleLifeFactory;
 import server.quest.MapleQuest;
@@ -93,14 +92,14 @@ public class MapleQuestStatus implements Serializable {
 	return GameConstants.isCustomQuest(quest.getId());
     }
 
-    private final void registerMobs() {
-        killedMobs = new LinkedHashMap<Integer, Integer>();
+    private void registerMobs() {
+        killedMobs = new LinkedHashMap<>();
         for (final int i : quest.getRelevantMobs().keySet()) {
             killedMobs.put(i, 0);
         }
     }
 
-    private final int maxMob(final int mobid) {
+    private int maxMob(final int mobid) {
         for (final Map.Entry<Integer, Integer> qs : quest.getRelevantMobs().entrySet()) {
             if (qs.getKey() == mobid) {
                 return qs.getValue();
@@ -121,7 +120,7 @@ public class MapleQuestStatus implements Serializable {
             if (mob >= mo) {
                 return false; //nothing happened
             }
-            killedMobs.put(id, Math.min(mob + 5, mo));
+            killedMobs.put(id, Math.min(mob + 1, mo));
             return true;
         }
         for (Entry<Integer, Integer> mo : killedMobs.entrySet()) {
@@ -130,14 +129,14 @@ public class MapleQuestStatus implements Serializable {
                 if (mo.getValue() >= mobb) {
                     return false; //nothing
                 }
-                killedMobs.put(mo.getKey(), Math.min(mo.getValue() +5, mobb));
+                killedMobs.put(mo.getKey(), Math.min(mo.getValue() + 1, mobb));
                 return true;
             }
         } //i doubt this
         return false;
     }
 
-    private final boolean questCount(final int mo, final int id) {
+    private boolean questCount(final int mo, final int id) {
         if (MapleLifeFactory.getQuestCount(mo) != null) {
             for (int i : MapleLifeFactory.getQuestCount(mo)) {
                 if (i == id) {

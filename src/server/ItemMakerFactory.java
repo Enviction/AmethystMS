@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import provider.MapleData;
 import provider.MapleDataProviderFactory;
 import provider.MapleDataTool;
@@ -14,8 +13,8 @@ import tools.Pair;
 public class ItemMakerFactory {
 
     private final static ItemMakerFactory instance = new ItemMakerFactory();
-    protected Map<Integer, ItemMakerCreateEntry> createCache = new HashMap<Integer, ItemMakerCreateEntry>();
-    protected Map<Integer, GemCreateEntry> gemCache = new HashMap<Integer, GemCreateEntry>();
+    protected Map<Integer, ItemMakerCreateEntry> createCache = new HashMap<>();
+    protected Map<Integer, GemCreateEntry> gemCache = new HashMap<>();
 
     public static ItemMakerFactory getInstance() {
         // DO ItemMakerFactory.getInstance() on ChannelServer startup.
@@ -48,12 +47,15 @@ public class ItemMakerFactory {
 
                         for (MapleData rewardNRecipe : itemFolder.getChildren()) {
                             for (MapleData ind : rewardNRecipe.getChildren()) {
-                                if (rewardNRecipe.getName().equals("randomReward")) {
+                            switch (rewardNRecipe.getName()) {
+                                case "randomReward":
                                     ret.addRandomReward(MapleDataTool.getInt("item", ind, 0), MapleDataTool.getInt("prob", ind, 0));
 // MapleDataTool.getInt("itemNum", ind, 0)
-                                } else if (rewardNRecipe.getName().equals("recipe")) {
+                                    break;
+                                case "recipe":
                                     ret.addReqRecipe(MapleDataTool.getInt("item", ind, 0), MapleDataTool.getInt("count", ind, 0));
-                                }
+                                    break;
+                            }
                             }
                         }
                         gemCache.put(Integer.parseInt(itemFolder.getName()), ret);
@@ -102,8 +104,8 @@ public class ItemMakerFactory {
 
         private int reqLevel, reqMakerLevel;
         private int cost, quantity;
-        private List<Pair<Integer, Integer>> randomReward = new ArrayList<Pair<Integer, Integer>>();
-        private List<Pair<Integer, Integer>> reqRecipe = new ArrayList<Pair<Integer, Integer>>();
+        private List<Pair<Integer, Integer>> randomReward = new ArrayList<>();
+        private List<Pair<Integer, Integer>> reqRecipe = new ArrayList<>();
 
         public GemCreateEntry(int cost, int reqLevel, int reqMakerLevel, int quantity) {
             this.cost = cost;
@@ -137,11 +139,11 @@ public class ItemMakerFactory {
         }
 
         protected void addRandomReward(int itemId, int prob) {
-            randomReward.add(new Pair<Integer, Integer>(itemId, prob));
+            randomReward.add(new Pair<>(itemId, prob));
         }
 
         protected void addReqRecipe(int itemId, int count) {
-            reqRecipe.add(new Pair<Integer, Integer>(itemId, count));
+            reqRecipe.add(new Pair<>(itemId, count));
         }
     }
 
@@ -150,8 +152,8 @@ public class ItemMakerFactory {
         private int reqLevel;
         private int cost, quantity, stimulator;
         private byte tuc, reqMakerLevel;
-        private List<Pair<Integer, Integer>> reqItems = new ArrayList<Pair<Integer, Integer>>(); // itemId / amount
-        private List<Integer> reqEquips = new ArrayList<Integer>();
+        private List<Pair<Integer, Integer>> reqItems = new ArrayList<>(); // itemId / amount
+        private List<Integer> reqEquips = new ArrayList<>();
 
         public ItemMakerCreateEntry(int cost, int reqLevel, byte reqMakerLevel, int quantity, byte tuc, int stimulator) {
             this.cost = cost;
@@ -195,7 +197,7 @@ public class ItemMakerFactory {
         }
 
         protected void addReqItem(int itemId, int amount) {
-            reqItems.add(new Pair<Integer, Integer>(itemId, amount));
+            reqItems.add(new Pair<>(itemId, amount));
         }
     }
 }

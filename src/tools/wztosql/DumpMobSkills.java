@@ -22,14 +22,14 @@
 
 package tools.wztosql;
 
+import database.DatabaseConnection;
+import java.awt.Point;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.List;
-import database.DatabaseConnection;
-import java.awt.Point;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import provider.MapleData;
 import provider.MapleDataProvider;
 import provider.MapleDataProviderFactory;
@@ -61,7 +61,6 @@ public class DumpMobSkills {
 				dumpMobSkills(ps);
 			} catch (Exception e) {
 				System.out.println(id + " skill.");
-				e.printStackTrace();
 				hadError = true;
 			} finally {
 				ps.executeBatch();
@@ -72,17 +71,17 @@ public class DumpMobSkills {
 
 
 	public void delete(String sql) throws Exception {
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.executeUpdate();
-		ps.close();
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.executeUpdate();
+        }
 	}
 
 	public boolean doesExist(String sql) throws Exception {
-		PreparedStatement ps = con.prepareStatement(sql);
-		ResultSet rs = ps.executeQuery();
-		boolean ret = rs.next();
-		rs.close();
-		ps.close();
+        boolean ret;
+        try (PreparedStatement ps = con.prepareStatement(sql); 
+                ResultSet rs = ps.executeQuery()) {
+            ret = rs.next();
+        }
 		return ret;
 	}
 
@@ -115,7 +114,7 @@ public class DumpMobSkills {
 				ps.setInt(11, MapleDataTool.getInt("interval", lvlz, 0)); // * 1000
 
 				StringBuilder summ = new StringBuilder();
-				List<Integer> toSummon = new ArrayList<Integer>();
+				List<Integer> toSummon = new ArrayList<>();
 				for (int i = 0; i > -1; i++) {
 					if (lvlz.getChildByPath(String.valueOf(i)) == null) {
 						break;
@@ -172,10 +171,8 @@ public class DumpMobSkills {
 			System.out.println("Dumping mobskills");
 			dq.dumpMobSkills();
 			hadError |= dq.isHadError();
-			currentQuest = dq.currentId();
 		} catch (Exception e) {
 			hadError = true;
-			e.printStackTrace();
 			System.out.println(currentQuest + " skill.");
 		}
 		long endTime = System.currentTimeMillis();

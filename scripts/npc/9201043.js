@@ -19,7 +19,7 @@ function action(mode, type, selection) {
 		marr.setCustomData("0");
 	        data = "0";
 	    }
-	if (cm.getPlayer().getLevel() < 40 || cm.getPlayer().getMarriageId() <= 0 || !data.equals("3")) {
+	if (cm.getPlayer().getLevel() < 40 || cm.getPlayer().getMarriageId() <= 0) {// || !data.equals("3")) {
 	    cm.sendNext("Only married people above level 40 may talk to me.");
 	    cm.dispose();
 	} else {

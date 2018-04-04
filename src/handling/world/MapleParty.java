@@ -22,7 +22,6 @@ package handling.world;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class MapleParty implements Serializable {
 
     private static final long serialVersionUID = 9179541993413738569L;
     private MaplePartyCharacter leader;
-    private List<MaplePartyCharacter> members = new LinkedList<MaplePartyCharacter>();
+    private List<MaplePartyCharacter> members = new LinkedList<>();
     private int id, expeditionLink = -1;
     private boolean disbanded = false;
 
@@ -82,7 +81,7 @@ public class MapleParty implements Serializable {
     }
 
     public Collection<MaplePartyCharacter> getMembers() {
-        return new LinkedList<MaplePartyCharacter>(members);
+        return new LinkedList<>(members);
     }
 
     public int getId() {

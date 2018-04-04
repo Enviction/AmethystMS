@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package handling.world;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class CheaterData implements Serializable, Comparable<CheaterData> {
 
@@ -37,13 +38,14 @@ public class CheaterData implements Serializable, Comparable<CheaterData> {
         return info;
     }
 
-    public int getDPoints() {
+    public int getPoints() {
         return points;
     }
 
+    @Override
     public int compareTo(CheaterData o) {
-        int thisVal = getDPoints();
-        int anotherVal = o.getDPoints();
+        int thisVal = getPoints();
+        int anotherVal = o.getPoints();
         return (thisVal < anotherVal ? 1 : (thisVal == anotherVal ? 0 : -1));
     }
 
@@ -54,5 +56,13 @@ public class CheaterData implements Serializable, Comparable<CheaterData> {
         }
         final CheaterData obj = (CheaterData) oth;
         return obj.points == this.points && obj.info.equals(this.info);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 83 * hash + this.points;
+        hash = 83 * hash + Objects.hashCode(this.info);
+        return hash;
     }
 }

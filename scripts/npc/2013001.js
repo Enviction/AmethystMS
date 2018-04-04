@@ -13,23 +13,13 @@ function action(mode, type, selection) {
 	cm.dispose();
 	return;
     }
-    if (!cm.isLeader()) {
-	cm.sendOk("I only wish to speak to your leader!");
-	cm.dispose();
-	return;
-    }
-    if (em.getProperty("pre").equals("0")) {
-	for (var i = 4001044; i < 4001064; i++) {
-		cm.removeAll(i); //holy
+	if (!cm.isLeader() || (cm.getPlayer().getMapId() == 920010000 && !cm.haveItem(4001063, 20))) {
+		cm.sendNext("Please save me, I've been trapped in the seal by Papa Pixie, the terror of our tower! He's misplaced all of our Minerva Statue's parts and we have to get it all back! Oh pardon me, I am the tower's Chamberlain, Eak. I am Minerva's royal servant. Please, help me by placing 20 Cloud Pieces in the orb you see!");
+		// cm.sendOk("I only wish to speak to your leader!");
+		cm.dispose();
+		return;
 	}
-	cm.sendNext("Please save me, I've been trapped in the seal by Papa Pixie, the terror of our tower! He's misplaced all of our Minerva Statue's parts and we have to get it all back! Oh pardon me, I am the tower's Chamberlain, Eak. I am Minerva's royal servant. Please, help me by placing 20 Cloud Pieces in the orb you see!");
-	cm.dispose();
-	return;
-    }
     switch(cm.getPlayer().getMapId()) {
-	case 920010000:
-	    cm.warpParty(920010000, 2);
-	    break;
 	case 920010100:
 	    if (em.getProperty("stage").equals("4")) {
 		if (em.getProperty("finished").equals("0")) {
@@ -46,7 +36,7 @@ function action(mode, type, selection) {
 		cm.sendOk("Gather the 30 Statue Pieces from the monsters in this stage, and please bring them to me so I can put them together!");
 	    } else {
 		cm.removeAll(4001050);
-		cm.gainItem(4001044,1); //first piece
+		cm.gainItem(4001048,1); //first piece
 		cm.givePartyExp(3500);
 		clear();
 	    }
@@ -174,7 +164,16 @@ function action(mode, type, selection) {
 	    }
 	    break;
 	case 920010800:
-	    cm.sendNext("Please, find a way to defeat Papa Pixie! Once you've found the Dark Nependeath by placing seeds, you've found Papa Pixie! Defeat it, and get the Root of Life to save Minerva!!!"); 
+		if (cm.haveItem(4001055, 1)) {
+			cm.sendOk("Please #eenter the portal#n if you wish to continue.#k");
+			cm.dispose();
+		} else if (cm.haveItem(4001054, 2)) {
+			cm.sendNext("You did it!! You defeated #bPapa Pixie#k!\r\nPlease, go now and free #rMinerva#k with the Root of Life!!");
+			cm.gainItem(4001054, -2);
+			cm.gainItem(4001055, 1);
+		} else {
+			cm.sendNext("Please, find a way to defeat Papa Pixie! Once you've found the Dark Nependeath by placing seeds, you've found Papa Pixie! Defeat it, and get the Root of Life to save Minerva!!!"); 
+		}
 	    break;
 	case 920010900:
 	    cm.sendNext("This is the jail of the tower. You may find some goodies here, but other than that I don't think we have any pieces here."); 

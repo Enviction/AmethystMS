@@ -52,10 +52,6 @@ public class CashItemInfo {
         return g == this.gender || this.gender == 2;
     }
 
-    public final int getItemId() {
-        return itemId;
-    }
-
     public static class CashModInfo {
 
         public int discountPrice, mark, priority, sn, itemid, flags, period, gender, count, meso, unk_1, unk_2, unk_3, extra_flags;

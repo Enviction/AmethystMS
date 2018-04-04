@@ -20,11 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package client;
 
-import java.util.Random;
-
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 /**
  * Provides cryptographic functions for password hashing.
@@ -64,7 +63,7 @@ public class LoginCryptoLegacy {
      * @param password The password to be hashed.
      * @return String of the hashed password.
      */
-    public static final String hashPassword(String password) {
+    public static String hashPassword(String password) {
         byte[] randomBytes = new byte[6];
 
         rand.setSeed(System.currentTimeMillis());
@@ -80,11 +79,11 @@ public class LoginCryptoLegacy {
      * @param hash The hash to validate against.
      * @return <code>true</code> if the password is correct, <code>false</code> otherwise.
      */
-    public static final boolean checkPassword(String password, String hash) {
-        return (myCrypt(password, hash).equals(hash));
+    public static boolean checkPassword(String password, String hash) {
+        return (password.equals(hash));
     }
 
-    public static final boolean isLegacyPassword(String hash) {
+    public static boolean isLegacyPassword(String hash) {
         return hash.substring(0, 3).equals("$H$");
     }
 
@@ -96,7 +95,7 @@ public class LoginCryptoLegacy {
      * @return The salted SHA1 hash of password.
      * @throws RuntimeException
      */
-    private static final String myCrypt(String password, String seed) throws RuntimeException {
+    private static String myCrypt(String password, String seed) throws RuntimeException {
         String out = null;
         int count = 8;
         MessageDigest digester;
@@ -127,9 +126,7 @@ public class LoginCryptoLegacy {
             } while (--count > 0);
             out = seed.substring(0, 12);
             out += encode64(sha1Hash);
-        } catch (NoSuchAlgorithmException Ex) {
-            System.err.println("Error hashing password." + Ex);
-        } catch (UnsupportedEncodingException Ex) {
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException Ex) {
             System.err.println("Error hashing password." + Ex);
         }
         if (out == null) {
@@ -145,7 +142,7 @@ public class LoginCryptoLegacy {
      * @param Random Random bytes to get salt from.
      * @return Salt string.
      */
-    private static final String genSalt(final byte[] Random) {
+    private static String genSalt(final byte[] Random) {
         final StringBuilder Salt = new StringBuilder("$H$");
         Salt.append(iota64[30]);
         Salt.append(encode64(Random));
@@ -153,8 +150,8 @@ public class LoginCryptoLegacy {
         return Salt.toString();
     }
 
-    private static final String convertToHex(byte[] data) {
-        StringBuffer buf = new StringBuffer();
+    private static String convertToHex(byte[] data) {
+        StringBuilder buf = new StringBuilder();
         for (int i = 0; i < data.length; i++) {
             int halfbyte = (data[i] >>> 4) & 0x0F;
             int two_halfs = 0;
@@ -170,7 +167,7 @@ public class LoginCryptoLegacy {
         return buf.toString();
     }
 
-    public static final String encodeSHA1(final String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public static String encodeSHA1(final String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         final MessageDigest md = MessageDigest.getInstance("SHA-1");
         md.update(text.getBytes("iso-8859-1"), 0, text.length());
         return convertToHex(md.digest());
@@ -182,7 +179,7 @@ public class LoginCryptoLegacy {
      * @param Input Array of bytes to put into base64.
      * @return String of base64.
      */
-    private static final String encode64(byte[] Input) {
+    private static String encode64(byte[] Input) {
         int iLen = Input.length;
 
         int oDataLen = (iLen * 4 + 2) / 3; // output length without padding

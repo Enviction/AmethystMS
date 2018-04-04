@@ -11,11 +11,6 @@ function start() {
 			cm.dispose();
 			return;
 		}
-		if (cm.getPlayer().getClient().getChannel() != 5) {
-			cm.sendOk("Pink Bean may only be attempted on channel 5.");
-			cm.dispose();
-			return;
-		}
     var em = cm.getEventManager("PinkBeanBattle");
 
     if (em == null) {
@@ -36,7 +31,7 @@ function start() {
     var squadAvailability = cm.getSquadAvailability("PinkBean");
     if (squadAvailability == -1) {
 	status = 0;
-	    if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
+	    if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isDonator()) {
 		cm.sendOk("You have already went to PinkBean in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
 		cm.dispose();
 		return;
@@ -44,7 +39,7 @@ function start() {
 	cm.sendYesNo("Are you interested in becoming the leader of the expedition Squad?");
 
     } else if (squadAvailability == 1) {
-	    if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
+	    if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isDonator()) {
 		cm.sendOk("You have already went to PinkBean in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
 		cm.dispose();
 		return;
@@ -79,7 +74,7 @@ function start() {
 			if (eim == null) {
 				var squd = cm.getSquad("PinkBean");
 				if (squd != null) {
-	    if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
+	    if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isDonator()) {
 		cm.sendOk("You have already went to PinkBean in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
 		cm.dispose();
 		return;
@@ -100,7 +95,7 @@ function start() {
 			if (eim == null) {
 				var squd = cm.getSquad("PinkBean");
 				if (squd != null) {
-	    if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
+	    if (time + (12 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isDonator()) {
 		cm.sendOk("You have already went to PinkBean in the past 12 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (12 * 3600000)));
 		cm.dispose();
 		return;

@@ -10,11 +10,11 @@ function action(mode, type, selection) {
 		cm.dispose();
 	} else {
 		status++;
-		if (cm.getClient().getChannel() == 1) {
-			cm.sendNext("The event may not be attempted in channel 1.");
-			cm.dispose();
-			return;
-		}
+		//if (cm.getClient().getChannel() == 1) {
+			//cm.sendNext("The event may not be attempted in channel 1.");
+			//cm.dispose();
+			//return;
+		//}
 		cm.sendNext("The event is not taking place at the moment.");
 		cm.dispose();
 		/*if(status == 0){

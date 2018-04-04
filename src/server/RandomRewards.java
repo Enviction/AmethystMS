@@ -1,10 +1,9 @@
 package server;
 
-import java.util.List;
+import constants.GameConstants;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import constants.GameConstants;
+import java.util.List;
 
 public class RandomRewards {
 
@@ -114,6 +113,7 @@ public class RandomRewards {
     }
 
 
+
     public static int getGoldBoxReward() {
         return compiledGold.get(Randomizer.nextInt(compiledGold.size()));
     }
@@ -129,6 +129,7 @@ public class RandomRewards {
     public static int getPeanutReward() {
         return compiledPeanut.get(Randomizer.nextInt(compiledPeanut.size()));
     }
+
 
     public static int getEventReward() {
         final int chance = Randomizer.nextInt(101);

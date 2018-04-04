@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package handling.world.guild;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-
 public class MapleGuildSkill implements java.io.Serializable {
 
     public static final long serialVersionUID = 3565477792055301248L;

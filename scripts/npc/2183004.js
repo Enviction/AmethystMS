@@ -21,7 +21,7 @@ function action(mode, type, selection) {
 		    while (it.hasNext()) {
 			var cPlayer = it.next();
 			var ccPlayer = cm.getPlayer().getMap().getCharacterById(cPlayer.getId());
-			if (ccPlayer == null || ccPlayer.getLevel() < 100) {
+			if (ccPlayer == null || ccPlayer.getLevel() < 120) {
 				next = false;
 				break;
 			}
@@ -34,7 +34,7 @@ function action(mode, type, selection) {
 			    q.startInstance(cm.getParty(), cm.getMap());
 			}
 		    } else {
-			cm.sendOk("All players must be in map and above level 100.");
+			cm.sendOk("All players must be in map and above level 120.");
 		    }
 		} else {
 		    cm.sendOk("You are not the leader of the party, please ask your leader to talk to me.");
@@ -45,8 +45,8 @@ function action(mode, type, selection) {
 		break;
 	    case 1:
 		if (cm.getParty() != null) {
-		if (cm.getDisconnected("BossQuestMed") != null) {
-			cm.getDisconnected("BossQuestMed").registerPlayer(cm.getPlayer());
+		if (cm.getDisconnected("BossQuestMED") != null) {
+			cm.getDisconnected("BossQuestMED").registerPlayer(cm.getPlayer());
 		 } else if (cm.isLeader()) {
 		    var party = cm.getPlayer().getParty().getMembers();
 		    var mapId = cm.getPlayer().getMapId();
@@ -55,20 +55,20 @@ function action(mode, type, selection) {
 		    while (it.hasNext()) {
 			var cPlayer = it.next();
 			var ccPlayer = cm.getPlayer().getMap().getCharacterById(cPlayer.getId());
-			if (ccPlayer == null || ccPlayer.getLevel() < 120) {
+			if (ccPlayer == null || ccPlayer.getLevel() < 140) {
 				next = false;
 				break;
 			}
 		    }	
 	  	    if (next) {
-			var q = cm.getEventManager("BossQuestMed");
+			var q = cm.getEventManager("BossQuestMED");
 			if (q == null) {
 			    cm.sendOk("Unknown error occured");
 			} else {
 			    q.startInstance(cm.getParty(), cm.getMap());
 			}
 		    } else {
-			cm.sendOk("All players must be in map and above level 120.");
+			cm.sendOk("All players must be in map and above level 140.");
 		    }
 		    } else {
 			cm.sendOk("You are not the leader of the party, please ask your leader to talk to me.");
@@ -89,7 +89,7 @@ function action(mode, type, selection) {
 		    while (it.hasNext()) {
 			var cPlayer = it.next();
 			var ccPlayer = cm.getPlayer().getMap().getCharacterById(cPlayer.getId());
-			if (ccPlayer == null || ccPlayer.getLevel() < 140) {
+			if (ccPlayer == null || ccPlayer.getLevel() < 160) {
 				next = false;
 				break;
 			}
@@ -102,7 +102,7 @@ function action(mode, type, selection) {
 			    q.startInstance(cm.getParty(), cm.getMap());
 			}
 		    } else {
-			cm.sendOk("All players must be in map and above level 140.");
+			cm.sendOk("All players must be in map and above level 160.");
 		    }
 		    } else {
 			cm.sendOk("You are not the leader of the party, please ask your leader to talk to me.");
@@ -123,7 +123,7 @@ function action(mode, type, selection) {
 		    while (it.hasNext()) {
 			var cPlayer = it.next();
 			var ccPlayer = cm.getPlayer().getMap().getCharacterById(cPlayer.getId());
-			if (ccPlayer == null || ccPlayer.getLevel() < 180) {
+			if (ccPlayer == null || ccPlayer.getLevel() < 190) {
 				next = false;
 				break;
 			}
@@ -136,7 +136,7 @@ function action(mode, type, selection) {
 			    q.startInstance(cm.getParty(), cm.getMap());
 			}
 		    } else {
-			cm.sendOk("All players must be in map and above level 180.");
+			cm.sendOk("All players must be in map and above level 190.");
 		    }
 		    } else {
 			cm.sendOk("You are not the leader of the party, please ask your leader to talk to me.");

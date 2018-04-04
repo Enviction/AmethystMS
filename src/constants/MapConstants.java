@@ -1,6 +1,9 @@
 package constants;
 
 public class MapConstants {
+    
+    public static String FM_BGM = "Bgm04/WhiteChristmas";
+    public static int STARTER_MAP = 0;
 
     public static boolean isStartingEventMap(final int mapid) {
         switch (mapid) {
@@ -33,12 +36,5 @@ public class MapConstants {
 
     public static boolean isCoconutMap(final int mapid) {
         return mapid == 109080000 || mapid == 109080001 || mapid == 109080002 || mapid == 109080003 || mapid == 109080010 || mapid == 109080011 || mapid == 109080012 || mapid == 109090300 || mapid == 109090301 || mapid == 109090302 || mapid == 109090303 || mapid == 109090304 || mapid == 910040100;
-    }
-    
-    public static boolean isStorylineMap(final int mapid) {
-        if (mapid >= 0 && mapid <= 50000 || mapid == 913030000)  {
-            return true;
-        }
-        return false;
     }
 }

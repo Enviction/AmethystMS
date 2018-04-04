@@ -13,11 +13,6 @@ function action(mode, type, selection) {
     switch (status) {
 	case 0:
 	if (cm.getMapId() == 802000800) {
-		if (cm.getPlayer().getClient().getChannel() != 6) {
-			cm.sendOk("This boss may only be attempted on channel 6.");
-			cm.dispose();
-			return;
-		}
 	    var em = cm.getEventManager("CoreBlaze");
 
 	    if (em == null) {

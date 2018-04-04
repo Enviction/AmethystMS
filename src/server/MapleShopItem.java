@@ -2,7 +2,6 @@ package server;
 
 public class MapleShopItem {
 
-    private short buyable;
     private int itemId;
     private int price;
     private int reqItem;
@@ -12,18 +11,7 @@ public class MapleShopItem {
     private int expiration;
     private byte rank;
 
-
-    public MapleShopItem(short buyable, int itemId, int price, int reqItem, int reqItemQ, byte rank) {
-        this.buyable = buyable;
-        this.itemId = itemId;
-        this.price = price;
-        this.reqItem = reqItem;
-        this.reqItemQ = reqItemQ;
-	this.rank = rank;
-    }
-    
-    public MapleShopItem(int itemId, int price, short buyable) {
-        this.buyable = buyable;
+    public MapleShopItem(int itemId, int price) {
         this.itemId = itemId;
         this.price = price;
         this.reqItem = 0;
@@ -34,8 +22,7 @@ public class MapleShopItem {
         this.expiration = 0;
     }
 
-    public MapleShopItem(short buyable, int itemId, int price, int reqItem, int reqItemQ, byte rank, int category, int minLevel, int expiration) {
-        this.buyable = buyable;
+    public MapleShopItem(int itemId, int price, int reqItem, int reqItemQ, byte rank, int category, int minLevel, int expiration) {
         this.itemId = itemId;
         this.price = price;
         this.reqItem = reqItem;
@@ -44,10 +31,6 @@ public class MapleShopItem {
         this.category = category;
         this.minLevel = minLevel;
         this.expiration = expiration;
-    }
-
-    public short getBuyable() {
-        return buyable;
     }
 
     public int getItemId() {

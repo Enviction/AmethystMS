@@ -30,7 +30,7 @@ var guildName;
 var partymembers;
 
 function start() {
-	//cm.sendOk("The Guild Alliance is currently under development.");
+	//cm.sendOk("The Guild Alliance is currently under Amethyst.");
 	//cm.dispose();
 	partymembers = cm.getPartyMembers();
 	status = -1;

@@ -4,12 +4,12 @@
  */
 package handling.world.guild;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Level;
 import handling.world.World;
 import handling.world.guild.MapleBBSThread.MapleBBSReply;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GuildLoad {
@@ -44,8 +44,9 @@ public class GuildLoad {
 
     private static class GuildLoadRunnable implements Runnable {
         private Object ToNotify;
-        private ArrayBlockingQueue<Integer> Queue = new ArrayBlockingQueue<Integer>(1000); //1000 Start Capacity (Should be plenty)
+        private ArrayBlockingQueue<Integer> Queue = new ArrayBlockingQueue<>(1000); //1000 Start Capacity (Should be plenty)
 
+        @Override
         public void run() {
             try {
                 while (!Queue.isEmpty()) {

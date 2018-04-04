@@ -1,22 +1,20 @@
 package server.quest;
 
-import client.Skill;
-import java.util.Calendar;
-import java.util.List;
-import java.util.LinkedList;
-import java.io.Serializable;
-
-import client.inventory.Item;
-import client.SkillFactory;
-import constants.GameConstants;
 import client.MapleCharacter;
-import client.inventory.MaplePet;
-import client.inventory.MapleInventoryType;
 import client.MapleQuestStatus;
-
 import client.MapleTrait.MapleTraitType;
+import client.Skill;
+import client.SkillFactory;
+import client.inventory.Item;
+import client.inventory.MapleInventoryType;
+import client.inventory.MaplePet;
+import constants.GameConstants;
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 import tools.Pair;
 
 public class MapleQuestRequirement implements Serializable {
@@ -41,15 +39,15 @@ public class MapleQuestRequirement implements Serializable {
             case quest:
             case skill:
             case job: {
-                dataStore = new LinkedList<Pair<Integer, Integer>>();
+                dataStore = new LinkedList<>();
                 String[] first = rse.getString("intStoresFirst").split(", ");
                 String[] second = rse.getString("intStoresSecond").split(", ");
                 if (first.length <= 0 && rse.getString("intStoresFirst").length() > 0) {
-                    dataStore.add(new Pair<Integer, Integer>(Integer.parseInt(rse.getString("intStoresFirst")), Integer.parseInt(rse.getString("intStoresSecond"))));
+                    dataStore.add(new Pair<>(Integer.parseInt(rse.getString("intStoresFirst")), Integer.parseInt(rse.getString("intStoresSecond"))));
                 }
                 for (int i = 0; i < first.length; i++) {
                     if (first[i].length() > 0 && second[i].length() > 0) {
-                        dataStore.add(new Pair<Integer, Integer>(Integer.parseInt(first[i]), Integer.parseInt(second[i])));
+                        dataStore.add(new Pair<>(Integer.parseInt(first[i]), Integer.parseInt(second[i])));
                     }
                 }
                 break;

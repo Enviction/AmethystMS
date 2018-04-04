@@ -1,5 +1,6 @@
 package client.messages.commands;
 
+import client.MapleCharacter;
 import client.MapleClient;
 import constants.ServerConstants.CommandType;
 

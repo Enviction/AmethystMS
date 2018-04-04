@@ -21,8 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package tools;
 
 import java.io.ByteArrayOutputStream;
+import org.apache.mina.core.buffer.IoBuffer;
 
-import org.apache.mina.common.ByteBuffer;
+
 
 /**
  * Provides a class for manipulating hexadecimal numbers.
@@ -41,7 +42,7 @@ public class HexTool {
      * @param byteValue The byte to convert.
      * @return The hexadecimal representation of <code>byteValue</code>
      */
-    public static final String toString(final byte byteValue) {
+    public static String toString(final byte byteValue) {
         final int tmp = byteValue << 8;
         char[] retstr = new char[]{HEX[(tmp >> 12) & 0x0F], HEX[(tmp >> 8) & 0x0F]};
         return String.valueOf(retstr);
@@ -55,7 +56,7 @@ public class HexTool {
      *            convert.
      * @return The hexadecimal representation of <code>buf</code>
      */
-    public static final String toString(final ByteBuffer buf) {
+    public static String toString(final IoBuffer buf) {
         buf.flip();
         final byte arr[] = new byte[buf.remaining()];
         buf.get(arr);
@@ -71,7 +72,7 @@ public class HexTool {
      * @param intValue The integer to transform.
      * @return The hexadecimal representation of <code>intValue</code>.
      */
-    public static final String toString(final int intValue) {
+    public static String toString(final int intValue) {
         return Integer.toHexString(intValue);
     }
 
@@ -81,7 +82,7 @@ public class HexTool {
      * @param bytes The bytes to convert.
      * @return The hexadecimal representation of <code>bytes</code>
      */
-    public static final String toString(final byte[] bytes) {
+        public static String toString(final byte[] bytes) {
         StringBuilder hexed = new StringBuilder();
         for (int i = 0; i < bytes.length; i++) {
             hexed.append(toString(bytes[i]));
@@ -97,7 +98,7 @@ public class HexTool {
      * @param bytes The bytes to convert.
      * @return The ASCII hexadecimal representation of <code>bytes</code>
      */
-    public static final String toStringFromAscii(final byte[] bytes) {
+    public static String toStringFromAscii(final byte[] bytes) {
         char[] ret = new char[bytes.length];
         for (int x = 0; x < bytes.length; x++) {
             if (bytes[x] < 32 && bytes[x] >= 0) {
@@ -110,7 +111,7 @@ public class HexTool {
         return String.valueOf(ret);
     }
 
-    public static final String toPaddedStringFromAscii(final byte[] bytes) {
+    public static String toPaddedStringFromAscii(final byte[] bytes) {
         final String str = toStringFromAscii(bytes);
         StringBuilder ret = new StringBuilder(str.length() * 3);
         for (int i = 0; i < str.length(); i++) {
@@ -162,7 +163,7 @@ public class HexTool {
         return baos.toByteArray();
     }
 
-    public static final String getOpcodeToString(final int op) {
+    public static String getOpcodeToString(final int op) {
         return "0x" + StringUtil.getLeftPaddedStr(Integer.toHexString(op).toUpperCase(), '0', 4);
     }
 }

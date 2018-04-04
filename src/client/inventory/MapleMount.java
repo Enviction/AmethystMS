@@ -22,13 +22,12 @@ package client.inventory;
 
 import client.MapleBuffStat;
 import client.MapleCharacter;
+import database.DatabaseConnection;
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.io.Serializable;
-
-import database.DatabaseConnection;
 import server.Randomizer;
 import tools.packet.CWvsContext;
 
@@ -47,7 +46,7 @@ public class MapleMount implements Serializable {
         this.fatigue = fatigue;
         this.level = level;
         this.exp = exp;
-        this.owner = new WeakReference<MapleCharacter>(owner);
+        this.owner = new WeakReference<>(owner);
     }
 
     public void saveMount(final int charid) throws SQLException {
@@ -55,13 +54,13 @@ public class MapleMount implements Serializable {
             return;
         }
         Connection con = DatabaseConnection.getConnection();
-        PreparedStatement ps = con.prepareStatement("UPDATE mountdata set `Level` = ?, `Exp` = ?, `Fatigue` = ? WHERE characterid = ?");
-        ps.setByte(1, level);
-        ps.setInt(2, exp);
-        ps.setByte(3, fatigue);
-        ps.setInt(4, charid);
-	ps.executeUpdate();
-        ps.close();
+        try (PreparedStatement ps = con.prepareStatement("UPDATE mountdata set `Level` = ?, `Exp` = ?, `Fatigue` = ? WHERE characterid = ?")) {
+            ps.setByte(1, level);
+            ps.setInt(2, exp);
+            ps.setByte(3, fatigue);
+            ps.setInt(4, charid);
+            ps.executeUpdate();
+        }
     }
 
     public int getItemId() {

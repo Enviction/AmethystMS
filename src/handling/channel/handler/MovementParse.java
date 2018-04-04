@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package handling.channel.handler;
 
-import constants.GameConstants;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -173,7 +172,7 @@ public class MovementParse {
         }
         return res;
     }
-
+    
     public static void updatePosition(final List<LifeMovementFragment> movement, final AnimatedMapleMapObject target, final int yoffset) {
         if (movement == null) {
             return;

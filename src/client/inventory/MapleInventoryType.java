@@ -57,18 +57,19 @@ public enum MapleInventoryType {
     }
 
     public static MapleInventoryType getByWZName(String name) {
-        if (name.equals("Install")) {
-            return SETUP;
-        } else if (name.equals("Consume")) {
-            return USE;
-        } else if (name.equals("Etc")) {
-            return ETC;
-        } else if (name.equals("Eqp")) {
-            return EQUIP;
-        } else if (name.equals("Cash")) {
-            return CASH;
-        } else if (name.equals("Pet")) {
-            return CASH;
+        switch (name) {
+            case "Install":
+                return SETUP;
+            case "Consume":
+                return USE;
+            case "Etc":
+                return ETC;
+            case "Eqp":
+                return EQUIP;
+            case "Cash":
+                return CASH;
+            case "Pet":
+                return CASH;
         }
         return UNDEFINED;
     }

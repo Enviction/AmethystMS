@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.events;
 
-import java.util.concurrent.ScheduledFuture;
 import client.MapleCharacter;
+import java.util.concurrent.ScheduledFuture;
 import server.Timer.EventTimer;
 import tools.packet.CField;
 import tools.packet.CWvsContext;
@@ -34,14 +34,13 @@ public class MapleFitness extends MapleEvent {
     private long timeStarted = 0;
     private ScheduledFuture<?> fitnessSchedule, msgSchedule;
 
-    public MapleFitness(final int channel, final MapleEventType type) {
-	super(channel,type);
+    public MapleFitness(final int world, final int channel, final MapleEventType type) {
+	super(world,channel,type);
     }
 
     @Override
     public void finished(final MapleCharacter chr) {
         givePrize(chr);
-        //chr.finishAchievement(20);
     }
 
     @Override

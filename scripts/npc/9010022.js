@@ -1,6 +1,7 @@
 /**
  * Dimensional Mirror
  * Warps you to Party Quests/Special Maps
+ * Updated by @Eric
  */
 var text = "";
 
@@ -10,7 +11,7 @@ function start() {
 		cm.dispose();
 		return;
     }
-	text += "#0# Boss Party Quest"; // Ariant Coliseum
+	text += "#0# Ariant Coliseum";
     if (cm.getPlayerStat("LVL") >= 25) {
         text += "#1# Mu Lung Training Center";
     }
@@ -23,9 +24,9 @@ function start() {
     if (cm.getPlayerStat("LVL") >= 60) {
         text += "#4# Dual Raid";
     }
-    if (cm.getPlayerStat("LVL") >= 40) {
-        text += "#5# Nett's Pyramid";
-    }
+    //if (cm.getPlayerStat("LVL") >= 40) { // Nett's Pyramid -- need to fix/update packets
+        //text += "#5# Nett's Pyramid";
+    //}
     if (cm.getPlayerStat("LVL") >= 25 && cm.getPlayerStat("LVL") <= 30) {
         text += "#6# Kerning Subway";
     }
@@ -39,7 +40,7 @@ function start() {
 		text += "#11# Dimensional Crack";
 	}
 	if (cm.getPlayerStat("LVL") >= 40) {
-		text += "#12# Forest of Poison Haze";
+		text += "#12# Forest of Poison Haze"; // portals are inaccurate and not randomized
 	}
 	if (cm.getPlayerStat("LVL") >= 50) {
 		text += "#13# Remnant of the Goddess";
@@ -54,12 +55,17 @@ function start() {
 		text += "#16# Resurrection of the Hoblin King";
 	}
 	if (cm.getPlayerStat("LVL") >= 100) {
-		text += "#17# Dragon's Nest"; // dragon rider pq
+		text += "#17# Dragon's Nest";
 	}
     //text += "#18# The Moon";	
     text += "#19# Haunted Mansion";	
 	if (cm.getPlayerStat("LVL") >= 25) {
 		text += "#98# Astaroth";
+	}
+	text += "#20# MV's Lair";
+	text += "#24# Visitor Party Quest";
+	if (cm.getPlayerStat("LVL") >= 40) {
+		text += "#27# Fight for Azwan"; 
 	}
     // text += "#99# Nest of Dead dragon"; // 683010000
     cm.askMapSelection(text);
@@ -67,14 +73,14 @@ function start() {
 
 function action(mode, type, selection) {
     if (mode == 1) {
-		if (cm.getPlayerStat("LVL") < 10) { // they cannot use any
+		if (cm.getPlayerStat("LVL") < 10) { 
 			cm.dispose();
 			return;
 		}
 		switch (selection) {
-			case 0: // Boss Party Quest / Ariant Coliseum
+			case 0: // Ariant Coliseum
 				cm.saveReturnLocation("MULUNG_TC");
-				cm.warp(980010000, 3);
+				cm.warp(980010000, 0);
 				break;
 			case 1: // Mu Lung Training Center
 				if (cm.getPlayerStat("LVL") >= 25) {
@@ -163,7 +169,7 @@ function action(mode, type, selection) {
 			case 16: // Resurrection of the Hoblin King
 				if (cm.getPlayerStat("LVL") >= 80) {
 					cm.saveReturnLocation("MULUNG_TC");
-					cm.warp(211000002, 0);
+					cm.warp(211000002, 0); //211000002
 				}
 				break;
 			case 17: // Dragon's Nest
@@ -175,6 +181,18 @@ function action(mode, type, selection) {
 			case 19: // Haunted Mansion
 				cm.saveReturnLocation("MULUNG_TC");
 				cm.warp(682000000, 0);
+				break;
+			case 20: // MV's Lair
+				cm.saveReturnLocation("MULUNG_TC");
+				cm.warp(674030100, 0);
+				break;
+			case 24: // Visitor Party Quest
+				cm.saveReturnLocation("MULUNG_TC");
+				cm.warp(502029000, 0);
+				break;
+			case 27: // Azwan
+				cm.saveReturnLocation("MULUNG_TC");
+				cm.warp(262010000, 0);
 				break;
 			case 98: // Astaroth
 				if (cm.getPlayerStat("LVL") >= 25) {

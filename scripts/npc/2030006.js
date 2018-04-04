@@ -21,7 +21,7 @@ function action(mode, type, selection) {
     else
 	status--;
     if (status == 0) {
-	if (cm.haveItem(4031058)) {
+	if (cm.haveItem(4031058) || cm.getQuestStatus(100102) != 1) {
 	    cm.sendOk("Lulz, I am a stone.");
 	    cm.dispose();
 	} else {

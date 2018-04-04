@@ -23,12 +23,7 @@ package server.maps;
 import constants.GameConstants;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import tools.Pair;
 
 public class MapleNodes {
@@ -46,15 +41,15 @@ public class MapleNodes {
     private boolean firstHighest = true;
 
     public MapleNodes(final int mapid) {
-        nodes = new LinkedHashMap<Integer, MapleNodeInfo>();
-        areas = new ArrayList<Rectangle>();
-        platforms = new ArrayList<MaplePlatform>();
-        skillIds = new ArrayList<Integer>();
-        directionInfo = new ArrayList<DirectionInfo>();
-        monsterPoints = new ArrayList<MonsterPoint>();
-        mobsToSpawn = new ArrayList<Pair<Integer, Integer>>();
-        guardiansToSpawn = new ArrayList<Pair<Point, Integer>>();
-        flags = new ArrayList<Pair<String, Integer>>();
+        nodes = new LinkedHashMap<>();
+        areas = new ArrayList<>();
+        platforms = new ArrayList<>();
+        skillIds = new ArrayList<>();
+        directionInfo = new ArrayList<>();
+        monsterPoints = new ArrayList<>();
+        mobsToSpawn = new ArrayList<>();
+        guardiansToSpawn = new ArrayList<>();
+        flags = new ArrayList<>();
         this.mapid = mapid;
     }
 
@@ -81,7 +76,7 @@ public class MapleNodes {
 
         public int x, y, key;
         public boolean forcedInput;
-        public List<String> eventQ = new ArrayList<String>();
+        public List<String> eventQ = new ArrayList<>();
 
         public DirectionInfo(int key, int x, int y, boolean forcedInput) {
             this.key = key;
@@ -115,7 +110,7 @@ public class MapleNodes {
     }
 
     public Collection<MapleNodeInfo> getNodes() {
-        return new ArrayList<MapleNodeInfo>(nodes.values());
+        return new ArrayList<>(nodes.values());
     }
 
     public MapleNodeInfo getNode(final int index) {
@@ -172,7 +167,7 @@ public class MapleNodes {
         if (nodes.size() <= 0 || nodeStart < 0) {
             return;
         }
-        Map<Integer, MapleNodeInfo> unsortedNodes = new HashMap<Integer, MapleNodeInfo>(nodes);
+        Map<Integer, MapleNodeInfo> unsortedNodes = new HashMap<>(nodes);
         final int nodeSize = unsortedNodes.size();
         nodes.clear();
         int nextNode = getNextNode(unsortedNodes.get(nodeStart));
@@ -186,7 +181,7 @@ public class MapleNodes {
     }
 
     public final List<Rectangle> getAreas() {
-        return new ArrayList<Rectangle>(areas);
+        return new ArrayList<>(areas);
     }
 
     public final Rectangle getArea(final int index) {
@@ -217,7 +212,7 @@ public class MapleNodes {
     }
 
     public final List<MaplePlatform> getPlatforms() {
-        return new ArrayList<MaplePlatform>(platforms);
+        return new ArrayList<>(platforms);
     }
 
     public static class MonsterPoint {
@@ -242,7 +237,7 @@ public class MapleNodes {
     }
 
     public final void addMobSpawn(int mobId, int spendCP) {
-        this.mobsToSpawn.add(new Pair<Integer, Integer>(mobId, spendCP));
+        this.mobsToSpawn.add(new Pair<>(mobId, spendCP));
     }
 
     public final List<Pair<Integer, Integer>> getMobsToSpawn() {
@@ -250,7 +245,7 @@ public class MapleNodes {
     }
 
     public final void addGuardianSpawn(Point guardian, int team) {
-        this.guardiansToSpawn.add(new Pair<Point, Integer>(guardian, team));
+        this.guardiansToSpawn.add(new Pair<>(guardian, team));
     }
 
     public final List<Pair<Point, Integer>> getGuardians() {

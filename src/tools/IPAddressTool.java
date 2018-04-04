@@ -38,7 +38,7 @@ public class IPAddressTool {
      * @return The IP as a long integer.
      * @throws RuntimeException
      */
-    public static final long dottedQuadToLong(final String dottedQuad) throws RuntimeException {
+    public static long dottedQuadToLong(final String dottedQuad) throws RuntimeException {
         final String[] quads = dottedQuad.split("\\.");
         if (quads.length != 4) {
             throw new RuntimeException("Invalid IP Address format.");
@@ -57,7 +57,7 @@ public class IPAddressTool {
      * @return The IP as a dotted-quad string.
      * @throws RuntimeException
      */
-    public static final String longToDottedQuad(long longIP) throws RuntimeException {
+    public static String longToDottedQuad(long longIP) throws RuntimeException {
         StringBuilder ipAddress = new StringBuilder();
 
         for (int i = 0; i < 4; i++) {

@@ -30,7 +30,7 @@ function action(mode, type, selection) {
     else
 	cm.dispose();
     if (status == 0 && mode == 1) {
-	var selStr = "Hello. I am Vicious, reMaskedStory Sniper. However, I used to be the top student of Athena Pierce. Though I no longer hunt, I can make some archer items that will be useful for you...#b"
+	var selStr = "Hello. I am Vicious, retired Sniper. However, I used to be the top student of Athena Pierce. Though I no longer hunt, I can make some archer items that will be useful for you...#b"
 	var options = new Array("Create a bow","Create a crossbow","Make a glove","Upgrade a glove","Create materials","Create Arrows");
 	for (var i = 0; i < options.length; i++) {
 	    selStr += "\r\n#L" + i + "# " + options[i] + "#l";

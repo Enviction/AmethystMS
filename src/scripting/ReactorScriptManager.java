@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package scripting;
 
+import client.MapleClient;
+import database.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,22 +30,19 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
-
-import client.MapleClient;
-import database.DatabaseConnection;
-import server.maps.ReactorDropEntry;
+import javax.script.ScriptException;
 import server.maps.MapleReactor;
+import server.maps.ReactorDropEntry;
 import tools.FileoutputUtil;
 
 public class ReactorScriptManager extends AbstractScriptManager {
 
     private static final ReactorScriptManager instance = new ReactorScriptManager();
-    private final Map<Integer, List<ReactorDropEntry>> drops = new HashMap<Integer, List<ReactorDropEntry>>();
+    private final Map<Integer, List<ReactorDropEntry>> drops = new HashMap<>();
 
-    public static final ReactorScriptManager getInstance() {
+    public static ReactorScriptManager getInstance() {
         return instance;
     }
 
@@ -59,7 +58,7 @@ public class ReactorScriptManager extends AbstractScriptManager {
 
             scriptengine.put("rm", rm);
             iv.invokeFunction("act");
-        } catch (Exception e) {
+        } catch (ScriptException | NoSuchMethodException e) {
             System.err.println("Error executing reactor script. ReactorID: " + reactor.getReactorId() + ", ReactorName: " + reactor.getName() + ":" + e);
             FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Error executing reactor script. ReactorID: " + reactor.getReactorId() + ", ReactorName: " + reactor.getName() + ":" + e);
         }
@@ -70,7 +69,7 @@ public class ReactorScriptManager extends AbstractScriptManager {
         if (ret != null) {
             return ret;
         }
-        ret = new LinkedList<ReactorDropEntry>();
+        ret = new LinkedList<>();
 
         PreparedStatement ps = null;
         ResultSet rs = null;

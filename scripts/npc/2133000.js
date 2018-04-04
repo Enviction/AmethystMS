@@ -13,7 +13,7 @@ function action(mode, type, selection) {
 	    cm.removeAll(4001163);
 	    cm.removeAll(4001169);
 	    cm.removeAll(2270004);
-	cm.sendSimple("#b#L0#Give me Altaire Earrings.#l\r\n#L1#Give me Glittering Altaire Earrings.#l\r\n#L3#Give me Brilliant Altaire Earrings.#l\r\n#L2#Attempt Forest of Poison Haze.#l#k");
+	cm.sendSimple("\r\n#b#L0#Give me Altaire Earrings.#l\r\n#L1#Give me Glittering Altaire Earrings.#l\r\n#L3#Give me Brilliant Altaire Earrings.#l\r\n#L2#Attempt Forest of Poison Haze.#l#k");
     } else if (status == 1) {
 	if (selection == 0) {
 	    if (!cm.haveItem(1032060) && cm.haveItem(4001198, 10)) {

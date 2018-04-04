@@ -29,7 +29,7 @@ public class MapleReactorStats {
 
     private Point tl;
     private Point br;
-    private Map<Byte, StateData> stateInfo = new HashMap<Byte, StateData>();
+    private Map<Byte, StateData> stateInfo = new HashMap<>();
 	
     public void setTL(Point tl) {
         this.tl = tl;

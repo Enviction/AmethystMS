@@ -54,7 +54,6 @@ public class CharacterCardFactory {
     }
 
     public void initialize() {
-        /*
         final MapleData b = data.getData("CharacterCard.img");
         for (MapleData c : b.getChildByPath("Card")) {
             int skillId = MapleDataTool.getIntConvert("skillID", c, 0);
@@ -75,8 +74,7 @@ public class CharacterCardFactory {
                 }
             }
         }
-        System.out.println("Loaded " + (cardEffects.size() + uniqueEffects.size()) + " card effects");
-        */
+        //System.out.println("Loaded " + (cardEffects.size() + uniqueEffects.size()) + " card effects");
     }
 
     public final Triple<Integer, Integer, Integer> getCardSkill(final int job, final int level) { // cardid, skillid, skilllevel

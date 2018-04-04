@@ -11,7 +11,7 @@ var selectedArea = -1;
 function start() {
     action(1, 0, 0);
     if (cm.isGMS()) {
-        maps = Array(100000000, 101000000, 102000000, 103000000, 104000000, 105000000, 110000000, 120000000, 140000000, 200000000, 211000000, 220000000, 221000000, 222000000, 230000000, 240000000, 250000000, 251000000, 260000000, 261000000, 270000000, 310000000, 600000000); 
+        maps = Array(100000000, 101000000, 102000000, 103000000, 104000000, 105000000, 110000000, 120000000, 130000000, 140000000, 200000000, 211000000, 220000000, 221000000, 222000000, 230000000, 240000000, 250000000, 251000000, 260000000, 261000000, 270000000, 310000000, 600000000); 
         pqMaps = Array(230040410, 551030100, 220080000, 211042300, 240050400, 211061001, 272000000, 262030000, 271040000);
     } else {
         maps = Array(130000000, 300000000, 1010000, 680000000, 230000000, 101000000, 211000000, 100000000, 251000000, 103000000, 222000000, 104000000, 240000000, 220000000, 250000000, 800000000, 600000000, 221000000, 200000000, 102000000, 801000000, 105040300, 610010004, 260000000, 540010000, 120000000, 910001000, 680000000, 230000000, 260000000, 101000000, 211000000, 120030000, 130000200, 100000000, 103000000, 222000000, 240000000, 104000000, 220000000, 802000101, 120000000, 221000000, 200000000, 102000000, 300000000, 801000000, 540000000, 541000000, 250000000, 251000000
@@ -41,7 +41,7 @@ function action(mode, type, selection) {
     } else if (status == 1) {
         if (selection == 1) {
             status = 5;
-            cm.sendSimple("#b#L1#Follow the Lead#l\r\n#L4#Monster Rider#l\r\n#L5#Monster Rider Shop#l#k");
+            cm.sendSimple("#b#L6#Neb Fusion#l\r\n#L1#Follow the Lead#l\r\n#L4#Monster Rider#l\r\n#L5#Monster Rider Shop#l#k");
         } else if (selection == 150) {
             cm.dispose();
             cm.openNpc(2161006);
@@ -177,6 +177,21 @@ function action(mode, type, selection) {
         } else if (selection == 5) {
             cm.openShop(40);
             cm.dispose();
+			} else if (selection == 6) {
+            if (cm.getPlayer().getSkillLevel(80001152) > 0 || cm.getPlayer().getSkillLevel(cm.getPlayer().getStat().getSkillByJob(1004, cm.getPlayer().getJob()))) {
+                cm.sendOk("You already have this skill.");
+            } else {
+                if (cm.getJob() >= 5000) {
+                    cm.sendOk("Sorry but Resistance characters may not get the Monster Riding skill.");
+                    cm.dispose();
+                    return;
+                }
+                cm.teachSkill(cm.isGMS() ? 80001152 : cm.getPlayer().getStat().getSkillByJob(1004, cm.getPlayer().getJob()), 1, 0); // Maker
+                cm.sendOk("I have taught you Neb Fusion.");
+            }
+            cm.dispose();
     }
 }
 }
+
+

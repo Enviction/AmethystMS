@@ -6,6 +6,11 @@
 */
 
 function start() {
+	cm.sendOk("Bitches be in jail.");
+	cm.dispose();
+}
+
+/*function start() {
     if (cm.haveItem(4031061)) {
 	cm.sendNext( "Great job clearing level 1! Alright ... I'll send you off to where #b#p2030008##k is. Before that!! Please be aware that the various, special items you have acquired here will not be carried out of here. I'll be taking away those items from your item inventory, so remember that. See ya!" );
     } else {
@@ -21,4 +26,4 @@ function action(mode, type, selection){
 	cm.warp(211042300, 0);
     }
     cm.dispose();
-}
+}*/

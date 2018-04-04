@@ -1,7 +1,7 @@
 var eventmapid = 910340500;
-var returnmap = 262000300;
+var returnmap = 980010000;
 
-var monster = new Array( // revamped
+var monster = new Array(
     9300003, // Slime King
     2220000, // Mano
     3220000, // Stumpy
@@ -103,8 +103,8 @@ function allMonstersDead(eim) {
     if (mobnum < monster.length) {
 	eim.broadcastPlayerMsg(6, "Prepare! The next boss will appear in a glimpse of an eye!");
 } else {
-	eim.saveBossQuest(7000);
-	eim.broadcastPlayerMsg(5, "Your team've beaten the EASY mode and have gained an extra 7,000 points!");
+	eim.saveBossQuest(200);
+	eim.broadcastPlayerMsg(5, "Your team've beaten the EASY mode and have gained an extra 200 points!");
     }
 // When invoking unregisterMonster(MapleMonster mob) OR killed
 // Happens only when size = 0

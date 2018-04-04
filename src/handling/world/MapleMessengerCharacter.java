@@ -20,9 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package handling.world;
 
-import java.io.Serializable;
-
 import client.MapleCharacter;
+import java.io.Serializable;
 
 public class MapleMessengerCharacter implements Serializable {
 

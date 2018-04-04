@@ -32,7 +32,7 @@ function action(mode, type, selection) {
 	    cm.dispose();
 	}
     } else if(status == 1) {
-	cm.warp(101000301, 0);
+	cm.warp(104020111, 0);
 	cm.dispose();
     }
 }

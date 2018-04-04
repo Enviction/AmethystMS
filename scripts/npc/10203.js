@@ -1,33 +1,43 @@
-/*
-	NPC Name: 		Dark Lord
-	Map(s): 		Maple Road : Spilt road of choice
-	Description: 		Job tutorial, movie clip
-*/
-
-var status = -1;
-
+ /**
+* Created by : Shawn of RaGEZONE
+**/
+var name = "#b#eTesting#k#n";
+var talk = "What would you like to browse?\r\n\r\n";
+var menu = ["Common","Warrior","Magician","Archer","Thief","Pirate","NX Items","ETC"];
+var options = [
+/*Common*/ ["Hats","Earrings","Necklaces and Face Accessories","Capes","Overalls","Gloves","Shields","Shoes","Maple Weapons","Level 0 Weapons"],
+/*Warrior*/ ["Hats","Tops","Bottoms","Overalls","Gloves","Shields","Shoes","1H Axes","2H Axes","1H BWs","2H BWs","1H Swords","2H Swords","Spears","Pole Arms"],
+/*Mage*/ ["Hats","Overalls","Gloves","Shields","Shoes","Wands","Staffs"],
+/*Archer*/ ["Hats","Overalls","Gloves","Shoes","Bows","CrossBows","Arrows"],
+/*Thief*/ ["Hats","Tops","Bottoms","Overalls","Gloves","Shields","Shoes","Daggers","Claws","Throwing Stars"],
+/*Pirate*/ ["Hats","Overalls","Gloves","Shoes","Weapons","Bullets and Capsules"],
+/*NX*/ ["Hats","Earrings","Face","Tops","Bottoms","Capes","Overalls","Rings","Gloves","Shields","Shoes","Weapons","Throwing Stars","Pets","Pet Misc","Emotion","Effects","Accessories","Player FM Stores"],
+/*ETC*/ ["Messengers","Super Megaphones, Gachapon Tickets, Rocks, and Morphs","Boss Pieces","Buffs and Potions","Scrolls","Summoning Sacks","Chairs","Mounts"]];
+var colors = ["#g","#r","#d","#b"];
+var rand = Math.floor(Math.random()*4);
+var rand2 = Math.ceil(Math.floor(Math.random()*4));
+var c;
+npc = 0;
 function start() {
-    action(1, 0, 0);
+var text = "Hello #e#d#h ##k#n. I am the All in One seller of "+name+". "+talk+"";
+for (var z = 0; z < menu.length; z++)
+text+= "#L"+z+"##e"+colors[rand]+""+menu[z]+"#l\r\n";
+cm.sendSimple(text);
 }
-
-function action(mode, type, selection) {
-    if (mode == 1) {
-	status++;
-    } else {
-	if (status == 1) {
-	    cm.sendNext("If you wish to experience what it's like to be a Thief, come see me again.");
-	    cm.dispose();
-	    return;
-	}
-	status--;
-    }
-    if (status == 0) {
-	cm.sendNext("Thieves are a perfect blend of luck, dexterity, and power that are adept at surprise attacks against helpless enemies. A high level of avoidability and speed allows the thieves to attack enemies with various angles.");
-    } else if (status == 1) {
-	cm.sendYesNo("Would you like to experience what it's like to be a Thief?");
-    } else if (status == 2) {
-	cm.MovieClipIntroUI(true);
-	cm.warp(1020400, 0); // Effect/Direction3.img/rouge/Scene00
-	cm.dispose();
-    }
+function action(m,t,s) {
+if (m != 1) {
+cm.dispose();
+return;
+}else{
+npc++;
 }
+if (npc == 1) {
+c = s;
+for (var i = 0; i < options[c].length; i++)
+talk+="#L"+i+"##e"+colors[rand2]+""+options[c][i]+"#k#l\r\n";
+cm.sendSimple(talk);
+} else if (npc == 2) {
+cm.openShop(10203+((c*100)+s));
+cm.dispose();
+}
+} 

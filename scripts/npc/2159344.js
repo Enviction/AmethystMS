@@ -46,7 +46,7 @@ function action(mode, type, selection) {
 	} else if (status == 14) {
 		cm.sendDirectionStatus(3, 2);
 		cm.sendDirectionStatus(1, 2000);
-		cm.sendNextNoESC("Ah, you're awake. How do you feel? MaskedStory?", 2159342);
+		cm.sendNextNoESC("Ah, you're awake. How do you feel? Tired?", 2159342);
 	} else if (status == 15) {
 		cm.sendPlayerToNpc("Did you save me?");
 	} else if (status == 16) {

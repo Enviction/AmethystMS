@@ -9,8 +9,8 @@ public class StructSetItem {
 
     public byte completeCount;
     public int setItemID;
-    public Map<Integer, SetItem> items = new LinkedHashMap<Integer, SetItem>();
-    public List<Integer> itemIDs = new ArrayList<Integer>();
+    public Map<Integer, SetItem> items = new LinkedHashMap<>();
+    public List<Integer> itemIDs = new ArrayList<>();
 
     public static class SetItem {
 
@@ -19,6 +19,6 @@ public class StructSetItem {
     }
 
     public Map<Integer, SetItem> getItems() {
-        return new LinkedHashMap<Integer, SetItem>(items);
+        return new LinkedHashMap<>(items);
     }
 }

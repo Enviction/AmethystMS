@@ -11,13 +11,13 @@ function action(mode, type, selection) {
 	case -1:
 	    status = 0;
 	    switch (cm.getChannelNumber()) {
-		case 5:
+		case 1:
 		    balrogMode = true;
-		    cm.sendNext("The channel you are currently staying is available for #bNormal Balrog Expedition Squad#k. If you wish to join a different mode, please select the correct channel. \n\r #b#i3994116# Ch.5 / Level 50 and above / 6 ~ 15 users \n#b#i3994115# The rest of the channel  / Level 50 ~ Level 70 / 3 ~ 6 users.");
+		    cm.sendNext("The channel you are currently staying is available for #bNormal Balrog Expedition Squad#k. If you wish to join a different mode, please select the correct channel. \n\r #b#i3994116# Ch.1 / Level 50 and above / 6 ~ 15 users \n#b#i3994115# The rest of the channel  / Level 50 ~ Level 70 / 3 ~ 6 users.");
 		    break;
 		default:
 		    balrogMode = false;
-		    cm.sendNext("The channel you are currently staying is available for #bEasy Balrog Expedition Squad#k. If you wish to join a different mode, please select the correct channel. \n\r #b#i3994116# Ch.5 / Level 50 and above / 6 ~ 15 users \n#b#i3994115# The rest of the channel  / Level 50 ~ Level 70 / 3 ~ 6 users.");
+		    cm.sendNext("The channel you are currently staying is available for #bEasy Balrog Expedition Squad#k. If you wish to join a different mode, please select the correct channel. \n\r #b#i3994116# Ch.1 / Level 50 and above / 6 ~ 15 users \n#b#i3994115# The rest of the channel  / Level 50 ~ Level 70 / 3 ~ 6 users.");
 		    break;
 	    }
 	    break;

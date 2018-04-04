@@ -41,9 +41,8 @@ public enum MapleWeaponType {
     KNUCKLE(1.7f, 20),
     GUN(1.5f, 15),
     CANNON(1.35f, 15),
-    DUAL_BOW(1.35f, 15), //beyond op
-    MAGIC_ARROW(2.0f, 15),
-    CARTE(2.0f, 15),
+    DUAL_BOW(2.0f, 15), //beyond op
+	MAGIC_ARROW(2.0f, 15),
     KATARA(1.3f, 20);
     private final float damageMultiplier;
     private final int baseMastery;

@@ -28,6 +28,7 @@ import java.util.Properties;
 
 public enum RecvPacketOpcode implements WritableIntValueHolder {
     // GENERIC
+
     PONG(false),
     CLIENT_HELLO(false),
     // LOGIN
@@ -35,6 +36,9 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
     SEND_ENCRYPTED(false),
     CLIENT_ERROR(false),
     SERVERLIST_REQUEST,
+    TOS,
+    FIND_FRIEND,
+    YOUR_INFORMATION,
     REDISPLAY_SERVERLIST,
     CHARLIST_REQUEST,
     SERVERSTATUS_REQUEST,
@@ -43,8 +47,6 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
     CREATE_CHAR,
     DELETE_CHAR,
     STRANGE_DATA,
-    CHARACTER_CARDS,
-    CHOOSE_SKILL,
     CHAR_SELECT,
     AUTH_SECOND_PASSWORD,
     VIEW_ALL_CHAR,
@@ -55,13 +57,11 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
     VIEW_SELECT_PIC,
     PICK_ALL_CHAR,
     TWIN_DRAGON_EGG,
-    INNER_CIRCULATOR,
-    RESET_CORE_AURA,
+    PART_TIME_JOB,
     XMAS_SURPRISE,
     VICIOUS_HAMMER,
     USE_ALIEN_SOCKET,
     MAGIC_WHEEL,
-    UPDATE_RED_LEAF,
     USE_ALIEN_SOCKET_RESPONSE,
     USE_NEBULITE_FUSION,
     CHAR_SELECT_NO_PIC,
@@ -131,9 +131,10 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
     QUEST_ACTION,
     SKILL_MACRO,
     REWARD_ITEM,
-    USE_TREASURE_CHEST,
+    USE_TREASUER_CHEST,
     PARTYCHAT,
     WHISPER,
+    SPOUSE_CHAT,
     MESSENGER,
     PLAYER_INTERACTION,
     PARTY_OPERATION,
@@ -223,6 +224,7 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
     MOB_BOMB,
     CREATE_ULTIMATE,
     PAM_SONG,
+    INNER_CIRCULATOR,
     USE_POT,
     CLEAR_POT,
     FEED_POT,
@@ -262,21 +264,18 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
     ENTER_PVP_PARTY,
     LEAVE_PVP,
     PVP_RESPAWN,
+    EQUIP_STOLEN_SKILL,
+    UPDATE_STOLEN_SKILL,
+    SKILL_SWIPE_REQUEST,
+    CHANGE_CODEX_SET,
+    CHARACTER_CARD,
     PVP_ATTACK,
     PVP_SUMMON,
     PUBLIC_NPC,
     ENTER_AZWAN,
     ENTER_AZWAN_EVENT,
     LEAVE_AZWAN,
-    MANAGE_STOLEN_SKILLS,
-    SKILL_SWIPE,
-    VIEW_SKILLS,
-    CANCEL_OUT_SWIPE,
-    PET_AUTO_BUFF,
-    BUFF_FREEZER_REVIVE,
-    LINKED_SKILLS_SELECT,
-    DOUBLE_DOWN_UNK,
-    MTS_TAB;
+    MTS_TAB, MCAUGHTEFF;
     private short code = -2;
 
     @Override
@@ -304,7 +303,7 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
 
     public static Properties getDefaultProperties() throws FileNotFoundException, IOException {
         Properties props = new Properties();
-        FileInputStream fileInputStream = new FileInputStream(GameConstants.GMS ? "recvopsGMS.properties" : "recvops.properties");
+        FileInputStream fileInputStream = new FileInputStream("recv.properties");
         props.load(fileInputStream);
         fileInputStream.close();
         return props;

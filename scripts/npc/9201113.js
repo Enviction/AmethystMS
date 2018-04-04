@@ -11,11 +11,6 @@ function start() {
 			cm.dispose();
 			return;
 		}
-		if (cm.getPlayer().getClient().getChannel() != 9 && cm.getPlayer().getClient().getChannel() != 10 && cm.getPlayer().getClient().getChannel() != 11 && cm.getPlayer().getClient().getChannel() != 8) {
-			cm.sendOk("Crimsonwood Keep may only be attempted on channel 8,9,10,11.");
-			cm.dispose();
-			return;
-		}
     var em = cm.getEventManager("CWKPQ");
 
     if (em == null) {

@@ -161,6 +161,7 @@ public class Skill {
                 case 2221001: // Big bang
                 case 2321001: // Big bang
                 case 1076:
+                case 8001000:
                     isBuff = false;
                     break;
                 case 4111009:
@@ -178,6 +179,11 @@ public class Skill {
                 case 20001004:
                 case 20011004:
                 case 80001000:
+                    
+                case 80001079:
+                case 80001080:
+                case 80001081:
+                    
                 case 1026:
                 case 10001026:
                 case 20001026:
@@ -632,5 +638,159 @@ public class Skill {
     public boolean isSpecialSkill() {
         int jobId = id / 10000;
         return jobId == 900 || jobId == 800 || jobId == 9000 || jobId == 9200 || jobId == 9201 || jobId == 9202 || jobId == 9203 || jobId == 9204;
+    }
+    
+     public boolean isGMSkill(int skillId) {
+        switch (skillId) { //get all the gm skill ids
+            case 8001000:
+            case 8001001:
+            case 9001000:
+            case 9001001:
+            case 9001002:
+            case 9101000:
+            case 9101001:
+            case 9101002:
+            case 9101003:
+            case 9101004:
+            case 9101005:
+            case 9101006:
+            case 9101007:
+            case 9101008:
+                return true;
+            default:
+                return false;
+        }
+    }
+    
+    public boolean isNormalSkill(Skill skillId, boolean isGM) {
+        return isNormalSkill(skillId.getId(), isGM);
+    }
+    
+    public boolean isNormalSkill(int skillId) {
+        return isNormalSkill(skillId, false);
+    }
+    
+    public boolean isNormalSkill(int skillId, boolean isGM) {
+        if (isGMSkill(skillId) && !isGM) {
+            return false;
+        }
+        switch (skillId) { //Working Skills
+            case 0000012:
+            case 0000073:
+            case 0001000:
+            case 0001001:
+            case 0001002:
+            case 10000012:
+            case 10000073:
+            case 80001089:
+            case 10001000:
+            case 10001001:
+            case 10001002:
+            case 20000012:
+            case 20000073:
+            case 20001000:
+            case 20001001:
+            case 20010012:
+            case 20010073:
+            case 20011000:
+            case 20011002:
+            case 20020012:
+            case 20020073:
+            case 20030012:
+            case 20030073:
+            case 20031203:
+            case 20031204:
+            case 20031205:
+            case 20031206:
+            case 20031207:
+            case 20031208:
+            case 20031209:
+            case 20031210:
+            case 30000012:
+            case 30000073:
+            case 30010012:
+            case 30010073:
+            case 50000012:
+            case 50000073:
+            case 50001000:
+            case 50001001:
+            case 50001002:
+                return true;
+            /*case 1000006: //FIX THIS
+            case 51000000: //FIX THIS
+            case 5800009: //FIX THIS
+            case 5100009: //FIX THIS
+            case 11000005: //FIX THIS
+            case 15000008: //FIX THIS
+            case 31000003: //FIX THIS
+            case 15100007: //FIX THIS
+            case 32120009: //FIX THIS
+            case 5710004: //FIX THIS This one is still broken
+            case 5210012: //FIX THIS This one is still broken
+            case 2000006: //FIX THIS
+            case 12000005: //FIX THIS
+            case 21120004: //FIX THIS
+            case 4110008: //FIX THIS
+            case 4210013: //FIX THIS
+            case 4330008: //FIX THIS
+            case 14110009: //FIX THIS
+            case 22131001: //FIX THIS*/
+            case 1000007: 
+            case 2000007: 
+            case 3000006:
+            case 4000010:
+            case 5000006:
+            case 5001008:
+            case 5001009:
+            case 5010004:
+            case 5010005:
+            case 5081010:
+            case 5081011:
+            case 5090006:
+            case 5300007:
+            case 5310011:
+            case 5320011:
+            case 5710012:
+            case 11000006:
+            case 11111008:
+            case 12000006:
+            case 13000005:
+            case 13110009:
+            case 14000006:
+            case 14111010:
+            case 15000005:
+            case 15001007:
+            case 15111011:
+            case 21000005:
+            case 21120009:
+            case 21120010:
+            case 22000002:
+            case 23000004:
+            case 23101007:
+            case 24000004:
+            case 24121010:
+            case 31000005:
+            case 31001006:
+            case 31001007:
+            case 31001008:
+            case 31100007:
+            case 31120011:
+            case 31121010:
+            case 32000012:
+            case 32110007:
+            case 32110008:
+            case 32110009:
+            case 33000004:
+            case 35000005:
+            case 35121011:
+                return false;
+            default :
+                if ((skillId >= 70000000 || skillId < 10000) || (skillId > 10000000 && skillId < 10019999) || (skillId > 20000000 && skillId < 20039999) || (skillId > 30000000 && skillId < 30019999) || (skillId > 50000000 && skillId < 50009999)) {
+                    return false;
+                } else {
+                    return true;
+                }
+        }
+        
     }
 }

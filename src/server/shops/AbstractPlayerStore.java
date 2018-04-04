@@ -20,28 +20,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.shops;
 
+import client.MapleCharacter;
+import client.MapleClient;
+import client.inventory.Item;
+import client.inventory.ItemLoader;
+import client.inventory.MapleInventoryType;
 import constants.GameConstants;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
+import database.DatabaseConnection;
+import handling.channel.ChannelServer;
+import handling.world.World;
+import java.lang.ref.WeakReference;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.lang.ref.WeakReference;
-
-import client.inventory.Item;
-import client.inventory.ItemLoader;
-import client.MapleCharacter;
-import client.MapleClient;
-import client.inventory.MapleInventoryType;
-import database.DatabaseConnection;
-
-import handling.channel.ChannelServer;
-import handling.world.World;
-import java.util.ArrayList;
-import server.maps.MapleMapObject;
 import server.maps.MapleMap;
+import server.maps.MapleMapObject;
 import server.maps.MapleMapObjectType;
 import tools.Pair;
 import tools.packet.PlayerShopPacket;
@@ -50,13 +48,14 @@ public abstract class AbstractPlayerStore extends MapleMapObject implements IMap
 
     protected boolean open = false, available = false;
     protected String ownerName, des, pass;
-    protected int ownerId, owneraccount, itemId, channel, map;
+    protected int ownerId, owneraccount, itemId, world, channel, map;
     protected AtomicInteger meso = new AtomicInteger(0);
     protected WeakReference<MapleCharacter> chrs[];
-    protected List<String> visitors = new LinkedList<String>();
-    protected List<BoughtItem> bought = new LinkedList<BoughtItem>();
-    protected List<MaplePlayerShopItem> items = new LinkedList<MaplePlayerShopItem>();
-
+    protected List<String> visitors = new LinkedList<>();
+    protected List<BoughtItem> bought = new LinkedList<>();
+    protected List<MaplePlayerShopItem> items = new LinkedList<>();
+    
+    @SuppressWarnings("unchecked")
     public AbstractPlayerStore(MapleCharacter owner, int itemId, String desc, String pass, int slots) {
         this.setPosition(owner.getTruePosition());
         this.ownerName = owner.getName();
@@ -67,9 +66,10 @@ public abstract class AbstractPlayerStore extends MapleMapObject implements IMap
         this.pass = pass;
         this.map = owner.getMapId();
         this.channel = owner.getClient().getChannel();
+        this.world = owner.getClient().getWorld();
         chrs = new WeakReference[slots];
         for (int i = 0; i < chrs.length; i++) {
-            chrs[i] = new WeakReference<MapleCharacter>(null);
+            chrs[i] = new WeakReference<>(null);
         }
     }
 
@@ -158,7 +158,7 @@ public abstract class AbstractPlayerStore extends MapleMapObject implements IMap
             final int packageid = rs.getInt(1);
             rs.close();
             ps.close();
-            List<Pair<Item, MapleInventoryType>> iters = new ArrayList<Pair<Item, MapleInventoryType>>();
+            List<Pair<Item, MapleInventoryType>> iters = new ArrayList<>();
             Item item;
             for (MaplePlayerShopItem pItems : items) {
                 if (pItems.item == null || pItems.bundles <= 0) {
@@ -169,12 +169,11 @@ public abstract class AbstractPlayerStore extends MapleMapObject implements IMap
                 }
                 item = pItems.item.copy();
                 item.setQuantity((short) (item.getQuantity() * pItems.bundles));
-                iters.add(new Pair<Item, MapleInventoryType>(item, GameConstants.getInventoryType(item.getItemId())));
+                iters.add(new Pair<>(item, GameConstants.getInventoryType(item.getItemId())));
             }
             ItemLoader.HIRED_MERCHANT.saveItems(iters, packageid);
             return true;
         } catch (SQLException se) {
-            se.printStackTrace();
         }
         return false;
     }
@@ -203,11 +202,11 @@ public abstract class AbstractPlayerStore extends MapleMapObject implements IMap
             } else {
                 broadcastToVisitors(PlayerShopPacket.shopVisitorAdd(visitor, i));
             }
-            chrs[i - 1] = new WeakReference<MapleCharacter>(visitor);
+            chrs[i - 1] = new WeakReference<>(visitor);
             if (!isOwner(visitor) && !visitors.contains(visitor.getName())) {
                 visitors.add(visitor.getName());
             }
-            if (i == 3) {
+            if (i == 6) {
                 update();
             }
         }
@@ -219,7 +218,7 @@ public abstract class AbstractPlayerStore extends MapleMapObject implements IMap
         boolean shouldUpdate = getFreeSlot() == -1;
         if (slot > 0) {
             broadcastToVisitors(PlayerShopPacket.shopVisitorLeave(slot), slot);
-            chrs[slot - 1] = new WeakReference<MapleCharacter>(null);
+            chrs[slot - 1] = new WeakReference<>(null);
             if (shouldUpdate) {
                 update();
             }
@@ -249,7 +248,8 @@ public abstract class AbstractPlayerStore extends MapleMapObject implements IMap
                 }
                 broadcastToVisitors(PlayerShopPacket.shopVisitorLeave(getVisitorSlot(visitor)), getVisitorSlot(visitor));
                 visitor.setPlayerShop(null);
-                chrs[i] = new WeakReference<MapleCharacter>(null);
+                removeVisitor(visitor);
+                chrs[i] = new WeakReference<>(null);
             }
         }
         update();
@@ -280,10 +280,10 @@ public abstract class AbstractPlayerStore extends MapleMapObject implements IMap
 
     @Override
     public List<Pair<Byte, MapleCharacter>> getVisitors() {
-        List<Pair<Byte, MapleCharacter>> chrz = new LinkedList<Pair<Byte, MapleCharacter>>();
+        List<Pair<Byte, MapleCharacter>> chrz = new LinkedList<>();
         for (byte i = 0; i < chrs.length; i++) { //include owner or no
             if (chrs[i] != null && chrs[i].get() != null) {
-                chrz.add(new Pair<Byte, MapleCharacter>((byte) (i + 1), chrs[i].get()));
+                chrz.add(new Pair<>((byte) (i + 1), chrs[i].get()));
             }
         }
         return chrz;
@@ -353,14 +353,15 @@ public abstract class AbstractPlayerStore extends MapleMapObject implements IMap
 
     public MapleCharacter getMCOwnerWorld() {
         int ourChannel = World.Find.findChannel(ownerId);
+        int ourWorld = World.Find.findWorld(ownerId);
         if (ourChannel <= 0) {
             return null;
         }
-        return ChannelServer.getInstance(ourChannel).getPlayerStorage().getCharacterById(ownerId);
+        return ChannelServer.getInstance(ourWorld, ourChannel).getPlayerStorage().getCharacterById(ownerId);
     }
 
     public MapleCharacter getMCOwnerChannel() {
-        return ChannelServer.getInstance(channel).getPlayerStorage().getCharacterById(ownerId);
+        return ChannelServer.getInstance(world, channel).getPlayerStorage().getCharacterById(ownerId);
     }
 
     public MapleCharacter getMCOwner() {
@@ -368,7 +369,7 @@ public abstract class AbstractPlayerStore extends MapleMapObject implements IMap
     }
 
     public MapleMap getMap() {
-        return ChannelServer.getInstance(channel).getMapFactory().getMap(map);
+        return ChannelServer.getInstance(world, channel).getMapFactory().getMap(map);
     }
 
     @Override

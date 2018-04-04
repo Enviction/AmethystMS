@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package client;
 
 import java.util.concurrent.ScheduledFuture;
-
 import server.MapleStatEffect;
 
 public class MapleBuffStatValueHolder {

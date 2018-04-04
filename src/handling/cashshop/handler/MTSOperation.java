@@ -1,12 +1,10 @@
 package handling.cashshop.handler;
 
-import client.inventory.Equip;
-import constants.GameConstants;
-import client.inventory.Item;
 import client.MapleClient;
+import client.inventory.Equip;
+import client.inventory.Item;
 import client.inventory.MapleInventoryType;
-import constants.ServerConstants;
-import java.util.Calendar;
+import constants.GameConstants;
 import server.MTSCart;
 import server.MTSStorage;
 import server.MTSStorage.MTSItemInfo;
@@ -40,7 +38,7 @@ public class MTSOperation {
             }
             slea.skip(12); //expiration, -1, don't matter
             short stars = 1, quantity = 1;
-            byte slot = 0;
+            byte slot;
             if (invType == 1) {
                 slea.skip(32);
             } else {
@@ -69,7 +67,9 @@ public class MTSOperation {
             final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
             final MapleInventoryType type = GameConstants.getInventoryType(itemid);
             final Item item = c.getPlayer().getInventory(type).getItem(slot).copy();
-            if (ii.isCash(itemid) || quantity <= 0 || item == null || item.getQuantity() <= 0 || item.getItemId() != itemid || item.getUniqueId() > 0 || item.getQuantity() < quantity || price < ServerConstants.MIN_MTS || c.getPlayer().getMeso() < ServerConstants.MTS_MESO || cart.getNotYetSold().size() >= 10 || ii.isDropRestricted(itemid) || ii.isAccountShared(itemid) || item.getExpiration() > -1 || item.getFlag() > 0) {
+            final int MIN_MTS = 100; // public static final int MIN_MTS = 100; // Minimum amount to sell
+            final int MTS_MESO = 10000;// public static final int MTS_MESO = 10000; // mesos needed
+            if (ii.isCash(itemid) || quantity <= 0 || item == null || item.getQuantity() <= 0 || item.getItemId() != itemid || item.getUniqueId() > 0 || item.getQuantity() < quantity || price < MIN_MTS || c.getPlayer().getMeso() < MTS_MESO || cart.getNotYetSold().size() >= 10 || ii.isAccountShared(itemid) || item.getExpiration() > -1 || item.getFlag() > 0) {
                 c.getSession().write(MTSCSPacket.getMTSFailSell());
                 doMTSPackets(cart, c);
                 return;
@@ -82,14 +82,11 @@ public class MTSOperation {
                     return;
                 }
             }
-            if (quantity >= 50 && item.getItemId() == 2340000) {
-                c.setMonitored(true); //hack check
-            }
             final long expiration = (System.currentTimeMillis() + (7L * 24 * 60 * 60 * 1000));
             item.setQuantity(quantity);
             MTSStorage.getInstance().addToBuyNow(cart, item, price, c.getPlayer().getId(), c.getPlayer().getName(), expiration);
             MapleInventoryManipulator.removeFromSlot(c, type, slot, quantity, false);
-            c.getPlayer().gainMeso(-ServerConstants.MTS_MESO, false);
+            c.getPlayer().gainMeso(-MTS_MESO, false); // public static final int MTS_MESO = 10000; // mesos needed
             c.getSession().write(MTSCSPacket.getMTSConfirmSell());
         } else if (op == 5) { //change page/tab
             cart.changeInfo(slea.readInt(), slea.readInt(), slea.readInt());

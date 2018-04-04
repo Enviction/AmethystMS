@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 
 public class AutoRegister {
-        private static final int ACCOUNTS_PER_IP = 5; //change the value to the amount of accounts you want allowed for each ip
+        private static final int ACCOUNTS_PER_IP = 100; //change the value to the amount of accounts you want allowed for each ip
         public static final boolean autoRegister = false; //enable = true or disable = false
 
         public static boolean success = false; // DONT CHANGE

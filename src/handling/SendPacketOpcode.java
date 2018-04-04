@@ -35,20 +35,16 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     LOGIN_STATUS,
     LOGIN_SECOND,
     PIN_OPERATION,
-    PHANTOM_CARD,
     SECONDPW_ERROR,
     SERVERLIST,
     SERVERSTATUS,
     SERVER_IP,
     CHARLIST,
-    TARGET_SKILL_MENU,
-    EQUIPPED_SKILL,
     CHAR_NAME_RESPONSE,
     ADD_NEW_CHAR_ENTRY,
     DELETE_CHAR_RESPONSE,
     CHANNEL_SELECTED,
     ALL_CHARLIST,
-    STEAL_SKILL,
     RSA_KEY,
     ENABLE_RECOMMENDED,
     SEND_RECOMMENDED,
@@ -56,10 +52,14 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     CHANGE_NAME_CHECK,
     CHANGE_NAME_RESPONSE,
     GACHAPON_STAMPS,
+    EQUIP_STOLEN_SKILL,
+    UPDATE_CARD_DECK,
+    UPDATE_STOLEN_SKILLS,
+    SKILL_SWIPE_WINDOW,
     FREE_CASH_ITEM,
     ONE_A_DAY,    
     // CHANNEL
-    CHANGE_CHANNEL, SHOW_TITLE,
+    CHANGE_CHANNEL, SHOW_TITLE, GM_BOARD,
     UPDATE_STATS,
     CS_CHARGE_CASH,
     FAME_RESPONSE,
@@ -88,6 +88,7 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     POTION_BONUS,
     DISABLE_NPC,
     REPORT_STATUS,
+    REPORT_RESULT,
     SHOW_FIREWORKS_EFFECT,
     SHOW_MAGNIFYING_EFFECT,
     SHOW_NEBULITE_EFFECT,
@@ -100,14 +101,6 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     BOAT_STATE,
     WITCH_TOWER,
     PYRAMID_KILL_COUNT,
-    AZWAN_MOB_TO_MOB_DAMAGE,
-    AZWAN_SPAWN_MONSTER,
-    AZWAN_KILL_MONSTER,
-    AZWAN_SPAWN_MONSTER_CONTROL,
-    UPDATE_INNER_ABILITY,
-    ENABLE_POTENTIAL_EFF,
-    DISABLE_POTENTIAL_EFF,
-    UPDATE_HONOUR,
     PVP_DAMAGED,
     ANDROID_UPDATE,
     SHOW_PQ_REWARD,
@@ -234,6 +227,7 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     RENAME_FAMILIAR,
     DUEY,
     TROCK_LOCATIONS,
+    LIE_DETECTOR,
     MONSTER_CARNIVAL_START,
     MONSTER_CARNIVAL_OBTAINED_CP,
     MONSTER_CARNIVAL_PARTY_CP,
@@ -374,7 +368,6 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     UPDATE_GENDER,
     REGISTER_FAMILIAR,
     SPAWN_FAMILIAR,
-    RESPAWN_FAMILIAR,
     MOVE_FAMILIAR,
     ATTACK_FAMILIAR,
     UPDATE_FAMILIAR,
@@ -429,38 +422,23 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     SPECIAL_CREATION,
     MONSTER_RESIST,
     PET_EXCEPTION_LIST,
-    UPDATE_STOLEN_SKILLS,
-    TARGET_SKILL,
-    REPLACE_SKILLS,
-    RPS_GAME, 
-    ENTER_AZWAN;
+    RPS_GAME, AZWAN_FAME, ASWAN_MOB_TO_MOB_DAMAGE, ASWAN_SPAWN_MONSTER, ASWAN_KILL_MONSTER, ASWAN_SPAWN_MONSTER_CONTROL, PART_TIME_JOB, MAGIC_WHEEL, MAPLE_ADMIN_MSG, WEB_BOARD_UPDATE, CLASS_UPDATE, CONSULT_UPDATE, CHANGE_HOUR, ANTI_MACRO_RESULT, GAME_PATCHES, SEND_EULA;
     private short code = -2;
 
     @Override
     public void setValue(short code) {
         this.code = code;
     }
-    public static String getOpcodeName(int value) {
-        for (SendPacketOpcode opcode : SendPacketOpcode.values()) {
-            if (opcode.getValue() == value) {
-                return opcode.name();
-            }
-        }
-        return "UNKNOWN";
-    }
-
 
     @Override
     public short getValue() {
-        //if(this.name() != "NPC_ACTION")
         //System.out.println("Packet to send: " + this.name() + " Value: " + this.code + "\r\nCaller: " + Thread.currentThread().getStackTrace()[2]);
-        //System.out.println("[S]Header: " + this.name());
         return code;
     }
 
     public static Properties getDefaultProperties() throws FileNotFoundException, IOException {
         Properties props = new Properties();
-        FileInputStream fileInputStream = new FileInputStream(GameConstants.GMS ? "sendopsGMS.properties" : "sendops.properties");
+        FileInputStream fileInputStream = new FileInputStream("send.properties");
         props.load(fileInputStream);
         fileInputStream.close();
         return props;
@@ -468,6 +446,15 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
 
     static {
         reloadValues();
+    }
+    
+       public static String getOpcodeName(int value) {
+        for (SendPacketOpcode opcode : SendPacketOpcode.values()) {
+            if (opcode.getValue() == value) {
+                return opcode.name();
+            }
+        }
+        return "UNKNOWN";
     }
 
     public static final void reloadValues() {

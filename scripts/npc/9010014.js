@@ -11,11 +11,11 @@ function action(mode, type, selection) {
 	cm.dispose();
 	return;
     }
-		if (cm.getClient().getChannel() == 1) {
-			cm.sendNext("The event may not be attempted in channel 1.");
-			cm.dispose();
-			return;
-		}
+		//if (cm.getClient().getChannel() == 1) {
+			//cm.sendNext("The event may not be attempted in channel 1.");
+			//cm.dispose();
+			//return;
+		//}
     if (status == 0) {
 	cm.sendNext("Hi There~ I'm Aramia.  I know how to make the firecrackers!  If you can gather and give me Power Keg then, we can have a fireworks!  Please get all the powder kegs that you get from the monsters.");
     } else if (status == 1) {

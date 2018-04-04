@@ -23,22 +23,16 @@ package tools;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.Thread.State;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.*;
 
 public class CPUSampler {
 
-    private List<String> included = new LinkedList<String>();
+    private List<String> included = new LinkedList<>();
     private static CPUSampler instance = new CPUSampler();
     private long interval = 5;
     private SamplerThread sampler = null;
-    private Map<StackTrace, Integer> recorded = new HashMap<StackTrace, Integer>();
+    private Map<StackTrace, Integer> recorded = new HashMap<>();
     private int totalSamples = 0;
 
     public static CPUSampler getInstance() {
@@ -78,7 +72,7 @@ public class CPUSampler {
     }
 
     public SampledStacktraces getTopConsumers() {
-        List<StacktraceWithCount> ret = new ArrayList<StacktraceWithCount>();
+        List<StacktraceWithCount> ret = new ArrayList<>();
         Set<Entry<StackTrace, Integer>> entrySet = recorded.entrySet();
         for (Entry<StackTrace, Integer> entry : entrySet) {
             ret.add(new StacktraceWithCount(entry.getValue(), entry.getKey()));
@@ -119,7 +113,7 @@ public class CPUSampler {
     private int findRelevantElement(StackTraceElement[] trace) {
         if (trace.length == 0) {
             return -1;
-        } else if (included.size() == 0) {
+        } else if (included.isEmpty()) {
             return 0;
         }
         int firstIncluded = -1;
@@ -239,7 +233,6 @@ public class CPUSampler {
             try {
                 rthread.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }
 
@@ -287,6 +280,13 @@ public class CPUSampler {
             }
             final StacktraceWithCount o = (StacktraceWithCount) oth;
             return count == o.count;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 97 * hash + this.count;
+            return hash;
         }
 
         @Override

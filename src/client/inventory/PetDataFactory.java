@@ -34,10 +34,10 @@ import server.Randomizer;
 public class PetDataFactory {
 
     private static MapleDataProvider dataRoot = MapleDataProviderFactory.getDataProvider(new File(System.getProperty("net.sf.odinms.wzpath") + "/Item.wz"));
-    private static Map<Integer, List<PetCommand>> petCommands = new HashMap<Integer, List<PetCommand>>();
-    private static Map<Integer, Integer> petHunger = new HashMap<Integer, Integer>();
+    private static Map<Integer, List<PetCommand>> petCommands = new HashMap<>();
+    private static Map<Integer, Integer> petHunger = new HashMap<>();
 
-    public static final PetCommand getRandomPetCommand(final int petId) {
+    public static PetCommand getRandomPetCommand(final int petId) {
 	if (getPetCommand(petId, 0) == null) {
 	    return null;
 	} //loaded, and checked if it existed
@@ -45,7 +45,7 @@ public class PetDataFactory {
 	return gg.get(Randomizer.nextInt(gg.size()));
     }
 
-    public static final PetCommand getPetCommand(final int petId, final int skillId) {
+    public static PetCommand getPetCommand(final int petId, final int skillId) {
 	List<PetCommand> gg = petCommands.get(Integer.valueOf(petId));
         if (gg != null) {
 	    if (gg.size() > skillId && gg.size() > 0) {
@@ -55,7 +55,7 @@ public class PetDataFactory {
         }
         final MapleData skillData = dataRoot.getData("Pet/" + petId + ".img");
 	int theSkill = 0;
-        gg = new ArrayList<PetCommand>();
+        gg = new ArrayList<>();
 	while (skillData != null) {
 	    MapleData dd = skillData.getChildByPath("interact/" + theSkill);
 	    if (dd == null) {
@@ -72,7 +72,7 @@ public class PetDataFactory {
 	return null;
     }
 
-    public static final int getHunger(final int petId) {
+    public static int getHunger(final int petId) {
         Integer ret = petHunger.get(Integer.valueOf(petId));
         if (ret != null) {
             return ret;

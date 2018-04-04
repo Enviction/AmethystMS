@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package tools.data.input;
 
 import java.io.IOException;
-
 import tools.HexTool;
 
 /**
@@ -112,7 +111,7 @@ public class ByteArrayByteStream implements SeekableInputStreamBytestream {
             nows = HexTool.toString(now);
         }
         if (b) {
-            return "\r\nAll: " + HexTool.toString(arr) + "\r\nNow: " + nows;
+            return "All: " + HexTool.toString(arr) + "\nNow: " + nows;
         } else {
             return "Data: " + nows;
         }

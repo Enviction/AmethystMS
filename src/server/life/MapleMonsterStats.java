@@ -29,9 +29,9 @@ import tools.Pair;
 
 public class MapleMonsterStats {
 
-    private byte cp, selfDestruction_action, tagColor, tagBgColor, rareItemDropLevel, HPDisplayType, summonType, PDRate, MDRate, category, heals;
+    private byte cp, selfDestruction_action, tagColor, tagBgColor, rareItemDropLevel, HPDisplayType, summonType, PDRate, MDRate, category;
     private short level, charismaEXP;
-    private long hp, healThreshold;
+    private long hp;
     private int id, exp, mp, removeAfter, buffToGive, fixedDamage, selfDestruction_hp, dropItemPeriod, point, eva, acc, PhysicalAttack, MagicAttack, speed, partyBonusR, pushed;
     private boolean boss, undead, ffaLoot, firstAttack, isExplosiveReward, mobile, fly, onlyNormalAttack, friendly, noDoom, invincible, partyBonusMob, changeable, escort;
     private String name, mobType;
@@ -99,22 +99,6 @@ public class MapleMonsterStats {
 
     public void setSelfDHP(int selfDestruction_hp) {
         this.selfDestruction_hp = selfDestruction_hp;
-    }
-    
-        public void setHeals(byte heals){
-        this.heals = heals;
-    }
-    
-    public byte getHeals(){
-        return heals;
-    }
-    
-    public void setHealThreshold(long hpthr){
-        this.healThreshold = hpthr;
-    }
-    
-    public long getHealThreshold(){
-        return healThreshold;
     }
 
     public int getSelfDHp() {
@@ -435,12 +419,7 @@ public class MapleMonsterStats {
         this.changeable = invin;
     }
 
-    public boolean isNotChangeable() {
-        for(int i : GameConstants.noBuffMobs){
-            if(id == i){
-                return true; //Mark all noBuffMobs as unchangeable
-            }
-        }
+    public boolean isChangeable() {
         return changeable;
     }
 

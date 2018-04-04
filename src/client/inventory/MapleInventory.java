@@ -21,25 +21,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package client.inventory;
 
 import constants.GameConstants;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Map;
 import java.io.Serializable;
+import java.util.*;
 
 public class MapleInventory implements Iterable<Item>, Serializable {
 
     private Map<Short, Item> inventory;
-    private byte slotLimit = 0;
+    private byte slotLimit = 96;
     private MapleInventoryType type;
 
     /** Creates a new instance of MapleInventory */
     public MapleInventory(MapleInventoryType type) {
-        this.inventory = new LinkedHashMap<Short, Item>();
+        this.inventory = new LinkedHashMap<>();
         this.type = type;
     }
 
@@ -110,7 +103,7 @@ public class MapleInventory implements Iterable<Item>, Serializable {
     }
 
     public List<Item> listById(int itemId) {
-        List<Item> ret = new ArrayList<Item>();
+        List<Item> ret = new ArrayList<>();
         for (Item item : inventory.values()) {
             if (item.getItemId() == itemId) {
                 ret.add(item);
@@ -133,11 +126,11 @@ public class MapleInventory implements Iterable<Item>, Serializable {
 	if (inventory.size() <= 0) {
 	    return Collections.emptyList();
 	}
-        return new LinkedList<Item>(inventory.values());
+        return new LinkedList<>(inventory.values());
     }
 
     public List<Integer> listIds() {
-        List<Integer> ret = new ArrayList<Integer>();
+        List<Integer> ret = new ArrayList<>();
         for (Item item : inventory.values()) {
 	    if (!ret.contains(Integer.valueOf(item.getItemId()))) {
                 ret.add(Integer.valueOf(item.getItemId()));
@@ -226,7 +219,7 @@ public class MapleInventory implements Iterable<Item>, Serializable {
 
     public void removeItem(short slot, short quantity, boolean allowZero) {
         Item item = inventory.get(slot);
-        if (item == null) {
+        if (item == null) { // TODO is it ok not to throw an exception here?
             return;
         }
         item.setQuantity((short) (item.getQuantity() - quantity));

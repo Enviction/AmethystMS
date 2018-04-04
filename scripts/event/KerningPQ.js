@@ -16,15 +16,6 @@ function setup(level, leaderid) {
     eim.setInstanceMap(910340400).resetPQ(level);
     var map = eim.setInstanceMap(910340500);
 	map.resetPQ(level);
-	if (Packages.constants.GameConstants.GMS) {
-		var mob = em.getMonster(9300003);
-		eim.registerMonster(mob);
-		mob.changeLevel(level);
-
-		map.spawnMonsterOnGroundBelow(mob, new java.awt.Point(0, -430));
-		eim.setInstanceMap(910340600).resetPQ(level);
-	}
-    
     eim.startEventTimer(1200000);
 
     return eim;

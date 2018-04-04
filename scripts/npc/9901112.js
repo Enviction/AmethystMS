@@ -29,7 +29,7 @@ function action(mode, type, selection) {
             "\r\n#L2##b#kTrade 600 Maple Leaves for 3 Onyx Apples" + 
             "\r\n#L3##r#kTrade 1200 Maple Leaves for 1 Blue Wish Ticket" + 
             "\r\n#L5##b#kTrade 1500 Maple Leaves for 1 Chaos Scroll" + 
-            "\r\n#L6##b#kTrade 2000 Maple Leaves for 1 White Scroll" +
+            "\r\n#L6##b#kTrade 2000 Maple Leaves for 1 White Scroll");
             "\r\n#b#kMore options are coming soon! :)");
 } else if (selection == 1) {
 cm.sendOk("Under construction. Please come back later.");

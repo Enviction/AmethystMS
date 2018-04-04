@@ -20,13 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package handling.world;
 
-import client.MapleCharacter;
-import handling.channel.ChannelServer;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class MapleMessenger implements Serializable {
+public final class MapleMessenger implements Serializable {
 
     private static final long serialVersionUID = 9179541993413738569L;
     private MapleMessengerCharacter[] members = new MapleMessengerCharacter[3];
@@ -145,7 +143,7 @@ public class MapleMessenger implements Serializable {
     public Collection<MapleMessengerCharacter> getMembers() {
         return Arrays.asList(members);
     }
-    public boolean isMonitored() {
+   /* public boolean isMonitored() {
         int ch = -1; 
         for (MapleMessengerCharacter m : members) {
 	    if (m != null) {
@@ -160,14 +158,17 @@ public class MapleMessenger implements Serializable {
         }
         return false;
     }
+    * 
+    */
     
     public String getMemberNamesDEBUG() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0;i < members.length;i++) {
 	    if (members[i] != null) {
                 sb.append(members[i].getName());
-                if (i != members.length - 1)
+                if (i != members.length - 1) {
                     sb.append(',');
+                }
 	    }
         }
         return sb.toString();

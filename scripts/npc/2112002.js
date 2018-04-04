@@ -42,7 +42,7 @@ function action(mode, type, selection) {
 	    cm.removeAll(4001133);
 	    cm.removeAll(4001134);
 	    cm.removeAll(4001135);
-	cm.sendSimple("#b#L0#Get me out of here#l\r\n#L1#Get me Proof of Love.#l#k");
+	cm.sendSimple("\r\n#b#L0#Get me out of here#l\r\n#L1#Get me Proof of Love.#l#k");
     } else {
 	if (selection == 0) {
     	    cm.warp(926100600,0);

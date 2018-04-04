@@ -1,18 +1,16 @@
-var minPlayers = 1;
+var minPlayers = 2;
 
 function init() {
-em.setProperty("state", "0");
+	em.setProperty("state", "0");
 	em.setProperty("leader", "true");
 }
 
 function setup(eim, leaderid) {
-em.setProperty("state", "1");
+	em.setProperty("state", "1");
 	em.setProperty("leader", "true");
     var eim = em.newInstance("MV" + leaderid);
-        eim.setInstanceMap(674030000).resetFully();
-        eim.setInstanceMap(674030200).resetFully();
-        eim.setInstanceMap(674030300).resetFully();
-    eim.startEventTimer(1800000); //30 mins
+    eim.setInstanceMap(674030000).resetPQ(120);
+    eim.startEventTimer(1200000); //20 mins like gMS 3.6.09
     return eim;
 }
 
@@ -29,13 +27,12 @@ function scheduledTimeout(eim) {
 }
 
 function changedMap(eim, player, mapid) {
-    if (mapid != 674030000 && mapid != 674030200 && mapid != 674030300) {
-	eim.unregisterPlayer(player);
-
-	if (eim.disposeIfPlayerBelow(0, 0)) {
-		em.setProperty("state", "0");
-		em.setProperty("leader", "true");
-	}
+    if (mapid != 674030000) {
+		if (player.getParty().getLeader().getId() != player.getId()) {
+			eim.unregisterPlayer(player);
+		} else {
+			end(eim);
+		}
     }
 }
 
@@ -44,28 +41,14 @@ function playerDisconnected(eim, player) {
 }
 
 function monsterValue(eim, mobId) {
-    if (mobId == 9400589) { //MV
-	eim.broadcastPlayerMsg(6, "MV has been beaten!");
-    	eim.restartEventTimer(60000); //1 mins
-	eim.schedule("warpWinnersOut", 55000);
-    }
     return 1;
-}
-
-function warpWinnersOut(eim) {
-	eim.restartEventTimer(300000); //5 mins
-	var party = eim.getPlayers();
-	var map = eim.getMapInstance(2);
-	for (var i = 0; i < party.size(); i++) {
-		party.get(i).changeMap(map, map.getPortal(0));
-	}
 }
 
 function playerExit(eim, player) {
     eim.unregisterPlayer(player);
 
     if (eim.disposeIfPlayerBelow(0, 0)) {
-	em.setProperty("state", "0");
+		em.setProperty("state", "0");
 		em.setProperty("leader", "true");
 	}
 }
@@ -73,7 +56,7 @@ function playerExit(eim, player) {
 function end(eim) {
     eim.disposeIfPlayerBelow(100, 674030100);
 	em.setProperty("state", "0");
-		em.setProperty("leader", "true");
+	em.setProperty("leader", "true");
 }
 
 function clearPQ(eim) {

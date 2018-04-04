@@ -21,12 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package tools;
 
 import java.io.Serializable;
-import java.util.AbstractMap;
-import java.util.AbstractSet;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Provides a strongly-typed map of keys to values.
@@ -74,6 +69,7 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
          *
          * @return The key.
          */
+        @Override
         public K getKey() {
             return key;
         }
@@ -83,6 +79,7 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
          *
          * @return The value.
          */
+        @Override
         public V getValue() {
             return value;
         }
@@ -92,6 +89,7 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
          *
          * @return The old value.
          */
+        @Override
         public V setValue(V newValue) {
             V oldValue = value;
             value = newValue;
@@ -140,7 +138,7 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
      * Class constructor
      */
     public ArrayMap() {
-        list = new ArrayList<Entry<K, V>>();
+        list = new ArrayList<>();
     }
 
     /**
@@ -150,7 +148,7 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
      *            import.
      */
     public ArrayMap(Map<K, V> map) {
-        list = new ArrayList<Entry<K, V>>();
+        list = new ArrayList<>();
         putAll(map);
     }
 
@@ -160,7 +158,7 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
      * @param initialCapacity The initial size of the ArrayMap.
      */
     public ArrayMap(int initialCapacity) {
-        list = new ArrayList<Entry<K, V>>(initialCapacity);
+        list = new ArrayList<>(initialCapacity);
     }
 
     /**
@@ -226,7 +224,7 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
             oldValue = entry.getValue();
             entry.setValue(value);
         } else {
-            list.add(new Entry<K, V>(key, value));
+            list.add(new Entry<>(key, value));
         }
         return oldValue;
     }

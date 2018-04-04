@@ -226,6 +226,7 @@ public class LittleEndianAccessor {
      * @see java.lang.Object#toString
      */
     
+    @Override
     public final String toString() {
         return bs.toString();
     }

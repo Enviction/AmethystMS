@@ -1,16 +1,11 @@
 package server;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.PreparedStatement;
 import database.DatabaseConnection;
 import java.io.File;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.*;
 import provider.MapleData;
 import provider.MapleDataProvider;
 import provider.MapleDataProviderFactory;
@@ -20,14 +15,14 @@ import server.CashItemInfo.CashModInfo;
 public class CashItemFactory {
 
     private final static CashItemFactory instance = new CashItemFactory();
-    private final static int[] bestItems = new int[]{10002896, 10003332, 10103335, 10103486, 10300178};
-    private final Map<Integer, CashItemInfo> itemStats = new HashMap<Integer, CashItemInfo>();
-    private final Map<Integer, List<Integer>> itemPackage = new HashMap<Integer, List<Integer>>();
-    private final Map<Integer, CashModInfo> itemMods = new HashMap<Integer, CashModInfo>();
+    private final static int[] bestItems = new int[]{10003055, 10003090, 10103464, 10002960, 10103363};
+    private final Map<Integer, CashItemInfo> itemStats = new HashMap<>();
+    private final Map<Integer, List<Integer>> itemPackage = new HashMap<>();
+    private final Map<Integer, CashModInfo> itemMods = new HashMap<>();
     private final Map<Integer, List<Integer>> openBox = new HashMap<>();
     private final MapleDataProvider data = MapleDataProviderFactory.getDataProvider(new File(System.getProperty("net.sf.odinms.wzpath") + "/Etc.wz"));
 
-    public static final CashItemFactory getInstance() {
+    public static CashItemFactory getInstance() {
         return instance;
     }
 
@@ -47,13 +42,12 @@ public class CashItemFactory {
                 itemStats.put(SN, stats);
             }
         }
-       
         final MapleData b = data.getData("CashPackage.img");
         for (MapleData c : b.getChildren()) {
             if (c.getChildByPath("SN") == null) {
                 continue;
             }
-            final List<Integer> packageItems = new ArrayList<Integer>();
+            final List<Integer> packageItems = new ArrayList<>();
             for (MapleData d : c.getChildByPath("SN").getChildren()) {
                 packageItems.add(MapleDataTool.getIntConvert(d));
             }
@@ -62,22 +56,20 @@ public class CashItemFactory {
 
         try {
             Connection con = DatabaseConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM cashshop_modified_items");
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                CashModInfo ret = new CashModInfo(rs.getInt("serial"), rs.getInt("discount_price"), rs.getInt("mark"), rs.getInt("showup") > 0, rs.getInt("itemid"), rs.getInt("priority"), rs.getInt("package") > 0, rs.getInt("period"), rs.getInt("gender"), rs.getInt("count"), rs.getInt("meso"), rs.getInt("unk_1"), rs.getInt("unk_2"), rs.getInt("unk_3"), rs.getInt("extra_flags"));
-                itemMods.put(ret.sn, ret);
-                if (ret.showUp) {
-                    final CashItemInfo cc = itemStats.get(Integer.valueOf(ret.sn));
-                    if (cc != null) {
-                        ret.toCItem(cc); //init
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM cashshop_modified_items"); 
+                    ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    CashModInfo ret = new CashModInfo(rs.getInt("serial"), rs.getInt("discount_price"), rs.getInt("mark"), rs.getInt("showup") > 0, rs.getInt("itemid"), rs.getInt("priority"), rs.getInt("package") > 0, rs.getInt("period"), rs.getInt("gender"), rs.getInt("count"), rs.getInt("meso"), rs.getInt("unk_1"), rs.getInt("unk_2"), rs.getInt("unk_3"), rs.getInt("extra_flags"));
+                    itemMods.put(ret.sn, ret);
+                    if (ret.showUp) {
+                        final CashItemInfo cc = itemStats.get(Integer.valueOf(ret.sn));
+                        if (cc != null) {
+                            ret.toCItem(cc); //init
+                        }
                     }
                 }
             }
-            rs.close();
-            ps.close();
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
         List<Integer> availableSN = new LinkedList<>();

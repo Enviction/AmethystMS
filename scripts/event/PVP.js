@@ -1,6 +1,17 @@
 importPackage(Packages.tools.packet);
 
-//pvp mode: 12 = "1.5 event", 13 = "2x event"
+/**
+ *
+ * @author: Eric
+ * @rev: 1.9 (Fully working game state for Free-For-All)
+ * @notes: CTF / TDM / IK game modes untested*
+ * @fixes: This will fix player respawns, attacks, score, and notices.
+ * @updates: Battle Mode fully working, but need to work on multi-purpose game modes.
+ *
+ */
+ // TEST VARIABLES ::
+ // boolean test = 1 - This variable allows pvp to start with one player, use this for testing script updates not requiring players to help.
+ // pvp mode: 12 = "1.5 event", 13 = "2x event"
 
 function init() {
 }
@@ -31,25 +42,24 @@ function playerEntry(eim, player) {
     player.changeTeam(type == 2 || map.getAndSwitchTeam() ? 0 : 1);
     player.changeMap(map, map.getPortal(type == 0 ? 0 : (type == 3 ? (player.getTeam() == 0 ? 3 : 1) : (player.getTeam() == 0 ? 2 : 3))));
     eim.setProperty("" + player.getId(), "0");
-    eim.broadcastPlayerMsg(-7, player.getName() + " has entered.");
     player.getStat().recalcLocalStats(player);
     player.getStat().heal(player);
+	eim.broadcastPlayerMsg(-7, player.getName() + " has entered.");
 	
     var i = getMaxPlayerCount(type);
     broadcastType(eim, player);
     if (eim.getProperty("started").equals("0")) {
-        eim.broadcastPacket(CWvsContext.getMidMsg("Current: " + eim.getPlayerCount() + "/ Needed to Start: " + i, true, 1));
+        eim.broadcastPacket(CWvsContext.getMidMsg("We have " + eim.getPlayerCount() + "/" + i + " players required to start!", true, 1));
         eim.broadcastPacket(CWvsContext.getMidMsg("Currently recruiting players for Battle Mode.", true, 0));
         if (eim.getPlayerCount() >= (player.isGM() ? 2 : i)) {
             eim.broadcastPacket(CWvsContext.clearMidMsg());
             eim.broadcastPacket(CField.getPVPScore(0, false));
             eim.broadcastPacket(CField.getPVPMode(type));
-            //eim.broadcastPacket(CField.getPVPMode(11)); //PVP 1.5 EVENT!
             eim.broadcastPacket(CField.enablePVP(true));
             eim.setProperty("started", "1");
             doItemDrop(eim);
             eim.startEventTimer(type == 2 ? 420000 : 600000);
-            eim.schedule("championCheck", 300000);
+            // eim.schedule("championCheck", 300000);
             if (type == 2) {
                 var players = eim.getPlayers();
                 var ice = players.get(java.lang.Math.floor(java.lang.Math.random() * players.size()));
@@ -62,7 +72,7 @@ function playerEntry(eim, player) {
                 map.spawnAutoDrop(2910000, map.getGuardians().get(0).left);
                 map.spawnAutoDrop(2910001, map.getGuardians().get(1).left);
                 eim.broadcastPacket(CField.getCapturePosition(map));
-                eim.broadcastPacket(CField.resetCapture());
+                // eim.broadcastPacket(CField.resetCapture());
             }
             updateScoreboard(eim, true);
         }
@@ -72,6 +82,21 @@ function playerEntry(eim, player) {
         }
         player.getClient().getSession().write(CField.getPVPScore(0, false));
     }
+}
+
+// Errors with respawns : (1) - Disables some 3rd and 4th job skills.
+
+function playerRespawn(eim, player) { 
+    var type = parseInt(eim.getProperty("type"));
+    var map = eim.getMapInstance(0);
+    player.changeTeam(type == 2 || map.getAndSwitchTeam() ? 0 : 1);
+    player.changeMap(map, map.getPortal(type == 0 ? 0 : (type == 3 ? (player.getTeam() == 0 ? 3 : 1) : (player.getTeam() == 0 ? 2 : 3))));
+    eim.setProperty("" + player.getId(), "0");
+    player.getStat().recalcLocalStats(player);
+    player.getStat().heal(player);
+    eim.broadcastPacket(CField.getPVPMode(type)); // - "Survival start!", well, I hope it saves the mode type from entry? :|
+    eim.broadcastPacket(CField.enablePVP(true));
+	player.stopTrollLock();
 }
 
 function broadcastType(eim) {
@@ -178,6 +203,7 @@ function getWinningTeam(eim) {
 }
 
 function playerDead(eim, player) {
+	player.startDeathCheck();
     player.getClient().getSession().write(CField.getPVPKilled(player.getName() + " has been defeated."));
     if (parseInt(eim.getProperty("ice")) == player.getId()) {
         eim.setProperty("ice", "0");
@@ -186,7 +212,6 @@ function playerDead(eim, player) {
         end(eim);
         return;
     }
-    eim.broadcastPlayerMsg(-7, player.getName() + " has been defeated.");
     var type = parseInt(eim.getProperty("type"));
     if (type != 3) {
         if (player.getTeam() == 0) {
@@ -203,13 +228,13 @@ function playerDead(eim, player) {
             eim.broadcastPlayerMsg(-7, "The Red Flag has been dropped!");
             map.spawnAutoDrop(2910000, player.getPosition());
             eim.broadcastPacket(CField.getCapturePosition(map));
-            eim.broadcastPacket(CField.resetCapture());
+            // eim.broadcastPacket(CField.resetCapture());
         } else if (parseInt(eim.getProperty("blueflag")) == player.getId()) {
             eim.setProperty("blueflag", "0");
             eim.broadcastPlayerMsg(-7, "The Blue Flag has been dropped!");
             map.spawnAutoDrop(2910001, player.getPosition());
             eim.broadcastPacket(CField.getCapturePosition(map));
-            eim.broadcastPacket(CField.resetCapture());
+            //eim.broadcastPacket(CField.resetCapture());
         }
     }
     player.cancelAllBuffs();
@@ -246,7 +271,7 @@ function updateScoreboard(eim, score) {
     var lv = parseInt(eim.getProperty("lvl"));
     for (var i = 0; i < players.size(); i++) {
         eim.addToPair_chr(c, parseInt(eim.getProperty("" + players.get(i).getId())), players.get(i));
-    }
+		}
     if (score == true || score == null) {
         eim.broadcastPacket(CField.getPVPScoreboard(c, ty));
         if (ty != 0 && ty != 2) {
@@ -278,6 +303,12 @@ function updateScoreboard(eim, score) {
 }
 			
 function playerRevive(eim, player) {
+	player.getClient().getSession().write(CWvsContext.clearMidMsg());
+    player.getStat().heal(player);
+    player.getClient().getSession().write(CField.getCharInfo(player));
+    player.getMap().removePlayer(player);
+    player.getMap().addPlayer(player);
+	eim.broadcastPacket(CField.enablePVP(true));
     return true;
 }
 

@@ -26,6 +26,6 @@ public class SummonSkillEntry {
 
     public byte mobCount, attackCount, type;
     public Point lt;
-	public Point rb;
-	public int delay;
+    public Point rb;
+    public int delay;
 }

@@ -108,7 +108,6 @@ public class SpawnPoint extends Spawns {
 
     @Override
     public final MapleMonster spawnMonster(final MapleMap map) {
-
         final MapleMonster mob = new MapleMonster(id, monster);
         mob.setPosition(pos);
 	mob.setCy(pos.y);
@@ -132,7 +131,7 @@ public class SpawnPoint extends Spawns {
                 }
                 spawnedMonsters.decrementAndGet();
             }
-        }); 
+        });
         map.spawnMonster(mob, -2);
         if (carnivalTeam > -1) {
             for (MapleReactor r : map.getAllReactorsThreadsafe()) { //parsing through everytime a monster is spawned? not good idea

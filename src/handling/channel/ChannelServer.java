@@ -21,127 +21,86 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package handling.channel;
 
 import client.MapleCharacter;
-import constants.GameConstants;
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
+import constants.ServerConstants;
+import constants.WorldConstants;
 import handling.MapleServerHandler;
 import handling.login.LoginServer;
 import handling.mina.MapleCodecFactory;
-import handling.world.CheaterData;
+import handling.world.World;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.util.*;
+import java.util.Map.Entry;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import org.apache.mina.core.buffer.IoBuffer;
+import org.apache.mina.core.buffer.SimpleBufferAllocator;
+import org.apache.mina.core.filterchain.IoFilter;
+import org.apache.mina.core.service.IoAcceptor;
+import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.transport.socket.SocketSessionConfig;
+import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import scripting.EventScriptManager;
 import server.MapleSquad;
-import server.MapleSquad.MapleSquadType;
-import server.maps.MapleMapFactory;
-import server.shops.HiredMerchant;
-import server.shops.HiredMerchantSave;
-import server.life.PlayerNPC;
-
-import org.apache.mina.common.ByteBuffer;
-import org.apache.mina.common.SimpleByteBufferAllocator;
-import org.apache.mina.common.IoAcceptor;
-import org.apache.mina.filter.codec.ProtocolCodecFilter;
-import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
-import org.apache.mina.transport.socket.nio.SocketAcceptor;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.Set;
-import server.ServerProperties;
+import server.MapleSquad.MapleSquadType;import server.ServerProperties;
+;
 import server.events.*;
+import server.life.PlayerNPC;
 import server.maps.AramiaFireWorks;
+import server.maps.MapleMapFactory;
 import server.maps.MapleMapObject;
+import server.shops.HiredMerchant;
 import tools.ConcurrentEnumMap;
 import tools.packet.CWvsContext;
 
 public class ChannelServer {
 
     public static long serverStartTime;
-    private int expRate = 8, mesoRate = 2, dropRate = 5, cashRate = 1, traitRate = 3, BossDropRate = 4; 
-    private short port = 8585;
-    private static final short DEFAULT_PORT = 8585;
-    private int channel, running_MerchantID = 0, flags = 0;
-    private String serverMessage, ip, serverName;
-    private boolean shutdown = false, finishedShutdown = false, MegaphoneMuteState = false, adminOnly = false;
-    private PlayerStorage players;
+    private int expRate = 4, mesoRate = 2, dropRate = 1, cashRate = 1, traitRate = 3, BossDropRate = 1;
+    private int port = 7575;
+    private int world, channel, running_MerchantID = 0;
+    public int eventChannel, eventMap = 0;
+    private String serverMessage, ip;
+    private EventScriptManager eventSM;
+    private boolean shutdown = false, finishedShutdown = false, MegaphoneMuteState = false;
+    public boolean eventOn = false, eventClosed = false;
+    private PlayerStorage players = new PlayerStorage();
     private IoAcceptor acceptor;
     private final MapleMapFactory mapFactory;
-    private EventScriptManager eventSM;
     private AramiaFireWorks works = new AramiaFireWorks();
-    private static final Map<Integer, ChannelServer> instances = new HashMap<Integer, ChannelServer>();
-    private final Map<MapleSquadType, MapleSquad> mapleSquads = new ConcurrentEnumMap<MapleSquadType, MapleSquad>(MapleSquadType.class);
-    private final Map<Integer, HiredMerchant> merchants = new HashMap<Integer, HiredMerchant>();
-    private final List<PlayerNPC> playerNPCs = new LinkedList<PlayerNPC>();
+    private static final Map<Integer, ChannelServer> instances = new HashMap<>();
+    private final Map<MapleSquadType, MapleSquad> mapleSquads = new ConcurrentEnumMap<>(MapleSquadType.class);
+    private final Map<Integer, HiredMerchant> merchants = new HashMap<>();
+    private final List<PlayerNPC> playerNPCs = new LinkedList<>();
     private final ReentrantReadWriteLock merchLock = new ReentrantReadWriteLock(); //merchant
-    private int eventmap = -1;
-    private final Map<MapleEventType, MapleEvent> events = new EnumMap<MapleEventType, MapleEvent>(MapleEventType.class);
-    public boolean eventOn = false;
-    public int eventMap = 0;
-    private boolean eventWarp;
-    private String eventHost;
-    private String eventName;
+    private final Map<MapleEventType, MapleEvent> events = new EnumMap<>(MapleEventType.class);
 
-    private ChannelServer(final int channel) {
+    private ChannelServer(final int world, final int channel) {
+        this.world = world;
         this.channel = channel;
-        mapFactory = new MapleMapFactory(channel);
+        setChannel(channel);
+        mapFactory = new MapleMapFactory(world, channel);
     }
 
     public static Set<Integer> getAllInstance() {
-        return new HashSet<Integer>(instances.keySet());
+        return new HashSet<>(instances.keySet());
     }
 
-    public final void loadEvents() {
-        if (events.size() != 0) {
-            return;
-        }
-        events.put(MapleEventType.CokePlay, new MapleCoconut(channel, MapleEventType.CokePlay)); //yep, coconut. same shit
-        events.put(MapleEventType.Coconut, new MapleCoconut(channel, MapleEventType.Coconut));
-        events.put(MapleEventType.Fitness, new MapleFitness(channel, MapleEventType.Fitness)); //somehow this fails? wut?
-        events.put(MapleEventType.OlaOla, new MapleOla(channel, MapleEventType.OlaOla));
-        events.put(MapleEventType.OxQuiz, new MapleOxQuiz(channel, MapleEventType.OxQuiz));
-        events.put(MapleEventType.Snowball, new MapleSnowball(channel, MapleEventType.Snowball));
-        events.put(MapleEventType.Survival, new MapleSurvival(channel, MapleEventType.Survival));
-    }
-
-    public final void run_startup_configurations() {
-        setChannel(channel); //instances.put
-        try {
-            expRate = Integer.parseInt(ServerProperties.getProperty("net.sf.odinms.world.exp"));
-            mesoRate = Integer.parseInt(ServerProperties.getProperty("net.sf.odinms.world.meso"));
-            serverMessage = ServerProperties.getProperty("net.sf.odinms.world.serverMessage");
-            serverName = ServerProperties.getProperty("net.sf.odinms.login.serverName");
-            flags = Integer.parseInt(ServerProperties.getProperty("net.sf.odinms.world.flags", "0"));
-            adminOnly = Boolean.parseBoolean(ServerProperties.getProperty("net.sf.odinms.world.admin", "false"));
-            eventSM = new EventScriptManager(this, ServerProperties.getProperty("net.sf.odinms.channel.events").split(","));
-            port = Short.parseShort(ServerProperties.getProperty("net.sf.odinms.channel.net.port" + channel, String.valueOf(DEFAULT_PORT + channel)));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        ip = ServerProperties.getProperty("net.sf.odinms.channel.net.interface") + ":" + port;
-
-        ByteBuffer.setUseDirectBuffers(false);
-        ByteBuffer.setAllocator(new SimpleByteBufferAllocator());
-
-        acceptor = new SocketAcceptor();
-        final SocketAcceptorConfig acceptor_config = new SocketAcceptorConfig();
-        acceptor_config.getSessionConfig().setTcpNoDelay(true);
-        acceptor_config.setDisconnectOnUnbind(true);
-        acceptor_config.getFilterChain().addLast("codec", new ProtocolCodecFilter(new MapleCodecFactory()));
-        players = new PlayerStorage(channel);
+    public final void init() {
+        setChannel(channel);
+        serverMessage = ServerConstants.serverMessage;
+        eventSM = new EventScriptManager(this, WorldConstants.Events.split(","));
+        port = 7575 + this.channel - 1;
+        port += (world * 100);
+        ip = ServerConstants.SERVER_IP + ":" + port;
+        IoBuffer.setUseDirectBuffer(false);
+        IoBuffer.setAllocator(new SimpleBufferAllocator());
+        acceptor = new NioSocketAcceptor();
+        acceptor.getFilterChain().addLast("codec", (IoFilter) new ProtocolCodecFilter(new MapleCodecFactory()));
+        ((SocketSessionConfig) acceptor.getSessionConfig()).setTcpNoDelay(true);
         loadEvents();
-
         try {
-            acceptor.bind(new InetSocketAddress(port), new MapleServerHandler(), acceptor_config);
-            System.out.println("Channel " + channel + ": Listening on port " + port + "");
+            acceptor.setHandler(new MapleServerHandler(world, channel, false));
+            acceptor.bind(new InetSocketAddress(port));
             eventSM.init();
         } catch (IOException e) {
             System.out.println("Binding to port " + port + " failed (ch: " + getChannel() + ")" + e);
@@ -153,20 +112,19 @@ public class ChannelServer {
             return;
         }
         broadcastPacket(CWvsContext.serverNotice(0, "This channel will now shut down."));
-        // dc all clients by hand so we get sessionClosed...
         shutdown = true;
-
         System.out.println("Channel " + channel + ", Saving characters...");
-
-        getPlayerStorage().disconnectAll();
-
+        players.disconnectAll();
         System.out.println("Channel " + channel + ", Unbinding...");
-
-        //temporary while we dont have !addchannel
+        acceptor.unbind();
+        acceptor = null;
         instances.remove(channel);
         setFinishShutdown();
     }
 
+    public final void unbind() {
+        acceptor.unbind();
+    }
 
     public final boolean hasFinishedShutdown() {
         return finishedShutdown;
@@ -176,35 +134,28 @@ public class ChannelServer {
         return mapFactory;
     }
 
-    public static final ChannelServer newInstance(final int channel) {
-        return new ChannelServer(channel);
+    public static ChannelServer newInstance(final int world, final int channel) {
+        return new ChannelServer(world, channel);
     }
 
-    public static final ChannelServer getInstance(final int channel) {
-        return instances.get(channel);
+    public static ChannelServer getInstance(int world, int channel) {
+        return LoginServer.getInstance().getChannel(world, channel);
     }
 
-    public final void addPlayer(final MapleCharacter chr) {
-        getPlayerStorage().registerPlayer(chr);
-    }
-
-    public final PlayerStorage getPlayerStorage() {
-        if (players == null) { //wth
-            players = new PlayerStorage(channel); //wthhhh
-        }
+    public PlayerStorage getPlayerStorage() {
         return players;
+    }
+    
+    public void addPlayer(MapleCharacter chr) {
+        players.addPlayer(chr);
+        chr.announce(CWvsContext.serverMessage(serverMessage));
     }
 
     public final void removePlayer(final MapleCharacter chr) {
-        getPlayerStorage().deregisterPlayer(chr);
-
+        players.removePlayer(chr.getId());
     }
 
-    public final void removePlayer(final int idz, final String namez) {
-        getPlayerStorage().deregisterPlayer(idz, namez);
-
-    }
-
+    // TODO: Multi-World serverMessage
     public final String getServerMessage() {
         return serverMessage;
     }
@@ -215,40 +166,48 @@ public class ChannelServer {
     }
 
     public final void broadcastPacket(final byte[] data) {
-        getPlayerStorage().broadcastPacket(data);
+        for (MapleCharacter chr : players.getAllCharacters()) {
+            chr.announce(data);
+        }
+    }
+    
+    public EventScriptManager getEventSM() {
+        return eventSM;
+    }
+    
+    public final void reloadEvents() {
+        eventSM.cancel();
+        eventSM = new EventScriptManager(this, WorldConstants.Events.split(","));
+        eventSM.init();
     }
 
     public final void broadcastSmegaPacket(final byte[] data) {
-        getPlayerStorage().broadcastSmegaPacket(data);
+        for (MapleCharacter chr : players.getAllCharacters()) {
+            if (chr.getSmega()) {
+                chr.announce(data);
+            }
+        }
     }
 
     public final void broadcastGMPacket(final byte[] data) {
-        getPlayerStorage().broadcastGMPacket(data);
-    }
-
-    public final int getExpRate() {
-        return expRate;
-    }
-
-    public final void setExpRate(final int expRate) {
-        this.expRate = expRate;
-    }
-
-    public final int getCashRate() {
-        return cashRate;
+        for (MapleCharacter chr : players.getAllCharacters()) {
+            if (chr.isGM()) {
+                chr.announce(data);
+            }
+        }
     }
 
     public final int getChannel() {
         return channel;
     }
+    
+    public final int getWorld() {
+        return world;
+    }
 
     public final void setChannel(final int channel) {
         instances.put(channel, this);
         LoginServer.addChannel(channel);
-    }
-
-    public static final ArrayList<ChannelServer> getAllInstances() {
-        return new ArrayList<ChannelServer>(instances.values());
     }
 
     public final String getIP() {
@@ -260,40 +219,25 @@ public class ChannelServer {
     }
 
     public final int getLoadedMaps() {
+        for (World worlds : LoginServer.getWorlds()) { // forloop worlds
+            for (ChannelServer cs : worlds.getChannels()) {// forloop channels
+                return cs.getMapFactory().getLoadedMaps();
+            }
+        }
         return mapFactory.getLoadedMaps();
     }
-
-    public final EventScriptManager getEventSM() {
-        return eventSM;
-    }
-
-    public final void reloadEvents() {
-        eventSM.cancel();
-        eventSM = new EventScriptManager(this, ServerProperties.getProperty("net.sf.odinms.channel.events").split(","));
-        eventSM.init();
-    }
-
-    public final int getMesoRate() {
-        return mesoRate;
-    }
-
-    public final void setMesoRate(final int mesoRate) {
-        this.mesoRate = mesoRate;
-    }
-
-    public final int getDropRate() {
-        return dropRate == 0 ? 1 : dropRate;      
-    }
-    public final int getBossDropRate() {
-        return BossDropRate;
-    }
-
-    public static final void startChannel_Main() {
-        serverStartTime = System.currentTimeMillis();
-
-        for (int i = 0; i < Integer.parseInt(ServerProperties.getProperty("net.sf.odinms.channel.count", "0")); i++) {
-            newInstance(i + 1).run_startup_configurations();
+    
+    public final void loadEvents() {
+        if (!events.isEmpty()) {
+            return;
         }
+        events.put(MapleEventType.CokePlay, new MapleCoconut(world, channel, MapleEventType.CokePlay));
+        events.put(MapleEventType.Coconut, new MapleCoconut(world, channel, MapleEventType.Coconut));
+        events.put(MapleEventType.Fitness, new MapleFitness(world, channel, MapleEventType.Fitness));
+        events.put(MapleEventType.OlaOla, new MapleOla(world, channel, MapleEventType.OlaOla));
+        events.put(MapleEventType.OxQuiz, new MapleOxQuiz(world, channel, MapleEventType.OxQuiz));
+        events.put(MapleEventType.Snowball, new MapleSnowball(world, channel, MapleEventType.Snowball));
+        events.put(MapleEventType.Survival, new MapleSurvival(world, channel, MapleEventType.Survival));
     }
 
     public Map<MapleSquadType, MapleSquad> getAllSquads() {
@@ -317,6 +261,18 @@ public class ChannelServer {
         }
         return false;
     }
+    
+    public void blueWorldMessage(String msg) {
+        for (MapleCharacter chr : players.getAllCharacters()) {
+            chr.dropMessage(6, msg);
+        }
+    }  
+    
+    public void yellowWorldMessage(String msg) {
+        for (MapleCharacter mc : getPlayerStorage().getAllCharacters()) {
+            mc.getClient().getSession().write(CWvsContext.yellowChat(msg));
+        }
+    }
 
     public final boolean removeMapleSquad(final MapleSquadType types) {
         if (types != null && mapleSquads.containsKey(types)) {
@@ -324,6 +280,25 @@ public class ChannelServer {
             return true;
         }
         return false;
+    }
+    
+     public void saveWorlds() {
+        for (World worlds : LoginServer.getWorlds()) {
+            for (MapleCharacter chr : worlds.getPlayerStorage().getAllCharacters()) {
+                chr.saveToDB(false, false);
+                if (!chr.Spam(3600000, 26)) { // every hour will notify yet still save.
+                    chr.dropMessage(6, "AutoSave Complete - Character Successfully Saved.");
+                }
+            }
+        }
+    }  
+     
+    public boolean allowUndroppablesDrop() {
+        return ServerConstants.dropUndroppables;
+    }
+    
+    public boolean allowMoreThanOne() {
+        return ServerConstants.moreThanOne;
     }
 
     public final int closeAllMerchant() {
@@ -334,7 +309,6 @@ public class ChannelServer {
             while (merchants_.hasNext()) {
                 HiredMerchant hm = merchants_.next().getValue();
                 hm.closeShop(true, false);
-                //HiredMerchantSave.QueueShopForSave(hm);
                 hm.getMap().removeMapObject(hm);
                 merchants_.remove();
                 ret++;
@@ -342,12 +316,14 @@ public class ChannelServer {
         } finally {
             merchLock.writeLock().unlock();
         }
-        //hacky
-        for (int i = 910000001; i <= 910000022; i++) {
-            for (MapleMapObject mmo : mapFactory.getMap(i).getAllHiredMerchantsThreadsafe()) {
-                ((HiredMerchant) mmo).closeShop(true, false);
-				//HiredMerchantSave.QueueShopForSave((HiredMerchant) mmo);
-                ret++;
+        for (World worlds : LoginServer.getWorlds()) { // forloop every world
+            for (ChannelServer channels : worlds.getChannels()) { // forloop every channel of every world
+                for (int i = 910000001; i <= 910000022; i++) { // forloop every fm map of every channel of every world
+                    for (MapleMapObject mmo : channels.getMapFactory().getMap(i).getAllHiredMerchantsThreadsafe()) { // get ALL merchants
+                        ((HiredMerchant) mmo).closeShop(true, false);
+                        ret++;
+                    }
+                }
             }
         }
         return ret;
@@ -366,7 +342,6 @@ public class ChannelServer {
 
     public final void removeMerchant(final HiredMerchant hMerchant) {
         merchLock.writeLock().lock();
-
         try {
             merchants.remove(hMerchant.getStoreId());
         } finally {
@@ -376,11 +351,9 @@ public class ChannelServer {
 
     public final boolean containsMerchant(final int accid, int cid) {
         boolean contains = false;
-
         merchLock.readLock().lock();
         try {
             final Iterator itr = merchants.values().iterator();
-
             while (itr.hasNext()) {
                 HiredMerchant hm = (HiredMerchant) itr.next();
                 if (hm.getOwnerAccId() == accid || hm.getOwnerId() == cid) {
@@ -395,11 +368,10 @@ public class ChannelServer {
     }
 
     public final List<HiredMerchant> searchMerchant(final int itemSearch) {
-        final List<HiredMerchant> list = new LinkedList<HiredMerchant>();
+        final List<HiredMerchant> list = new LinkedList<>();
         merchLock.readLock().lock();
         try {
             final Iterator itr = merchants.values().iterator();
-
             while (itr.hasNext()) {
                 HiredMerchant hm = (HiredMerchant) itr.next();
                 if (hm.searchItem(itemSearch).size() > 0) {
@@ -421,11 +393,11 @@ public class ChannelServer {
     }
 
     public int getEvent() {
-        return eventmap;
+        return eventMap;
     }
 
     public final void setEvent(final int ze) {
-        this.eventmap = ze;
+        this.eventMap = ze;
     }
 
     public MapleEvent getEvent(final MapleEventType t) {
@@ -441,34 +413,26 @@ public class ChannelServer {
             return;
         }
         playerNPCs.add(npc);
-        getMapFactory().getMap(npc.getMapId()).addMapObject(npc);
+        for (World worlds : LoginServer.getWorlds()) { // forloop worlds
+            for (ChannelServer cs : worlds.getChannels()) {// forloop channels
+                cs.getMapFactory().getMap(npc.getMapId()).addMapObject(npc); // add to every world and channel
+            }
+        }
     }
 
     public final void removePlayerNPC(final PlayerNPC npc) {
         if (playerNPCs.contains(npc)) {
             playerNPCs.remove(npc);
-            getMapFactory().getMap(npc.getMapId()).removeMapObject(npc);
+            for (World worlds : LoginServer.getWorlds()) { // forloop worlds
+                for (ChannelServer cs : worlds.getChannels()) {// forloop channels
+                    cs.getMapFactory().getMap(npc.getMapId()).removeMapObject(npc); // add to every world and channel
+                }
+            }
         }
-    }
-
-    public final String getServerName() {
-        return serverName;
-    }
-
-    public final void setServerName(final String sn) {
-        this.serverName = sn;
-    }
-
-    public final String getTrueServerName() {
-        return serverName.substring(0, serverName.length() - (GameConstants.GMS ? 2 : 3));
     }
 
     public final int getPort() {
         return port;
-    }
-
-    public static final Set<Integer> getChannelServer() {
-        return new HashSet<Integer>(instances.keySet());
     }
 
     public final void setShutdown() {
@@ -481,20 +445,12 @@ public class ChannelServer {
         System.out.println("Channel " + channel + " has finished shutdown.");
     }
 
-    public final boolean isAdminOnly() {
-        return adminOnly;
+    public static int getChannelCount() { // needs to be fixed for multi-world
+        return instances.size(); 
     }
 
-    public final static int getChannelCount() {
-        return instances.size();
-    }
-
-    public final int getTempFlag() {
-        return flags;
-    }
-
-    public static Map<Integer, Integer> getChannelLoad() {
-        Map<Integer, Integer> ret = new HashMap<Integer, Integer>();
+    public static Map<Integer, Integer> getChannelLoad() { // needs to be fixed for multi-world
+        Map<Integer, Integer> ret = new HashMap<>();
         for (ChannelServer cs : instances.values()) {
             ret.put(cs.getChannel(), cs.getConnectedClients());
         }
@@ -502,23 +458,9 @@ public class ChannelServer {
     }
 
     public int getConnectedClients() {
-        return getPlayerStorage().getConnectedClients();
+        return players.getAllCharacters().size();
     }
-
-    public List<CheaterData> getCheaters() {
-        List<CheaterData> cheaters = getPlayerStorage().getCheaters();
-
-        Collections.sort(cheaters);
-        return cheaters;
-    }
-
-    public List<CheaterData> getReports() {
-        List<CheaterData> cheaters = getPlayerStorage().getReports();
-
-        Collections.sort(cheaters);
-        return cheaters;
-    }
-
+  
     public void broadcastMessage(byte[] message) {
         broadcastPacket(message);
     }
@@ -535,7 +477,10 @@ public class ChannelServer {
         return works;
     }
 
-    public int getTraitRate() {
-        return traitRate;
+    public final int getDropRate() {
+        return dropRate == 0 ? 1 : dropRate;      
+    }
+    public final int getBossDropRate() {
+        return BossDropRate;
     }
 }

@@ -23,9 +23,6 @@ function action(mode, type, selection) {
 	    if (cm.haveItem(4001169,20)) {
 		cm.warpParty(930000500);
 		cm.gainItem(4001169,-20);
-	    } else if (!cm.haveItem(2270004)) {
-		cm.gainItem(2270004,10);
-		cm.sendOk("Good luck in purifying these monsters!");
 	    } else {
 		cm.sendOk("We have to purify all these contaminated monsters! Get me 20 Monster Marbles from them!");
 	    }

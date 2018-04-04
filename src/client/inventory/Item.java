@@ -20,12 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package client.inventory;
 
-import constants.GameConstants;
 import java.io.Serializable;
 
 public class Item implements Comparable<Item>, Serializable {
 
-    private final int id;
+    private int id;
     private short position;
     private short quantity;
     private short flag;
@@ -35,9 +34,9 @@ public class Item implements Comparable<Item>, Serializable {
     private String owner = "";
     private String GameMaster_log = "";
     private String giftFrom = "";
-    private String instanceOwner = "";
 
-    public Item(final int id, final short position, final short quantity, final short flag, final int uniqueid) {
+
+        public Item(int id, short position, short quantity, short flag, int uniqueid) {
         super();
         this.id = id;
         this.position = position;
@@ -46,7 +45,9 @@ public class Item implements Comparable<Item>, Serializable {
         this.uniqueid = uniqueid;
     }
 
-    public Item(final int id, final short position, final short quantity, final short flag) {
+ 
+
+    public Item(int id, short position, short quantity, short flag) {
         super();
         this.id = id;
         this.position = position;
@@ -64,7 +65,7 @@ public class Item implements Comparable<Item>, Serializable {
     }
 
     public Item copy() {
-        final Item ret = new Item(id, position, quantity, flag, uniqueid);
+        Item ret = new Item(id, position, quantity, flag, uniqueid);
         ret.pet = pet;
         ret.owner = owner;
         ret.GameMaster_log = GameMaster_log;
@@ -73,8 +74,8 @@ public class Item implements Comparable<Item>, Serializable {
         return ret;
     }
 
-    public Item copyWithQuantity(final short qq) {
-        final Item ret = new Item(id, position, qq, flag, uniqueid);
+    public Item copyWithQuantity(short qq) {
+        Item ret = new Item(id, position, qq, flag, uniqueid);
         ret.pet = pet;
         ret.owner = owner;
         ret.GameMaster_log = GameMaster_log;
@@ -83,7 +84,7 @@ public class Item implements Comparable<Item>, Serializable {
         return ret;
     }
 
-    public final void setPosition(final short position) {
+    public void setPosition(short position) {
         this.position = position;
 
         if (pet != null) {
@@ -91,68 +92,60 @@ public class Item implements Comparable<Item>, Serializable {
         }
     }
 
-    public void setQuantity(final short quantity) {
+    public void setQuantity(short quantity) {
         this.quantity = quantity;
     }
 
-    public final int getItemId() {
+    public int getItemId() {
         return id;
     }
 
-    public final short getPosition() {
-        
+    public short getPosition() {
         return position;
     }
 
-    public final short getFlag() {
+    public short getFlag() {
         return flag;
     }
 
-    public final short getQuantity() {
+    public short getQuantity() {
         return quantity;
-    }
-    
-    public final String getInstanceOwner(){
-        return instanceOwner;
-    }
-    
-    public final void setInstanceOwner(String chr){
-        instanceOwner = chr;
     }
 
     public byte getType() {
         return 2; // An Item
     }
 
-    public final String getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public final void setOwner(final String owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 
-    public final void setFlag(final short flag) {
+    public void setFlag(short flag) {
         this.flag = flag;
     }
 
-    public final long getExpiration() {
+    public long getExpiration() {
         return expiration;
     }
 
-    public final void setExpiration(final long expire) {
+    public void setExpiration(long expire) {
         this.expiration = expire;
     }
 
-    public final String getGMLog() {
+    public String getGMLog() {
         return GameMaster_log;
     }
 
-    public void setGMLog(final String GameMaster_log) {
+    public void setGMLog(String GameMaster_log) {
         this.GameMaster_log = GameMaster_log;
     }
+    
 
-    public final int getUniqueId() {
+    public int getUniqueId() {
         return uniqueid;
     }
 
@@ -160,7 +153,7 @@ public class Item implements Comparable<Item>, Serializable {
         this.uniqueid = ui;
     }
 
-    public final long getInventoryId() { //this doesn't need to be 100% accurate, just different
+    public long getInventoryId() { //this doesn't need to be 100% accurate, just different
         return inventoryitemid;
     }
 
@@ -168,11 +161,11 @@ public class Item implements Comparable<Item>, Serializable {
         this.inventoryitemid = ui;
     }
 
-    public final MaplePet getPet() {
+    public MaplePet getPet() {
         return pet;
     }
 
-    public final void setPet(final MaplePet pet) {
+    public void setPet(MaplePet pet) {
         this.pet = pet;
         if (pet != null) {
             this.uniqueid = pet.getUniqueId();
@@ -203,8 +196,18 @@ public class Item implements Comparable<Item>, Serializable {
         if (!(obj instanceof Item)) {
             return false;
         }
-        final Item ite = (Item) obj;
+        Item ite = (Item) obj;
         return uniqueid == ite.getUniqueId() && id == ite.getItemId() && quantity == ite.getQuantity() && Math.abs(position) == Math.abs(ite.getPosition());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + this.id;
+        hash = 79 * hash + this.position;
+        hash = 79 * hash + this.quantity;
+        hash = 79 * hash + this.uniqueid;
+        return hash;
     }
 
     @Override

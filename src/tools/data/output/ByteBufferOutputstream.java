@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package tools.data.output;
 
-import org.apache.mina.common.ByteBuffer;
+import org.apache.mina.core.buffer.IoBuffer;
 
 /**
  * Uses a bytebuffer as an underlying storage method to hold a stream of bytes.
@@ -31,7 +31,7 @@ import org.apache.mina.common.ByteBuffer;
  */
 public class ByteBufferOutputstream implements ByteOutputStream {
 
-    private ByteBuffer bb;
+    private IoBuffer bb;
 
     /**
      * Class constructor - Wraps this instance around ByteBuffer <code>bb</code>
@@ -39,7 +39,7 @@ public class ByteBufferOutputstream implements ByteOutputStream {
      * @param bb The <code>org.apache.mina.common.ByteBuffer</code> to wrap
      *            this stream around.
      */
-    public ByteBufferOutputstream(final ByteBuffer bb) {
+    public ByteBufferOutputstream(final IoBuffer bb) {
         super();
         this.bb = bb;
     }

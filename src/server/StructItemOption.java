@@ -35,7 +35,7 @@ public class StructItemOption {
         "mpconReduce", "reduceCooltime", "incMesoProp", "incRewardProp", "boss", "incMHP", "incMMP", "attackType"};
     public int optionType, reqLevel, opID; // opID = nebulite Id or potential ID
     public String face; // angry, cheers, love, blaze, glitter
-    public String opString;
+    public String opString; //potential string  
     public Map<String, Integer> data = new HashMap<>();
 
     public int get(final String type) {
@@ -44,6 +44,6 @@ public class StructItemOption {
 
     @Override
     public final String toString() { // I should read from the "string" value instead.
-        return data.toString();
+        return "Under Construction";
     }
 }

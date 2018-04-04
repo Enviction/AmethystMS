@@ -20,15 +20,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package scripting;
 
+import client.MapleClient;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-
-import client.MapleClient;
+import javax.script.ScriptException;
 import tools.FileoutputUtil;
 
 /**
@@ -64,10 +64,10 @@ public abstract class AbstractScriptManager {
                 fr = new FileReader(scriptFile);
                 engine.eval(fr);
             } else if (c != null && npc) {
-                c.getPlayer().dropMessage(-1, "You already are talking to this NPC. Use @ea if this is not intended.");
+                c.getPlayer().dropMessage(-1, "You already are talking to this NPC. Use @dispose if this is not intended.");
             }
             return (Invocable) engine;
-        } catch (Exception e) {
+        } catch (FileNotFoundException | ScriptException e) {
             System.err.println("Error executing script. Path: " + path + "\nException " + e);
             FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Error executing script. Path: " + path + "\nException " + e);
             return null;

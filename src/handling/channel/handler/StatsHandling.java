@@ -20,14 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package handling.channel.handler;
 
+import client.*;
 import constants.GameConstants;
-
-import client.Skill;
-import client.MapleClient;
-import client.MapleCharacter;
-import client.MapleStat;
-import client.PlayerStats;
-import client.SkillFactory;
 import java.util.EnumMap;
 import java.util.Map;
 import server.Randomizer;
@@ -37,38 +31,38 @@ import tools.packet.CWvsContext;
 
 public class StatsHandling {
 
-    public static final void DistributeAP(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
-        Map<MapleStat, Integer> statupdate = new EnumMap<MapleStat, Integer>(MapleStat.class);
+    public static void DistributeAP(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+        Map<MapleStat, Integer> statupdate = new EnumMap<>(MapleStat.class);
         c.getSession().write(CWvsContext.updatePlayerStats(statupdate, true, chr));
-        chr.updateTick(slea.readInt());
+slea.readInt();
 
         final PlayerStats stat = chr.getStat();
         final int job = chr.getJob();
         if (chr.getRemainingAp() > 0) {
             switch (slea.readInt()) {
                 case 64: // Str
-                    if (stat.getStr() >= 999) {
+                    if (stat.getStr() >= 32767) {
                         return;
                     }
                     stat.setStr((short) (stat.getStr() + 1), chr);
                     statupdate.put(MapleStat.STR, (int) stat.getStr());
                     break;
                 case 128: // Dex
-                    if (stat.getDex() >= 999) {
+                    if (stat.getDex() >= 32767) {
                         return;
                     }
                     stat.setDex((short) (stat.getDex() + 1), chr);
                     statupdate.put(MapleStat.DEX, (int) stat.getDex());
                     break;
                 case 256: // Int
-                    if (stat.getInt() >= 999) {
+                    if (stat.getInt() >= 32767) {
                         return;
                     }
                     stat.setInt((short) (stat.getInt() + 1), chr);
                     statupdate.put(MapleStat.INT, (int) stat.getInt());
                     break;
                 case 512: // Luk
-                    if (stat.getLuk() >= 999) {
+                    if (stat.getLuk() >= 32767) {
                         return;
                     }
                     stat.setLuk((short) (stat.getLuk() + 1), chr);
@@ -85,11 +79,11 @@ public class StatsHandling {
                         maxhp += Randomizer.rand(36, 42);
                     } else if ((job >= 200 && job <= 232) || (GameConstants.isEvan(job))) { // Magician
                         maxhp += Randomizer.rand(10, 20);
-                    } else if ((job >= 300 && job <= 322) || (job >= 400 && job <= 434) || (job >= 1300 && job <= 1312) || (job >= 1400 && job <= 1412) || (job >= 3300 && job <= 3312) || (job >= 2300 && job <= 2312)) { // Bowman
+                    } else if ((job >= 300 && job <= 322) || (GameConstants.isPhantom(job)) || (job >= 400 && job <= 434) || (job >= 1300 && job <= 1312) || (job >= 1400 && job <= 1412) || (job >= 3300 && job <= 3312) || (job >= 2300 && job <= 2312)) { // Bowman
                         maxhp += Randomizer.rand(16, 20);
                     } else if ((job >= 510 && job <= 512) || (job >= 1510 && job <= 1512)) {
                         maxhp += Randomizer.rand(28, 32);
-                    } else if ((job >= 500 && job <= 532) || (job >= 3500 && job <= 3512) || job == 1500) { // Pirate
+                    } else if ((job >= 500 && job <= 532) || (GameConstants.isJett(job)) || (job >= 3500 && job <= 3512) || job == 1500) { // Pirate
                         maxhp += Randomizer.rand(18, 22);
                     } else if (job >= 1200 && job <= 1212) { // Flame Wizard
                         maxhp += Randomizer.rand(15, 21);
@@ -130,13 +124,13 @@ public class StatsHandling {
                     c.getSession().write(CWvsContext.enableActions());
                     return;
             }
-            chr.setRemainingAp((short) (chr.getRemainingAp() - 1));
-            statupdate.put(MapleStat.AVAILABLEAP, (int) chr.getRemainingAp());
+            chr.setRemainingAp((chr.getRemainingAp() - 1));
+          //  statupdate.put(MapleStat.AVAILABLEAP, (int) chr.getRemainingAp());
             c.getSession().write(CWvsContext.updatePlayerStats(statupdate, true, chr));
         }
     }
 
-    public static final void DistributeSP(final int skillid, final MapleClient c, final MapleCharacter chr) {
+    public static void DistributeSP(final int skillid, final MapleClient c, final MapleCharacter chr) {
         boolean isBeginnerSkill = false;
         final int remainingSp;
 
@@ -164,17 +158,9 @@ public class StatsHandling {
         final int curLevel = chr.getSkillLevel(skill);
 
         if (skill.isInvisible() && chr.getSkillLevel(skill) == 0) {
-            if ((skill.isFourthJob() && chr.getMasterLevel(skill) == 0) || (!skill.isFourthJob() && maxlevel < 10 && !isBeginnerSkill && chr.getMasterLevel(skill) <= 0)) {
+            if ((skill.isFourthJob() && chr.getMasterLevel(skill) == 0) || (!skill.isFourthJob() && maxlevel < 10 && !isBeginnerSkill)) {
                 c.getSession().write(CWvsContext.enableActions());
                 //AutobanManager.getInstance().addPoints(c, 1000, 0, "Illegal distribution of SP to invisible skills (" + skillid + ")");
-                return;
-            }
-        }
-
-        for (int i : GameConstants.blockedSkills) {
-            if (skill.getId() == i) {
-                c.getSession().write(CWvsContext.enableActions());
-                chr.dropMessage(1, "This skill has been blocked and may not be added.");
                 return;
             }
         }
@@ -193,8 +179,8 @@ public class StatsHandling {
         }
     }
 
-    public static final void AutoAssignAP(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
-        chr.updateTick(slea.readInt());
+    public static void AutoAssignAP(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+        slea.readInt();
         slea.skip(4);
         if (slea.available() < 16) {
             return;
@@ -209,7 +195,7 @@ public class StatsHandling {
 
         final PlayerStats playerst = chr.getStat();
 
-        Map<MapleStat, Integer> statupdate = new EnumMap<MapleStat, Integer>(MapleStat.class);
+        Map<MapleStat, Integer> statupdate = new EnumMap<>(MapleStat.class);
         c.getSession().write(CWvsContext.updatePlayerStats(statupdate, true, chr));
 
         if (chr.getRemainingAp() == amount + amount2) {
@@ -248,28 +234,28 @@ public class StatsHandling {
             }
             switch (SecondaryStat) {
                 case 64: // Str
-                    if (playerst.getStr() + amount2 > 999) {
+                    if (playerst.getStr() + amount2 > 32767) {
                         return;
                     }
                     playerst.setStr((short) (playerst.getStr() + amount2), chr);
                     statupdate.put(MapleStat.STR, (int) playerst.getStr());
                     break;
                 case 128: // Dex
-                    if (playerst.getDex() + amount2 > 999) {
+                    if (playerst.getDex() + amount2 > 32767) {
                         return;
                     }
                     playerst.setDex((short) (playerst.getDex() + amount2), chr);
                     statupdate.put(MapleStat.DEX, (int) playerst.getDex());
                     break;
                 case 256: // Int
-                    if (playerst.getInt() + amount2 > 999) {
+                    if (playerst.getInt() + amount2 > 32767) {
                         return;
                     }
                     playerst.setInt((short) (playerst.getInt() + amount2), chr);
                     statupdate.put(MapleStat.INT, (int) playerst.getInt());
                     break;
                 case 512: // Luk
-                    if (playerst.getLuk() + amount2 > 999) {
+                    if (playerst.getLuk() + amount2 > 32767) {
                         return;
                     }
                     playerst.setLuk((short) (playerst.getLuk() + amount2), chr);
@@ -279,8 +265,8 @@ public class StatsHandling {
                     c.getSession().write(CWvsContext.enableActions());
                     return;
             }
-            chr.setRemainingAp((short) (chr.getRemainingAp() - (amount + amount2)));
-            statupdate.put(MapleStat.AVAILABLEAP, (int) chr.getRemainingAp());
+            chr.setRemainingAp((chr.getRemainingAp() - (amount + amount2)));
+           // statupdate.put(MapleStat.AVAILABLEAP, (int) chr.getRemainingAp());
             c.getSession().write(CWvsContext.updatePlayerStats(statupdate, true, chr));
         }
     }

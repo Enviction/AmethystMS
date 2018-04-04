@@ -2,7 +2,6 @@ package server.maps;
 
 import client.MapleCharacter;
 import client.MapleClient;
-import java.awt.Point;
 import tools.packet.CField;
 
 public class MapleExtractor extends MapleMapObject {

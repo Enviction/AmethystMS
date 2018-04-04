@@ -1,7 +1,7 @@
 /* 
  * Spiegelmann - Monster Carnival
  */
-
+// @Eric: Need to re-do this npc completely! MORE work ugh.. npc's should be the finalization of the fully-working cpq. :)
 var status = -1;
 var rank = "D";
 var exp = 0;
@@ -14,17 +14,13 @@ function start() {
 }
  
 function action(mode, type, selection) {
-    if (mode == 1) {
-        status++;
-    } else {
-        status--;
-    }
-    if (mode == -1) {
-	cm.dispose();
-	return;
-    }
+    (mode == 1 ? status++ : mode == 0 ? status-- : cm.dispose());
     if (status == 0) {
-        cm.sendSimple("What would you like to do? If you have never participated in the Monster Carnival, you'll need to know a thing or two about it before joining.\r\n#b#L0# Go to the Monster Carnival Field.#l");
+		switch(cm.getPlayer().getMapId()) {
+			case 980000000:
+				cm.sendSimple("What would you like to do? If you have never participated in the Monster Carnival, you'll need to know a thing or two about it before joining.\r\n#b#L0# Go to the Monster Carnival Field.#l");
+				break;
+		}
     } else if (status == 1) {
         switch (selection) {
             case 0: {
@@ -32,7 +28,7 @@ function action(mode, type, selection) {
                 if ( level < 30) {
                     cm.sendOk("I'm sorry, but only the users Level 30+ may participate in Monster Carnival.");
                 } else {
-                    cm.warp( 980000000, "st00" );
+                    cm.warp(980000000, "st00");
                 }
                 cm.dispose();
             }

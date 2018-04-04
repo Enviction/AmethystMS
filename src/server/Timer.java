@@ -3,12 +3,8 @@ package server;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.ThreadPoolExecutor.DiscardOldestPolicy;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-
 import tools.FileoutputUtil;
 
 public abstract class Timer {
@@ -24,7 +20,20 @@ public abstract class Timer {
 	    return instance;
 	}
     }
+    
+        public static class PokeTimer extends Timer {
+        private static PokeTimer instance = new PokeTimer();
+	
+	private PokeTimer() {
+	    name = "PokeTimer";
+	}
 
+	public static PokeTimer getInstance() {
+	    return instance;
+	}
+    }
+
+    
 
     public static class MapTimer extends Timer {
         private static MapTimer instance = new MapTimer();
@@ -62,17 +71,7 @@ public abstract class Timer {
 	}
     }
 
-    public static class CloneTimer extends Timer {
-        private static CloneTimer instance = new CloneTimer();
-	
-	private CloneTimer() {
-	    name = "Clonetimer";
-	}
 
-	public static CloneTimer getInstance() {
-	    return instance;
-	}
-    }
 
     public static class EtcTimer extends Timer {
         private static EtcTimer instance = new EtcTimer();
@@ -148,11 +147,7 @@ public abstract class Timer {
 
 
     public ScheduledFuture<?> schedule(Runnable r, long delay) {
-	if (ses == null) {
-            return null;
-        }	
-        return ses.schedule(new LoggingSaveRunnable(r, file), delay, TimeUnit.MILLISECONDS);
-    }
+	if (ses == null) {	    return null;	}	return ses.schedule(new LoggingSaveRunnable(r, file), delay, TimeUnit.MILLISECONDS);    }
 
     public ScheduledFuture<?> scheduleAtTimestamp(Runnable r, long timestamp) {
         return schedule(r, timestamp - System.currentTimeMillis());

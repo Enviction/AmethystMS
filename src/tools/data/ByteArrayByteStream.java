@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package tools.data;
 
 import java.io.IOException;
-
 import tools.HexTool;
 
 /**
@@ -99,6 +98,7 @@ public class ByteArrayByteStream {
      * @see java.lang.Object#toString()
      */
     
+    @Override
     public String toString() {
         return toString(false);
     }
@@ -112,7 +112,7 @@ public class ByteArrayByteStream {
             nows = HexTool.toString(now);
         }
         if (b) {
-            return "\r\nAll: " + HexTool.toString(arr) + "\r\nNow: " + nows;
+            return "All: " + HexTool.toString(arr) + "\nNow: " + nows;
         } else {
             return "Data: " + nows;
         }

@@ -21,24 +21,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.life;
 
+import client.MapleCharacter;
+import client.MapleClient;
+import client.inventory.Item;
+import client.inventory.MapleInventoryType;
+import client.inventory.MaplePet;
+import constants.GameConstants;
+import database.DatabaseConnection;
+import handling.channel.ChannelServer;
+import handling.login.LoginServer;
+import handling.world.MapleCharacterLook;
+import handling.world.World;
 import java.awt.Point;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import client.inventory.Item;
-import client.MapleCharacter;
-import client.MapleClient;
-import client.inventory.MapleInventoryType;
-import client.inventory.MaplePet;
-import database.DatabaseConnection;
-import handling.channel.ChannelServer;
-import handling.world.MapleCharacterLook;
-import handling.world.World;
-import java.util.ArrayList;
 import server.maps.*;
 import tools.packet.CField.NPCPacket;
 import tools.packet.CWvsContext;
@@ -49,6 +51,7 @@ public class PlayerNPC extends MapleNPC implements MapleCharacterLook {
     private int mapid, face, hair, charId;
     private byte skin, gender;
     private int[] pets = new int[3];
+    private List<MaplePet> pet;
 
     public PlayerNPC(ResultSet rs) throws Exception {
         super(rs.getInt("ScriptId"), rs.getString("name"));
@@ -117,21 +120,25 @@ public class PlayerNPC extends MapleNPC implements MapleCharacterLook {
 
     public static void updateByCharId(MapleCharacter chr) {
         if (World.Find.findChannel(chr.getId()) > 0) { //if character is in cserv
-            for (PlayerNPC npc : ChannelServer.getInstance(World.Find.findChannel(chr.getId())).getAllPlayerNPC()) {
+            for (PlayerNPC npc : ChannelServer.getInstance(World.Find.findWorld(chr.getId()), World.Find.findChannel(chr.getId())).getAllPlayerNPC()) {
                 npc.update(chr);
             }
         }
     }
 
     public void addToServer() {
-        for (ChannelServer cserv : ChannelServer.getAllInstances()) {
-            cserv.addPlayerNPC(this);
+        for (World worlds : LoginServer.getWorlds()) {
+            for (ChannelServer cserv : worlds.getChannels()) {
+                cserv.addPlayerNPC(this);
+            }
         }
     }
 
     public void removeFromServer() {
-        for (ChannelServer cserv : ChannelServer.getAllInstances()) {
-            cserv.removePlayerNPC(this);
+        for (World worlds : LoginServer.getWorlds()) {
+            for (ChannelServer cserv : worlds.getChannels()) {
+                cserv.removePlayerNPC(this);
+            }
         }
     }
 
@@ -237,6 +244,14 @@ public class PlayerNPC extends MapleNPC implements MapleCharacterLook {
     public Map<Byte, Integer> getEquips() {
         return equips;
     }
+    
+    public Map<Byte, Integer> getTotems() {
+        return new HashMap<>();
+    }
+    
+    public List<MaplePet> getPets() {
+        return pet;
+    }
 
     public byte getSkinColor() {
         return skin;
@@ -295,7 +310,7 @@ public class PlayerNPC extends MapleNPC implements MapleCharacterLook {
     @Override
     public void sendSpawnData(MapleClient client) {
         client.getSession().write(NPCPacket.spawnNPC(this, true));
-        client.getSession().write(CWvsContext.spawnPlayerNPC(this));
+        client.getSession().write(CWvsContext.spawnPlayerNPC(this, client));
         client.getSession().write(NPCPacket.spawnNPCRequestController(this, true));
     }
 
@@ -305,5 +320,16 @@ public class PlayerNPC extends MapleNPC implements MapleCharacterLook {
             npc.setName(getName());
         }
         return npc;
+    }
+
+
+    public boolean isElf(MapleCharacter chr) {
+        if (chr.getElf()) {
+            return true;
+        }
+        if (chr.containsAreaInfo(7784, "sw=")) {
+            return chr.containsAreaInfo(7784, GameConstants.isMercedes(getJob()) ? "sw=0" : "sw=1");
+        }
+        return GameConstants.isMercedes(getJob());
     }
 }

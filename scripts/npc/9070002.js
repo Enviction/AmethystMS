@@ -34,6 +34,6 @@ function action(mode, type, selection) {
 			cm.sendOk("Check if you have the correct BP.");
 		}
 	}
-	cm.dispose();
+		cm.dispose();
     }
 }

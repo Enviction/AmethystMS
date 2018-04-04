@@ -1,5 +1,0 @@
-function start() {
-}
-
-function action() {
-}

@@ -19,6 +19,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package provider;
+
 import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,12 +27,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -51,11 +48,7 @@ public class MapleData implements MapleDataEntity, Iterable<MapleData> {
     public MapleData(final FileInputStream fis, final File imageDataDir) {
         try {
             this.node = documentBuilderFactory.newDocumentBuilder().parse(fis).getFirstChild();
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (SAXException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
         this.imageDataDir = imageDataDir;
@@ -88,7 +81,7 @@ public class MapleData implements MapleDataEntity, Iterable<MapleData> {
     }
 
     public List<MapleData> getChildren() {
-        final List<MapleData> ret = new ArrayList<MapleData>();
+        final List<MapleData> ret = new ArrayList<>();
         final NodeList childNodes = node.getChildNodes();
         for (int i = 0; i < childNodes.getLength(); i++) {
             final Node childNode = childNodes.item(i);
@@ -133,30 +126,31 @@ public class MapleData implements MapleDataEntity, Iterable<MapleData> {
 
     public final MapleDataType getType() {
         final String nodeName = node.getNodeName();
-        if (nodeName.equals("imgdir")) {
-            return MapleDataType.PROPERTY;
-        } else if (nodeName.equals("canvas")) {
-            return MapleDataType.CANVAS;
-        } else if (nodeName.equals("convex")) {
-            return MapleDataType.CONVEX;
-        } else if (nodeName.equals("sound")) {
-            return MapleDataType.SOUND;
-        } else if (nodeName.equals("uol")) {
-            return MapleDataType.UOL;
-        } else if (nodeName.equals("double")) {
-            return MapleDataType.DOUBLE;
-        } else if (nodeName.equals("float")) {
-            return MapleDataType.FLOAT;
-        } else if (nodeName.equals("int")) {
-            return MapleDataType.INT;
-        } else if (nodeName.equals("short")) {
-            return MapleDataType.SHORT;
-        } else if (nodeName.equals("string")) {
-            return MapleDataType.STRING;
-        } else if (nodeName.equals("vector")) {
-            return MapleDataType.VECTOR;
-        } else if (nodeName.equals("null")) {
-            return MapleDataType.IMG_0x00;
+        switch (nodeName) {
+            case "imgdir":
+                return MapleDataType.PROPERTY;
+            case "canvas":
+                return MapleDataType.CANVAS;
+            case "convex":
+                return MapleDataType.CONVEX;
+            case "sound":
+                return MapleDataType.SOUND;
+            case "uol":
+                return MapleDataType.UOL;
+            case "double":
+                return MapleDataType.DOUBLE;
+            case "float":
+                return MapleDataType.FLOAT;
+            case "int":
+                return MapleDataType.INT;
+            case "short":
+                return MapleDataType.SHORT;
+            case "string":
+                return MapleDataType.STRING;
+            case "vector":
+                return MapleDataType.VECTOR;
+            case "null":
+                return MapleDataType.IMG_0x00;
         }
         return null;
     }
@@ -177,6 +171,7 @@ public class MapleData implements MapleDataEntity, Iterable<MapleData> {
         return node.getAttributes().getNamedItem("name").getNodeValue();
     }
 
+    @Override
     public Iterator<MapleData> iterator() {
         return getChildren().iterator();
     }

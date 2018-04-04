@@ -23,7 +23,6 @@ package handling.channel.handler;
 
 import client.MapleCharacter;
 import client.MapleClient;
-
 import handling.world.World;
 import handling.world.guild.MapleGuild;
 import tools.data.LittleEndianAccessor;
@@ -32,7 +31,7 @@ import tools.packet.CWvsContext.AlliancePacket;
 
 public class AllianceHandler {
 
-    public static final void HandleAlliance(final LittleEndianAccessor slea, final MapleClient c, boolean denied) {
+    public static void HandleAlliance(final LittleEndianAccessor slea, final MapleClient c, boolean denied) {
         if (c.getPlayer().getGuildId() <= 0) {
             c.getSession().write(CWvsContext.enableActions());
             return;
@@ -156,7 +155,7 @@ public class AllianceHandler {
         //c.getSession().write(CWvsContext.enableActions());
     }
 
-    public static final void DenyInvite(MapleClient c, final MapleGuild gs) { //playername that invited -> guildname that was invited but we also don't care
+    public static void DenyInvite(MapleClient c, final MapleGuild gs) { //playername that invited -> guildname that was invited but we also don't care
         final int inviteid = World.Guild.getInvitedId(c.getPlayer().getGuildId());
         if (inviteid > 0) {
             final int newAlliance = World.Alliance.getAllianceLeader(inviteid);

@@ -1,4 +1,9 @@
-function action(mode, type, selection) {
+// fuck romeo :)
+function start() {
+	cm.sendNext("Thank you so much for saving us. Your help was very much appreciated.");
+	cm.dispose();
+}
+/*function action(mode, type, selection) {
     var em = cm.getEventManager("Romeo");
     if (em == null) {
 	cm.sendOk("Please try again later.");
@@ -80,4 +85,4 @@ function action(mode, type, selection) {
 	    break;
     }
     cm.dispose();
-}
+}*/

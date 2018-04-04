@@ -1,12 +1,12 @@
-/* Author: Hashed/Prio
- * ID: 1400003
- * Name: Renault
- * Function: Captain
- * Uncoded NPC, created with TraNpcExtractor v0.3.0
- * TraNpcExtractor was written by Prio from StaticDEV.com
- */
+// Phantom Warper : To Henesys
 
 function start() {
-  cm.sendOk("Im sorry, but I havent been coded yet. Please report my id on the forums or to Syre. (ID: 1400003)");
+	cm.sendYesNo("Do you want to go to #bHenesys#k?");
+}
+
+function action (m, t, s) {
+  if (m > 0) {
+	cm.warp(100000000, 0);
+  }
   cm.dispose();
 }

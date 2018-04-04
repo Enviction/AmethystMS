@@ -20,10 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.maps;
 
-import java.awt.Point;
-import client.inventory.Item;
 import client.MapleCharacter;
 import client.MapleClient;
+import client.inventory.Item;
+import java.awt.Point;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import tools.packet.CField;
@@ -36,7 +36,6 @@ public class MapleMapItem extends MapleMapObject {
     protected byte type;
     protected boolean pickedUp = false, playerDrop, randDrop = false;
     protected long nextExpiry = 0, nextFFA = 0;
-    protected String instanceOwner = "";
     private ReentrantLock lock = new ReentrantLock();
 
     public MapleMapItem(Item item, Point position, MapleMapObject dropper, MapleCharacter owner, byte type, boolean playerDrop) {
@@ -98,14 +97,6 @@ public class MapleMapItem extends MapleMapObject {
 
     public final MapleMapObject getDropper() {
         return dropper;
-    }
-    
-    public void setInstanceOwner(String chr){
-        instanceOwner = chr;
-    }
-    
-    public String getInstanceOwner(){
-        return instanceOwner;
     }
 
     public final int getOwner() {

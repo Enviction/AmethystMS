@@ -23,7 +23,7 @@ function action(mode, type, selection) {
 	return;
     }
     if (status == 0) {
-	cm.sendNext("Welcome. We're the Sleepywood Hotel. Our hotel works hard to serve you the best at all times. If you are MaskedStory and worn out from hunting, how about a relaxing stay at our hotel?");
+	cm.sendNext("Welcome. We're the Sleepywood Hotel. Our hotel works hard to serve you the best at all times. If you are tired and worn out from hunting, how about a relaxing stay at our hotel?");
     }
     if (status == 1) {
 	cm.sendSimple("We offer two kinds of rooms for our service. Please choose the one of your liking.\r\n#b#L0#Regular sauna (" + regcost + " mesos per use)#l\r\n#L1#VIP sauna (" + vipcost + "mesos per use)#l");

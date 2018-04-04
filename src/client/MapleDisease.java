@@ -60,10 +60,12 @@ public enum MapleDisease implements Serializable, Buffstat {
         this.disease = disease;
     }
 
+    @Override
     public int getPosition() {
         return first;
     }
 
+    @Override
     public int getValue() {
         return i;
     }
@@ -72,7 +74,7 @@ public enum MapleDisease implements Serializable, Buffstat {
         return disease;
     }
 
-    public static final MapleDisease getRandom() {
+    public static MapleDisease getRandom() {
         while (true) {
             for (MapleDisease dis : MapleDisease.values()) {
                 if (Randomizer.nextInt(MapleDisease.values().length) == 0) {
@@ -82,12 +84,31 @@ public enum MapleDisease implements Serializable, Buffstat {
         }
     }
 
-    public static final MapleDisease getBySkill(final int skill) {
+    public static MapleDisease getBySkill(final int skill) {
         for (MapleDisease d : MapleDisease.values()) {
             if (d.getDisease() == skill) {
                 return d;
             }
         }
         return null;
+    }
+    
+    public static MapleDisease getType(int skill) {
+        switch (skill) {
+            case 120:
+                return MapleDisease.SEAL;
+            case 121:
+                return MapleDisease.DARKNESS;
+            case 122:
+                return MapleDisease.WEAKEN;
+            case 123:
+                return MapleDisease.STUN;
+            case 125:
+                return MapleDisease.POISON;
+            case 128:
+                return MapleDisease.SEDUCE;
+            default:
+                return null;
+        }
     }
 }

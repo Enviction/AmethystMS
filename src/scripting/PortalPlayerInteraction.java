@@ -22,6 +22,9 @@ package scripting;
 
 import client.MapleClient;
 import server.MaplePortal;
+import server.life.MapleLifeFactory;
+import server.life.MapleMonster;
+import server.life.OverrideMonsterStats;
 
 public class PortalPlayerInteraction extends AbstractPlayerInteraction {
 
@@ -37,14 +40,13 @@ public class PortalPlayerInteraction extends AbstractPlayerInteraction {
     }
 
     public final void inFreeMarket() {
-      
         if (getMapId() != 910000000) {
-            if (getPlayer().getLevel() >= 10) {
+            if (getPlayer().getLevel() >= 15) {
                 saveLocation("FREE_MARKET");
                 playPortalSE();
-                warp(910000000, 0);
+                warp(910000000, "st00");
             } else {
-                playerMessage(5, "You must be level 10 in order to be able to enter the FreeMarket.");
+                playerMessage(5, "You must be level 15 in order to be able to enter the FreeMarket.");
             }
         }
     }
@@ -55,7 +57,7 @@ public class PortalPlayerInteraction extends AbstractPlayerInteraction {
                 playPortalSE();
                 warp(910001000, "st00");
             } else {
-                playerMessage(5, "You must be level 10 in order to be able to enter the Crafting Town.");
+                playerMessage(5, "You must be level 15 in order to be able to enter the Crafting Town.");
             }
         }
     }
@@ -70,5 +72,18 @@ public class PortalPlayerInteraction extends AbstractPlayerInteraction {
     @Override
     public void spawnMonster(int id, int qty) {
         spawnMonster(id, qty, portal.getPosition());
+    }
+    
+    // summon special monsters on reactor location
+    public void spawnMonster(int id, long hp, int mp, int qty, int exp) {
+        MapleMonster monster = MapleLifeFactory.getMonster(id);
+        OverrideMonsterStats stats = new OverrideMonsterStats();
+        stats.setOHp(hp);
+        stats.setOMp(mp);
+        stats.setOExp(exp);
+        monster.setOverrideStats(stats);
+        for (int i = 0; i < qty; i++) {
+            getMap().spawnMonsterOnGroundBelow(monster, portal.getPosition());
+        }
     }
 }

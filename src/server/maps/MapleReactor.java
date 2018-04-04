@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.maps;
 
-import java.awt.Rectangle;
 import client.MapleClient;
+import java.awt.Rectangle;
 import scripting.ReactorScriptManager;
 import server.Timer.MapTimer;
-import tools.packet.CField;
 import tools.Pair;
+import tools.packet.CField;
 
 public class MapleReactor extends MapleMapObject {
 
@@ -68,10 +68,6 @@ public class MapleReactor extends MapleMapObject {
 
     public int getReactorId() {
         return rid;
-    }
-    
-    public void setReactorId(int reactid) {
-        rid = reactid;
     }
 
     public void setState(byte state) {
@@ -174,10 +170,10 @@ public class MapleReactor extends MapleMapObject {
                         map.destroyReactor(getObjectId());
                     } else { //item-triggered on final step
                         map.broadcastMessage(CField.triggerReactor(this, stance));
-                    }
-                    //if (rid > 200011) {
-                            ReactorScriptManager.getInstance().act(c, this);
-                    //}
+					}
+					//if (rid > 200011) {
+						ReactorScriptManager.getInstance().act(c, this);
+					//}
                 } else { //reactor not broken yet
                     boolean done = false;
                     map.broadcastMessage(CField.triggerReactor(this, stance)); //magatia is weird cause full beaker can be activated by gm hat o.o

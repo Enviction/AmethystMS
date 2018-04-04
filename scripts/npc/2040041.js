@@ -1,11 +1,9 @@
-/*
-	Aqua Balloon - LudiPQ 6th stage NPC
+/**
+ * @author: Eric
+ * @npc: Aqua Balloon - LudiPQ 3rd (was 6th) stage NPC
 */
 
 function start() {
-    cm.sendNext("Hello, and welcome to the 3rd stage of the Ludibrium Party Quest. Look here, and you'll see a number of boxes. All you have to do, is find the right combination, and press up on it to teleport up. But, if you get it wrong, you will be teleported back down to the bottom. Good luck!");
-}
-
-function action(mode, type, selection) {
-    cm.dispose();
+    cm.sendNext("In the third stage, you'll find boxes with numbers written on them.\r\nWhen you step on the correct box and press the Up Arrow button, you'll be moved to the next box. Do this to proceed.");
+	cm.dispose();
 }

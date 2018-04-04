@@ -15,7 +15,7 @@ function action(mode, type, selection) {
     if (status == 0) {
         request = cm.getNextCarnivalRequest();
         if (request != null) {
-            cm.sendYesNo(request.getChallengeInfo() + "\r\nWould you like to battle this party at the Monster Carnival?");
+            cm.sendAcceptDecline(request.getChallengeInfo());
         } else {
             cm.dispose();
         }
@@ -29,5 +29,3 @@ function action(mode, type, selection) {
         status = -1;
     }
 }
-
-

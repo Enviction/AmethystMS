@@ -20,13 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.maps;
 
-import java.awt.Point;
-
 import client.MapleCharacter;
 import client.MapleClient;
-import client.SkillFactory;
 import constants.GameConstants;
-import client.anticheat.CheatingOffense;
+import java.awt.Point;
 import server.MapleStatEffect;
 import tools.packet.CField.SummonPacket;
 
@@ -111,8 +108,9 @@ public class MapleSummon extends AnimatedMapleMapObject {
         switch (skill) {
             case 3111002:
             case 3211002:
-			case 3120012:
-			case 3220012:
+	    case 3120012:
+	    case 3220012:
+            case 5711001:
             case 13111004:
             case 4341006:
             case 33111003:
@@ -141,7 +139,7 @@ public class MapleSummon extends AnimatedMapleMapObject {
     }
 
     public final boolean isMultiSummon() {
-        return skill == 5211002 || skill == 5211001 || skill == 5220002 || skill == 32111006 || skill == 33101008;
+        return skill == 5211002 || skill == 5211014 || skill == 5220002 || skill == 32111006 || skill == 33101008;
     }
 
     public final boolean isSummon() {
@@ -150,10 +148,10 @@ public class MapleSummon extends AnimatedMapleMapObject {
             case 1321007: //beholder
             case 2321003:
             case 2121005:
-            case 5711001: // turret
             case 2221005:
-            case 5211001: // Pirate octopus summon
+            case 5211014: // Pirate octopus summon
             case 5211002:
+            case 5711001:
             case 5220002: // wrath of the octopi
             case 13111004:
             case 11001004:
@@ -197,7 +195,7 @@ public class MapleSummon extends AnimatedMapleMapObject {
     public final int getSummonType() {
 		if (isAngel()) {
 			return 2;
-		} else if ((skill != 33111003 && skill != 3120012 && skill != 3220012 && isPuppet()) || skill == 33101008 || skill == 35111002) {
+		} else if ((skill != 33111003 && skill != 5711001 && skill != 3120012 && skill != 3220012 && isPuppet()) || skill == 33101008 || skill == 35111002) {
             return 0;
         }
         switch (skill) {
@@ -225,14 +223,8 @@ public class MapleSummon extends AnimatedMapleMapObject {
 
     public final void CheckSummonAttackFrequency(final MapleCharacter chr, final int tickcount) {
         final int tickdifference = (tickcount - lastSummonTickCount);
-        if (tickdifference < SkillFactory.getSummonData(skill).delay) {
-            chr.getCheatTracker().registerOffense(CheatingOffense.FAST_SUMMON_ATTACK);
-        }
         final long STime_TC = System.currentTimeMillis() - tickcount;
         final long S_C_Difference = Server_ClientSummonTickDiff - STime_TC;
-        if (S_C_Difference > 500) {
-            chr.getCheatTracker().registerOffense(CheatingOffense.FAST_SUMMON_ATTACK);
-        }
         Summon_tickResetCount++;
         if (Summon_tickResetCount > 4) {
             Summon_tickResetCount = 0;
@@ -243,9 +235,6 @@ public class MapleSummon extends AnimatedMapleMapObject {
 	
     public final void CheckPVPSummonAttackFrequency(final MapleCharacter chr) {
         final long tickdifference = (System.currentTimeMillis() - lastAttackTime);
-        if (tickdifference < SkillFactory.getSummonData(skill).delay) {
-            chr.getCheatTracker().registerOffense(CheatingOffense.FAST_SUMMON_ATTACK);
-        }
         lastAttackTime = System.currentTimeMillis();
     }
 

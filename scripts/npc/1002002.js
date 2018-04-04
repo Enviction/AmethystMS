@@ -10,7 +10,7 @@ function action(mode, type, selection) {
 	status++;
     } else {
 	if (status <= 1) {
-	    cm.sendNext("You must have some business to take care of here. You must be MaskedStory from all that traveling and hunting. Go take some rest, and if you feel like changing your mind, then come talk to me.");
+	    cm.sendNext("You must have some business to take care of here. You must be tired from all that traveling and hunting. Go take some rest, and if you feel like changing your mind, then come talk to me.");
 	    cm.safeDispose();
 	    return;
 	}

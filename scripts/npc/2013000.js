@@ -16,9 +16,15 @@ function action(mode, type, selection) {
 	status--;
     }
 	if (cm.getMapId() == 920010000) { //inside orbis pq
-		cm.sendOk("We have to save Chamberlain Eak! Restore the 20 Cloud Pieces!");
-		cm.dispose();
-		return;
+		if (cm.isLeader() && cm.haveItem(4001063, 20)) {
+			cm.warpParty(920010000, 2);
+			cm.dispose();
+			return;
+		} else {
+			cm.sendOk("We have to save Chamberlain Eak! Restore the 20 Cloud Pieces!");
+			cm.dispose();
+			return;
+		}
 	}
     if (status == 0) {
 	for (var i = 4001044; i < 4001064; i++) {

@@ -1,3 +1,5 @@
+importPackage(Packages.tools.packet);
+
 var exitMap = 0;
 var waitingMap = 1;
 var reviveMap = 2;
@@ -32,7 +34,6 @@ function setup(mapid) {
 }
 
 function playerEntry(eim, player) {
-    player.disposeClones();
     player.changeMap(eim.getMapInstance(waitingMap), eim.getMapInstance(waitingMap).getPortal(0));
     player.tryPartyQuest(1302);
 }
@@ -113,13 +114,10 @@ function start(eim) {
 }
 
 function monsterKilled(eim, chr, cp) {
-    chr.getCarnivalParty().addCP(chr, cp);
-    chr.CPUpdate(false, chr.getAvailableCP(), chr.getTotalCP(), 0);
-    var iter = eim.getPlayers().iterator();
-    while (iter.hasNext()) {
-        iter.next().CPUpdate(true, chr.getCarnivalParty().getAvailableCP(), chr.getCarnivalParty().getTotalCP(), chr.getCarnivalParty().getTeam());
-    }
-}
+	chr.getCarnivalParty().addCP(chr, cp); // this is for the specific party (red/blue)
+    chr.CPUpdate(false, chr.getAvailableCP(), chr.getTotalCP(), 0); // this will update for the player who killed the mob
+	chr.CPUpdate(true, chr.getAvailableCP(), chr.getTotalCP(), 0); // this will update for the player's carnival team (their party)
+} 
 
 function monsterValue(eim, mobId) {
     return 0;
@@ -179,11 +177,12 @@ function playerRevive(eim, player) {
         iter.next().CPUpdate(true, player.getCarnivalParty().getAvailableCP(), player.getCarnivalParty().getTotalCP(), player.getCarnivalParty().getTeam());
     }
 	player.addHP(50);
-player.changeMap(eim.getMapInstance(reviveMap), eim.getMapInstance(reviveMap).getPortal(0));
+	player.changeMap(eim.getMapInstance(reviveMap), eim.getMapInstance(reviveMap).getPortal(0));
 	return true;
 }
+
 function playerDisconnected(eim, player) {
-    player.setMap(eim.getMapInstance(exitMap));
+	player.setMap(eim.getMapInstance(exitMap));
     eim.unregisterPlayer(player);
     player.getCarnivalParty().removeMember(player);
     eim.broadcastPlayerMsg(5, player.getName() + " has quit the Monster Carnival.");
@@ -194,22 +193,15 @@ function onMapLoad(eim, chr) {
     if (!eim.getProperty("started").equals("true")) {
         disposeAll(eim);
     } else if (chr.getCarnivalParty().getTeam() == 0) {
-	var blueParty = getParty(eim, "blue");
+		var blueParty = getParty(eim, "blue");
         chr.startMonsterCarnival(blueParty.getAvailableCP(), blueParty.getTotalCP());
     } else {
-	var redParty = getParty(eim, "red");
+		var redParty = getParty(eim, "red");
         chr.startMonsterCarnival(redParty.getAvailableCP(), redParty.getTotalCP());
     }
 }
 
-function cancelSchedule() {
-}
-
-function clearPQ(eim) {
-}
-
-function allMonstersDead(eim) {
-}
-
-function changedMap(eim, chr, mapid) {
-}
+function cancelSchedule() {}
+function clearPQ(eim) {}
+function allMonstersDead(eim) {}
+function changedMap(eim, chr, mapid) {}

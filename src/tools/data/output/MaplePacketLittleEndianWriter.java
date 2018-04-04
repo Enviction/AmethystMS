@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package tools.data.output;
 
 import java.io.ByteArrayOutputStream;
-
 import tools.HexTool;
 
 /**

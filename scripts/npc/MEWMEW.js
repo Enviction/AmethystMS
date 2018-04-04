@@ -88,13 +88,13 @@ function action(mode, type, selection) {
 				cm.sendNextPrevS("Okay, first of all, before you say anything.. TELL ME WHERE I AM!", 2);
 				break;
 			case 2:
-				cm.sendNextPrev("..You're in #eDevelopment#n, #h #.. ");
+				cm.sendNextPrev("..You're in #eAmethyst#n, #h #.. ");
 				break;
 			case 3:
-				cm.sendNextPrevS("#eDevelopment#n.. What kind of world name is that?", 2);
+				cm.sendNextPrevS("#eAmethyst#n.. What kind of world name is that?", 2);
 				break;
 			case 4:
-				cm.sendNextPrev("..Our world is called #eDevelopment#n because just as yourself and this world in general.. It's incomplete, and as far as we know, it will never be completed.. Our three creators are always bringing us new life to this world.");
+				cm.sendNextPrev("..Our world is called #eAmethyst#n because just as yourself and this world in general.. It's incomplete, and as far as we know, it will never be completed.. Our three creators are always bringing us new life to this world.");
 				break;
 			case 5:
 				cm.sendNextPrevS("..3 creators? Is that them behind us?! The three statues? Who are they, and and who are you?", 2);
@@ -137,7 +137,7 @@ function action(mode, type, selection) {
 	} else if (cm.getMapId() == 4 && cm.getPlayer().getJobId() > 0) {
 		switch(status) {
 			case 0:
-				cm.sendNextNoESC("OH, I almost forgot! Type @commands to view this worlds commands. Plus, each time you vote for #eDevelopment#n you receive 150 #b#z4000999##k!");
+				cm.sendNextNoESC("OH, I almost forgot! Type @commands to view this worlds commands. Plus, each time you vote for #eAmethyst#n you receive 150 #b#z4000999##k!");
 				break;
 			case 1:
 				cm.sendNextPrevS("Thank you for everything.");

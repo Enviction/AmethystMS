@@ -20,22 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package client.inventory;
 
-import constants.GameConstants;
-import java.awt.Point;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.io.Serializable;
-
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import database.DatabaseConnection;
-import server.MapleItemInformationProvider;
-import server.movement.AbsoluteLifeMovement;
-import server.movement.LifeMovement;
-import server.movement.LifeMovementFragment;
 
 public class MapleImp implements Serializable {
 	//unused for right now. not a priority

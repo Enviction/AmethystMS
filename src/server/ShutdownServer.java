@@ -15,7 +15,7 @@ import tools.packet.CWvsContext;
 
 public class ShutdownServer implements ShutdownServerMBean {
 
-    public static ShutdownServer instance;
+    public static ShutdownServer instance = new ShutdownServer();
 
     public static void registerMBean() {
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
@@ -41,48 +41,32 @@ public class ShutdownServer implements ShutdownServerMBean {
     @Override
     public void run() {
 	if (mode == 0) {
-	    int ret = 0;
-	    World.Broadcast.broadcastMessage(CWvsContext.serverNotice(0, "The server is going to shutdown in just a second. Please log off safely."));
-            for (ChannelServer cs : ChannelServer.getAllInstances()) {
-                cs.setShutdown();
-				cs.setServerMessage("The world is going to shutdown in just a second. Please log off safely.");
-                ret += cs.closeAllMerchant();
-            }
-            /*AtomicInteger FinishedThreads = new AtomicInteger(0);
-            HiredMerchantSave.Execute(this);
-            synchronized (this) {
-                try {
-                    wait();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(ShutdownServer.class.getName()).log(Level.SEVERE, null, ex);
+            int ret = 0;
+            for (World worlds : LoginServer.getWorlds()) {
+                for (ChannelServer cs : worlds.getChannels()) {
+                    cs.setShutdown();
+                    cs.setServerMessage("The world is going to shutdown now. Please log off safely.");
+                    ret += cs.closeAllMerchant();
                 }
             }
-            while (FinishedThreads.incrementAndGet() != HiredMerchantSave.NumSavingThreads) {
-                synchronized (this) {
-                    try {
-                        wait();
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(ShutdownServer.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }*/
             World.Guild.save();
             World.Alliance.save();
 	    World.Family.save();
-	    System.out.println("Shutdown 1 has completed. Hired merchants saved: " + ret);
+            System.out.println("Shutdown 1 has completed. Hired merchants saved: " + ret);
 	    mode++;
 	} else if (mode == 1) {
 	    mode++;
-			System.out.println("Shutdown 2 commencing...");
+            System.out.println("Shutdown 2 commencing...");
             try {
-	        World.Broadcast.broadcastMessage(CWvsContext.serverNotice(0, "The world is going to shutdown now. Please log off safely."));
+	        World.Broadcast.broadcastMessage(-1, CWvsContext.serverNotice(0, "The world is going to shutdown now. Please log off safely.")); // -1 : all world servers
                 Integer[] chs =  ChannelServer.getAllInstance().toArray(new Integer[0]);
-        
                 for (int i : chs) {
                     try {
-                        ChannelServer cs = ChannelServer.getInstance(i);
-                        synchronized (this) {
-                            cs.shutdown();
+                        for (World w : LoginServer.getWorlds()) {
+                            ChannelServer cs = ChannelServer.getInstance(w.getWorldId(), i);
+                            synchronized (this) {
+                                cs.shutdown();
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -97,14 +81,13 @@ public class ShutdownServer implements ShutdownServerMBean {
             WorldTimer.getInstance().stop();
             MapTimer.getInstance().stop();
             BuffTimer.getInstance().stop();
-            CloneTimer.getInstance().stop();
             EventTimer.getInstance().stop();
 	    EtcTimer.getInstance().stop();
 	    PingTimer.getInstance().stop();
-		System.out.println("Shutdown 2 has finished.");
-		try{
+            System.out.println("Shutdown 2 has finished.");
+            try{
                 Thread.sleep(5000);
-            }catch(Exception e) {
+            } catch(Exception e) {
                 //shutdown
             }
             System.exit(0); //not sure if this is really needed for ChannelServer

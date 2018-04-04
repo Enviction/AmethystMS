@@ -20,14 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.maps;
 
-import java.awt.Point;
-import java.awt.Rectangle;
-
-import client.Skill;
 import client.MapleCharacter;
 import client.MapleClient;
+import client.Skill;
 import client.SkillFactory;
-
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.concurrent.ScheduledFuture;
 import server.MapleStatEffect;
 import server.life.MapleMonster;
@@ -63,7 +61,7 @@ public class MapleMist extends MapleMapObject {
         this.skilllevel = owner.getTotalSkillLevel(SkillFactory.getSkill(source.getSourceId()));
 
         switch (source.getSourceId()) {
-            case 4221006: // Smoke Screen
+           // case 4221006: // Smoke Screen
 	    case 32121006: //Party Shield
                 isPoisonMist = 2;
                 break;
@@ -72,7 +70,6 @@ public class MapleMist extends MapleMapObject {
             case 11076:
             case 2111003: // FP mist
             case 12111005: // Flame wizard, [Flame Gear]
-            case 4121015:
                 isPoisonMist = 1;
                 break;
             case 22161003: //Recovery Aura

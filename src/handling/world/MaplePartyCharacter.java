@@ -20,11 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package handling.world;
 
-import java.awt.Point;
-import java.util.List;
-import java.io.Serializable;
-
 import client.MapleCharacter;
+import java.awt.Point;
+import java.io.Serializable;
+import java.util.List;
 import server.maps.MapleDoor;
 
 public class MaplePartyCharacter implements Serializable {
@@ -33,6 +32,7 @@ public class MaplePartyCharacter implements Serializable {
     private String name;
     private int id;
     private int level;
+    private int world;
     private int channel;
     private int jobid;
     private int mapid;
@@ -46,6 +46,7 @@ public class MaplePartyCharacter implements Serializable {
         this.name = maplechar.getName();
         this.level = maplechar.getLevel();
         this.channel = maplechar.getClient().getChannel();
+        this.world = maplechar.getClient().getWorld();
         this.id = maplechar.getId();
         this.jobid = maplechar.getJob();
         this.mapid = maplechar.getMapId();
@@ -75,6 +76,10 @@ public class MaplePartyCharacter implements Serializable {
 
     public int getChannel() {
         return channel;
+    }
+    
+    public int getWorld() {
+        return world;
     }
 
     public boolean isOnline() {

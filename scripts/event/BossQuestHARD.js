@@ -1,5 +1,5 @@
 var eventmapid = 551030200;
-var returnmap = 262000300;
+var returnmap = 980010000;
 
 var monster = new Array(
     8220004, // Dodo
@@ -145,10 +145,10 @@ function allMonstersDead(eim) {
     eim.saveBossQuest(num);
 
     if (mobnum < monster.length) {
-	eim.broadcastPlayerMsg(6, "Prepare! The next boss will appear in a glimpse of an eye!");
-} else {
-	eim.saveBossQuest(50000);
-	eim.broadcastPlayerMsg(5, "Your team've beaten the HARD mode and have gained an extra 50,000 points!");
+		eim.broadcastPlayerMsg(6, "Prepare! The next boss will appear in a glimpse of an eye!");
+	} else {
+		eim.saveBossQuest(3000);
+		eim.broadcastPlayerMsg(5, "Your team've beaten the HARD mode and have gained an extra 3,000 points!");
     }
 // When invoking unregisterMonster(MapleMonster mob) OR killed
 // Happens only when size = 0

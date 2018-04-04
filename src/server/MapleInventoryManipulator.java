@@ -1,46 +1,26 @@
 package server;
 
+import client.MapleTrait.MapleTraitType;
+import client.*;
+import client.inventory.EquipAdditions.RingSet;
+import client.inventory.*;
+import constants.GameConstants;
+import handling.world.World;
 import java.awt.Point;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import client.inventory.MapleInventoryIdentifier;
-import constants.GameConstants;
-import client.inventory.Equip;
-import client.inventory.InventoryException;
-import client.inventory.Item;
-import client.inventory.ItemFlag;
-import client.PlayerStats;
-import client.MapleBuffStat;
-import client.inventory.MaplePet;
-import client.MapleCharacter;
-import client.MapleClient;
-import client.MapleQuestStatus;
-import client.MapleTrait.MapleTraitType;
-import client.Skill;
-import client.SkillEntry;
-import client.SkillFactory;
-import client.inventory.*;
 import server.maps.AramiaFireWorks;
-import tools.packet.MTSCSPacket;
-import tools.StringUtil;
-import constants.MapConstants;
-import constants.ServerConstants;
-import constants.TutorialConstants;
-import handling.channel.ChannelServer;
-import handling.world.MaplePartyCharacter;
-import java.util.HashMap;
-import java.util.TimerTask;
-import server.Timer.BuffTimer;
 import server.quest.MapleQuest;
+import tools.StringUtil;
 import tools.packet.CWvsContext;
 import tools.packet.CWvsContext.InfoPacket;
 import tools.packet.CWvsContext.InventoryPacket;
+import tools.packet.MTSCSPacket;
 
 public class MapleInventoryManipulator {
 
- 
     public static void addRing(MapleCharacter chr, int itemId, int ringId, int sn, String partner) {
         CashItemInfo csi = CashItemFactory.getInstance().getItem(sn);
         if (csi == null) {
@@ -112,11 +92,13 @@ public class MapleInventoryManipulator {
 
     public static byte addId(MapleClient c, int itemId, short quantity, String owner, MaplePet pet, long period, String gmLog) {
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        if ((ii.isPickupRestricted(itemId) && c.getPlayer().haveItem(itemId, 1, true, false)) || (!ii.itemExists(itemId))) {
-            c.getSession().write(InventoryPacket.getInventoryFull());
-            c.getSession().write(InventoryPacket.showItemUnavailable());
-            return -1;
-        }
+        /*        if ((ii.isPickupRestricted(itemId) && c.getPlayer().haveItem(itemId, 1, true, false)) || (!ii.itemExists(itemId))) {
+         c.getSession().write(InventoryPacket.getInventoryFull());
+         c.getSession().write(InventoryPacket.showItemUnavailable());
+         return -1;
+         }
+         * 
+         */
         final MapleInventoryType type = GameConstants.getInventoryType(itemId);
         int uniqueid = getUniqueId(itemId, pet);
         short newSlot = -1;
@@ -232,11 +214,13 @@ public class MapleInventoryManipulator {
             return null;
         }
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        if ((ii.isPickupRestricted(itemId) && c.getPlayer().haveItem(itemId, 1, true, false)) || (!ii.itemExists(itemId))) {
-            c.getSession().write(InventoryPacket.getInventoryFull());
-            c.getSession().write(InventoryPacket.showItemUnavailable());
-            return null;
-        }
+        /*        if ((ii.isPickupRestricted(itemId) && c.getPlayer().haveItem(itemId, 1, true, false)) || (!ii.itemExists(itemId))) {
+         c.getSession().write(InventoryPacket.getInventoryFull());
+         c.getSession().write(InventoryPacket.showItemUnavailable());
+         return null;
+         }
+         * 
+         */
         final MapleInventoryType type = GameConstants.getInventoryType(itemId);
 
         if (!type.equals(MapleInventoryType.EQUIP)) {
@@ -329,7 +313,7 @@ public class MapleInventoryManipulator {
     public static boolean addFromDrop(final MapleClient c, Item item, final boolean show, final boolean enhance) {
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
 
-        if (c.getPlayer() == null || (ii.isPickupRestricted(item.getItemId()) && c.getPlayer().haveItem(item.getItemId(), 1, true, false)) || (!ii.itemExists(item.getItemId()))) {
+       if (c.getPlayer() == null || (!c.getChannelServer().allowMoreThanOne() && c.getPlayer().haveItem(item.getItemId(), 1, true, false))) {
             c.getSession().write(InventoryPacket.getInventoryFull());
             c.getSession().write(InventoryPacket.showItemUnavailable());
             return false;
@@ -418,9 +402,6 @@ public class MapleInventoryManipulator {
                 throw new RuntimeException("Trying to create equip with non-one quantity");
             }
         }
-        if (item.getQuantity() >= 50 && item.getItemId() == 2340000) {
-            c.setMonitored(true);
-        }
         if (before == 0) {
             switch (item.getItemId()) {
                 case AramiaFireWorks.KEG_ID:
@@ -453,10 +434,12 @@ public class MapleInventoryManipulator {
 
     public static boolean checkSpace(final MapleClient c, final int itemid, int quantity, final String owner) {
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        if (c.getPlayer() == null || (ii.isPickupRestricted(itemid) && c.getPlayer().haveItem(itemid, 1, true, false)) || (!ii.itemExists(itemid))) {
-            c.getSession().write(CWvsContext.enableActions());
-            return false;
-        }
+        /*        if (c.getPlayer() == null || (ii.isPickupRestricted(itemid) && c.getPlayer().haveItem(itemid, 1, true, false)) || (!ii.itemExists(itemid))) {
+         c.getSession().write(CWvsContext.enableActions());
+         return false;
+         }
+         * 
+         */
         if (quantity <= 0 && !GameConstants.isRechargable(itemid)) {
             return false;
         }
@@ -503,6 +486,7 @@ public class MapleInventoryManipulator {
             return false;
         }
         final Item item = c.getPlayer().getInventory(type).getItem(slot);
+
         if (item != null) {
             final boolean allowZero = consume && GameConstants.isRechargable(item.getItemId());
             c.getPlayer().getInventory(type).removeItem(slot, quantity, allowZero);
@@ -569,6 +553,10 @@ public class MapleInventoryManipulator {
         final Item initialTarget = c.getPlayer().getInventory(type).getItem(dst);
         if (source == null) {
             return;
+        }
+        if (!c.getPlayer().isGM() && (source.getItemId() == 1002140 || source.getItemId() == 1042003 || source.getItemId() == 1062007 || source.getItemId() == 1322013)) {
+                World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.serverNotice(6, "[AutoBan]: " + c.getPlayer().getName() + " has been banned for wearing a Wizet Item."));
+                c.getPlayer().ban("[AutoBan]: GM Equipment on character.", true);
         }
         boolean bag = false, switchSrcDst = false, bothBag = false;
         short eqIndicator = -1;
@@ -639,14 +627,11 @@ public class MapleInventoryManipulator {
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
         final MapleCharacter chr = c.getPlayer();
         if (chr == null || (GameConstants.GMS && dst == -55)) {
-            c.getSession().write(CWvsContext.enableActions());
             return;
         }
-        c.getPlayer().getStat().recalcLocalStats(c.getPlayer());
         final PlayerStats statst = c.getPlayer().getStat();
-        statst.recalcLocalStats(c.getPlayer());
         Equip source = (Equip) chr.getInventory(MapleInventoryType.EQUIP).getItem(src);
-        Equip target = (Equip) chr.getInventory(MapleInventoryType.EQUIPPED).getItem(dst);
+        Equip target;
 
         if (source == null || source.getDurability() == 0 || GameConstants.isHarvesting(source.getItemId())) {
             c.getSession().write(CWvsContext.enableActions());
@@ -659,21 +644,24 @@ public class MapleInventoryManipulator {
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
+        if (!c.getPlayer().isGM() && (source.getItemId() == 1002140 || source.getItemId() == 1042003 || source.getItemId() == 1062007 || source.getItemId() == 1322013)) {
+                World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.serverNotice(6, "[AutoBan]: " + c.getPlayer().getName() + " has been banned for wearing a Wizet Item."));
+                c.getPlayer().ban("[AutoBan]: GM Equipment on character.", true);
+        }
         if (dst > -1200 && dst < -999 && !GameConstants.isEvanDragonItem(source.getItemId()) && !GameConstants.isMechanicItem(source.getItemId())) {
             c.getSession().write(CWvsContext.enableActions());
             return;
-        } else if ((dst <= -1200 || (dst >= -999 && dst < -99)) && !stats.containsKey("cash")) {
-            c.getSession().write(CWvsContext.enableActions());
+        } else if (((dst <= -1200 && dst > -5000 ) || (dst >= -999 && dst < -99)) && !stats.containsKey("cash")) {
+            c.getSession().write(CWvsContext.enableActions()); 
             return;
-        } else if (dst <= -1300 && c.getPlayer().getAndroid() == null) {
-            c.getSession().write(CWvsContext.enableActions());
-            return;
-        }
-        
-        if (!ii.canEquip(stats, source.getItemId(), chr.getLevel(), chr.getJob(), chr.getFame(), statst.getTotalStr(), statst.getTotalDex(), statst.getTotalLuk(), statst.getTotalInt(), c.getPlayer().getStat().levelBonus)) {
+        } else if ((dst <= -1300 && dst > -5000) && c.getPlayer().getAndroid() == null) {
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
+        //  if (!ii.canEquip(stats, source.getItemId(), chr.getLevel(), chr.getJob(), chr.getFame(), statst.getTotalStr(), statst.getTotalDex(), statst.getTotalLuk(), statst.getTotalInt())) {
+        ////    c.getSession().write(CWvsContext.enableActions());
+        //    return;
+        // }
         if (GameConstants.isWeapon(source.getItemId()) && dst != -10 && dst != -11) {
             c.getSession().write(CWvsContext.enableActions());
             return;
@@ -693,19 +681,54 @@ public class MapleInventoryManipulator {
                 return;
             }
         }
-        if (GameConstants.isKatara(source.getItemId()) || source.getItemId() / 10000 == 135) {
-            dst = (byte) -10; //Shield Slot
+        if (GameConstants.isKatara(source.getItemId()) || source.getItemId() / 10000 == 135 || source.getItemId() == 1098000) {
+            dst = (byte) -10; //shield slot
         }
-        //[CUSTOM]: CashCover flag, no longer affects cash shop items.
-        if(source.getCashCover() == 1 && !MapleItemInformationProvider.getInstance().isCash(source.getItemId())){
-            dst -= 100;
-        }
+
         if (GameConstants.isEvanDragonItem(source.getItemId()) && (chr.getJob() < 2200 || chr.getJob() > 2218)) {
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
 
         if (GameConstants.isMechanicItem(source.getItemId()) && (chr.getJob() < 3500 || chr.getJob() > 3512)) {
+            c.getSession().write(CWvsContext.enableActions());
+            return;
+        }
+        
+        boolean crush = false;
+        boolean friend = false;
+        boolean marriage = false;
+        if (chr.hasEquipped(1112001) || chr.hasEquipped(1112002) || chr.hasEquipped(1112003) || chr.hasEquipped(1112005) || chr.hasEquipped(1112006) || chr.hasEquipped(1112007) || chr.hasEquipped(1048000)) {
+            crush = true;
+        }
+        if (chr.hasEquipped(1112800) || chr.hasEquipped(1112801) || chr.hasEquipped(1112802) || chr.hasEquipped(1112810) || chr.hasEquipped(1112811) || chr.hasEquipped(1112812) || chr.hasEquipped(1112816) || chr.hasEquipped(1112817) || chr.hasEquipped(1049000)) {
+            friend = true;
+        }
+        if (chr.hasEquipped(1112803) || chr.hasEquipped(1112806) || chr.hasEquipped(1112807) || chr.hasEquipped(1112809)) {
+            marriage = true;
+        }
+        if ((crush && friend) && (GameConstants.isEffectRing(source.getItemId()))) {
+            c.getPlayer().dropMessage(1, "You can only wear up to two different rings, not three.\r\nPlease un-equip a ring to swap it out with another (includes Friend/Couple shirts).");
+            c.getSession().write(CWvsContext.enableActions());
+            return;
+        } else if ((crush && marriage) && (GameConstants.isEffectRing(source.getItemId()))) {
+            c.getPlayer().dropMessage(1, "You can only wear up to two different rings, not three.\r\nPlease un-equip a ring to swap it out with another (includes Friend/Couple shirts).");
+            c.getSession().write(CWvsContext.enableActions());
+            return;
+        } else if ((friend && marriage) && (GameConstants.isEffectRing(source.getItemId()))) {
+            c.getPlayer().dropMessage(1, "You can only wear up to two different rings, not three.\r\nPlease un-equip a ring to swap it out with another (includes Friend/Couple shirts).");
+            c.getSession().write(CWvsContext.enableActions());
+            return;
+        } else if ((crush) && (GameConstants.isCrushRing(source.getItemId()))) {
+            c.getPlayer().dropMessage(1, "Only one couple-ring can be equipped.");
+            c.getSession().write(CWvsContext.enableActions());
+            return;
+        } else if ((friend) && (GameConstants.isFriendshipRing(source.getItemId()))) {
+            c.getPlayer().dropMessage(1, "You may only equip one Friendship Ring at a time.");
+            c.getSession().write(CWvsContext.enableActions());
+            return;
+        } else if ((marriage) && (GameConstants.isMarriageRing(source.getItemId()))) {
+            c.getPlayer().dropMessage(1, "You may only equip one Wedding Ring at a time.");
             c.getSession().write(CWvsContext.enableActions());
             return;
         }
@@ -731,7 +754,7 @@ public class MapleInventoryManipulator {
                 if (top != null && GameConstants.isOverall(top.getItemId())) {
                     if (chr.getInventory(MapleInventoryType.EQUIP).isFull()) {
                         c.getSession().write(InventoryPacket.getInventoryFull());
-                        c.getSession().write(CWvsContext.serverNotice(1, "You must first make room in your inventory to allow space for equipped items to unequip."));
+                        c.getSession().write(InventoryPacket.getShowInventoryFull());
                         return;
                     }
                     unequip(c, (byte) -5, chr.getInventory(MapleInventoryType.EQUIP).getNextFreeSlot());
@@ -744,7 +767,7 @@ public class MapleInventoryManipulator {
                 if (top != null && GameConstants.isOverall(source.getItemId())) {
                     if (chr.getInventory(MapleInventoryType.EQUIP).isFull(bottom != null && GameConstants.isOverall(source.getItemId()) ? 1 : 0)) {
                         c.getSession().write(InventoryPacket.getInventoryFull());
-                        c.getSession().write(CWvsContext.serverNotice(1, "You must first make room in your inventory to allow space for equipped items to unequip."));
+                        c.getSession().write(InventoryPacket.getShowInventoryFull());
                         return;
                     }
                     unequip(c, (byte) -5, chr.getInventory(MapleInventoryType.EQUIP).getNextFreeSlot());
@@ -752,7 +775,7 @@ public class MapleInventoryManipulator {
                 if (bottom != null && GameConstants.isOverall(source.getItemId())) {
                     if (chr.getInventory(MapleInventoryType.EQUIP).isFull()) {
                         c.getSession().write(InventoryPacket.getInventoryFull());
-                        c.getSession().write(CWvsContext.serverNotice(1, "You must first make room in your inventory to allow space for equipped items to unequip."));
+                        c.getSession().write(InventoryPacket.getShowInventoryFull());
                         return;
                     }
                     unequip(c, (byte) -6, chr.getInventory(MapleInventoryType.EQUIP).getNextFreeSlot());
@@ -763,59 +786,26 @@ public class MapleInventoryManipulator {
                 Item weapon = chr.getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -11);
                 if (GameConstants.isKatara(source.getItemId())) {
                     if ((chr.getJob() != 900 && (chr.getJob() < 430 || chr.getJob() > 434)) || weapon == null || !GameConstants.isDagger(weapon.getItemId())) {
-                        c.getSession().write(InventoryPacket.getInventoryFull()); //Enables Actions.
-                        c.getSession().write(CWvsContext.serverNotice(1, "You must first have a dagger equipped to equip a Katara."));
+                        c.getSession().write(InventoryPacket.getInventoryFull());
+                        c.getSession().write(InventoryPacket.getShowInventoryFull());
                         return;
                     }
                 } else if (weapon != null && GameConstants.isTwoHanded(weapon.getItemId())) {
                     if (chr.getInventory(MapleInventoryType.EQUIP).isFull()) {
                         c.getSession().write(InventoryPacket.getInventoryFull());
-                        c.getSession().write(CWvsContext.serverNotice(1, "You must first make room in your inventory to allow space for equipped items to unequip."));
+                        c.getSession().write(InventoryPacket.getShowInventoryFull());
                         return;
                     }
-                    unequip(c, (short)-11, chr.getInventory(MapleInventoryType.EQUIP).getNextFreeSlot());
-                }
-                
-                if (chr.getInventory(MapleInventoryType.EQUIPPED).getItem((short)-152) != null){
-                    if(chr.getInventory(MapleInventoryType.EQUIP).isFull()){
-                        c.getSession().write(InventoryPacket.getInventoryFull());
-                        c.getSession().write(CWvsContext.serverNotice(1, "You must first make room in your inventory to allow space for equipped items to unequip."));
-                        return;
-                    }
-                    unequip(c, (short)-152, chr.getInventory(MapleInventoryType.EQUIP).getNextFreeSlot());
+                    unequip(c, (byte) -11, chr.getInventory(MapleInventoryType.EQUIP).getNextFreeSlot());
                 }
                 break;
             }
             case -11: { // Weapon
                 Item shield = chr.getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -10);
-                 if ( shield != null && (!GameConstants.isDagger(source.getItemId()) && GameConstants.isKatara(shield.getItemId()))) {
-                    if ((chr.getJob() != 900 && (chr.getJob() < 430 || chr.getJob() > 434)) || !GameConstants.isDagger(shield.getItemId())) {
-                        if(chr.getInventory(MapleInventoryType.EQUIP).isFull())
-                        {
-                            c.getSession().write(InventoryPacket.getInventoryFull());
-                            c.getSession().write(CWvsContext.serverNotice(1, "You must first make room in your inventory to allow space for equipped items to unequip."));
-                            return;
-                        }
-                        unequip(c, (byte) -10, chr.getInventory(MapleInventoryType.EQUIP).getNextFreeSlot());
-
-                    }
-                } 
                 if (shield != null && GameConstants.isTwoHanded(source.getItemId())) {
                     if (chr.getInventory(MapleInventoryType.EQUIP).isFull()) {
                         c.getSession().write(InventoryPacket.getInventoryFull());
-                        c.getSession().write(CWvsContext.serverNotice(1, "You must first make room in your inventory to allow space for equipped items to unequip."));
-                        return;
-                    }
-                    unequip(c, (byte) -10, chr.getInventory(MapleInventoryType.EQUIP).getNextFreeSlot());
-                }
-                break;
-            }
-            case -152: { //secondary items
-                Item shield = chr.getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -10);
-                if(shield != null){
-                    if (chr.getInventory(MapleInventoryType.EQUIP).isFull()) {
-                        c.getSession().write(InventoryPacket.getInventoryFull());
-                        c.getSession().write(CWvsContext.serverNotice(1, "You must first make room in your inventory to allow space for equipped items to unequip."));
+                        c.getSession().write(InventoryPacket.getShowInventoryFull());
                         return;
                     }
                     unequip(c, (byte) -10, chr.getInventory(MapleInventoryType.EQUIP).getNextFreeSlot());
@@ -842,8 +832,8 @@ public class MapleInventoryManipulator {
                 final int uid = MapleInventoryIdentifier.getInstance();
                 source.setUniqueId(uid);
                 source.setAndroid(MapleAndroid.create(source.getItemId(), uid));
-                flag |= ItemFlag.LOCK.getValue();
-                flag |= ItemFlag.UNTRADEABLE.getValue();
+                // flag |= ItemFlag.LOCK.getValue();
+                //flag |= ItemFlag.UNTRADEABLE.getValue();
                 flag |= ItemFlag.ANDROID_ACTIVATED.getValue();
                 source.setFlag(flag);
                 c.getSession().write(InventoryPacket.updateSpecialItemUse_(source, MapleInventoryType.EQUIP.getType(), c.getPlayer()));
@@ -889,8 +879,7 @@ public class MapleInventoryManipulator {
             int[] potentials = {source.getPotential1(), source.getPotential2(), source.getPotential3(), source.getPotential4(), source.getPotential5()};
             for (int i : potentials) {
                 if (i > 0) {
-                    int rLevel = ii.getReqLevel(source.getItemId()) / 10;
-                    StructItemOption pot = ii.getPotentialInfo(i).get(rLevel > 19 ? 19 : rLevel);
+                    StructItemOption pot = ii.getPotentialInfo(i).get(ii.getReqLevel(source.getItemId()) / 10);
                     if (pot != null && pot.get("skillID") > 0) {
                         ss.put(SkillFactory.getSkill(PlayerStats.getSkillByJob(pot.get("skillID"), c.getPlayer().getJob())), new SkillEntry((byte) 1, (byte) 0, -1));
                     }
@@ -926,14 +915,6 @@ public class MapleInventoryManipulator {
             c.getSession().write(InventoryPacket.getInventoryFull());
             return;
         }
-        if (MapConstants.isStorylineMap(c.getPlayer().getMapId())) {
-            if (TutorialConstants.isBeginnerEquip(source.getItemId())) {
-                c.getPlayer().dropMessage(5, TutorialConstants.getEquipBlockedMsg());
-                c.getSession().write(CWvsContext.enableActions());
-                return;
-            }
-        }
-        
         c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).removeSlot(src);
         if (target != null) {
             c.getPlayer().getInventory(MapleInventoryType.EQUIP).removeSlot(dst);
@@ -944,7 +925,10 @@ public class MapleInventoryManipulator {
             target.setPosition(src);
             c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).addFromDB(target);
         }
-
+        if (!c.getPlayer().isGM() && (source.getItemId() == 1002140 || source.getItemId() == 1042003 || source.getItemId() == 1062007 || source.getItemId() == 1322013)) {
+                World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.serverNotice(6, "[AutoBan]: " + c.getPlayer().getName() + " has been banned for dropping a Wizet Item."));
+                c.getPlayer().ban("[AutoBan]: GM Equipment on character.", true);
+        }
         if (GameConstants.isWeapon(source.getItemId())) {
             c.getPlayer().cancelEffectFromBuffStat(MapleBuffStat.BOOSTER);
             c.getPlayer().cancelEffectFromBuffStat(MapleBuffStat.SPIRIT_CLAW);
@@ -967,8 +951,7 @@ public class MapleInventoryManipulator {
             int[] potentials = {source.getPotential1(), source.getPotential2(), source.getPotential3(), source.getPotential4(), source.getPotential5()};
             for (int i : potentials) {
                 if (i > 0) {
-                    int rLevel = ii.getReqLevel(source.getItemId()) / 10;
-                    StructItemOption pot = ii.getPotentialInfo(i).get(rLevel > 19 ? 19 : rLevel);
+                    StructItemOption pot = ii.getPotentialInfo(i).get(ii.getReqLevel(source.getItemId()) / 10);
                     if (pot != null && pot.get("skillID") > 0) {
                         ss.put(SkillFactory.getSkill(PlayerStats.getSkillByJob(pot.get("skillID"), c.getPlayer().getJob())), new SkillEntry((byte) 0, (byte) 0, -1));
                     }
@@ -1006,16 +989,20 @@ public class MapleInventoryManipulator {
             return false;
         }
         final Item source = c.getPlayer().getInventory(type).getItem(src);
+        
+        if (GameConstants.isIllegal(source.getItemId())) {
+                c.getPlayer().dropMessage(1, "This item is a special item and is undroppable.");
+                c.announce(CWvsContext.enableActions());
+                return false;
+        }
+        
+        if (!c.getPlayer().isGM() && (source.getItemId() == 1002140 || source.getItemId() == 1042003 || source.getItemId() == 1062007 || source.getItemId() == 1322013)) {
+                World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.serverNotice(6, "[AutoBan]: " + c.getPlayer().getName() + " has been banned for dropping a Wizet Item."));
+                c.getPlayer().ban("[AutoBan]: GM Equipment on character.", true);
+        }
         if (quantity < 0 || source == null || (GameConstants.GMS && src == -55) || (!npcInduced && GameConstants.isPet(source.getItemId())) || (quantity == 0 && !GameConstants.isRechargable(source.getItemId())) || c.getPlayer().inPVP()) {
             c.getSession().write(CWvsContext.enableActions());
             return false;
-        }
-        if (MapConstants.isStorylineMap(c.getPlayer().getMapId())) {
-            if (TutorialConstants.isBeginnerEquip(source.getItemId()) || source.getItemId() == ServerConstants.CURRENCY) {
-                c.getPlayer().dropMessage(5, TutorialConstants.getDropBlockedMsg());
-                c.getSession().write(CWvsContext.enableActions());
-                return false;
-            }
         }
 
         final short flag = source.getFlag();
@@ -1027,17 +1014,16 @@ public class MapleInventoryManipulator {
             c.getSession().write(CWvsContext.enableActions());
             return false;
         }
-        
         final Point dropPos = new Point(c.getPlayer().getPosition());
-        c.getPlayer().getCheatTracker().checkDrop();
+        //  c.getPlayer().getCheatTracker().checkDrop();
         if (quantity < source.getQuantity() && !GameConstants.isRechargable(source.getItemId())) {
             final Item target = source.copy();
             target.setQuantity(quantity);
             source.setQuantity((short) (source.getQuantity() - quantity));
             c.getSession().write(InventoryPacket.dropInventoryItemUpdate(type, source));
 
-            if (ii.isDropRestricted(target.getItemId()) || ii.isAccountShared(target.getItemId())) {
-                if (ItemFlag.KARMA_EQ.check(flag)) {
+            if (!c.getChannelServer().allowUndroppablesDrop() && (ii.isDropRestricted(target.getItemId()) || ii.isAccountShared(target.getItemId()))) {
+                  if (ItemFlag.KARMA_EQ.check(flag)) {
                     target.setFlag((byte) (flag - ItemFlag.KARMA_EQ.getValue()));
                     c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), target, dropPos, true, true);
                 } else if (ItemFlag.KARMA_USE.check(flag)) {
@@ -1047,7 +1033,7 @@ public class MapleInventoryManipulator {
                     c.getPlayer().getMap().disappearingItemDrop(c.getPlayer(), c.getPlayer(), target, dropPos);
                 }
             } else {
-                if (GameConstants.isPet(source.getItemId()) || ItemFlag.UNTRADEABLE.check(flag)) {
+                if (GameConstants.isPet(source.getItemId()) || ItemFlag.UNTRADEABLE.check(flag) || GameConstants.isIllegal(source.getItemId())) {
                     c.getPlayer().getMap().disappearingItemDrop(c.getPlayer(), c.getPlayer(), target, dropPos);
                 } else {
                     c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), target, dropPos, true, true);
@@ -1062,7 +1048,11 @@ public class MapleInventoryManipulator {
             if (src < 0) {
                 c.getPlayer().equipChanged();
             }
-            if (ii.isDropRestricted(source.getItemId()) || ii.isAccountShared(source.getItemId())) {
+            if (GameConstants.isIllegal(source.getItemId())) {
+                c.getPlayer().dropMessage(1, "This item is a special item and is undroppable.");
+                c.announce(CWvsContext.enableActions());
+                // c.getPlayer().getMap().disappearingItemDrop(c.getPlayer(), c.getPlayer(), source, dropPos);
+            } else if (!c.getChannelServer().allowUndroppablesDrop() && (ii.isDropRestricted(source.getItemId()) || ii.isAccountShared(source.getItemId()))) {
                 if (ItemFlag.KARMA_EQ.check(flag)) {
                     source.setFlag((byte) (flag - ItemFlag.KARMA_EQ.getValue()));
                     c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), source, dropPos, true, true);
@@ -1073,7 +1063,7 @@ public class MapleInventoryManipulator {
                     c.getPlayer().getMap().disappearingItemDrop(c.getPlayer(), c.getPlayer(), source, dropPos);
                 }
             } else {
-                if (GameConstants.isPet(source.getItemId()) || ItemFlag.UNTRADEABLE.check(flag)) {
+                if (!c.getChannelServer().allowUndroppablesDrop() && (GameConstants.isPet(source.getItemId()) || ItemFlag.UNTRADEABLE.check(flag) || GameConstants.isIllegal(source.getItemId()))) {
                     c.getPlayer().getMap().disappearingItemDrop(c.getPlayer(), c.getPlayer(), source, dropPos);
                 } else {
                     c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), source, dropPos, true, true);

@@ -5,7 +5,6 @@
 package server.shops;
 
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,8 +46,9 @@ public class HiredMerchantSave {
         private long TimeTaken = 0;
         private int ShopsSaved = 0;
         private Object ToNotify;
-        private ArrayBlockingQueue<HiredMerchant> Queue = new ArrayBlockingQueue<HiredMerchant>(500); //500 Start Capacity (Should be plenty)
+        private ArrayBlockingQueue<HiredMerchant> Queue = new ArrayBlockingQueue<>(500); //500 Start Capacity (Should be plenty)
 
+        @Override
         public void run() {
             try {
                 while (!Queue.isEmpty()) {
@@ -56,7 +56,7 @@ public class HiredMerchantSave {
                     long Start = System.currentTimeMillis();
                     if (next.getMCOwner() != null && next.getMCOwner().getPlayerShop() == next) {
                         next.getMCOwner().setPlayerShop(null);
-                             }
+                    }
                     next.closeShop(true, false);
                     TimeTaken += (System.currentTimeMillis() - Start);
                     ShopsSaved++;

@@ -14,7 +14,7 @@ public class MapleExpedition {
 	this.et = ett;
 	this.id = id;
 	this.leaderId = leaderId;
-	this.parties = new ArrayList<Integer>(ett.maxParty);
+	this.parties = new ArrayList<>(ett.maxParty);
     }
 
     public ExpeditionType getType() {

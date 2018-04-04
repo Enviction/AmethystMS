@@ -1,5 +1,5 @@
 var eventmapid = 220080001;
-var returnmap = 262000300;
+var returnmap = 980010000;
 
 var monster = new Array(
     4130103, // Rombot
@@ -169,8 +169,8 @@ function allMonstersDead(eim) {
     if (mobnum < monster.length) {
 	eim.broadcastPlayerMsg(6, "Prepare! The next boss will appear in a glimpse of an eye!");
 	} else {
-	eim.saveBossQuest(30000);
-	eim.broadcastPlayerMsg(5, "Your team've beaten the MED mode and have gained an extra 30,000 points!");
+	eim.saveBossQuest(1000);
+	eim.broadcastPlayerMsg(5, "Your team've beaten the MED mode and have gained an extra 1000 points!");
     }
 // When invoking unregisterMonster(MapleMonster mob) OR killed
 // Happens only when size = 0

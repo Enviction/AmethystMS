@@ -32,11 +32,11 @@ import server.maps.MapleMapObjectType;
 import server.movement.AbsoluteLifeMovement;
 import server.movement.LifeMovement;
 import server.movement.LifeMovementFragment;
-import tools.packet.CField;
 import tools.data.MaplePacketLittleEndianWriter;
+import tools.packet.CField;
 import tools.packet.PacketHelper;
 
-public class MonsterFamiliar extends AnimatedMapleMapObject implements Serializable {
+public final class MonsterFamiliar extends AnimatedMapleMapObject implements Serializable {
 
     private static final long serialVersionUID = 795419937713738569L;
     private int id, familiar, fatigue, characterid;
@@ -142,12 +142,12 @@ public class MonsterFamiliar extends AnimatedMapleMapObject implements Serializa
 
     @Override
     public void sendSpawnData(MapleClient client) {
-        client.getSession().write(CField.spawnFamiliar(this, true, false));
+        client.getSession().write(CField.spawnFamiliar(this, true));
     }
 
     @Override
     public void sendDestroyData(MapleClient client) {
-        client.getSession().write(CField.spawnFamiliar(this, false, false));
+        client.getSession().write(CField.spawnFamiliar(this, false));
     }
 
     @Override

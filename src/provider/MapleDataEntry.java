@@ -40,6 +40,7 @@ public class MapleDataEntry implements MapleDataEntity {
         this.parent = parent;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -56,6 +57,7 @@ public class MapleDataEntry implements MapleDataEntity {
         return offset;
     }
 
+    @Override
     public MapleDataEntity getParent() {
         return parent;
     }

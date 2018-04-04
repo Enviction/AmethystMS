@@ -3,7 +3,7 @@
  * @script: MCrevive<(mapid%1000)/100>
  * @func: warps players back to arena and fixes their score back to normal
 */
-// Development v117.2 - Monster Carnival Reviving Field 4
+// Amethyst v117.2 - Monster Carnival Reviving Field 4
 
 function enter(pi) {
 	var portal = 0;

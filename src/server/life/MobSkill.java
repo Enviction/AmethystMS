@@ -248,31 +248,31 @@ public class MobSkill {
                 }
                 break;
             case 140:
-                stats.put(MonsterStatus.WEAPON_IMMUNITY, Integer.valueOf(x));
+               // stats.put(MonsterStatus.WEAPON_IMMUNITY, Integer.valueOf(x));
                 break;
             case 141:
-                stats.put(MonsterStatus.MAGIC_IMMUNITY, Integer.valueOf(x));
+             //   stats.put(MonsterStatus.MAGIC_IMMUNITY, Integer.valueOf(x));
                 break;
             case 142: // Weapon / Magic Immunity
-                stats.put(MonsterStatus.DAMAGE_IMMUNITY, Integer.valueOf(x));
+              //  stats.put(MonsterStatus.DAMAGE_IMMUNITY, Integer.valueOf(x));
                 break;
             case 143: // Weapon Reflect
-                stats.put(MonsterStatus.WEAPON_DAMAGE_REFLECT, Integer.valueOf(x));
-                stats.put(MonsterStatus.WEAPON_IMMUNITY, Integer.valueOf(x));
-                reflection.add(x);
+               // stats.put(MonsterStatus.WEAPON_DAMAGE_REFLECT, Integer.valueOf(x));
+               // stats.put(MonsterStatus.WEAPON_IMMUNITY, Integer.valueOf(x));
+                //reflection.add(x);
                 break;
             case 144: // Magic Reflect
-                stats.put(MonsterStatus.MAGIC_DAMAGE_REFLECT, Integer.valueOf(x));
-                stats.put(MonsterStatus.MAGIC_IMMUNITY, Integer.valueOf(x));
-                reflection.add(x);
+           //     stats.put(MonsterStatus.MAGIC_DAMAGE_REFLECT, Integer.valueOf(x));
+             //   stats.put(MonsterStatus.MAGIC_IMMUNITY, Integer.valueOf(x));
+               // reflection.add(x);
                 break;
             case 145: // Weapon / Magic reflect
-                stats.put(MonsterStatus.WEAPON_DAMAGE_REFLECT, Integer.valueOf(x));
-                stats.put(MonsterStatus.WEAPON_IMMUNITY, Integer.valueOf(x));
-                stats.put(MonsterStatus.MAGIC_DAMAGE_REFLECT, Integer.valueOf(x));
-                stats.put(MonsterStatus.MAGIC_IMMUNITY, Integer.valueOf(x));
-                reflection.add(x);
-                reflection.add(x);
+                //stats.put(MonsterStatus.WEAPON_DAMAGE_REFLECT, Integer.valueOf(x));
+                //stats.put(MonsterStatus.WEAPON_IMMUNITY, Integer.valueOf(x));
+                //stats.put(MonsterStatus.MAGIC_DAMAGE_REFLECT, Integer.valueOf(x));
+                //stats.put(MonsterStatus.MAGIC_IMMUNITY, Integer.valueOf(x));
+                //reflection.add(x);
+                //reflection.add(x);
                 break;
             case 200:
                 if (monster == null) {

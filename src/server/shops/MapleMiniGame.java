@@ -21,18 +21,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package server.shops;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import client.MapleCharacter;
 import client.MapleClient;
 import client.MapleQuestStatus;
 import constants.GameConstants;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import server.quest.MapleQuest;
 import tools.packet.PlayerShopPacket;
 
-public class MapleMiniGame extends AbstractPlayerStore {
+public final class MapleMiniGame extends AbstractPlayerStore {
 
     private final static int slots = 6; //change?!
     private boolean[] exitAfter;
@@ -40,7 +39,7 @@ public class MapleMiniGame extends AbstractPlayerStore {
     private int[] points;
     private int GameType = 0;
     private int[][] piece = new int[15][15];
-    private List<Integer> matchcards = new ArrayList<Integer>();
+    private List<Integer> matchcards = new ArrayList<>();
     int loser = 0;
     int turn = 1;
     int piecetype = 0;
@@ -77,7 +76,7 @@ public class MapleMiniGame extends AbstractPlayerStore {
         checkWin();
     }
 
-    public int getDPoints() {
+    public int getPoints() {
         int ret = 0;
         for (int i = 0; i < slots; i++) {
             ret += points[i];
@@ -86,21 +85,21 @@ public class MapleMiniGame extends AbstractPlayerStore {
     }
 
     public void checkWin() {
-        if (getDPoints() >= getMatchesToWin() && !isOpen()) {
+        if (getPoints() >= getMatchesToWin() && !isOpen()) {
             int x = 0;
             int highest = 0;
-            boolean tie = false;
+            boolean tiefe = false;
             for (int i = 0; i < slots; i++) {
                 if (points[i] > highest) {
                     x = i;
                     highest = points[i];
-                    tie = false;
+                    tiefe = false;
                 } else if (points[i] == highest) {
-                    tie = true;
+                    tiefe = true;
                 }
                 points[i] = 0;
             }
-            this.broadcastToVisitors(PlayerShopPacket.getMiniGameResult(this, tie ? 1 : 2, x));
+            this.broadcastToVisitors(PlayerShopPacket.getMiniGameResult(this, tiefe ? 1 : 2, x));
             this.setOpen(true);
             update();
             checkExitAfterGame();
@@ -159,6 +158,9 @@ public class MapleMiniGame extends AbstractPlayerStore {
 	    return;
 	}
         c.getSession().write(PlayerShopPacket.getMiniGame(c, this));
+        if (c.getPlayer() != getMCOwner()) {
+            c.getSession().write(PlayerShopPacket.getMiniGameFullMem());
+        }
     }
 
     public void setReady(int slot) {
@@ -227,6 +229,8 @@ public class MapleMiniGame extends AbstractPlayerStore {
             if (exitAfter[i]) {
                 exitAfter[i] = false;
                 exit(i == 0 ? getMCOwner() : chrs[i-1].get());
+                setOpen(false); // we re-setOpen() after game ends, so now we close if we're exiting after the game
+                closeShop(false, false); // we never close the shop either, now we can open in the same position :)
             }
         }
     }

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import client.MapleCharacter;
 import client.MapleClient;
 import client.messages.commands.*;
+import client.messages.commands.GodCommand;
 import client.messages.commands.AdminCommand;
 import client.messages.commands.GMCommand;
 import client.messages.commands.InternCommand;
@@ -38,6 +39,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import tools.FileoutputUtil;
 import constants.ServerConstants;
+import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
+import provider.MapleData;
+import provider.MapleDataProvider;
+import provider.MapleDataProviderFactory;
+import provider.MapleDataTool;
+import server.life.MapleLifeFactory;
+import tools.Pair;
 
 
 public class CommandProcessor {
@@ -48,7 +58,8 @@ public class CommandProcessor {
     static {
 
         Class<?>[] CommandFiles = {
-            PlayerCommand.class, InternCommand.class, GMCommand.class, AdminCommand.class, DonatorCommand.class, SuperDonatorCommand.class, SuperGMCommand.class
+            PlayerCommand.class, InternCommand.class, GMCommand.class, AdminCommand.class, DonatorCommand.class, SuperDonatorCommand.class, SuperGMCommand.class,
+            GodCommand.class
         };
 
         for (Class<?> clasz : CommandFiles) {
@@ -115,7 +126,11 @@ public class CommandProcessor {
     }
 
     public static boolean processCommand(MapleClient c, String line, CommandType type) {
-  if (line.charAt(0) == PlayerGMRank.NORMAL.getCommandPrefix() || (c.getPlayer().getGMLevel() > PlayerGMRank.NORMAL.getLevel() && line.charAt(0) == PlayerGMRank.DONATOR.getCommandPrefix()) || (c.getPlayer().getGMLevel() > PlayerGMRank.DONATOR.getLevel() && line.charAt(0) == PlayerGMRank.SUPERDONATOR.getCommandPrefix())) {
+        if (c.getPlayer().getMapId() == 180000001 && !c.getPlayer().isGM()) {
+            sendDisplayMessage(c, "You may not use commands in this map.", type);
+            return true;
+        }
+        if (line.charAt(0) == PlayerGMRank.NORMAL.getCommandPrefix() || (c.getPlayer().getGMLevel() > PlayerGMRank.NORMAL.getLevel() && line.charAt(0) == PlayerGMRank.DONATOR.getCommandPrefix()) || line.charAt(0) == PlayerGMRank.SUPERDONATOR.getCommandPrefix()) {
             String[] splitted = line.split(" ");
             splitted[0] = splitted[0].toLowerCase();
 
@@ -128,6 +143,7 @@ public class CommandProcessor {
                 int ret = co.execute(c, splitted); //Don't really care about the return value. ;D
             } catch (Exception e) {
                 sendDisplayMessage(c, "There was an error.", type);
+                e.printStackTrace();
                 if (c.getPlayer().isGM()) {
                     sendDisplayMessage(c, "Error: " + e, type);
 		    FileoutputUtil.outputFileError(FileoutputUtil.PacketEx_Log, e);
@@ -137,14 +153,14 @@ public class CommandProcessor {
         }
 
         if (c.getPlayer().getGMLevel() > PlayerGMRank.NORMAL.getLevel()) {
-            if (line.charAt(0) == PlayerGMRank.SUPERGM.getCommandPrefix() || line.charAt(0) == PlayerGMRank.INTERN.getCommandPrefix() || line.charAt(0) == PlayerGMRank.GM.getCommandPrefix() || line.charAt(0) == PlayerGMRank.ADMIN.getCommandPrefix()) { //Redundant for now, but in case we change symbols later. This will become extensible.
+            if (line.charAt(0) == PlayerGMRank.SUPERGM.getCommandPrefix() || line.charAt(0) == PlayerGMRank.INTERN.getCommandPrefix() || line.charAt(0) == PlayerGMRank.GM.getCommandPrefix() || line.charAt(0) == PlayerGMRank.ADMIN.getCommandPrefix() || line.charAt(0) == PlayerGMRank.GOD.getCommandPrefix()) { //Redundant for now, but in case we change symbols later. This will become extensible.
                 String[] splitted = line.split(" ");
                 splitted[0] = splitted[0].toLowerCase();
 
                 CommandObject co = commands.get(splitted[0]);
                 if (co == null) {
-		    if (splitted[0].equals(line.charAt(0) + "help")) {
- 		        dropHelp(c);
+                    if (splitted[0].equals(line.charAt(0) + "help")) {
+                        dropHelp(c);
 		        return true;
 		    }
                     sendDisplayMessage(c, "That command does not exist.", type);
@@ -160,10 +176,10 @@ public class CommandProcessor {
 			FileoutputUtil.outputFileError(FileoutputUtil.CommandEx_Log, e);
 		    }
                     if (ret > 0 && c.getPlayer() != null) { //incase d/c after command or something
-			if (c.getPlayer().isGM()) {
+                        if (c.getPlayer().isGM()) {
                             logCommandToDB(c.getPlayer(), line, "gmlog");
 			} else {
-			    logCommandToDB(c.getPlayer(), line, "internlog");
+                            logCommandToDB(c.getPlayer(), line, "internlog");
 			}
                     }
                 } else {
@@ -191,6 +207,32 @@ public class CommandProcessor {
             } catch (SQLException e) {/*Err.. Fuck?*/
 
             }
+        }
+    }
+    
+    public static ArrayList<Pair<Integer, String>> getMobsIDsFromName(String search) {
+        MapleDataProvider dataProvider = MapleDataProviderFactory.getDataProvider(new File("wz/String.wz"));
+        ArrayList<Pair<Integer, String>> retMobs = new ArrayList<Pair<Integer, String>>();
+        MapleData data = dataProvider.getData("Mob.img");
+        List<Pair<Integer, String>> mobPairList = new LinkedList<Pair<Integer, String>>();
+        for (MapleData mobIdData : data.getChildren()) {
+            int mobIdFromData = Integer.parseInt(mobIdData.getName());
+            String mobNameFromData = MapleDataTool.getString(mobIdData.getChildByPath("name"), "NO-NAME");
+            mobPairList.add(new Pair<Integer, String>(mobIdFromData, mobNameFromData));
+        }
+        for (Pair<Integer, String> mobPair : mobPairList) {
+            if (mobPair.getRight().toLowerCase().contains(search.toLowerCase())) {
+                retMobs.add(mobPair);
+            }
+        }
+        return retMobs;
+    }
+
+    public static String getMobNameFromID(int id) {
+        try {
+            return "not coded yet";//MapleLifeFactory.getMonster(id).getName();
+        } catch (Exception e) {
+            return null; 
         }
     }
 }
