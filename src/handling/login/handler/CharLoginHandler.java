@@ -322,9 +322,10 @@ public class CharLoginHandler {
         } else {
             c.getSession().write(LoginPacket.addNewCharEntry(newchar, false));
         }
-            c.changeSecondPassword();
             c.updateSecondPassword();
     }
+    
+    
 
     public static final void CreateUltimate(final LittleEndianAccessor slea, final MapleClient c) {
         if (!c.isLoggedIn() || c.getPlayer() == null || c.getPlayer().getLevel() < 120 || c.getPlayer().getMapId() != 130000000 || !GameConstants.isKOC(c.getPlayer().getJob()) || !c.canMakeCharacter(c.getPlayer().getWorld())) {
@@ -476,12 +477,12 @@ public class CharLoginHandler {
         }
         byte state = 0;
 
-        if (c.getSecondPassword() != null) { // On the server, there's a second password
-            if (Secondpw_Client == null) { // Client's hacking
+        if (c.getSecondPassword() != null) { 
+            if (Secondpw_Client == null) { 
                 c.getSession().close(true);
                 return;
             } else {
-                if (!c.CheckSecondPassword(Secondpw_Client)) { // Wrong Password
+                if (!c.CheckSecondPassword(Secondpw_Client)) { 
                     state = 20;
                 }
             }

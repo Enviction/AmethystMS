@@ -534,7 +534,7 @@ public class MapleClient implements Serializable {
 
                 accountName = login;
                 accId = rs.getInt("id");
-                secondPassword = "13337";
+                secondPassword = rs.getString("2ndpassword");
                 salt2 = rs.getString("salt2");
                 gm = rs.getInt("gm") > 0;
                 tos = rs.getInt("tos") > 0;
@@ -645,8 +645,36 @@ public class MapleClient implements Serializable {
         return this.gmLevel;
     }
 
-     public boolean CheckSecondPassword(String in) {
-            return true;        
+    public boolean CheckSecondPassword(String in) {
+        boolean allow = false;
+        boolean updatePasswordHash = false;
+
+        // Check if the passwords are correct here. :B
+        if (LoginCryptoLegacy.isLegacyPassword(secondPassword) && LoginCryptoLegacy.checkPassword(in, secondPassword)) {
+            // Check if a password upgrade is needed.
+            allow = true;
+            updatePasswordHash = true;
+        } else if (salt2 == null && LoginCrypto.checkSha1Hash(secondPassword, in)) {
+            allow = true;
+            updatePasswordHash = true;
+        } else if (LoginCrypto.checkSaltedSha512Hash(secondPassword, in, salt2)) {
+            allow = true;
+        }
+        if (updatePasswordHash) {
+            Connection con = DatabaseConnection.getConnection();
+            try {
+                PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `2ndpassword` = ?, `salt2` = ? WHERE id = ?");
+                final String newSalt = LoginCrypto.makeSalt();
+                ps.setString(1, LoginCrypto.rand_s(LoginCrypto.makeSaltedSha512Hash(in, newSalt)));
+                ps.setString(2, newSalt);
+                ps.setInt(3, accId);
+                ps.executeUpdate();
+                ps.close();
+            } catch (SQLException e) {
+                return false;
+            }
+        }
+        return allow;
     }
 
     private void unban() {
@@ -769,24 +797,25 @@ public class MapleClient implements Serializable {
     public final void updateSecondPassword() {
         try {
             final Connection con = DatabaseConnection.getConnection();
-            try (PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `2ndpassword` = ?, `salt2` = null WHERE id = ?")) {
-                //   final String newSalt = LoginCrypto.makeSalt();
-                ps.setString(1, secondPassword);
-                // ps.setString(2, newSalt);
-                ps.setInt(2, accId);
-                ps.executeUpdate();
-            }
+
+            PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `2ndpassword` = ?, `salt2` = ? WHERE id = ?");
+            final String newSalt = LoginCrypto.makeSalt();
+            ps.setString(1, LoginCrypto.rand_s(LoginCrypto.makeSaltedSha512Hash(secondPassword, newSalt)));
+            ps.setString(2, newSalt);
+            ps.setInt(3, accId);
+            ps.executeUpdate();
+            ps.close();
 
         } catch (SQLException e) {
             System.err.println("error updating login state" + e);
         }
     }
     
-    public final void changeSecondPassword() {
+    /*public final void changeSecondPassword() {
         try {
             final Connection con = DatabaseConnection.getConnection();
             try (PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `2ndpassword` = ?, `salt2` = null WHERE id = ?")) {
-                ps.setString(1, "13337");
+                ps.setString(1, "");
                 ps.setInt(2, accId);
                 ps.executeUpdate();
                 ps.close();
@@ -794,7 +823,16 @@ public class MapleClient implements Serializable {
         } catch (SQLException e) {
             System.err.println("error updating login state" + e);
         }
+    */ //ChangeSecondPassword Feature?
+    
+        public final String getSecondPassword() {
+        return secondPassword;
     }
+
+    public final void setSecondPassword(final String secondPassword) {
+        this.secondPassword = secondPassword;
+    }
+
 
     public final byte getLoginState() { // TODO hide?
         Connection con = DatabaseConnection.getConnection();
@@ -1202,13 +1240,6 @@ public class MapleClient implements Serializable {
         this.gender = gender;
     }
 
-    public final String getSecondPassword() {
-        return "13337"; // fake pic 4 dayz
-    }
-
-    public final void setSecondPassword(final String secondPassword) {
-        this.secondPassword = secondPassword;
-    }
 
     public final String getAccountName() {
         return accountName;
