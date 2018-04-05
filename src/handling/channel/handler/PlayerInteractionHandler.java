@@ -32,6 +32,7 @@ import server.MapleInventoryManipulator;
 import server.MapleItemInformationProvider;
 import server.MapleTrade;
 import server.Randomizer;
+import server.maps.FieldLimitType;
 import server.maps.MapleMapObject;
 import server.maps.MapleMapObjectType;
 import server.shops.*;
@@ -110,72 +111,68 @@ public class PlayerInteractionHandler {
         return 2;
     }
 
-    public static void PlayerInteraction(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
-       // System.out.println("player interaction.." + slea.toString());
-        byte a = slea.readByte();
-        final Interaction action = Interaction.getByAction(a);
+ public static final void PlayerInteraction(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) throws Exception {
+        //System.out.println("player interaction.." + slea.toString());
+        final Interaction action = Interaction.getByAction(slea.readByte());
         if (chr == null || action ==  null) {
-            System.out.println("null interaction: " + a);
             return;
         }
         c.getPlayer().setScrolledPosition((short) 0);
-        System.out.println("action: " + a);
-        switch (action) {
+        
+        switch (action) { // Mode
             case CREATE: {
                 if (chr.getPlayerShop() != null || c.getChannelServer().isShutdown() || chr.hasBlockedInventory()) {
                     c.getSession().write(CWvsContext.enableActions());
                     return;
                 }
                 final byte createType = slea.readByte();
-                if (!chr.getMap().getMapObjectsInRange(chr.getTruePosition(), 20000, Arrays.asList(MapleMapObjectType.SHOP, MapleMapObjectType.HIRED_MERCHANT)).isEmpty() || !chr.getMap().getPortalsInRange(chr.getTruePosition(), 20000).isEmpty()) {
-                        chr.dropMessage(1, "You may not establish a " + (createType == 1 || createType == 2 ? "minigame" : "store") + " here.");
+                if (createType == 3) { // trade
+                    MapleTrade.startTrade(chr);
+                } else if (createType == 1 || createType == 2 || createType == 4 || createType == 5) { // shop
+                    //if (createType == 4 && !chr.isIntern()) { //not hired merch... blocked playershop
+                    //    c.getSession().write(CWvsContext.enableActions());
+                    //    return;
+                    //}
+                    if (chr.getMap().getMapObjectsInRange(chr.getTruePosition(), 20000, Arrays.asList(MapleMapObjectType.SHOP, MapleMapObjectType.HIRED_MERCHANT)).size() != 0 || chr.getMap().getPortalsInRange(chr.getTruePosition(), 20000).size() != 0) {
+                        chr.dropMessage(1, "You may not establish a store here.");
                         c.getSession().write(CWvsContext.enableActions());
                         return;
-                }
-                if (createType == 3) {
-                    MapleTrade.startTrade(chr);
-                } else if (createType == 1 || createType == 2) { // omok and matchcards
+                    } else if (createType == 1 || createType == 2) {
+                        if (FieldLimitType.Minigames.check(chr.getMap().getFieldLimit()) || chr.getMap().allowPersonalShop()) {
+                            chr.dropMessage(1, "You may not use minigames here.");
+                            c.getSession().write(CWvsContext.enableActions());
+                            return;
+                        }
+                    }
                     final String desc = slea.readMapleAsciiString();
                     String pass = "";
                     if (slea.readByte() > 0) {
                         pass = slea.readMapleAsciiString();
                     }
-                    byte slot = slea.readByte();
-                    MapleInventory etc = c.getPlayer().getInventory(MapleInventoryType.ETC);
-                    Item item = etc.getItem(slot);
-                    int piece = createType == 1 ? (item.getItemId() == 4080010 ? 10 : item.getItemId() == 4080011 ? 11 : item.getItemId() % 10) : generatePieceType(chr);
-                    final int itemId = item.getItemId();
-              
-                    MapleMiniGame game = new MapleMiniGame(chr, itemId, desc, pass, createType); //itemid
-                    game.setPieceType(piece);
-                    chr.setPlayerShop(game);
-                    game.setAvailable(true);
-                    game.setOpen(true);
-                    game.send(c);
-                    chr.getMap().addMapObject(game);
-                    game.update();
-                } else if (createType == 4 || createType == 5) {
-                    // [06] // create
-                    // [04] // createType 
-                    // [04 00] // amount of characters in "test" (ascii) and byte space
-                    // [74 65 73 74 00] "test" in ascii and byte space
-                    // [10 00 20] // ??
-                    // [6E 4E 00] // ??
-                    final String desc = slea.readMapleAsciiString();
-                    if (slea.readByte() > 0) {
-                        String pass = slea.readMapleAsciiString();
-                    }
-                    if (chr.getMap().allowPersonalShop()) {
+                    if (createType == 1 || createType == 2) {
+                        final int piece = slea.readByte();
+                        final int itemId = createType == 1 ? (4080000 + piece) : 4080100;
+                        if (!chr.haveItem(itemId) || (c.getPlayer().getMapId() >= 910000001 && c.getPlayer().getMapId() <= 910000022)) {
+                            return;
+                        }
+                        MapleMiniGame game = new MapleMiniGame(chr, itemId, desc, pass, createType); //itemid
+                        game.setPieceType(piece);
+                        chr.setPlayerShop(game);
+                        game.setAvailable(true);
+                        game.setOpen(true);
+                        game.send(c);
+                        chr.getMap().addMapObject(game);
+                        game.update();
+                    } else if (chr.getMap().allowPersonalShop()) {
                         Item shop = c.getPlayer().getInventory(MapleInventoryType.CASH).getItem((byte) slea.readShort());
                         if (shop == null || shop.getQuantity() <= 0 || shop.getItemId() != slea.readInt() || c.getPlayer().getMapId() < 910000001 || c.getPlayer().getMapId() > 910000022) {
                             return;
                         }
                         if (createType == 4) {
-                            MaplePlayerShop mps = new MaplePlayerShop(chr, shop.getItemId(), desc);
-                            chr.setPlayerShop(mps);
-                            chr.getMap().addMapObject(mps);
-                            c.getSession().write(PlayerShopPacket.getPlayerStore(chr, true));
-                            c.announce(PlayerShopPacket.shopVisitorLeave((byte)1));
+                            //MaplePlayerShop mps = new MaplePlayerShop(chr, shop.getItemId(), desc);
+                            //chr.setPlayerShop(mps);
+                            //chr.getMap().addMapObject(mps);
+                            //c.getSession().write(PlayerShopPacket.getPlayerStore(chr, true));
                         } else if (HiredMerchantHandler.UseHiredMerchant(chr.getClient(), false)) {
                             final HiredMerchant merch = new HiredMerchant(chr, shop.getItemId(), desc);
                             chr.setPlayerShop(merch);
@@ -202,7 +199,7 @@ public class PlayerInteractionHandler {
                 MapleTrade.declineTrade(chr);
                 break;
             }
-            case VISIT: { // re-code
+            case VISIT: {
                 if (c.getChannelServer().isShutdown()) {
                     c.getSession().write(CWvsContext.enableActions());
                     return;
@@ -244,6 +241,7 @@ public class PlayerInteractionHandler {
                         } else {
                             if (ips instanceof MaplePlayerShop && ((MaplePlayerShop) ips).isBanned(chr.getName())) {
                                 chr.dropMessage(1, "You have been banned from this store.");
+                                return;
                             } else {
                                 if (ips.getFreeSlot() < 0 || ips.getVisitorSlot(chr) > -1 || !ips.isOpen() || !ips.isAvailable()) {
                                     c.getSession().write(PlayerShopPacket.getMiniGameFull());
@@ -258,8 +256,8 @@ public class PlayerInteractionHandler {
                                         c.getPlayer().dropMessage(1, "The password you entered is incorrect.");
                                         return;
                                     }
-                                    ips.addVisitor(chr);
                                     chr.setPlayerShop(ips);
+                                    ips.addVisitor(chr);
                                     if (ips instanceof MapleMiniGame) {
                                         ((MapleMiniGame) ips).send(c);
                                     } else {
