@@ -28,7 +28,7 @@ function action(mode, type, selection) {
 	} else if (status == 9) {
 		cm.sendPlayerToNpc("(The other heroes will make it through somehow. For now, I'll return to town using my skill.)");
 	} else if (status == 10) {
-		cm.warp(910150001,0);
+		cm.warp(910150001);
 		cm.dispose();
 	}
 }

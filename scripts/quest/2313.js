@@ -48,4 +48,3 @@ function end(mode, type, selection) {
 		qm.dispose();
 		}
 	}
-	

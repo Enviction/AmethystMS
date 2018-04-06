@@ -16,7 +16,7 @@ function start(mode, type, selection) {
 	else if (status == 1)
 		qm.PlayerToNpc("#bYes,what about you,Mom?#k");
 	else if (status == 2)
-		qm.sendNextPrev("I did as well. But you seem so tired. Are you sure you slept okay? Did the thunder and lightning last night keep you up?");
+		qm.sendNextPrev("I did as well. But you seem so MaskedStory. Are you sure you slept okay? Did the thunder and lightning last night keep you up?");
 	else if (status == 3) 
 		qm.PlayerToNpc("#bOh, no. It's not that, Mom. I just had a strange dream last night.#k");
 	else if (status == 4)

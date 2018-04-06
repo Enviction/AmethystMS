@@ -24,7 +24,7 @@ function start(mode, type, selection) {
 		}
 	}
 	if (status == 0)
-		qm.sendNext("Hi there, aaroncsn1! You may have heard by now that Aran has returned to the world of Maple, right? To celebrate his triumphant return,I,the Maple Administrator, and Lirin, the girl who waited patiently for Aran have a special present for you.");
+		qm.sendNext("Hi there! You may have heard by now that Aran has returned to the world of Maple, right? To celebrate his triumphant return,I,the Maple Administrator, and Lirin, the girl who waited patiently for Aran have a special present for you.");
 	if (status == 1)
 		qm.sendNextPrev("#v1112405# AllStat + 3 Weapon ATT +3 Magic ATT +3 HP +30 MP +30 \r\nOnce you reach Level 50 as Aran. Lirin will give you a ring that she treasures.");
 	if (status == 2)

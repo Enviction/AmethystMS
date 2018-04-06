@@ -46,9 +46,9 @@ public class LoginInformationProvider {
         Evan(4, "Evan", 2001, 900090000),
         Mercedes(5, "", 2002, 910150000),
         Demon(6, "", 3001, 931050310),
-        Phantom(7, "", 2003, 150000000),//2003
+        Phantom(7, "", 2003, 915000100),//2003
         DualBlade(8, "", 0, 103050900),
-        Mihile(9, "", 5000, 130000000), //whatever
+        Mihile(9, "", 5000, 913070000), //whatever
         Jett(10, "", 0, 552000010),
         Cannoneer(11, "", 0, 3000000);
         public int type, id, map;
