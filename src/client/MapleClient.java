@@ -986,6 +986,7 @@ public class MapleClient implements Serializable {
     }
 
     public final void disconnect(final boolean RemoveInChannelServer, final boolean fromCS, final boolean shutdown) {
+          Connection con = DatabaseConnection.getConnection();
         if (player != null) {
             if (player.getMaster() > 0) {
                 player.getMster().dropMessage(5, "Due to your Apprentice disconnecting, your Apprentice has been reset.");
@@ -1000,6 +1001,7 @@ public class MapleClient implements Serializable {
             MapleMap map = player.getMap();
             final MapleParty party = player.getParty();
             final String namez = player.getName();
+            final String login = accountName;
             final int idz = player.getId(), messengerid = player.getMessenger() == null ? 0 : player.getMessenger().getId(), gid = player.getGuildId(), fid = player.getFamilyId();
             final BuddyList bl = player.getBuddylist();
             final MaplePartyCharacter chrp = new MaplePartyCharacter(player);
@@ -1010,10 +1012,12 @@ public class MapleClient implements Serializable {
             removalTask(shutdown);
             LoginServer.getLoginAuth(player.getId());
             player.saveToDB(true, fromCS);
+            player.ForceDC(login);
             if (shutdown) {
                 player = null;
                 receiving = false;
                 return;
+                
             }
 
             if (!fromCS) {

@@ -1786,6 +1786,17 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         }
     }
     
+    public void ForceDC(String login) {
+      try {
+            Connection con = DatabaseConnection.getConnection();
+            PreparedStatement ps;
+            ps = con.prepareStatement("UPDATE accounts SET loggedin = 0 WHERE name = ?");
+                                    ps.setString(1, login);
+                                    ps.executeUpdate();
+                                    ps.close();
+                                } catch (SQLException se) {
+            }
+    }
     public int wantFame() {
         return wantFame;
     }
