@@ -27,17 +27,16 @@ public class ServerConstants {
     public static int[] VIP_ROCK_BLOCK = {180000000, 180000001};
     public static final byte[] NEXON_IP = new byte[]{(byte) 8, (byte) 31, (byte) 98, (byte) 53};
     // TODO: messages handled per world:)
-    public static String serverMessage = "Welcome to Amethyst v117.2 Closed Alpha! * Type @commands for a list of commands * Report all bugs to our forums, or to Eric.";
-    public static String WELCOME_MESSAGE = "Welcome to #rAmethyst#k - Closed Alpha!\r\n#gReport #ebugs#n to the forums!#k\r\n#bFacebook - #ehttp://www.facebook.com/Amethyst#n#k";
+    public static String serverMessage = "Welcome to Amethyst v117.2 Closed Alpha! * Type @commands for a list of commands * Report all bugs to our forums, or to Amity and W1sk3y.";
+    public static String WELCOME_MESSAGE = "Welcome to #rAmethyst#k - Closed Alpha!\r\n#gReport #ebugs#n to the forums!#k\r\n#bDiscord";
     
     public static String getTip() {
         // Update these occasionally <3
         String[] tips = {
-            "#rNEW items are available!#k", "#bNEW commands are available!#k", "#rVote for Munny!#k",
+            "#rVote for Munny!#k",
             "#bWe love our beauties! <3#k", "#rAuto Events#k give you Munny!", "#bMinigames are now available!#k",
-            "#We support #rWindows 8#k!", ("Our #bWZ's REV#k is #r" + WzRevision),
-            ("Our #bSource's REV#k is #r" + SourceRev), "#bDuh hello?#k", "Follow us on #bFacebook!#k",
-            "#rY#k#bO#k#rL#k#bO#k", "#ruw0tm8?#k", "ALL HAIL #rTROLLS#k!!!", "#rEric#k is cool", "#bKevin#k is cool", "#rPaul#k is cool"
+            "#We support #rWindows 8/8.1/10#k!", ("Our #bWZ's REV#k is #r" + WzRevision),
+            ("Our #bSource's REV#k is #r" + SourceRev)
         };
         int tip = (int)Math.floor(Math.random() * tips.length);
         return tips[tip];

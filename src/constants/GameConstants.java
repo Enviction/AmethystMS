@@ -3228,7 +3228,7 @@ case 5211015:
     public static int getExpRate_Below10(int job) {
         if (GameConstants.isEvan(job)) {
             return 1;
-        } else if (GameConstants.isAran(job) || GameConstants.isKOC(job) || GameConstants.isResist(job)) {
+        } else if (GameConstants.isAran(job) || GameConstants.isKOC(job) || GameConstants.isResist(job) || GameConstants.isAdventurer(job)) {
             return 1;
         }
         return 1;
