@@ -43,7 +43,7 @@ import tools.data.MaplePacketLittleEndianWriter;
 
 public class MTSCSPacket {
 
-    private static byte Operation_Code = 100; // We could just change this everytime a version updates
+    private static byte Operation_Code = 0x64; // We could just change this everytime a version updates
     private static final byte[] bestItems = HexTool.getByteArrayFromHexString("02 00 00 00 31 00 00 00 0A 00 10 00 12 00 0E 07 E0 3B 8B 0B 60 CE 8A 0B 69 00 6C 00 6C 00 2F 00 35 00 33 00 32 00 30 00 30 00 31 00 31 00 2F 00 73 00 75 00 6D 00 6D 00 6F 00 6E 00 2F 00 61 00 74 00 74 00 61 00 63 00 6B 00 31 00 2F 00 31 0000 00 00 00 00 00 00 00 02 00 1A 00 04 01 08 07 02 00 00 00 32 00 00 00 05 00 1C 00 06 00 08 07 A0 01 2E 00 58 CD 8A 0B");
 
     public static byte[] warpCS(MapleClient c) {
