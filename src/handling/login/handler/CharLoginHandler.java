@@ -322,7 +322,6 @@ public class CharLoginHandler {
         } else {
             c.getSession().write(LoginPacket.addNewCharEntry(newchar, false));
         }
-            c.updateSecondPassword();
     }
     
     
