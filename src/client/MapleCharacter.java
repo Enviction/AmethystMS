@@ -5245,6 +5245,170 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         }
         return ret.masterlevel;
     }
+    
+    public void autoEquip(){
+        final MapleInventory equip = client.getPlayer().getInventory(MapleInventoryType.EQUIPPED);
+        if (GameConstants.isMihile(job)) {
+            if(!hasSkill(50001214));
+            maxSingleSkill(1, 50001214); // Knight's Watch
+            switch (getLevel()) {
+      
+                case 10:
+                    Item eq_weapon = MapleItemInformationProvider.getInstance().getEquipById(1098000);
+                    eq_weapon.setPosition((byte) -10);
+                    equip.addFromDB(eq_weapon);
+                    equipChanged();
+                    break;
+                case 30:
+                    removeAll(1098000);
+                    Item eq_weapon1 = MapleItemInformationProvider.getInstance().getEquipById(1098001);
+                    eq_weapon1.setPosition((byte) -10);
+                    equip.addFromDB(eq_weapon1);
+                    equipChanged();
+                    break;
+                case 70:
+                    removeAll(1098001);
+                    Item eq_weapon2 = MapleItemInformationProvider.getInstance().getEquipById(1098002);
+                    eq_weapon2.setPosition((byte) -10);
+                    equip.addFromDB(eq_weapon2);
+                    equipChanged();
+                    break;
+                case 120:
+                    removeAll(1098002);
+                    Item eq_weapon3 = MapleItemInformationProvider.getInstance().getEquipById(1098003);
+                    eq_weapon3.setPosition((byte) -10);
+                    equip.addFromDB(eq_weapon3);
+                    equipChanged();
+                    break;
+            }
+        } else if (GameConstants.isDemon(job)) {
+            if (!hasSkill(30010110) && !hasSkill(30010111) && !hasSkill(30010185)) { // maxes if auto if they haven't already
+                maxSingleSkill(1, 30010110); // Dark Winds
+                maxSingleSkill(1, 30010111); // Curse of Fury
+                maxSingleSkill(1, 30010185); // Demonic Blood
+            }
+            switch (getLevel()) {
+                case 10:
+                    Item ds_shield10 = MapleItemInformationProvider.getInstance().getEquipById(1099000);
+                    ds_shield10.setPosition((byte) -10);
+                    equip.addFromDB(ds_shield10);
+                   equipChanged();    
+                   break;
+                case 30:
+                    removeAll(1099000);
+                    Item ds_shield30 = MapleItemInformationProvider.getInstance().getEquipById(1099002);
+                    ds_shield30.setPosition((byte) -10);
+                    equip.addFromDB(ds_shield30);
+                    equipChanged();    
+                    break;
+                case 70:
+                    removeAll(1099002);
+                    Item ds_shield70 = MapleItemInformationProvider.getInstance().getEquipById(1099003);
+                    ds_shield70.setPosition((byte) -10);
+                    equip.addFromDB(ds_shield70);
+                    equipChanged();    
+                    break;
+                case 120:
+                    removeAll(1099003);
+                    Item ds_shield120 = MapleItemInformationProvider.getInstance().getEquipById(1099004);
+                    ds_shield120.setPosition((byte) -10);
+                    // ds_shield120.setPotential((byte) 1, -17);
+                    equip.addFromDB(ds_shield120);
+                    equipChanged();    
+                    break;
+                    
+            }
+            
+            } else if (GameConstants.isMercedes(job)) {
+                    if(!hasSkill(20021110)) { // max these if have them
+                        maxSingleSkill(1, 20021110); // Elven Blessing
+                    }
+                    switch (getLevel()){
+                        case 10:
+                            Item m_arrow10 = MapleItemInformationProvider.getInstance().getEquipById(1352000);
+                            m_arrow10.setPosition((byte) -10);
+                            equip.addFromDB(m_arrow10);
+                            equipChanged();
+                            dropMessage(5, "Please relog to update your Magic Arrow");
+                            break;
+                        case 30:
+                            removeAll(1352000);
+                            Item m_arrow30 = MapleItemInformationProvider.getInstance().getEquipById(1352001);
+                            m_arrow30.setPosition((byte) -10);
+                            equip.addFromDB(m_arrow30);
+                            equipChanged();
+                            dropMessage(5, "Please relog to update your Magic Arrow");
+                            break;
+                        case 70:
+                            removeAll(1352001);
+                            Item m_arrow70 = MapleItemInformationProvider.getInstance().getEquipById(1352002);
+                            m_arrow70.setPosition((byte) -10);
+                            equip.addFromDB(m_arrow70);
+                            equipChanged();
+                            dropMessage(5, "Please relog to update your Magic Arrow");
+                            break;
+                        case 120:
+                            removeAll(1352002);
+                            Item m_arrow120 = MapleItemInformationProvider.getInstance().getEquipById(1352003);
+                            m_arrow120.setPosition((byte) -10);
+                            equip.addFromDB(m_arrow120);
+                            equipChanged();
+                            dropMessage(5, "Please relog to update your Magic Arrow");
+                            break;
+                    }
+                    
+            } else if (GameConstants.isCannon(job)) {
+                if (!hasSkill(109) && !hasSkill(110) && !hasSkill(112)) {
+                    maxSingleSkill(1, 109); // Master of Swimming
+                    maxSingleSkill(1, 110); // Pirate Blessing
+                    maxSingleSkill(2, 112); // Master of Organization
+                    }
+            } else if (GameConstants.isPhantom(job)) {
+                if (!hasSkill(20031203) && !hasSkill(20031204) && !hasSkill(20031205) && !hasSkill(20031207) && !hasSkill(20031208) && !hasSkill(20031209) && !hasSkill(20031210) && !hasSkill(20030206)) { // max these upon ANY level if they don't have
+                    maxSingleSkill(1, 20031203); // To The Skies
+                    maxSingleSkill(1, 20031207); // Skill Swipe
+                    maxSingleSkill(1, 20031208); // Loadout
+                    maxSingleSkill(1, 20031209); // Judgment Draw
+                    maxSingleSkill(1, 20031210); // Judgment Draw
+                    maxSingleSkill(1, 20031205); // Shroud Walk
+                    maxSingleSkill(1, 20030204); // Phantom Instinct
+                    maxSingleSkill(1, 20030206); // Dexterous Training
+                }
+                switch (getLevel()){
+                    case 10:
+                        Item carte = MapleItemInformationProvider.getInstance().getEquipById(1352100);
+                        carte.setPosition((byte) -10);
+                        equip.addFromDB(carte);
+                        equipChanged();
+                        dropMessage(5, "Please relog to update your Phantom's Carte.");
+                        break;
+                    case 30:
+                        Item carte1 = MapleItemInformationProvider.getInstance().getEquipById(1352101);
+                        carte1.setPosition((byte) -10);
+                        equip.addFromDB(carte1);
+                        equipChanged();
+                        dropMessage(5, "Please relog to update your Phantom's Carte.");
+                        break;
+                    case 70:    
+                        Item carte2 = MapleItemInformationProvider.getInstance().getEquipById(1352102);
+                        carte2.setPosition((byte) -10);
+                        equip.addFromDB(carte2);
+                        equipChanged();
+                        dropMessage(5, "Please relog to update your Phantom's Carte.");
+                        break;
+                    case 120:
+                        Item carte3 = MapleItemInformationProvider.getInstance().getEquipById(1352103);
+                        carte3.setPosition((byte) -10);
+                        equip.addFromDB(carte3);
+                        equipChanged();
+                        dropMessage(5, "Please relog to update your Phantom's Carte.");
+                        break;
+                        
+                }
+                
+            }
+    }
+    
 
     
     public void levelUp() {

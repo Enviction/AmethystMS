@@ -117,7 +117,7 @@ public class GameConstants {
         9102855, 9102541, 9102542, 9102584, 9102483, 9102484, 9102911, 9102912
     };
     public static int JAIL = 30, MAX_BUFFSTAT = 8;
-    public static String[] RESERVED = {"Rental", "Donor","MapleNews"};
+    public static String[] RESERVED = {"Rental", "Donor", "MapleNews", "Amethyst"};
     public static final int[] JAIL_MAPS = {30, 90000000, 90000001, 90000002, 90000003, 90000004, 90000009}; // 280090000
     public static String[] stats = {"tuc", "reqLevel", "reqJob", "reqSTR", "reqDEX", "reqINT", "reqLUK", "reqPOP", "cash", "cursed", "success", "setItemID", "equipTradeBlock", "durability", "randOption", "randStat", "masterLevel", "reqSkillLevel", "elemDefault", "incRMAS", "incRMAF", "incRMAI", "incRMAL", "canLevel", "skill", "charmEXP"};
     public static final int[] hyperTele = {10000, 20000, 30000, 40000, 50000, 1000000, 1010000, 1020000, 2000000, //Maple Island
