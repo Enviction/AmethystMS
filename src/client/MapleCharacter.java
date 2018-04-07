@@ -5507,6 +5507,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         silentPartyUpdate();
         guildUpdate();
         familyUpdate();
+        autoEquip();
     }
 
     /*      */ public void changeSkillsLevel(Map<Skill, SkillEntry> ss) {
