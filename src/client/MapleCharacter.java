@@ -5282,10 +5282,11 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                     break;
             }
         } else if (GameConstants.isDemon(job)) {
-            if (!hasSkill(30010110) && !hasSkill(30010111) && !hasSkill(30010185)) { // maxes if auto if they haven't already
+            if (!hasSkill(30010110) && !hasSkill(30010111) && !hasSkill(30010185) && !hasSkill(30010112)) { // maxes if auto if they haven't already
                 maxSingleSkill(1, 30010110); // Dark Winds
                 maxSingleSkill(1, 30010111); // Curse of Fury
                 maxSingleSkill(1, 30010185); // Demonic Blood
+                maxSingleSkill(1, 30010112); // Fury Unleashed: Link Skill
             }
             switch (getLevel()) {
                 case 10:
