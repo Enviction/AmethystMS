@@ -10072,3 +10072,215 @@ Error executing Quest script. (21001)..NPCID: 1209006:javax.script.ScriptExcepti
 Error executing Quest script. (21001)..NPCID: 1209007:javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#69) in <Unknown source> at line number 69
 ------------------------ 2018-04-06 07:30:30 ------------------------
 Error executing NPC script, NPC ID : 1202000.javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#60) in <Unknown source> at line number 60
+------------------------ 2018-04-06 19:01:16 ------------------------
+Event name : MonsterPark, method Name : setup:
+javax.script.ScriptException: sun.org.mozilla.javascript.internal.EcmaError: TypeError: Cannot call method "resetFully" of null (<Unknown source>#13) in <Unknown source> at line number 13
+------------------------ 2018-04-06 19:02:10 ------------------------
+Error executing NPC script, NPC ID : 9071003.javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#34) in <Unknown source> at line number 34
+------------------------ 2018-04-06 19:21:59 ------------------------
+Error executing NPC script, NPC ID : 9010022.javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#187) in <Unknown source> at line number 187
+------------------------ 2018-04-06 19:22:27 ------------------------
+Event nameMV, Instance name : MV1, method Name : playerEntry:
+javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#19) in <Unknown source> at line number 19
+------------------------ 2018-04-06 19:23:05 ------------------------
+java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
+	at java.util.ArrayList.rangeCheck(Unknown Source)
+	at java.util.ArrayList.get(Unknown Source)
+	at handling.login.LoginServer.getChannel(LoginServer.java:104)
+	at handling.channel.ChannelServer.getInstance(ChannelServer.java:142)
+	at server.events.MapleEvent.mapLoad(MapleEvent.java:191)
+	at server.maps.MapleMap.addPlayer(MapleMap.java:2303)
+	at client.MapleCharacter.changeMapInternal(MapleCharacter.java:3662)
+	at client.MapleCharacter.changeMap(MapleCharacter.java:3620)
+	at scripting.EventInstanceManager.disposeIfPlayerBelow(EventInstanceManager.java:250)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at sun.org.mozilla.javascript.internal.MemberBox.invoke(Unknown Source)
+	at sun.org.mozilla.javascript.internal.NativeJavaMethod.call(Unknown Source)
+	at sun.org.mozilla.javascript.internal.Interpreter.interpretLoop(Unknown Source)
+	at sun.org.mozilla.javascript.internal.Interpreter.interpret(Unknown Source)
+	at sun.org.mozilla.javascript.internal.InterpretedFunction.call(Unknown Source)
+	at com.sun.script.javascript.RhinoScriptEngine.invoke(Unknown Source)
+	at com.sun.script.javascript.RhinoScriptEngine.invokeFunction(Unknown Source)
+	at scripting.EventInstanceManager.changedMap(EventInstanceManager.java:105)
+	at client.MapleCharacter.changeMapInternal(MapleCharacter.java:3640)
+	at client.MapleCharacter.changeMap(MapleCharacter.java:3620)
+	at scripting.AbstractPlayerInteraction.warp(AbstractPlayerInteraction.java:135)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at sun.org.mozilla.javascript.internal.MemberBox.invoke(Unknown Source)
+	at sun.org.mozilla.javascript.internal.NativeJavaMethod.call(Unknown Source)
+	at sun.org.mozilla.javascript.internal.Interpreter.interpretLoop(Unknown Source)
+	at sun.org.mozilla.javascript.internal.Interpreter.interpret(Unknown Source)
+	at sun.org.mozilla.javascript.internal.InterpretedFunction.call(Unknown Source)
+	at sun.org.mozilla.javascript.internal.ContextFactory.doTopCall(Unknown Source)
+	at com.sun.script.javascript.RhinoScriptEngine$1.superDoTopCall(Unknown Source)
+	at com.sun.script.javascript.RhinoScriptEngine$1.doTopCall(Unknown Source)
+	at sun.org.mozilla.javascript.internal.ScriptRuntime.doTopCall(Unknown Source)
+	at sun.org.mozilla.javascript.internal.InterpretedFunction.call(Unknown Source)
+	at com.sun.script.javascript.RhinoScriptEngine.invoke(Unknown Source)
+	at com.sun.script.javascript.RhinoScriptEngine.invokeFunction(Unknown Source)
+	at scripting.NPCScriptManager.action(NPCScriptManager.java:90)
+	at handling.channel.handler.NPCHandler.NPCMoreTalk(NPCHandler.java:404)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:869)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:385)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$TailFilter.messageReceived(DefaultIoFilterChain.java:690)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:417)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1200(DefaultIoFilterChain.java:47)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:765)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl.flush(ProtocolCodecFilter.java:407)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:236)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:417)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1200(DefaultIoFilterChain.java:47)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:765)
+	at org.apache.mina.core.filterchain.IoFilterAdapter.messageReceived(IoFilterAdapter.java:109)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:417)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireMessageReceived(DefaultIoFilterChain.java:410)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:710)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:664)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:653)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1124)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2018-04-06 19:23:26 ------------------------
+Event nameMV, Instance name : MV1, method Name : playerEntry:
+javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#19) in <Unknown source> at line number 19
+------------------------ 2018-04-06 19:24:21 ------------------------
+java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
+	at java.util.ArrayList.rangeCheck(Unknown Source)
+	at java.util.ArrayList.get(Unknown Source)
+	at handling.login.LoginServer.getChannel(LoginServer.java:104)
+	at handling.channel.ChannelServer.getInstance(ChannelServer.java:142)
+	at server.events.MapleEvent.mapLoad(MapleEvent.java:191)
+	at server.maps.MapleMap.addPlayer(MapleMap.java:2303)
+	at client.MapleCharacter.changeMapInternal(MapleCharacter.java:3662)
+	at client.MapleCharacter.changeMap(MapleCharacter.java:3620)
+	at scripting.EventInstanceManager.disposeIfPlayerBelow(EventInstanceManager.java:250)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at sun.org.mozilla.javascript.internal.MemberBox.invoke(Unknown Source)
+	at sun.org.mozilla.javascript.internal.NativeJavaMethod.call(Unknown Source)
+	at sun.org.mozilla.javascript.internal.Interpreter.interpretLoop(Unknown Source)
+	at sun.org.mozilla.javascript.internal.Interpreter.interpret(Unknown Source)
+	at sun.org.mozilla.javascript.internal.InterpretedFunction.call(Unknown Source)
+	at sun.org.mozilla.javascript.internal.ContextFactory.doTopCall(Unknown Source)
+	at com.sun.script.javascript.RhinoScriptEngine$1.superDoTopCall(Unknown Source)
+	at com.sun.script.javascript.RhinoScriptEngine$1.doTopCall(Unknown Source)
+	at sun.org.mozilla.javascript.internal.ScriptRuntime.doTopCall(Unknown Source)
+	at sun.org.mozilla.javascript.internal.InterpretedFunction.call(Unknown Source)
+	at com.sun.script.javascript.RhinoScriptEngine.invoke(Unknown Source)
+	at com.sun.script.javascript.RhinoScriptEngine.invokeFunction(Unknown Source)
+	at scripting.EventInstanceManager.changedMap(EventInstanceManager.java:105)
+	at client.MapleCharacter.changeMapInternal(MapleCharacter.java:3640)
+	at client.MapleCharacter.changeMap(MapleCharacter.java:3620)
+	at handling.channel.handler.PlayerHandler.ChangeMap(PlayerHandler.java:1330)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:699)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:385)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$TailFilter.messageReceived(DefaultIoFilterChain.java:690)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:417)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1200(DefaultIoFilterChain.java:47)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:765)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl.flush(ProtocolCodecFilter.java:407)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:236)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:417)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1200(DefaultIoFilterChain.java:47)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:765)
+	at org.apache.mina.core.filterchain.IoFilterAdapter.messageReceived(IoFilterAdapter.java:109)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:417)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireMessageReceived(DefaultIoFilterChain.java:410)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:710)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:664)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:653)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1124)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2018-04-06 19:24:43 ------------------------
+Error executing NPC script, NPC ID : 9220019.javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#35) in <Unknown source> at line number 35
+------------------------ 2018-04-06 19:25:25 ------------------------
+Error executing NPC script, NPC ID : 1012000.javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#67) in <Unknown source> at line number 67
+------------------------ 2018-04-06 19:25:58 ------------------------
+Error executing NPC script, NPC ID : 9020000.javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#64) in <Unknown source> at line number 64
+------------------------ 2018-04-06 19:27:11 ------------------------
+Error executing NPC script, NPC ID : 9010022.javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#123) in <Unknown source> at line number 123
+------------------------ 2018-04-06 19:29:19 ------------------------
+Error executing NPC script, NPC ID : 2002000.java.lang.NoSuchMethodException: no such method: action
+------------------------ 2018-04-06 19:29:21 ------------------------
+Error executing NPC script, NPC ID : 2002000.java.lang.NoSuchMethodException: no such method: action
+------------------------ 2018-04-06 19:29:23 ------------------------
+Error executing NPC script, NPC ID : 2002000.java.lang.NoSuchMethodException: no such method: action
+------------------------ 2018-04-06 19:29:28 ------------------------
+Error executing NPC script, NPC ID : 2002000.java.lang.NoSuchMethodException: no such method: action
+------------------------ 2018-04-06 19:29:34 ------------------------
+Error executing NPC script, NPC ID : 9010022.javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.NullPointerException (<Unknown source>#83) in <Unknown source> at line number 83
+------------------------ 2018-04-06 19:29:38 ------------------------
+Error executing NPC script, NPC ID : 9010022.javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#127) in <Unknown source> at line number 127
+------------------------ 2018-04-06 19:30:10 ------------------------
+Error executing NPC script, NPC ID : 9000087.javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#4) in <Unknown source> at line number 4
+------------------------ 2018-04-06 19:31:41 ------------------------
+Error executing NPC script, NPC ID : 9030000.javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.NullPointerException (<Unknown source>#2) in <Unknown source> at line number 2
+------------------------ 2018-04-06 19:35:00 ------------------------
+Unhandled script : dubl2Tuto10, type : onUserEnter - MAPID 103050910
+------------------------ 2018-04-06 19:35:31 ------------------------
+Unhandled script : dubl2Tuto10, type : onUserEnter - MAPID 103050910
+------------------------ 2018-04-06 19:40:56 ------------------------
+Unhandled script : dubl2Tuto10, type : onUserEnter - MAPID 103050910
+------------------------ 2018-04-06 19:42:06 ------------------------
+Unhandled script : dubl2Tuto10, type : onUserEnter - MAPID 103050910
+------------------------ 2018-04-06 19:42:11 ------------------------
+Error executing Quest script. (2604)..NPCID: 1057001:javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#23) in <Unknown source> at line number 23
+------------------------ 2018-04-06 19:49:01 ------------------------
+Unhandled script : dubl2Tuto10, type : onUserEnter - MAPID 103050910
+------------------------ 2018-04-06 19:49:10 ------------------------
+Error executing Quest script. (2604)..NPCID: 1057001:javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#23) in <Unknown source> at line number 23
+------------------------ 2018-04-06 19:56:04 ------------------------
+Unhandled script : dubl2Tuto10, type : onUserEnter - MAPID 103050910
+------------------------ 2018-04-06 19:56:27 ------------------------
+Error executing Quest script. (2604)..NPCID: 1057001:javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#23) in <Unknown source> at line number 23
+------------------------ 2018-04-06 19:58:39 ------------------------
+Unhandled script : dubl2Tuto10, type : onUserEnter - MAPID 103050910
+------------------------ 2018-04-06 20:00:17 ------------------------
+Unhandled script : dubl2Tuto10, type : onUserEnter - MAPID 103050910
+------------------------ 2018-04-06 20:07:14 ------------------------
+Unhandled script : dubl2Tuto0, type : onUserEnter - MAPID 103050900
+------------------------ 2018-04-06 20:07:14 ------------------------
+Unhandled script : dubl2Tuto0, type : onUserEnter - MAPID 103050900
+------------------------ 2018-04-06 20:07:14 ------------------------
+Error executing NPC script, NPC ID : 2007.javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#43) in <Unknown source> at line number 43
+------------------------ 2018-04-06 20:07:27 ------------------------
+Unhandled script : dubl2Tuto0, type : onUserEnter - MAPID 103050900
+------------------------ 2018-04-06 20:07:43 ------------------------
+Unhandled script : dubl2Tuto10, type : onUserEnter - MAPID 103050910
+------------------------ 2018-04-06 20:08:47 ------------------------
+Unhandled script : dubl2Tuto10, type : onUserEnter - MAPID 103050910
+------------------------ 2018-04-06 20:09:55 ------------------------
+Unhandled script : dubl2Tuto10, type : onUserEnter - MAPID 103050910
+------------------------ 2018-04-06 20:10:10 ------------------------
+Error executing Quest script. (2604)..NPCID: 1057001:javax.script.ScriptException: sun.org.mozilla.javascript.internal.WrappedException: Wrapped java.lang.IndexOutOfBoundsException: Index: 1, Size: 1 (<Unknown source>#26) in <Unknown source> at line number 26
+------------------------ 2018-04-06 20:11:09 ------------------------
+Unhandled script : dublTuto21, type : onUserEnter - MAPID 103050510
+------------------------ 2018-04-06 20:12:25 ------------------------
+Unhandled script : dublTuto21, type : onUserEnter - MAPID 103050510
+------------------------ 2018-04-06 20:14:54 ------------------------
+Unhandled script : dublTuto21, type : onUserEnter - MAPID 103050510
+------------------------ 2018-04-06 20:18:50 ------------------------
+Unhandled script : dublTuto21, type : onUserEnter - MAPID 103050510
+------------------------ 2018-04-06 20:19:07 ------------------------
+Unhandled script : dubl2Tuto10, type : onUserEnter - MAPID 103050910
+------------------------ 2018-04-06 20:20:00 ------------------------
+Unhandled script : dublTuto21, type : onUserEnter - MAPID 103050510
+------------------------ 2018-04-06 20:21:44 ------------------------
+Unhandled script : dublTuto21, type : onUserEnter - MAPID 103050510

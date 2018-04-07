@@ -20,10 +20,11 @@ function start(mode, type, selection) {
 	} else if (status == 3) {	
 	    qm.sendYesNo("When you accept, I'll send you to Lady Syl.");	
 	} else if (status == 4) {		
-		qm.warp(103050101);
-		qm.removeNpc(103050910,1057001);
+		
+		qm.removeNpc(103050910, 1057001);
 		qm.forceStartQuest();
-		qm.dispose();
+		qm.warp(103050101, 0);
+                qm.dispose();
 	}
 }
 function end(mode, type, selection) {
