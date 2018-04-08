@@ -233,7 +233,7 @@ case 12111007:
             ret.duration *= 1000;
             ret.overTime = overTime || ret.isMorph() || ret.isPirateMorph() || ret.isFinalAttack() || ret.isAngel();
         } else {
-            ret.duration = Integer.MAX_VALUE; // items have their times stored in ms, of course
+            ret.duration *= 1000; // items have their times stored in ms, of course
             ret.overTime = overTime || ret.isMorph() || ret.isPirateMorph() || ret.isFinalAttack() || ret.isAngel();
         }
         ret.statups = new EnumMap<>(MapleBuffStat.class);

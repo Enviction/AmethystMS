@@ -55,6 +55,13 @@ import tools.packet.LoginPacket.Server;
 import tools.packet.PacketHelper;
 
 public class CharLoginHandler {
+private static final int[] allowedEquips = {
+1040006, 1040010, 1040002, 1060002, 1060006,
+1072005, 1072001, 1072037, 1072038, 1322005, 
+1312004, 1042167, 1062115, 1072383, 1442079, 
+1302000, 1041002, 1041006, 1041010, 1041011, 
+1061002, 1061008, 1042180, 1060138, 1072418, 
+1061137, 1302132, 1061160}; //Item List needs to be updated, to avoid glitches
    public static String fakeBan = "";
    public static Server world = Server.Bera;
 
@@ -65,7 +72,13 @@ public class CharLoginHandler {
         }
         return false;
     }
-
+    
+   private static final boolean containsInt(int[] array, int toCompare){
+        for (int i : array)
+            if (i == toCompare)
+                return true;
+        return false;
+    }      
     public static void login(final LittleEndianAccessor slea, final MapleClient c) {
         int loginok = 0;
         String login = slea.readMapleAsciiString();
@@ -230,6 +243,12 @@ public class CharLoginHandler {
         final int bottom = slea.readInt();
         final int shoes = slea.readInt();
         final int weapon = slea.readInt();
+        if(!((containsInt(allowedEquips, top) && containsInt(allowedEquips, bottom) && containsInt(allowedEquips, shoes) && containsInt(allowedEquips, weapon)))){
+            System.out.println("banned client due to failed equips check.");
+            c.banMacs();
+            c.getSession().close();
+            return;
+        }
         if (jettPhantom) {
             weapon3 = slea.readInt();
         }
