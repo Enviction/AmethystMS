@@ -40,7 +40,9 @@ function end(mode, type, selection) {
 			qm.removeAll(4031013);
 			qm.sendOk("Congratulations you're now an Assassin!");
             qm.changeJob(410);//sin
-			//qm.gainSP(3);
+                        qm.expandInventory(1, 4);
+                        qm.expandInventory(4, 4);
+			qm.gainSP(3);
 			qm.forceCompleteQuest();
             qm.dispose();
 	    }

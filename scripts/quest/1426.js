@@ -40,7 +40,9 @@ function end(mode, type, selection) {
 			qm.removeAll(4031013);
 			qm.sendOk("Congratiulations you'r now a Gunslinger!");
             qm.changeJob(520);
-			//qm.gainSP(3);
+                        qm.expandInventory(1, 4);
+                        qm.expandInventory(4, 4);
+			qm.gainSP(3);
 			qm.forceCompleteQuest();
             qm.dispose();
 	    }

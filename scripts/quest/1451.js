@@ -55,7 +55,7 @@ function end(mode, type, selection) {
                     qm.sendOk("Something went wrong, please report it.");
                     qm.dispose();
                 }
-				qm.gainSP(2);//1 is auto so it only gets 3 i think?
+				qm.gainSP(3);//1 is auto so it only gets 3 i think?
                 qm.forceCompleteQuest();
             }
 	}else if(status == 2){

@@ -40,7 +40,10 @@ function end(mode, type, selection) {
 		qm.dispose();
 	    } else {
 		qm.getPlayer().changeJob(221);
-		qm.gainItem(4031059, -1);
+		qm.gainAP(5);
+                qm.expandInventory(1, 4);
+                qm.expandInventory(4, 4);
+		qm.gainSP(3);
 		qm.forceCompleteQuest();
 		qm.dispose();
 		 }

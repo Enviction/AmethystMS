@@ -32,10 +32,11 @@ function end(mode, type, selection) {
 
 	if (status == 0) {
 	    qm.forceCompleteQuest();
-            qm.changeJob(431);
-			//qm.gainSP(chr.getLevel() - 30 * 3);
-			qm.maxSkillsByJob();
+            qm.changeJob(433);
+			qm.gainSP(3);
 			qm.gainItem(4031013,-30);
+                        qm.expandInventory(1, 4);
+                        qm.expandInventory(4, 4);
 			qm.gainItem(1342001, 1);
 			qm.fakeRelog();
             qm.dispose();

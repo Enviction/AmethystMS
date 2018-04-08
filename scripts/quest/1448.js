@@ -43,8 +43,11 @@ function end(mode, type, selection) {
 		qm.dispose();
 	    } else {
 		qm.getPlayer().changeJob(531);
-		qm.gainSP(3);
 	    qm.sendOk("You have advanced to Cannon Trooper. Good luck, see you again at level 120.");
+		qm.gainAP(5);
+                qm.expandInventory(1, 4);
+                qm.expandInventory(4, 4);
+		qm.gainSP(3);
 		qm.forceCompleteQuest();
 		qm.dispose();
 		 }

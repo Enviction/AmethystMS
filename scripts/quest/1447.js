@@ -41,12 +41,13 @@ function end(mode, type, selection) {
 		qm.dispose();
 	    } else {
 		qm.getPlayer().changeJob(433);
-		qm.gainSP(3);
 	    qm.sendOk("You have advanced to Blade Lord. Good luck, see you again at level 120.");
-		qm.forceCompleteQuest();
-		qm.maxSkillsByJob();
 		qm.gainItem(1342005,1);
-		qm.fakeRelog();
+		qm.gainAP(5);
+                qm.expandInventory(1, 4);
+                qm.expandInventory(4, 4);
+		qm.gainSP(3);
+		qm.forceCompleteQuest();
 		qm.dispose();
 		 }
     }

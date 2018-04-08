@@ -14,28 +14,35 @@ function setClassVars(player) {
     if (player.getJob() == 210 || // FP_WIZARD
 	player.getJob() == 220 || // IL_WIZARD
 	player.getJob() == 230) { // CLERIC
-	mapId = 108010201;
-	returnMapId = 100040106;
+	mapId = 211040401;
+	returnMapId = 211040401;
 	monsterId = 9001001;
 	
     } else if (player.getJob() == 110 || // FIGHTER
 	player.getJob() == 120 || // PAGE
 	player.getJob() == 130) { // SPEARMAN
-	mapId = 108010301;
-	returnMapId = 105070001;
+	mapId = 211040401;
+	returnMapId = 211040401;
 	monsterId = 9001000;
 
     } else if (player.getJob() == 410 || // ASSASIN
-	player.getJob() == 420) { // BANDIT
-	mapId = 108010401;
-	returnMapId = 107000402;
+	player.getJob() == 420 || // BANDIT
+        player.getJob() == 432   ) { // BANDIT
+	mapId = 211040401;
+	returnMapId = 211040401;
 	monsterId = 9001003;
 
     } else if (player.getJob() == 310 || // HUNTER
 	player.getJob() == 320) { // CROSSBOWMAN
-	mapId = 108010101;
-	returnMapId = 105040305;
+	mapId = 211040401;
+	returnMapId = 211040401;
 	monsterId = 9001002;
+    } else if (player.getJob() == 510 || //
+        player.getJob() == 520 || //
+        player.getJob() == 530) {
+        mapId = 211040401;
+        returnMapId = 211040401;
+        monsterId = 9001004;
     }
     return new Array(mapId, returnMapId, monsterId);
 }

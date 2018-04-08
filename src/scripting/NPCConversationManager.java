@@ -610,6 +610,10 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         return -1;
     }
      
+     public void gainSP(int gain) {
+         getPlayer().gainSP(gain);
+     }
+     
      public void gainJQExp(int gain) {
          getPlayer().gainJQExp(gain);
      }

@@ -1,43 +1,21 @@
-/* Holy Stone
-	Hidden Street: Holy Ground at the Snowfield (211040401)
-	
-	Custom quest: 100102
+/* Door of Dimension
+	Enter 3rd job event
 */
 
-var status = 0;
-
 function start() {
-    status = -1;
-    action(1, 0, 0);
+    if (cm.getQuestStatus(1436)) {
+	var em = cm.getEventManager("3rdjob");
+	if (em == null) {
+	    cm.sendOk("Sorry, but everything is broken.");
+	} else {
+	    em.newInstance(cm.getName()).registerPlayer(cm.getChar());
+	}
+    } else {
+	cm.sendOk("lul.");
+    }
+    cm.dispose();
 }
 
 function action(mode, type, selection) {
-    if (status >= 2 && mode == 0) {
-	cm.dispose();
-	return;
-    }
-    if (mode == 1)
-	status++;
-    else
-	status--;
-    if (status == 0) {
-	if (cm.haveItem(4031058) || cm.getQuestStatus(100102) != 1) {
-	    cm.sendOk("Lulz, I am a stone.");
-	    cm.dispose();
-	} else {
-	    cm.sendNext("Lulz, I am a stone.");
-	}
-    } else if (status == 1) {
-	cm.sendNextPrev("Give me a #bDark Crystal#k and I will allow you to obtain the #bNecklace of Wisdom#k.");
-    } else if (status == 2) {
-	if (!cm.haveItem(4005004)) {
-	    cm.sendOk("You don't have any #bDark Crystal#ks.");
-	    cm.dispose();
-	} else {
-	    cm.gainItem(4005004, -1);
-	    cm.gainItem(4031058, 1);
-	    cm.sendOk("Indeed.");
-	    cm.dispose();
-	}
-    }
+
 }

@@ -40,6 +40,9 @@ function end(mode, type, selection) {
 			qm.removeAll(4031013);
 			qm.sendOk("Congratulation you're now a Fire/Poison!");
             qm.changeJob(210);
+                        qm.expandInventory(1, 4);
+                        qm.expandInventory(4, 4);
+                        qm.gainSP(3);
 			qm.forceCompleteQuest();
             qm.dispose();
 	    }

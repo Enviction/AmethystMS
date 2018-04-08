@@ -40,7 +40,7 @@ function end(mode, type, selection) {
 			qm.removeAll(4031013);
 			qm.sendOk("Congratiulations you'r now a Crowbowman!");
             qm.changeJob(320);//crowbow
-			//qm.gainSP(3);
+			qm.gainSP(3);
 			qm.forceCompleteQuest();
             qm.dispose();
 	    }

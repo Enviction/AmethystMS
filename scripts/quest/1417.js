@@ -39,7 +39,10 @@ function end(mode, type, selection) {
 	    if (qm.haveItem(4031013, 30) ) {
 			qm.removeAll(4031013);
 			qm.sendOk("Congratulation you're now a Cleric!");
-            qm.changeJob(230);
+                        qm.changeJob(230);
+                        qm.expandInventory(1, 4);
+                        qm.expandInventory(4, 4);
+                        qm.gainSP(3);
 			qm.forceCompleteQuest();
             qm.dispose();
 	    }

@@ -1,7 +1,5 @@
-/* Dawnveil
-    [Job Advancement] Thieves of Kerning City
-	Dark Lord
-    Made by Daenerys
+/* Amethyst
+    [Job Advancement] Pirate
 */
 var status = -1;
 
@@ -31,16 +29,16 @@ function end(mode, type, selection) {
 	} else if (status == 5) {
 	    qm.sendNextPrev("Right, that's it. Take the equipment I gave you, and use it to train your skills as a Thief.");
 	} else if (status == 6) {
-	    qm.resetStats(4, 4, 4, 25);
+	    qm.resetStats(4, 4, 4, 4);
 	    qm.expandInventory(1, 4);
 	    qm.expandInventory(4, 4);
-	    qm.changeJob(400);
+	    qm.changeJob(500);
             qm.gainSP(1);
-	    qm.gainItem(1332063,1);
-	    qm.gainItem(1472000,1);
-	    qm.gainItem(2070015, 500);
+	    qm.gainItem(1492000,1);
+	    qm.gainItem(1482000,1);
+	    qm.gainItem(2330006, 500);
 		qm.forceCompleteQuest();
 		qm.dispose();
 	    }
 	}
-}	
+}

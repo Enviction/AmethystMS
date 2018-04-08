@@ -40,7 +40,7 @@ function end(mode, type, selection) {
 			qm.removeAll(4031013);
 			qm.sendOk("Congratiulations you'r now an Hunter!");
             qm.changeJob(310);//hunter
-			//qm.gainSP(3);
+			qm.gainSP(3);
 			qm.forceCompleteQuest();
             qm.dispose();
 	    }

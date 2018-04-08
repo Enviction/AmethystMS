@@ -68,13 +68,14 @@ function action(mode, type, selection) {
 	cm.sendNextPrev("It is an important and final choice. You will not be able to turn back.");
     } else if (status == 2) {
 	cm.sendYesNo("Do you want to become a #rWarrior#k?");
-    } else if (status == 3) {
+    } else if (status == 3) 
 	if (cm.getJob() == 0) {
 	    cm.resetStats(35, 4, 4, 4);
 	    cm.expandInventory(1, 4);
 	    cm.expandInventory(4, 4);
-	    cm.changeJob(100); // WARRIOR
-	}
+	    cm.getPlayer().changeJob(100); // WARRIOR
+            cm.gainSP(1);
+	
 	cm.gainItem(1402001, 1);
 	cm.sendOk("So be it! Now go, and go with pride.");
 	cm.dispose();
