@@ -61,7 +61,20 @@ private static final int[] allowedEquips = {
 1312004, 1042167, 1062115, 1072383, 1442079, 
 1302000, 1041002, 1041006, 1041010, 1041011, 
 1061002, 1061008, 1042180, 1060138, 1072418, 
-1061137, 1302132, 1061160}; //Item List needs to be updated, to avoid glitches
+1061137, 1302132, 1061160, 1040153, 1060141,
+1072500, 1302154, 1072501, 1322092,
+1040149, 1040150, 1040151, 1040152, 
+1060142, 1060143, 1060144, 1060140,
+1302155, 1302156, 1302157, 1322093, 
+1072497, 1072498, 1072499, 1061161, 
+1061162, 1061163, 1061164, 1061165, 
+1041151, 1041152, 1041153, 1041154, 
+1041155, 1051272, 1050222, 1102347, 
+1071035, 1070023, 1362001, 1362000,
+1062115, 1062115, 1072383, 1442079, 
+1042180, 1060138, 1072418, 1302132, 
+1050173, 1050174, 1050175, 1050181, 
+1050182, 1050183, 1050184, 1050185}; 
    public static String fakeBan = "";
    public static Server world = Server.Bera;
 
@@ -243,12 +256,7 @@ private static final int[] allowedEquips = {
         final int bottom = slea.readInt();
         final int shoes = slea.readInt();
         final int weapon = slea.readInt();
-        if(!((containsInt(allowedEquips, top) && containsInt(allowedEquips, bottom) && containsInt(allowedEquips, shoes) && containsInt(allowedEquips, weapon)))){
-            System.out.println("banned client due to failed equips check.");
-            c.banMacs();
-            c.getSession().close();
-            return;
-        }
+        
         if (jettPhantom) {
             weapon3 = slea.readInt();
         }
@@ -291,6 +299,7 @@ private static final int[] allowedEquips = {
             return;
         }
         
+        
         final MapleItemInformationProvider li = MapleItemInformationProvider.getInstance();
         final MapleInventory equip = newchar.getInventory(MapleInventoryType.EQUIPPED);
 
@@ -326,14 +335,12 @@ private static final int[] allowedEquips = {
 
         newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000013, (byte) 0, (short) 100, (byte) 0));
         newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000014, (byte) 0, (short) 100, (byte) 0));
-
-    //    if ((!newchar.hasEquipped(top)) && (!newchar.hasEquipped(weapon))) {
-    //        World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, "[AutoBan] Hahaha some new player tried packet editing their equips! Let's laugh at there ban!"));
-    //        c.banMacs(); 
-    //        c.getSession().close();
-    //        return;
-    //    }
-        
+    
+        if(!((containsInt(allowedEquips, top) || containsInt(allowedEquips, bottom) || containsInt(allowedEquips, shoes) || containsInt(allowedEquips, weapon)))){
+            System.out.println("banned client due to failed equips check.");
+            c.getSession().close();
+            return; 
+        }
         if (MapleCharacterUtil.canCreateChar(name, c.isGm()) && (!LoginInformationProvider.getInstance().isForbiddenName(name) || c.isGm()) && (c.isGm() || c.canMakeCharacter(c.getWorld()))) {
             MapleCharacter.saveNewCharToDB(newchar, jobType, db);
             c.getSession().write(LoginPacket.addNewCharEntry(newchar, true));

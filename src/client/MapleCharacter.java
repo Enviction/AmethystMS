@@ -2468,6 +2468,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
          }
             return false;
     }
+    
 
     public boolean getCustomHair() {
         int[] hairs = {39997};
@@ -5330,7 +5331,8 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                             m_arrow10.setPosition((byte) -10);
                             equip.addFromDB(m_arrow10);
                             equipChanged();
-                            dropMessage(5, "Please relog to update your Magic Arrow");
+                            fakeRelog();
+                            dropMessage(5, "You have obtained Magic Arrow.");
                             break;
                         case 30:
                             removeAll(1352000);
@@ -5338,7 +5340,8 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                             m_arrow30.setPosition((byte) -10);
                             equip.addFromDB(m_arrow30);
                             equipChanged();
-                            dropMessage(5, "Please relog to update your Magic Arrow");
+                            fakeRelog();
+                            dropMessage(5, "Magic Arrow has been upgraded.");
                             break;
                         case 70:
                             removeAll(1352001);
@@ -5346,7 +5349,8 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                             m_arrow70.setPosition((byte) -10);
                             equip.addFromDB(m_arrow70);
                             equipChanged();
-                            dropMessage(5, "Please relog to update your Magic Arrow");
+                            fakeRelog();
+                            dropMessage(5, "Magic Arrow has been upgraded.");
                             break;
                         case 120:
                             removeAll(1352002);
@@ -5354,7 +5358,8 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                             m_arrow120.setPosition((byte) -10);
                             equip.addFromDB(m_arrow120);
                             equipChanged();
-                            dropMessage(5, "Please relog to update your Magic Arrow");
+                            fakeRelog();
+                            dropMessage(5, "Magic Arrow has been upgraded.");
                             break;
                     }
                     
@@ -5381,28 +5386,32 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                         carte.setPosition((byte) -10);
                         equip.addFromDB(carte);
                         equipChanged();
-                        dropMessage(5, "Please relog to update your Phantom's Carte.");
+                        fakeRelog();
+                        dropMessage(5, "You have obtained Phantom's Carte.");
                         break;
                     case 30:
                         Item carte1 = MapleItemInformationProvider.getInstance().getEquipById(1352101);
                         carte1.setPosition((byte) -10);
                         equip.addFromDB(carte1);
                         equipChanged();
-                        dropMessage(5, "Please relog to update your Phantom's Carte.");
+                        fakeRelog();
+                        dropMessage(5, "Phantom's Carte has been upgraded.");
                         break;
                     case 70:    
                         Item carte2 = MapleItemInformationProvider.getInstance().getEquipById(1352102);
                         carte2.setPosition((byte) -10);
                         equip.addFromDB(carte2);
                         equipChanged();
-                        dropMessage(5, "Please relog to update your Phantom's Carte.");
+                        fakeRelog();
+                        dropMessage(5, "Phantom's Carte has been upgraded.");
                         break;
                     case 120:
                         Item carte3 = MapleItemInformationProvider.getInstance().getEquipById(1352103);
                         carte3.setPosition((byte) -10);
                         equip.addFromDB(carte3);
                         equipChanged();
-                        dropMessage(5, "Please relog to update your Phantom's Carte.");
+                        fakeRelog();
+                        dropMessage(5, "Phantom's Carte has been upgraded.");
                         break;
                         
                 }
