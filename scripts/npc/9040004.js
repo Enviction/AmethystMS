@@ -1,24 +1,27 @@
-var status = -1;
+/*
+	This file is part of the OdinMS Maple Story Server
+    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
+		       Matthias Butz <matze@odinms.de>
+		       Jan Christian Meyer <vimes@odinms.de>
 
-function action(mode, type, selection) {
-    if (mode == 1) {
-	status++;
-    } else {
-	if (status == 0) {
-	    cm.dispose();
-	}
-	status--;
-    }
-    if (status == 0) {
-	cm.sendSimple("#b#L0#Pokemon Rankings (by Wins)#l\r\n#L1#Pokemon Rankings (by Caught)#l\r\n#L2#Pokemon Rankings (by Ratio)#l\r\n");
-    } else if (status == 1) {
-	if (selection == 0) {
-	    cm.sendNext(cm.getPokemonRanking());
-	} else if (selection == 1) {
-	    cm.sendNext(cm.getPokemonRanking_Caught());
-	} else if (selection == 2) {
-	    cm.sendNext(cm.getPokemonRanking_Ratio());
-	}
-	cm.dispose();
-    }
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation version 3 as published by
+    the Free Software Foundation. You may not use, modify or distribute
+    this program under any other version of the GNU Affero General Public
+    License.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+/* Guild Rank Board */
+
+function start() {
+    cm.displayGuildRanks();
+    cm.dispose();
 }

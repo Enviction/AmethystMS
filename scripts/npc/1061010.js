@@ -7,16 +7,16 @@ function action(mode, type, selection) {
 	var map = cm.getMapId();
 	var tomap;
 
-	if (map == 108010101) {
-	    tomap = 100000000;
-	} else if (map == 108010201) {
-	    tomap = 101000000;
-	} else if (map == 108010301) {
-	    tomap = 102000000;
-	} else if (map == 108010401) {
-	    tomap = 103000000;
-	} else if (map == 108010501) {
-	    tomap = 120000000;
+	if (map == 910540100) {
+	    tomap = 211040401;
+	} else if (map == 910540200) {
+	    tomap = 211040401;
+	} else if (map == 910540300) {
+	    tomap = 211040401;
+	} else if (map == 910540400) {
+	    tomap = 211040401;
+	} else if (map == 910540500) {
+	    tomap = 211040401;
 	}
 	cm.warp(tomap);
     }

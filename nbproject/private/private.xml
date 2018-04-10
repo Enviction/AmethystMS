@@ -3,10 +3,39 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/src/server/Start.java</file>
-            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/npc/2007.js</file>
-            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/src/constants/ServerConstants.java</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/src/scripting/NPCConversationManager.java</file>
             <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/src/handling/login/LoginInformationProvider.java</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1436.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/event/MiniDungeon.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/src/client/MapleCharacter.java</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1448.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1446.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/src/server/Start.java</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/npc/1022000.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1440.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1447.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1435.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/src/constants/GameConstants.java</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1400.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1445.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/npc/1061009.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/npc/2030006.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1442.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1431.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/src/client/messages/commands/SuperGMCommand.java</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/src/constants/ServerConstants.java</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1437.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1443.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1444.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/event/3rdjob.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/src/constants/WorldConstants.java</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/21716.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1433.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/2638.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1432.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/src/client/Skill.java</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/scripts/quest/1439.js</file>
+            <file>file:/C:/Users/Owner/Dropbox/AmethystMS%20117/AmethystMS/src/handling/channel/handler/InventoryHandler.java</file>
         </group>
     </open-files>
 </project-private>

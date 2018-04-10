@@ -48,6 +48,7 @@ function action(mode, type, selection) {
     } else if (status == 3) {
 	if (cm.haveItem(4031801)) {
 	    cm.gainItem(4031801, -1);
+            cm.gainMeso(25000);
 	    cm.warp(2010000);
 	    cm.dispose();
 	} else {
