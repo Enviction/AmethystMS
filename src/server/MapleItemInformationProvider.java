@@ -515,7 +515,7 @@ public class MapleItemInformationProvider {
             return 0;
         }
         if (GameConstants.getInventoryType(itemId).getType() == MapleInventoryType.ETC.getType() || GameConstants.getInventoryType(itemId).getType() == MapleInventoryType.USE.getType())
-            return 32767;
+            return 200;
         return i.slotMax;
     }
 
