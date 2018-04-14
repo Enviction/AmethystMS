@@ -42,7 +42,7 @@ function end(mode, type, selection) {
 	    } else {
 		qm.getPlayer().changeJob(321);
 		qm.gainItem(4031059, -1);
-		qm.gainAP(5);
+		qm.gainAp(5);
                 qm.expandInventory(1, 4);
                 qm.expandInventory(4, 4);
 		qm.gainSP(3);

@@ -3909,7 +3909,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             if (skillssz != null) {
                 for (int i : skillssz) {
                     final Skill skil = SkillFactory.getSkill(i);
-                    if (skil != null && !skil.isInvisible() && skil.isFourthJob() && getSkillLevel(skil) <= 0 && getMasterLevel(skil) <= 0 && skil.getMasterLevel() > 0) {
+                    if (skil != null && !skil.isInvisible() && skil.isFourthJob() && getSkillLevel(skil) <= 0 && getMasterLevel(skil) <= 0 && skil.getMasterLevel() > 10) {
                         list.put(skil, new SkillEntry((byte) 0, skil.getMasterLevel(), SkillFactory.getDefaultSExpiry(skil))); //usually 10 master
                     } else if (skil != null && skil.getName() != null && skil.getName().contains("Maple Warrior") && getSkillLevel(skil) <= 0 && getMasterLevel(skil) <= 0) {
                         list.put(skil, new SkillEntry((byte) 0, 10, SkillFactory.getDefaultSExpiry(skil))); //hackish
@@ -4174,7 +4174,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         /* 3467 */ if ((skill == null) || ((!GameConstants.isApplicableSkill(skill.getId())) && (!GameConstants.isApplicableSkill_(skill.getId())))) {
             /* 3468 */ return false;
             /*      */        }
-        /* 3470 */ if ((newLevel == 0) && (newMasterlevel == 0)) {
+        /* 3470 */ if ((newLevel == 0) && (newMasterlevel == 10)) {
             /* 3471 */ if (this.skills.containsKey(skill)) {
                 this.skills.remove(skill);
             } /*      */ else {
@@ -4196,7 +4196,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                 continue;
             }
             newL.put(z.getKey(), z.getValue());
-            if (z.getValue().skillevel == 0 && z.getValue().masterlevel == 0) {
+            if (z.getValue().skillevel == 0 && z.getValue().masterlevel == 10) {
                 if (skills.containsKey(z.getKey())) {
                     skills.remove(z.getKey());
                 } else {

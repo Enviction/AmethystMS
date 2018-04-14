@@ -23,7 +23,7 @@ function end(mode, type, selection) {
                 qm.removeAll(4031059);
                 qm.sendOk("Congratiulations! You have become a Marauder!");
                 qm.changeJob(521);
-		qm.gainAP(5);
+		qm.gainAp(5);
                 qm.expandInventory(1, 4);
                 qm.expandInventory(4, 4);
 		qm.gainSP(3);

@@ -43,7 +43,7 @@ function end(mode, type, selection) {
 		qm.getPlayer().changeJob(433);
 	    qm.sendOk("You have advanced to Blade Lord. Good luck, see you again at level 120.");
 		qm.gainItem(1342005,1);
-		qm.gainAP(5);
+		qm.gainAp(5);
                 qm.expandInventory(1, 4);
                 qm.expandInventory(4, 4);
 		qm.gainSP(3);

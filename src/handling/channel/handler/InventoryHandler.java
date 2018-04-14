@@ -1036,6 +1036,12 @@ public class InventoryHandler {
                             } else {
                                 c.getPlayer().dropMessage(5, "Please make some space.");
                             }
+                        } else if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 50) {
+                            if (MapleInventoryManipulator.checkSpace(c, 5062002, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, toUse.getItemId(), 10, true, false)) {
+                                MapleInventoryManipulator.addById(c, 5062002, (short) 1, "Scripted item: " + toUse.getItemId() + " on " + FileoutputUtil.CurrentReadable_Date());
+                            } else {
+                                c.getPlayer().dropMessage(5, "Please make some space.");
+                            }
                         } else {
                             c.getPlayer().dropMessage(5, "There needs to be 10 Fragments for a Potential Scroll, 20 for a Miracle Cube.");
                         }

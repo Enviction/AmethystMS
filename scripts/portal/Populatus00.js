@@ -25,7 +25,7 @@ function enter(pi) {
 	}
     }
 
-/*    var canEnter = false;
+   var canEnter = false;
 
     if (pi.haveItem(4031172)) { // Ludibrium Medal
 	var currenttime = new Date().getTime();
@@ -54,5 +54,5 @@ function enter(pi) {
     if (!canEnter) {
 	pi.playerMessage(5, "You may only enter the Origin of Clocktower twice per day.");
 	return false;
-    }*/
+    }
 }

@@ -44,7 +44,7 @@ function end(mode, type, selection) {
 	    } else {
 		qm.changeJob(411);
 	    qm.sendOk("You have advanced to Hermit. Good luck, see you again at level 120.");
-		qm.gainAP(5);
+		qm.gainAp(5);
                 qm.expandInventory(1, 4);
                 qm.expandInventory(4, 4);
 		qm.gainSP(3);

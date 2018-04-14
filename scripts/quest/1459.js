@@ -33,9 +33,9 @@ function end(mode, type, selection) {
 		qm.teachSkill(5121013, 0, 10); //Nautilus Strike
 		qm.teachSkill(5121015, 0, 10); //CrossBones
 		qm.teachSkill(5121016, 0, 10); //Buccaneer Blast
+                //Corsair
 		qm.teachSkill(5220012, 0, 10); //Mastery
 		qm.teachSkill(5220014, 0, 5); //Double Dice
-		//Corsair
 		qm.teachSkill(5220019, 0, 10); //Ahoy Mateys
 		qm.teachSkill(5220020, 0, 10); //Majestic Presence
 		qm.teachSkill(5221004, 0, 10); //Rapid Fire
@@ -56,9 +56,11 @@ function end(mode, type, selection) {
 		qm.teachSkill(5321010, 0, 10); //Pirates Spirit
 		qm.teachSkill(5321012, 0, 10); //Cannon Barrage
 		qm.expandInventory(1, 8); //Expand equip
-	    qm.expandInventory(2, 8); //Expand USE
+                qm.expandInventory(2, 8); //Expand USE
 		qm.expandInventory(3, 8); //Expand ETC
 		qm.getPlayer().changeJob(qm.getPlayer().getJob() + 1);
+                qm.gainAp(5);
+                qm.gainSP(3);
 		qm.sendNext("You started your journey as a simple adventurer...but you have grown so much since then. You possess great strength, willpower, and courage.");
 		} else if (status == 2) {
 		qm.sendNextPrev("If one who posesses all of these qualities cannot be called a hero, then who can?");
