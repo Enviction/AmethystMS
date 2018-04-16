@@ -990,6 +990,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
 
                     }
                 }
+                
                 /*if (!compensate_previousSP) {
                  for (Entry<Skill, SkillEntry> skill : ret.skills.entrySet()) {
                  if (!skill.getKey().isBeginnerSkill() && !skill.getKey().isSpecialSkill()) {
@@ -1011,6 +1012,27 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                 }
                 ps.close();
                 rs.close();
+                            if (channelserver) {
+                ret.monsterbook = MonsterBook.loadCards(ret.accountid, ret);
+
+                ps = con.prepareStatement("SELECT * FROM inventoryslot where characterid = ?");
+                ps.setInt(1, charid);
+                rs = ps.executeQuery();
+
+                if (!rs.next()) {
+                    rs.close();
+                    ps.close();
+                    throw new RuntimeException("No Inventory slot column found in SQL. [inventoryslot]");
+                } else {
+                    ret.getInventory(MapleInventoryType.EQUIP).setSlotLimit(rs.getByte("equip"));
+                    ret.getInventory(MapleInventoryType.USE).setSlotLimit(rs.getByte("use"));
+                    ret.getInventory(MapleInventoryType.SETUP).setSlotLimit(rs.getByte("setup"));
+                    ret.getInventory(MapleInventoryType.ETC).setSlotLimit(rs.getByte("etc"));
+                    ret.getInventory(MapleInventoryType.CASH).setSlotLimit(rs.getByte("cash"));
+                }
+                ps.close();
+                rs.close();
+                            }
                 // END
                 ps = con.prepareStatement("SELECT skill_id, skill_level, max_level, rank FROM inner_ability_skills WHERE player_id = ?");
                 ps.setInt(1, charid);
@@ -1303,6 +1325,15 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             }
             ps.close();
 
+            ps = con.prepareStatement("INSERT INTO inventoryslot (characterid, `equip`, `use`, `setup`, `etc`, `cash`) VALUES (?, ?, ?, ?, ?, ?)");
+            ps.setInt(1, chr.id);
+            ps.setByte(2, (byte) 32); // Eq
+            ps.setByte(3, (byte) 32); // Use
+            ps.setByte(4, (byte) 32); // Setup
+            ps.setByte(5, (byte) 32); // ETC
+            ps.setByte(6, (byte) 60); // Cash
+            ps.execute();
+            ps.close();
 
             ps = con.prepareStatement("INSERT INTO mountdata (characterid, `Level`, `Exp`, `Fatigue`) VALUES (?, ?, ?, ?)");
             ps.setInt(1, chr.id);
@@ -1510,6 +1541,17 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                     }
                 }
             }
+            deleteWhereCharacterId(con, "DELETE FROM inventoryslot WHERE characterid = ?");
+            ps = con.prepareStatement("INSERT INTO inventoryslot (characterid, `equip`, `use`, `setup`, `etc`, `cash`) VALUES (?, ?, ?, ?, ?, ?)");
+            ps.setInt(1, id);
+            ps.setByte(2, getInventory(MapleInventoryType.EQUIP).getSlotLimit());
+            ps.setByte(3, getInventory(MapleInventoryType.USE).getSlotLimit());
+            ps.setByte(4, getInventory(MapleInventoryType.SETUP).getSlotLimit());
+            ps.setByte(5, getInventory(MapleInventoryType.ETC).getSlotLimit());
+            ps.setByte(6, getInventory(MapleInventoryType.CASH).getSlotLimit());
+            ps.execute();
+            ps.close();
+            saveInventory(con);
 
             if (innerskill_changed) {
                 if (innerSkills != null) {
