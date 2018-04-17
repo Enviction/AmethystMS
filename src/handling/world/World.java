@@ -1414,30 +1414,26 @@ public class World {
 
     public static class Broadcast {
 
-        public static void broadcastSmega(int world, byte[] message) {
-            for (MapleCharacter chr : players.getAllCharacters()) {
-                if ((world == -1) || (chr.getWorld() == world)) {
-                    chr.getClient().getChannelServer().broadcastSmega(message);
-                }
+public static void broadcastSmega(byte[] message) {
+            for (ChannelServer cs : ChannelServer.getAllInstances()) {
+                cs.broadcastSmega(message);
             }
         }
 
-        public static void broadcastGMMessage(int world, byte[] message) {
-            for (MapleCharacter chr : players.getAllCharacters()) {
-                if ((world == -1) || (chr.getWorld() == world)) {
-                    chr.getClient().getChannelServer().broadcastGMPacket(message);
-                }
+        public static void broadcastGMMessage(byte[] message) {
+            for (ChannelServer cs : ChannelServer.getAllInstances()) {
+                cs.broadcastGMMessage(message);
             }
         }
 
-        public static void broadcastMessage(int world, byte[] message) {
-            for (MapleCharacter chr : players.getAllCharacters()) {
-                if ((world == -1) || (chr.getWorld() == world)) {
-                    chr.announce(message);
-                }
+        public static void broadcastMessage(byte[] message) {
+            for (ChannelServer cs : ChannelServer.getAllInstances()) {
+                cs.broadcastMessage(message);
             }
         }
-
+        
+        
+           
         public static void sendPacket(List<Integer> targetIds, byte[] packet, int exception) {
             MapleCharacter c;
             for (int i : targetIds) {
@@ -1498,6 +1494,8 @@ public class World {
             }
         }
     }
+    
+    
 
     public static class Find {
 

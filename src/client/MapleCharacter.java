@@ -5528,7 +5528,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             }
                 sb.append(getName());
                 sb.append(" has achieved Level 200. Let us Celebrate Maplers!");
-                World.Broadcast.broadcastMessage(getWorld(), CWvsContext.serverNotice(6, sb.toString()));
+                World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, sb.toString()));
         }
         maxhp = Math.min(99999, Math.abs(maxhp));
         maxmp = Math.min(99999, Math.abs(maxmp));
@@ -7803,7 +7803,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
 
     public void sendGMMessage(int type, String message) {
-         World.Broadcast.broadcastGMMessage(getWorld(), CWvsContext.serverNotice(type, message));
+         World.Broadcast.broadcastGMMessage(CWvsContext.serverNotice(type, message));
     }
     
     public void worldTrip() {
@@ -7857,7 +7857,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
 
     public void kickFromJQ() {
-        World.Broadcast.broadcastMessage(getWorld(), CWvsContext.serverNotice(6, "[JQ Detector] : " + getName() + " has been detected for Soaring in a JQ. They have been kicked."));
+        World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, "[JQ Detector] : " + getName() + " has been detected for Soaring in a JQ. They have been kicked."));
         changeMap(910000000, 0);
         cancelEffectFromBuffStat(MapleBuffStat.SOARING);
         getClient().getSession().write(CWvsContext.enableActions());

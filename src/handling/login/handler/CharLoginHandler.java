@@ -293,7 +293,7 @@ private static final int[] allowedEquips = {
         newchar.setDemonMarking(demonMark);
 
         if (newchar.getCustomFace() || newchar.getCustomHair()) {
-            World.Broadcast.broadcastMessage(newchar.getWorld(), CWvsContext.serverNotice(6, "[AutoBan] Hahaha some new player tried packet editing their eyes! Let's laugh at their ban!"));
+            World.Broadcast.broadcastMessage( CWvsContext.serverNotice(6, "[AutoBan] Hahaha some new player tried packet editing their eyes! Let's laugh at their ban!"));
             c.banMacs(); //Cheat custom faces/hairs..
             c.getSession().close();
             return;

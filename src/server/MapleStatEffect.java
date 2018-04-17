@@ -1401,7 +1401,7 @@ case 12111007:
         }
         if (!applyfrom.isGM()) {
             if (skill && (sourceid == 9001000 || sourceid == 9001001 || sourceid == 9001002 || sourceid == 9101000 || sourceid == 9101001 || sourceid == 9101002 || sourceid == 9101003 || sourceid == 9101004 || sourceid == 9101005 || sourceid == 9101006 || sourceid == 9101007 || sourceid == 9101008)) {
-                World.Broadcast.broadcastMessage(applyfrom.getWorld(), CWvsContext.serverNotice(6, "[AutoBan]: " + applyfrom.getName() + "has Packet edited GM skills."));
+                World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, "[AutoBan]: " + applyfrom.getName() + "has Packet edited GM skills."));
                 applyfrom.ban("Packet edited a GM Skill!", true);
                 return false;
             }

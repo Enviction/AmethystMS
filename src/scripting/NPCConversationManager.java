@@ -1100,7 +1100,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
   }
   
   public void serverNotice(String msg) {
-      World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.serverNotice(6, "[Notice] " + msg));
+      World.Broadcast.broadcastMessage( CWvsContext.serverNotice(6, "[Notice] " + msg));
   }
   
   public void gainCurrency(short amount) {
@@ -1207,7 +1207,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
             final byte rareness = GameConstants.gachaponRareItem(item.getItemId());
             if (rareness > 0) {
-                World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.getGachaponMega(c.getPlayer().getName(), " : got a(n)", item, rareness, msg));
+                World.Broadcast.broadcastMessage( CWvsContext.getGachaponMega(c.getPlayer().getName(), " : got a(n)", item, rareness, msg));
             }
             c.getSession().write(InfoPacket.getShowItemGain(item.getItemId(), (short) quantity, true));
             return item.getItemId();
@@ -1254,7 +1254,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                 return -1;
             }
             if (grade >= 2 && grade != 5) {
-                World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.getGachaponMega(c.getPlayer().getName(), " : got a(n)", item, (byte) 0, "Maple World"));
+                World.Broadcast.broadcastMessage(CWvsContext.getGachaponMega(c.getPlayer().getName(), " : got a(n)", item, (byte) 0, "Maple World"));
             }
             c.getSession().write(InfoPacket.getShowItemGain(newId, (short) 1, true));
             gainItem(2430748, (short) 1);

@@ -3343,7 +3343,7 @@ mplew.writeZeroBytes(100);
         return showQuestMsg("You have received " + recv + " training points. Your total training score is now " + total + ".");
     }
 
-    public static byte[] serverMessage(String message) {
+   public static byte[] serverMessage(String message) {
         return serverMessage(4, 0, message, false);
     }
 
@@ -3362,91 +3362,75 @@ mplew.writeZeroBytes(100);
     private static byte[] serverMessage(int type, int channel, String message, boolean megaEar) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
-        // 0: [Notice] <Msg>
-        // 1: Popup <Msg>
-        // 2: Megaphone
-        // 3: Super Megaphone 
-        // 4: Server Message
-        // 5: Pink Text
-        // 6: LightBlue Text ({} as Item)
-        // 7: [int] -> Keep Wz Error
-        // 8: Item Megaphone
-        // 9: Item Megaphone
-        // 10: Three Line Megaphone
-        // 11: Item Megaphone
-        // 12: Weather Effect
-        // 13: Green Gachapon Message
-        // 14: Orange Text
-        // 15: Twin Dragon's Egg (got)
-        // 16: Twin Dragon's Egg (duplicated)
-        // 17: Lightblue Text
-        // 18: Lightblue Text
-        // 20: LightBlue Text ({} as Item)
-        // 22: Skull Megaphone
-        // 23: Ani Message
-        // 25: Cake Pink Message
-        // 26: Pie Yellow Message
         mplew.writeShort(SendPacketOpcode.SERVERMESSAGE.getValue());
         mplew.write(type);
         if (type == 4) {
             mplew.write(1);
         }
-        if (type != 23 && type != 24) {
+        if ((type != 23) && (type != 24)) {
             mplew.writeMapleAsciiString(message);
         }
         switch (type) {
-            case 3: // Super Megaphone
-            case 22: // Skull Megaphone
+            case 3:
+            case 22:
             case 25:
             case 26:
                 mplew.write(channel - 1);
                 mplew.write(megaEar ? 1 : 0);
                 break;
-            case 9: // Like Item Megaphone (Without Item)
+            case 9:
                 mplew.write(channel - 1);
                 break;
-            case 12: // Weather Effect
-                mplew.writeInt(channel); // item id
+            case 12:
+                mplew.writeInt(channel);
                 break;
             case 6:
             case 11:
             case 20:
-                mplew.writeInt(channel >= 1000000 && channel < 6000000 ? channel : 0); // Item Id
-                //E.G. All new EXP coupon {Ruby EXP Coupon} is now available in the Cash Shop!
-                break;
-            case 16:
-                // v13 = CInPacket::DecodeStr(a2, (int)&v122);
-                // v2 = CInPacket::Decode1(a2);
+                mplew.writeInt((channel >= 1000000) && (channel < 6000000) ? channel : 0);
+
                 break;
             case 24:
-                mplew.writeShort(0); // ?
-                break;
+                mplew.writeShort(0);
+            case 4:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 13:
+            case 14:
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+            case 19:
+            case 21:
+            case 23:
         }
-
         return mplew.getPacket();
     }
 
-    public static byte[] getGachaponMega(final String name, final String message, final Item item, final byte rareness, final String gacha) {
+    public static byte[] getGachaponMega(String name, String message, Item item, byte rareness, String gacha) {
         return getGachaponMega(name, message, item, rareness, false, gacha);
     }
 
-    public static byte[] getGachaponMega(final String name, final String message, final Item item, final byte rareness, final boolean dragon, final String gacha) {
+    public static byte[] getGachaponMega(String name, String message, Item item, byte rareness, boolean dragon, String gacha) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         mplew.writeShort(SendPacketOpcode.SERVERMESSAGE.getValue());
-        mplew.write(13); // 15, 16 = twin dragon egg
-        mplew.writeMapleAsciiString(name + message);
-        if (!dragon) { // only for gachapon
-            mplew.writeInt(0); // 0/1 = light blue
-            mplew.writeInt(item.getItemId()); // item id
+        mplew.write(13);
+        mplew.writeMapleAsciiString(new StringBuilder().append(name).append(message).toString());
+        if (!dragon) {
+            mplew.writeInt(0);
+            mplew.writeInt(item.getItemId());
         }
-        mplew.writeMapleAsciiString(gacha); // Gachapon Name
+        mplew.writeMapleAsciiString(gacha);
         PacketHelper.addItemInfo(mplew, item);
 
         return mplew.getPacket();
     }
 
-    public static byte[] getAniMsg(final int questID, final int time) {
+    public static byte[] getAniMsg(int questID, int time) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         mplew.writeShort(SendPacketOpcode.SERVERMESSAGE.getValue());
@@ -3463,12 +3447,12 @@ mplew.writeZeroBytes(100);
         mplew.writeShort(SendPacketOpcode.SERVERMESSAGE.getValue());
         mplew.write(10);
         if (message.get(0) != null) {
-            mplew.writeMapleAsciiString(message.get(0));
+            mplew.writeMapleAsciiString((String) message.get(0));
         }
         mplew.write(message.size());
         for (int i = 1; i < message.size(); i++) {
             if (message.get(i) != null) {
-                mplew.writeMapleAsciiString(message.get(i));
+                mplew.writeMapleAsciiString((String) message.get(i));
             }
         }
         mplew.write(channel - 1);

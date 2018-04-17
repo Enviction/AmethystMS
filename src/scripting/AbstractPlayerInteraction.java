@@ -547,7 +547,7 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public final void worldMessage(final int type, final String message) {
-        World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.serverNotice(type, message));
+        World.Broadcast.broadcastMessage(CWvsContext.serverNotice(type, message));
     }
 
     // default playerMessage and mapMessage to use type 5

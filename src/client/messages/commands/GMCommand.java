@@ -140,10 +140,10 @@ public class GMCommand {
                    MapleShopFactory.getInstance().getShop(1337).sendShop(c);
                      return true;
                 case "fml":
-                    World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(6, MapleFML.getFML()));
+                    World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, MapleFML.getFML()));
                     return true;
                 case "mlia":
-                    World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(6, MLIABot.findMLIA()));
+                    World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, MLIABot.findMLIA()));
                     return true;
                 case "insult":
                     c.getChannelServer().broadcastPacket(CWvsContext.serverNotice(6, player.getName() + " : " + InsultBot.getInsult()));
@@ -369,7 +369,7 @@ public class GMCommand {
             }
                  return true;
                 case "smega1":
-                    World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(3, c.getChannel(), c.getPlayer().getName() + " : " + StringUtil.joinStringFrom(splitted, 1)));
+                    World.Broadcast.broadcastMessage(CWvsContext.serverNotice(3, c.getChannel(), c.getPlayer().getName() + " : " + StringUtil.joinStringFrom(splitted, 1)));
                      return true;
                 case "pvpgodmode":
                 case "pgm":
@@ -481,7 +481,7 @@ public class GMCommand {
                     World.setEventMap(109040000);
                     World.setEventOn(true);
                     World.AutoJQ.getInstance().openAutoJQ();
-                    World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(6, c.getChannel(), "[AutoJQ Event] " + player.getName() + " has just created an Automatic Jump Quest Event on Channel " + c.getChannel() + "! Use @join to join it."));
+                    World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, c.getChannel(), "[AutoJQ Event] " + player.getName() + " has just created an Automatic Jump Quest Event on Channel " + c.getChannel() + "! Use @join to join it."));
                  return true;
                     case "healmap":
                     for (MapleCharacter mch : player.getMap().getCharacters()) {
@@ -505,7 +505,7 @@ public class GMCommand {
                         if (c.getPlayer().getGMLevel() > target.getGMLevel() || c.getPlayer().isAdmin()) {
                             sb.append(" (IP: ").append(target.getClient().getSessionIPAddress()).append(")");
                             if (target.ban(sb.toString(), false || false, false, false)) {
-                                 World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(6, "<Amethyst Ban> : " + player.getName() + " has banned " + splitted[1] + " for " + InternCommand.joinStringFrom(splitted, 2)));
+                                 World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, "<Amethyst Ban> : " + player.getName() + " has banned " + splitted[1] + " for " + InternCommand.joinStringFrom(splitted, 2)));
                                  c.getPlayer().dropMessage(6, "[Ban] Successfully banned " + splitted[1] + ".");
                                  return true;
                             } else {
@@ -518,7 +518,7 @@ public class GMCommand {
                         }
                     } else {
                         if (MapleCharacter.ban(splitted[1], sb.toString(), false, c.getPlayer().isAdmin() ? 250 : c.getPlayer().getGMLevel(), false)) {
-                            World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(6, "<Amethyst Ban> : " + player.getName() + " has banned " + splitted[1] + " for " + InternCommand.joinStringFrom(splitted, 2)));
+                            World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, "<Amethyst Ban> : " + player.getName() + " has banned " + splitted[1] + " for " + InternCommand.joinStringFrom(splitted, 2)));
                             c.getPlayer().dropMessage(6, "[Ban] Successfully offline banned " + splitted[1] + ".");
                              return true;
                         } else {
@@ -541,7 +541,7 @@ public class GMCommand {
                         if (c.getPlayer().getGMLevel() > target.getGMLevel() || c.getPlayer().isAdmin()) {
                             sb.append(" (IP: ").append(target.getClient().getSessionIPAddress()).append(")");
                             if (target.ban(sb.toString(), false || true, false, false)) {
-                                World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(6, "<Amethyst Ban> : " + player.getName() + " has banned " + splitted[1] + " for " + InternCommand.joinStringFrom(splitted, 2)));
+                                World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, "<Amethyst Ban> : " + player.getName() + " has banned " + splitted[1] + " for " + InternCommand.joinStringFrom(splitted, 2)));
                                 c.getPlayer().dropMessage(6, "[Ban] Successfully banned " + splitted[1] + ".");
                                  return true;
                             } else {
@@ -554,7 +554,7 @@ public class GMCommand {
                         }
                     } else {
                         if (MapleCharacter.ban(splitted[1], sb.toString(), false, c.getPlayer().isAdmin() ? 250 : c.getPlayer().getGMLevel(), false)) {
-                            World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(6, "<Amethyst Ban> : " + player.getName() + " has banned " + splitted[1] + " for " + InternCommand.joinStringFrom(splitted, 2)));
+                            World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, "<Amethyst Ban> : " + player.getName() + " has banned " + splitted[1] + " for " + InternCommand.joinStringFrom(splitted, 2)));
                             c.getPlayer().dropMessage(6, "[Ban] Successfully offline banned " + splitted[1] + ".");
                              return true;
                         } else {
@@ -719,7 +719,7 @@ public class GMCommand {
                 case "startpvp": // TODO: AutoPvP. o-o
 //                    player.getClient().getChannelServer().autoPvpMap = 960010104;
   //                  player.getClient().getChannelServer().autoPvpEventOn = true;
-                    World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(6, c.getChannel(), "[AutoPvP Event] " + player.getName() + " has just started an Automatic Player vs. Player Event! Use @joinpvp to join it."));
+                    World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, c.getChannel(), "[AutoPvP Event] " + player.getName() + " has just started an Automatic Player vs. Player Event! Use @joinpvp to join it."));
                  return true;
                 case "startjq":
                     int autojq = Integer.parseInt(splitted[1]);
@@ -728,7 +728,7 @@ public class GMCommand {
                 World.setJQChannel(c.getChannel());
                 World.setEventOn(true); 
                 World.AutoJQ.getInstance().openAutoJQ();
-                World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(6, c.getChannel(), "[AutoJQ Event] " + player.getName() + " has just created an Automatic Jump Quest Event On Channel " + c.getChannel() + "! Use @join to join it."));
+                World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, c.getChannel(), "[AutoJQ Event] " + player.getName() + " has just created an Automatic Jump Quest Event On Channel " + c.getChannel() + "! Use @join to join it."));
                  return true;
                 case "autojqmaps":
                     player.dropMessage(6, "220000006 - Ludi Pet Park");
@@ -845,7 +845,7 @@ public class GMCommand {
                          } else if (splitted[1].equalsIgnoreCase("close")) {
                            player.getClient().getChannelServer().eventOn = false;
                            player.getClient().getChannelServer().eventMap = 0;
-                           World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(6, c.getChannel(), "[OX Event] " + player.getName() + " has closed the entrance to the OX Event on Channel " + c.getChannel() + "."));
+                           World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, c.getChannel(), "[OX Event] " + player.getName() + " has closed the entrance to the OX Event on Channel " + c.getChannel() + "."));
                         } else if (splitted[1].equalsIgnoreCase("out") || splitted[1].equalsIgnoreCase("warp")) { 
                             for (MapleCharacter outz : player.getMap().getCharacters()) {
                                   if (!outz.isAlive()) {
@@ -859,7 +859,7 @@ public class GMCommand {
                            player.getClient().getChannelServer().eventOn = true;
                            player.getClient().getChannelServer().eventMap = ox;
                            player.getClient().getChannelServer().eventChannel = c.getChannel();
-                               World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(6, c.getChannel(), "[OX Event] " + player.getName() + " has just created an OX Event On Channel " + c.getChannel() + ", Type @joinox to join!"));
+                               World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, c.getChannel(), "[OX Event] " + player.getName() + " has just created an OX Event On Channel " + c.getChannel() + ", Type @joinox to join!"));
                        } else if (splitted[1].equalsIgnoreCase("directions")) {
                            for (MapleCharacter mcha4_ : player.getMap().getCharacters()) {
                                mcha4_.getClient().getSession().write(CWvsContext.getMidMsg("<----- True = O, False = X ----->", true, 0));
@@ -1082,7 +1082,7 @@ public class GMCommand {
                      return true;
                 case "smegaplayer":
                     victim = c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]);
-                    World.Broadcast.broadcastSmega(player.getWorld(), CWvsContext.serverNotice(3, victim == null ? c.getChannel() : victim.getClient().getChannel(), victim == null ? splitted[1] : victim.getName() + " : " + StringUtil.joinStringFrom(splitted, 2), true));
+                    World.Broadcast.broadcastSmega(CWvsContext.serverNotice(3, victim == null ? c.getChannel() : victim.getClient().getChannel(), victim == null ? splitted[1] : victim.getName() + " : " + StringUtil.joinStringFrom(splitted, 2), true));
                      return true;
                 case "elf": // TODO: make donor? o.o
                     if (splitted.length > 1) {
@@ -1311,7 +1311,7 @@ public class GMCommand {
                     } else if (range == 1) {
                         ChannelServer.getInstance(c.getWorld(), c.getChannel()).broadcastPacket(packet);
                     } else if (range == 2) {
-                        World.Broadcast.broadcastMessage(player.getWorld(), packet);
+                        World.Broadcast.broadcastMessage(packet);
                     }
                      return true;
                 case "y":
@@ -1337,7 +1337,7 @@ public class GMCommand {
                     } else if (range == 1) {
                         ChannelServer.getInstance(c.getWorld(), c.getChannel()).broadcastPacket(packet);
                     } else if (range == 2) {
-                        World.Broadcast.broadcastMessage(player.getWorld(), packet);
+                        World.Broadcast.broadcastMessage(packet);
                     }
                      return true;
                 case "whatsmyip":

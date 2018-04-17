@@ -52,7 +52,7 @@ public class GodCommand {
                     return true;
                 case "yn":
                     if (splitted.length > 1) {
-                        World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.yellowChat("[God of Trolls] " + c.getPlayer().getName() + " : " + StringUtil.joinStringFrom(splitted, 1)));
+                        World.Broadcast.broadcastMessage(CWvsContext.yellowChat("[God of Trolls] " + c.getPlayer().getName() + " : " + StringUtil.joinStringFrom(splitted, 1)));
                     } else 
                         player.dropMessage(6, "Syntax: !yn <message>");
                     return true;
