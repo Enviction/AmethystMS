@@ -75,6 +75,8 @@ private static final int[] allowedEquips = {
 1042180, 1060138, 1072418, 1302132, 
 1050173, 1050174, 1050175, 1050181, 
 1050182, 1050183, 1050184, 1050185}; 
+
+        
    public static String fakeBan = "";
    public static Server world = Server.Scania;
 
@@ -96,7 +98,7 @@ private static final int[] allowedEquips = {
         int loginok = 0;
         String login = slea.readMapleAsciiString();
         String pwd = slea.readMapleAsciiString();
-        String unstuck = "unstuckme";
+        //String unstuck = "unstuckme";
         boolean isBanned = c.hasBannedIP() || c.hasBannedMac();
         // final Calendar tempbannedTill = c.getTempBanCalendar();
 
@@ -121,7 +123,7 @@ private static final int[] allowedEquips = {
             //c.acceptedToS();
             return;
         }*/
-        if ((pwd == null ? unstuck == null : pwd.equals(unstuck)) || (pwd == unstuck)) { 
+       /* if ((pwd == null ? unstuck == null : pwd.equals(unstuck)) || (pwd == unstuck)) { 
                     c.disconnect(true, true); // wtf is removeinchannelserver..?
                     int uid = 0;
                     try {
@@ -137,7 +139,7 @@ private static final int[] allowedEquips = {
                 } catch (SQLException ex) {
                 Logger.getLogger(CharLoginHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }*/ 
         if (loginok != 0) {
             if (!loginFailCount(c)) {
                 c.clearInformation();
@@ -261,7 +263,14 @@ private static final int[] allowedEquips = {
         }
 
         int shield = jobType == LoginInformationProvider.JobType.Phantom ? 1352100 : mercedes ? 1352000 : demon ? slea.readInt() : 0;
-        if (jobType == JobType.Demon) {
+        
+                if (jobType == JobType.Demon || jobType == JobType.Phantom || jobType == JobType.Mercedes || jobType == JobType.Resistance || jobType == JobType.Aran || jobType == JobType.Evan || jobType == JobType.Mihile ) {
+                     c.announce(CWvsContext.serverNotice(1, "This Class is temporary disabled!"));
+                     c.getSession().write(LoginPacket.getLoginFailed(1));
+                return;
+                }
+                
+            else if (jobType == JobType.Demon) {
             if (!LoginInformationProvider.getInstance().isEligibleItem(gender, 0, jobType.type, face) || !LoginInformationProvider.getInstance().isEligibleItem(gender, 1, jobType.type, hair)
                     || !LoginInformationProvider.getInstance().isEligibleItem(gender, 2, jobType.type, demonMark) || (skinColor != 0 && skinColor != 13)
                     || !LoginInformationProvider.getInstance().isEligibleItem(gender, 3, jobType.type, top) || !LoginInformationProvider.getInstance().isEligibleItem(gender, 4, jobType.type, shoes)
@@ -347,8 +356,8 @@ private static final int[] allowedEquips = {
         } else {
             c.getSession().write(LoginPacket.addNewCharEntry(newchar, false));
         }
-    }
     
+    }
     
 
     public static final void CreateUltimate(final LittleEndianAccessor slea, final MapleClient c) {

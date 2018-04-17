@@ -25,7 +25,8 @@ function enter(pi) {
 	pi.warp(pi.getMapId() + 1, "sp");
     } else {
 	if (mapid == 130030001) {
-	    pi.playerMessage(5, "Please click the NPC to receive a quest.");
+	   pi.forceCompleteQuest(20010);
+	   pi.warp(130030002, 0);
 	} else {
 	    pi.playerMessage(5, "Please complete the quest.");
 	}

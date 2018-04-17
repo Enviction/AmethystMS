@@ -22,7 +22,7 @@ public class WorldConstants {
     public static int Worlds = 2; // max: 23 (skips 24-32 and continues 33-39, making the real max: 40)
     public static int Channels = 12; // channel count per world (will differ between worlds in future)
     public static int UserLimit = 1500; // maximum users per world (will be the same unless i say so)
-    public static int maxCharacters = 8; // max characters per world (will differ between worlds in future)
+    public static int maxCharacters = 7; // max characters per world (will differ between worlds in future)
     // Scripts TODO: Amoria,CWKPQ,BossBalrog_EASY,BossBalrog_NORMAL,ZakumPQ,ProtectTylus,GuildQuest,Ravana_EASY,Ravna_MED,Ravana_HARD (untested or not working)
     public static String Events =  // event scripts, programmed per world but i'll keep them the same
              "elevator, 3rdjob,3rdJob_mount,AriantPQ1,Aswan,automsg,autoSave,MonsterPark,Trains,Boats,Flight,PVP,Visitor,cpq2,cpq,Rex,AirPlane,CygnusBattle,ScarTarBattle,VonLeonBattle,Ghost,"

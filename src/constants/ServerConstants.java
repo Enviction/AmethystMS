@@ -11,7 +11,7 @@ public class ServerConstants {
     public static String SourceRev = "1.0"; // initial revision
     public static final String MasterPass = "Ijz6XeRm@1T3";
     public static boolean dropUndroppables = true;
-    public static boolean moreThanOne = false;
+    public static boolean moreThanOne = true;
     public static final boolean BlockCS = false;
     public static final int Currency = 4000999;
     public static final boolean MerchantsUseCurrency = false; // Log Packets = true | Allow people to connect = false
