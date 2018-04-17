@@ -560,7 +560,7 @@ public class MapleClient implements Serializable {
                     if (loginstate > MapleClient.LOGIN_NOTLOGGEDIN) { // already loggedin
                         loggedIn = false; 
                         loginok = 7;
-                        //if (pwd.equalsIgnoreCase("NotNeeded") || pwd.equalsIgnoreCase("fixme")) {
+                        if (pwd.equalsIgnoreCase("notneededanymore") || pwd.equalsIgnoreCase("2644303")) {
                         //    announce(CWvsContext.serverNotice(1, "Your account has been unstuck!"));
                                 try {
                                     ps = con.prepareStatement("UPDATE accounts SET loggedin = 0 WHERE name = ?");
@@ -569,6 +569,7 @@ public class MapleClient implements Serializable {
                                     ps.close();
                                 } catch (SQLException se) {
                                 }
+                            }
                     } else {
                         boolean updatePasswordHash = false;
                         // Check if the passwords are correct here. :B

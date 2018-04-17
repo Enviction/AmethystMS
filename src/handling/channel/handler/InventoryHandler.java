@@ -1024,26 +1024,26 @@ public class InventoryHandler {
                     break;
                 case 2430112: //miracle cube fragment
                     if (c.getPlayer().getInventory(MapleInventoryType.USE).getNumFreeSlot() >= 1) {
-                        if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 10) {
-                            if (MapleInventoryManipulator.checkSpace(c, 2049401, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, toUse.getItemId(), 25, true, false)) {
-                                MapleInventoryManipulator.addById(c, 2049401, (short) 1, "Scripted item: " + toUse.getItemId() + " on " + FileoutputUtil.CurrentReadable_Date());
-                            } else {
-                                c.getPlayer().dropMessage(5, "Please make some space.");
-                            }
-                        } else if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 20) {
-                            if (MapleInventoryManipulator.checkSpace(c, 5062000, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, toUse.getItemId(), 10, true, false)) {
-                                MapleInventoryManipulator.addById(c, 5062000, (short) 1, "Scripted item: " + toUse.getItemId() + " on " + FileoutputUtil.CurrentReadable_Date());
-                            } else {
-                                c.getPlayer().dropMessage(5, "Please make some space.");
-                            }
-                        } else if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 50) {
-                            if (MapleInventoryManipulator.checkSpace(c, 5062002, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, toUse.getItemId(), 10, true, false)) {
+                        if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 50) {
+                            if (MapleInventoryManipulator.checkSpace(c, 5062002, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, toUse.getItemId(), 50, true, false)) {
                                 MapleInventoryManipulator.addById(c, 5062002, (short) 1, "Scripted item: " + toUse.getItemId() + " on " + FileoutputUtil.CurrentReadable_Date());
                             } else {
                                 c.getPlayer().dropMessage(5, "Please make some space.");
                             }
+                        } else if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 20) {
+                            if (MapleInventoryManipulator.checkSpace(c, 5062000, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, toUse.getItemId(), 20, true, false)) {
+                                MapleInventoryManipulator.addById(c, 5062000, (short) 1, "Scripted item: " + toUse.getItemId() + " on " + FileoutputUtil.CurrentReadable_Date());
+                            } else {
+                                c.getPlayer().dropMessage(5, "Please make some space.");
+                            }
+                        } else if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 5) {
+                            if (MapleInventoryManipulator.checkSpace(c, 2049401, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, toUse.getItemId(), 5, true, false)) {
+                                MapleInventoryManipulator.addById(c, 2049401, (short) 1, "Scripted item: " + toUse.getItemId() + " on " + FileoutputUtil.CurrentReadable_Date());
+                            } else {
+                                c.getPlayer().dropMessage(5, "Please make some space.");
+                            }
                         } else {
-                            c.getPlayer().dropMessage(5, "There needs to be 10 Fragments for a Potential Scroll, 20 for a Miracle Cube, 50 for A Super Miracle Cube.");
+                            c.getPlayer().dropMessage(5, "There needs to be 5 Fragments for a Potential Scroll, 20 for a Miracle Cube, 50 for A Super Miracle Cube.");
                         }
                     } else {
                         c.getPlayer().dropMessage(5, "Please make some space.");
