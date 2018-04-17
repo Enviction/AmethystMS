@@ -76,7 +76,7 @@ private static final int[] allowedEquips = {
 1050173, 1050174, 1050175, 1050181, 
 1050182, 1050183, 1050184, 1050185}; 
    public static String fakeBan = "";
-   public static Server world = Server.Bera;
+   public static Server world = Server.Scania;
 
     private static boolean loginFailCount(final MapleClient c) {
         c.loginAttempt++;
@@ -165,7 +165,7 @@ private static final int[] allowedEquips = {
     public static void ServerListRequest(final MapleClient c) {
         c.getSession().write(LoginPacket.getLoginWelcome());
         for (World iWorld : LoginServer.getWorlds()) {
-            c.getSession().write(LoginPacket.getServerList(iWorld.getWorldId(), Server.getById(iWorld.getWorldId()).toString(), iWorld.getFlag(), iWorld.getEventMessage(), iWorld.getChannels()));
+            c.getSession().write(LoginPacket.getServerList(0, Server.getById(iWorld.getWorldId()).toString(), iWorld.getFlag(), iWorld.getEventMessage(), iWorld.getChannels()));
         }
         c.getSession().write(LoginPacket.getEndOfServerList());
         c.getSession().write(LoginPacket.selectWorld(1)); // TODO: last world selected
@@ -173,7 +173,7 @@ private static final int[] allowedEquips = {
         eventMessage = eventMessage.replaceAll("#b", "");
         eventMessage = eventMessage.replaceAll("#r", "");
         eventMessage = eventMessage.replaceAll("#k", "");
-        c.getSession().write(LoginPacket.sendRecommended(world.getId(), eventMessage));
+        c.getSession().write(LoginPacket.sendRecommended(0, eventMessage));
     }
 
     public static void ServerStatusRequest(final LittleEndianAccessor slea, final MapleClient c) {
@@ -209,7 +209,6 @@ private static final int[] allowedEquips = {
             slea.readByte(); //2?
         }
         final int server = slea.readByte();
-        world = Server.getById(server);
         final int channel = slea.readByte() + 1;
         //System.out.println("Client " + c.getSession().getRemoteAddress().toString().split(":")[0] + " is connecting to server " + server + " channel " + channel + "");
         FileoutputUtil.log("LogIPs.txt","\r\nIP Address : " + c.getSession().getRemoteAddress().toString().split(":")[0] + " | Account : " + c.getAccountName() + "\r\n");
@@ -528,7 +527,7 @@ private static final int[] allowedEquips = {
             c.setWorld(slea.readInt());
         }
         final String currentpw = c.getSecondPassword();
-        if (!c.isLoggedIn() || loginFailCount(c) || (currentpw != null && (!currentpw.equals("") || haspic)) || !c.login_Auth(charId) || ChannelServer.getInstance(c.getWorld(), c.getChannel()) == null || c.getWorld() != world.getId()) { // TODOO: MULTI WORLDS
+        if (!c.isLoggedIn() || loginFailCount(c) || (currentpw != null && (!currentpw.equals("") || haspic)) || !c.login_Auth(charId) || ChannelServer.getInstance(c.getWorld(), c.getChannel()) == null || c.getWorld() != 0) { // TODOO: MULTI WORLDS
             c.getSession().close();
             return;
         }
@@ -567,7 +566,7 @@ private static final int[] allowedEquips = {
             c.setChannel(1);
             c.setWorld(slea.readInt());
         }
-        if (!c.isLoggedIn() || loginFailCount(c) || c.getSecondPassword() == null || !c.login_Auth(charId) || ChannelServer.getInstance(c.getWorld(), c.getChannel()) == null || c.getWorld() != world.getId()) { // TODOO: MULTI WORLDS
+        if (!c.isLoggedIn() || loginFailCount(c) || c.getSecondPassword() == null || !c.login_Auth(charId) || ChannelServer.getInstance(c.getWorld(), c.getChannel()) == null || c.getWorld() != 0) { // TODOO: MULTI WORLDS
             c.getSession().close();
             return;
         }
@@ -638,7 +637,7 @@ private static final int[] allowedEquips = {
 
     public static void ViewChar(LittleEndianAccessor slea, MapleClient c) {
         Map<Byte, ArrayList<MapleCharacter>> worlds = new HashMap<>();
-        List<MapleCharacter> chars = c.loadCharacters(world.getId()); //TODO multi world
+        List<MapleCharacter> chars = c.loadCharacters(0); //TODO multi world
         c.getSession().write(LoginPacket.showAllCharacter(chars.size()));
         for (MapleCharacter chr : chars) {
             if (chr != null) {

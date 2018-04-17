@@ -19,10 +19,10 @@ import tools.packet.LoginPacket.Server;
  */
 public class WorldConstants {
     // Global Constants : handle world count, channel count, max user per world, max char per account, and event scripts
-    public static int Worlds = 1; // max: 23 (skips 24-32 and continues 33-39, making the real max: 40)
+    public static int Worlds = 2; // max: 23 (skips 24-32 and continues 33-39, making the real max: 40)
     public static int Channels = 12; // channel count per world (will differ between worlds in future)
     public static int UserLimit = 1500; // maximum users per world (will be the same unless i say so)
-    public static int maxCharacters = 15; // max characters per world (will differ between worlds in future)
+    public static int maxCharacters = 8; // max characters per world (will differ between worlds in future)
     // Scripts TODO: Amoria,CWKPQ,BossBalrog_EASY,BossBalrog_NORMAL,ZakumPQ,ProtectTylus,GuildQuest,Ravana_EASY,Ravna_MED,Ravana_HARD (untested or not working)
     public static String Events =  // event scripts, programmed per world but i'll keep them the same
              "elevator, 3rdjob,3rdJob_mount,AriantPQ1,Aswan,automsg,autoSave,MonsterPark,Trains,Boats,Flight,PVP,Visitor,cpq2,cpq,Rex,AirPlane,CygnusBattle,ScarTarBattle,VonLeonBattle,Ghost,"
@@ -55,7 +55,7 @@ public class WorldConstants {
     
     public static void init() {
         // Flags
-        flag.add(new Pair<>(Server.Scania.getId(), Flags.None.getId())); // Default World
+        flag.add(new Pair<>(Server.Scania.getId(), Flags.Hot.getId())); // Default World
         flag.add(new Pair<>(Server.Bera.getId(), Flags.Hot.getId()));
         flag.add(new Pair<>(Server.Broa.getId(), Flags.Event.getId()));
         flag.add(new Pair<>(Server.Windia.getId(), Flags.New.getId()));
@@ -132,7 +132,7 @@ public class WorldConstants {
         
         // Event messages
         eventMessages.add(new Pair<>(Server.Scania.getId(), ("Welcome to #bAmethyst!#k\r\n#rTip:#k\r\n" + ServerConstants.getTip())));
-        eventMessages.add(new Pair<>(Server.Bera.getId(), "Bera!"));
+        eventMessages.add(new Pair<>(Server.Bera.getId(), ("Welcome to #bAmethyst!#k\r\n#rTip:#k\r\n" + ServerConstants.getTip())));
         eventMessages.add(new Pair<>(Server.Broa.getId(), "Broa!"));
         eventMessages.add(new Pair<>(Server.Windia.getId(), "Windia!"));
         eventMessages.add(new Pair<>(Server.Khaini.getId(), "Khaini!"));

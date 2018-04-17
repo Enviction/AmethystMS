@@ -43,6 +43,8 @@ import tools.packet.CWvsContext.PartyPacket;
 import tools.packet.LoginPacket.Server;
 
 public class World {
+
+ 
     private int id, flag, expRate, mesoRate, dropRate, cashRate = 3, traitRate = 3, flags = 0, userLimit;
     private String eventMessage;
     private List<ChannelServer> channels = new ArrayList<>();
@@ -85,6 +87,7 @@ public class World {
         channels.add(channel);
     }
 
+    
     public void removeChannel(int channel) {
         channels.remove(channel);
     }
