@@ -419,7 +419,7 @@ public class PacketHelper {
         mplew.writeInt(chr.getStat().pvpExp);
         mplew.write(chr.getStat().pvpRank); 
         mplew.writeInt(chr.getBattlePoints()); 
-        mplew.write(5); 
+        mplew.write(0); 
         mplew.writeInt(0); 
         mplew.write(0);
         mplew.writeReversedLong(getTime(-2L));

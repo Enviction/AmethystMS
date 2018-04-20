@@ -330,10 +330,19 @@ public class AdminCommand {
                         for (Item ii : victim.getInventory(MapleInventoryType.EQUIPPED).list()) {
                             MapleInventoryManipulator.addById(c, ii.getItemId(), (short) 1, "");
                         }
-                        player.setFace(victim.getFace());
-                        player.setHair(victim.getHair());
-                        player.setGender(victim.getGender());
+                       // player.setFace(victim.getFace());
+                        //player.setHair(victim.getHair());
+                        //player.setGender(victim.getGender());
                         player.setSkinColor(victim.getSkinColor());
+                        c.getPlayer().getClient().getSession().write(CField.getCharInfo(c.getPlayer()));
+                        c.getPlayer().getMap().removePlayer(c.getPlayer());
+                        c.getPlayer().getMap().addPlayer(c.getPlayer());
+                return true;
+                    case "copyeqp":
+                    victim = c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]);
+                        for (Item ii : victim.getInventory(MapleInventoryType.EQUIP).list())  {
+                            MapleInventoryManipulator.addById(c, ii.getItemId(), (short) 1, "");
+                        }
                         c.getPlayer().getClient().getSession().write(CField.getCharInfo(c.getPlayer()));
                         c.getPlayer().getMap().removePlayer(c.getPlayer());
                         c.getPlayer().getMap().addPlayer(c.getPlayer());
@@ -386,7 +395,7 @@ public class AdminCommand {
                 list.add(lines[1]);
                 list.add(lines[2]);
                 list.add(lines[3]);
-                World.Broadcast.broadcastMessage(CWvsContext.getAvatarMega(victim, channel, itemID, list, false));
+                World.Broadcast.broadcastMessage(c.getPlayer().getWorld(), CWvsContext.getAvatarMega(victim, channel, itemID, list, false));
                 return true;
                 case "pinkbean":
                     player.getMap().spawnMonsterOnGroudBelow(MapleLifeFactory.getMonster(8820001), player.getPosition());
@@ -425,7 +434,7 @@ public class AdminCommand {
                     "But look at the accolades these skills brung me", "Full of myself, but still hungry", "I bully myself 'cause I make me do what I put my mind to", "When I'm a million leagues above you", "Ill when I speak in tongues", "But it's still tongue-and-cheek, fuck you", "I'm drunk so Satan take the fucking wheel", "I'm asleep in the front seat", "Bumping Heavy D and the Boys", "Still chunky, but funky", "But in my head there's something", "I can feel tugging and struggling", "Angels fight with devils and", "Here's what they want from me", "They're asking me to eliminate some of the women hate", "But if you take into consideration the bitter hatred I had", "Then you may be a little patient and more sympathetic to the situation", "And understand the discrimination", "But fuck it", "Life's handing you lemons", "Make lemonade then", 
                     "But if I can't batter the women", "How the fuck am I supposed to bake them a cake then?", "Don't mistake him for Satan", "It's a fatal mistake if you think I need to be overseas", "And take a vacation to trip a broad", "And make her fall on her face and", "Don't be a retard, be a king?", "Think not", "Why be a king when you can be a God?"};
                     for (String i : rapgod) {
-                        World.Broadcast.broadcastMessage(CWvsContext.serverNotice(1, i));
+                        World.Broadcast.broadcastMessage(player.getWorld(),CWvsContext.serverNotice(1, i));
                     }
                 return true;
                 case "disableui":
@@ -1061,7 +1070,7 @@ public class AdminCommand {
                     }
                     return true;
                 case "shutdownnow":
-                    World.Broadcast.broadcastMessage(CWvsContext.serverNotice(1, "Performing an immediate Shutdown.."));
+                    World.Broadcast.broadcastMessage(player.getWorld(),CWvsContext.serverNotice(1, "Performing an immediate Shutdown.."));
                     World.Shutdown = true;
                     EventTimer.getInstance().schedule(new Runnable() {
                         @Override

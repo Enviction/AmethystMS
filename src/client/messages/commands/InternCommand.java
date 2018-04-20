@@ -101,7 +101,7 @@ public class InternCommand {
                     }
                  return true;
                 case "gmchat":
-                    World.Broadcast.broadcastGMMessage( CWvsContext.serverNotice(6, "[GM Chat - " + player.getName() + "]: " + joinStringFrom(splitted, 1)));
+                    World.Broadcast.broadcastGMMessage(player.getWorld(), CWvsContext.serverNotice(6, "[GM Chat - " + player.getName() + "]: " + joinStringFrom(splitted, 1)));
                     return true;
                 case "me":
                     String prefix = "[" + c.getPlayer().getName() + "] ";
@@ -433,7 +433,7 @@ public class InternCommand {
                             cs.eventChannel = (byte) c.getPlayer().getClient().getChannel();
                         }
                         try {
-                            World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, c.getChannel(), "[Event] " + StringUtil.joinStringFrom(splitted, 1) + " - Type @joinevent on channel " + c.getChannel() +" to join."));
+                            World.Broadcast.broadcastMessage(player.getWorld(),CWvsContext.serverNotice(6, c.getChannel(), "[Event] " + StringUtil.joinStringFrom(splitted, 1) + " - Type @joinevent on channel " + c.getChannel() +" to join."));
                         } catch (NumberFormatException nfe) {}
                     } else {
                         for (ChannelServer cs : c.getWorldServer().getChannels()) {
@@ -441,7 +441,7 @@ public class InternCommand {
                             cs.eventMap=0;
                         }
                         try {
-                            World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, c.getChannel(), "[Event] Access to the event has ended since the time finished."));
+                            World.Broadcast.broadcastMessage(player.getWorld(),CWvsContext.serverNotice(6, c.getChannel(), "[Event] Access to the event has ended since the time finished."));
                         } catch (NumberFormatException nfe) {}
                         return true;
                     }
@@ -571,7 +571,7 @@ public class InternCommand {
                     return true;
                 case "say":
                     if (splitted.length > 1) {
-                        World.Broadcast.broadcastMessage( CWvsContext.serverNotice(6, "[" + player.getName() + "] : " + StringUtil.joinStringFrom(splitted, 1)));
+                        World.Broadcast.broadcastMessage( player.getWorld(),CWvsContext.serverNotice(6, "[" + player.getName() + "] : " + StringUtil.joinStringFrom(splitted, 1)));
                     } else {
                         c.getPlayer().dropMessage(6, "Syntax: say <message>");
                         return true;

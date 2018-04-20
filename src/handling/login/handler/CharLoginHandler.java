@@ -301,7 +301,7 @@ private static final int[] allowedEquips = {
         newchar.setDemonMarking(demonMark);
 
         if (newchar.getCustomFace() || newchar.getCustomHair()) {
-            World.Broadcast.broadcastMessage( CWvsContext.serverNotice(6, "[AutoBan] Hahaha some new player tried packet editing their eyes! Let's laugh at their ban!"));
+            World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.serverNotice(6, "[AutoBan] Hahaha some new player tried packet editing their eyes! Let's laugh at their ban!"));
             c.banMacs(); //Cheat custom faces/hairs..
             c.getSession().close();
             return;
@@ -341,8 +341,9 @@ private static final int[] allowedEquips = {
             equip.addFromDB(item);
         }
 
-        newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000013, (byte) 0, (short) 100, (byte) 0));
-        newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000014, (byte) 0, (short) 100, (byte) 0));
+        newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2001502, (byte) 0, (short) 100, (byte) 0));
+        newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2001506, (byte) 0, (short) 100, (byte) 0));
+        
     
         if(!((containsInt(allowedEquips, top) || containsInt(allowedEquips, bottom) || containsInt(allowedEquips, shoes) || containsInt(allowedEquips, weapon)))){
             System.out.println("banned client due to failed equips check.");

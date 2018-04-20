@@ -121,7 +121,7 @@ public class DamageParse {
 
         if (!player.isGM()) {
             if (attack.skill == 9001001 || attack.skill == 9101006) {
-                World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, "[AutoBan] " + player.getName() + " has been banned for packet editing GM Roar!"));
+                World.Broadcast.broadcastMessage(player.getWorld(),CWvsContext.serverNotice(6, "[AutoBan] " + player.getName() + " has been banned for packet editing GM Roar!"));
                 player.ban("Packet edited GM Roar!", true);
             }
         }
@@ -511,7 +511,7 @@ public class DamageParse {
         final MapleMap map = player.getMap();
          if (!player.isGM()) {
             if (attack.skill == 9001001 || attack.skill == 9101006) {
-                World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, "[AutoBan] " + player.getName() + " has been banned for packet editing GM Roar!"));
+                World.Broadcast.broadcastMessage(player.getWorld(),CWvsContext.serverNotice(6, "[AutoBan] " + player.getName() + " has been banned for packet editing GM Roar!"));
                 player.ban("Packet edited GM Roar!", true, true);
             }
         }

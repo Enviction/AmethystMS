@@ -2975,7 +2975,7 @@ public class CField {
                     for (Pair eachd : oned.attack) {
                         int b = (Integer)eachd.left;
                         if (b == 1)
-                            b = 1337;
+                            b = 1;
                         mplew.write(((Boolean) eachd.right).booleanValue() ? 1 : 0);
                         //mplew.writeInt(((Integer) eachd.left).intValue());
                         mplew.writeInt(b);

@@ -58,7 +58,7 @@ public class ShutdownServer implements ShutdownServerMBean {
 	    mode++;
             System.out.println("Shutdown 2 commencing...");
             try {
-	        World.Broadcast.broadcastMessage(CWvsContext.serverNotice(0, "The world is going to shutdown now. Please log off safely.")); // -1 : all world servers
+	        World.Broadcast.broadcastMessage(-1,CWvsContext.serverNotice(0, "The world is going to shutdown now. Please log off safely.")); // -1 : all world servers
                 Integer[] chs =  ChannelServer.getAllInstance().toArray(new Integer[0]);
                 for (int i : chs) {
                     try {

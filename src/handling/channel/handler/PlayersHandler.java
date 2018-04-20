@@ -845,7 +845,7 @@ public class PlayersHandler {
             c.getSession().write(CWvsContext.enableActions());
             c.getPlayer().dropMessage(5, "You may only report every 2 hours.");
         } else {
-            World.Broadcast.broadcastGMMessage( CWvsContext.serverNotice(5, cheater.getName() + " was reported for: " + reason));
+            World.Broadcast.broadcastGMMessage(c.getWorld(), CWvsContext.serverNotice(5, cheater.getName() + " was reported for: " + reason));
             stat.setCustomData(String.valueOf(currentTime));
             cheater.addReport(type);
             c.getSession().write(CWvsContext.report(2));

@@ -2987,31 +2987,31 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         return getTotalSkillLevel(SkillFactory.getSkill(skillid));
     }
 
-    public final void handleEnergyCharge(final int skillid, final int targets) {
-        final Skill echskill = SkillFactory.getSkill(skillid);
-        final int skilllevel = getTotalSkillLevel(echskill);
+    public final void handleEnergyCharge(int skillid, int targets) {
+        Skill echskill = SkillFactory.getSkill(skillid);
+        int skilllevel = getTotalSkillLevel(echskill);
         if (skilllevel > 0) {
-            final MapleStatEffect echeff = echskill.getEffect(skilllevel);
+            MapleStatEffect echeff = echskill.getEffect(skilllevel);
             if (targets > 0) {
                 if (getBuffedValue(MapleBuffStat.ENERGY_CHARGE) == null) {
-                //    echeff.applyEnergyBuff(this, true); // Infinity time
+                  echeff.applyEnergyBuff(this, true); // Infinity time
                 } else {
                     Integer energyLevel = getBuffedValue(MapleBuffStat.ENERGY_CHARGE);
-                    //TODO: bar going down
-                    if (energyLevel < 10000) {
-                        energyLevel += (echeff.getX() * targets);
 
-                        client.getSession().write(EffectPacket.showOwnBuffEffect(skillid, 2, getLevel(), skilllevel));
-                        map.broadcastMessage(this, EffectPacket.showBuffeffect(id, skillid, 2, getLevel(), skilllevel), false);
+                    if (energyLevel.intValue() < 10000) {
+                        energyLevel = Integer.valueOf(energyLevel.intValue() + echeff.getX() * targets);
 
-                        if (energyLevel >= 10000) {
-                            energyLevel = 10000;
+                        this.client.getSession().write(CField.EffectPacket.showOwnBuffEffect(skillid, 2, getLevel(), skilllevel));
+                        this.map.broadcastMessage(this, CField.EffectPacket.showBuffeffect(this.id, skillid, 2, getLevel(), skilllevel), false);
+
+                        if (energyLevel.intValue() >= 10000) {
+                            energyLevel = Integer.valueOf(10000);
                         }
-                        client.getSession().write(BuffPacket.giveEnergyChargeTest(energyLevel, echeff.getDuration() / 1000));
-                        setBuffedValue(MapleBuffStat.ENERGY_CHARGE, Integer.valueOf(energyLevel));
-                    } else if (energyLevel == 10000) {
-                      //  echeff.applyEnergyBuff(this, false); // One with time
-                        setBuffedValue(MapleBuffStat.ENERGY_CHARGE, Integer.valueOf(10001));
+                        this.client.getSession().write(CWvsContext.BuffPacket.giveEnergyChargeTest(energyLevel.intValue(), echeff.getDuration() / 1000));
+                        setBuffedValue(MapleBuffStat.ENERGY_CHARGE, Integer.valueOf(energyLevel.intValue()).intValue());
+                    } else if (energyLevel.intValue() == 10000) {
+                         echeff.applyEnergyBuff(this, false); // Infinity time
+                        setBuffedValue(MapleBuffStat.ENERGY_CHARGE, Integer.valueOf(10001).intValue());
                     }
                 }
             }
@@ -4096,6 +4096,12 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         this.remainingAp += ap;
         updateSingleStat(MapleStat.AVAILABLEAP, this.remainingAp);
     }
+    
+        public void gainAP(int ap) { //Too lazy to rewrite all the script meh.
+        updateAP();
+        this.remainingAp += ap;
+        updateSingleStat(MapleStat.AVAILABLEAP, this.remainingAp);
+    }
 
     public void gainSP(int sp) {
         this.remainingSp[GameConstants.getSkillBook(job)] += sp; //default
@@ -4104,6 +4110,18 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
 
     public void gainSP(int sp, final int skillbook) {
+        this.remainingSp[skillbook] += sp; //default
+        updateSingleStat(MapleStat.AVAILABLESP, 0); // we don't care the value here
+        client.getSession().write(InfoPacket.getSPMsg((byte) sp, (short) 0));
+    }
+    
+        public void gainSp(int sp) { // too lazy to rewrite
+        this.remainingSp[GameConstants.getSkillBook(job)] += sp; //default
+        updateSingleStat(MapleStat.AVAILABLESP, 0); // we don't care the value here
+        client.getSession().write(InfoPacket.getSPMsg((byte) sp, (short) job));
+    }
+
+    public void gainSp(int sp, final int skillbook) { //tolazy to rewrite
         this.remainingSp[skillbook] += sp; //default
         updateSingleStat(MapleStat.AVAILABLESP, 0); // we don't care the value here
         client.getSession().write(InfoPacket.getSPMsg((byte) sp, (short) 0));
@@ -4427,13 +4445,13 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
 
     public void gainExp(int total, final boolean show, final boolean inChat, final boolean white) {
-        int[] codex_levels = {15, 30, 45, 60, 75, 90, 105};
+        /*int[] codex_levels = {15, 30, 45, 60, 75, 90, 105};
         for (int i : codex_levels) {
             if (getLevel() == i) {
                 setLevel((short)(getLevel() + 3));
             }
         }
-        /*if (getLevel() == 15) {
+        if (getLevel() == 15) {
          setLevel((short) 18);  
          } else if (getLevel() == 30) {
          setLevel((short) 33);  
@@ -5469,6 +5487,11 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             setExp(0); // Let's reset them automatically and reset their exp. :(
             return;
         }
+        if (GameConstants.isKOC(job) && getLevel() >=130) {
+         setLevel((short)130);
+         setExp(0);
+         return;
+        }
         if (GameConstants.isKOC(job) && level <= 70) {
             remainingAp += 6;
         } else {
@@ -5528,7 +5551,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             }
                 sb.append(getName());
                 sb.append(" has achieved Level 200. Let us Celebrate Maplers!");
-                World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, sb.toString()));
+                World.Broadcast.broadcastMessage(getWorld(), CWvsContext.serverNotice(6, sb.toString()));
         }
         maxhp = Math.min(99999, Math.abs(maxhp));
         maxmp = Math.min(99999, Math.abs(maxmp));
@@ -7803,7 +7826,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
 
     public void sendGMMessage(int type, String message) {
-         World.Broadcast.broadcastGMMessage(CWvsContext.serverNotice(type, message));
+         World.Broadcast.broadcastGMMessage(getWorld(),CWvsContext.serverNotice(type, message));
     }
     
     public void worldTrip() {
@@ -7857,7 +7880,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
 
     public void kickFromJQ() {
-        World.Broadcast.broadcastMessage(CWvsContext.serverNotice(6, "[JQ Detector] : " + getName() + " has been detected for Soaring in a JQ. They have been kicked."));
+        World.Broadcast.broadcastMessage(getWorld(),CWvsContext.serverNotice(6, "[JQ Detector] : " + getName() + " has been detected for Soaring in a JQ. They have been kicked."));
         changeMap(910000000, 0);
         cancelEffectFromBuffStat(MapleBuffStat.SOARING);
         getClient().getSession().write(CWvsContext.enableActions());

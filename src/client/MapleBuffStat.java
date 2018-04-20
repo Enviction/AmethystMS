@@ -55,7 +55,7 @@ public enum MapleBuffStat implements Serializable, Buffstat {
     DRAGONBLOOD(0x800000, 1),
     HOLY_SYMBOL(0x1000000, 1),
     MESOUP(0x2000000, 1),
-    SHADOWPARTNER(0x4000000, 1),
+    SHADOWPARTNER(0x4000000, 1), // d
     PICKPOCKET(0x8000000, 1),
     PUPPET(0x8000000, 1), // HACK - shares buffmask with pickpocket - odin special ^.-
 

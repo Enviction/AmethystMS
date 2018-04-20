@@ -310,7 +310,7 @@ public class PlayerCommand {
                    return true;
                 }
           if (!player.Spam(300000, 1)) {
-              World.Broadcast.broadcastGMMessage(CWvsContext.serverNotice(6, "Channel: " + c.getChannel() + "  " + player.getName() + ": " + StringUtil.joinStringFrom(splitted, 1)));
+              World.Broadcast.broadcastGMMessage(player.getWorld(),CWvsContext.serverNotice(6, "Channel: " + c.getChannel() + "  " + player.getName() + ": " + StringUtil.joinStringFrom(splitted, 1)));
               player.dropMessage("Message sent.");
               return true;
           } else {
