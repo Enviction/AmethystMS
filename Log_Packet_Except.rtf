@@ -13790,3 +13790,82 @@ java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
 Packet: 65
 All: 41 00 02 FF FF FF FF E6 08 E6 FF 06 00 65 61 73 74 30 30 D1 03 50 FD 00 00 00
 Now: 
+------------------------ 2018-04-15 10:01:08 ------------------------
+java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
+	at java.util.ArrayList.rangeCheck(Unknown Source)
+	at java.util.ArrayList.get(Unknown Source)
+	at handling.login.LoginServer.getChannel(LoginServer.java:104)
+	at handling.channel.ChannelServer.getInstance(ChannelServer.java:142)
+	at server.events.MapleEvent.mapLoad(MapleEvent.java:191)
+	at server.maps.MapleMap.addPlayer(MapleMap.java:2303)
+	at handling.channel.handler.InterServerHandler.Loggedin(InterServerHandler.java:178)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:516)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:385)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$TailFilter.messageReceived(DefaultIoFilterChain.java:690)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:417)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1200(DefaultIoFilterChain.java:47)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:765)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl.flush(ProtocolCodecFilter.java:407)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:236)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:417)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1200(DefaultIoFilterChain.java:47)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:765)
+	at org.apache.mina.core.filterchain.IoFilterAdapter.messageReceived(IoFilterAdapter.java:109)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:417)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireMessageReceived(DefaultIoFilterChain.java:410)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:710)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:664)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:653)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1124)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2018-04-15 10:01:08 ------------------------
+Packet: 38
+All: 26 00 44 00 00 00 34 F6 4B 9B 7A 21 9D 19 2E D8 00 00 00 00 1A 7A 00 00 83 66 BA 94 4E 13 7E 98
+Now: 34 F6 4B 9B 7A 21 9D 19 2E D8 00 00 00 00 1A 7A 00 00 83 66 BA 94 4E 13 7E 98
+------------------------ 2018-04-15 10:01:17 ------------------------
+java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
+	at java.util.ArrayList.rangeCheck(Unknown Source)
+	at java.util.ArrayList.get(Unknown Source)
+	at handling.login.LoginServer.getChannel(LoginServer.java:104)
+	at handling.channel.ChannelServer.getInstance(ChannelServer.java:142)
+	at server.events.MapleEvent.mapLoad(MapleEvent.java:191)
+	at server.maps.MapleMap.addPlayer(MapleMap.java:2303)
+	at client.MapleCharacter.changeMapInternal(MapleCharacter.java:3663)
+	at client.MapleCharacter.changeMap(MapleCharacter.java:3621)
+	at client.messages.commands.InternCommand.executeInternCommand(InternCommand.java:389)
+	at client.messages.commands.SuperDonatorCommand.executeSuperDonatorCommand(SuperDonatorCommand.java:61)
+	at client.messages.commands.DonatorCommand.executeDonatorCommand(DonatorCommand.java:183)
+	at handling.channel.handler.ChatHandler.GeneralChat(ChatHandler.java:164)
+	at handling.MapleServerHandler.handlePacket(MapleServerHandler.java:884)
+	at handling.MapleServerHandler.messageReceived(MapleServerHandler.java:385)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$TailFilter.messageReceived(DefaultIoFilterChain.java:690)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:417)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1200(DefaultIoFilterChain.java:47)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:765)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter$ProtocolDecoderOutputImpl.flush(ProtocolCodecFilter.java:407)
+	at org.apache.mina.filter.codec.ProtocolCodecFilter.messageReceived(ProtocolCodecFilter.java:236)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:417)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.access$1200(DefaultIoFilterChain.java:47)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain$EntryImpl$1.messageReceived(DefaultIoFilterChain.java:765)
+	at org.apache.mina.core.filterchain.IoFilterAdapter.messageReceived(IoFilterAdapter.java:109)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.callNextMessageReceived(DefaultIoFilterChain.java:417)
+	at org.apache.mina.core.filterchain.DefaultIoFilterChain.fireMessageReceived(DefaultIoFilterChain.java:410)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.read(AbstractPollingIoProcessor.java:710)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:664)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.process(AbstractPollingIoProcessor.java:653)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor.access$600(AbstractPollingIoProcessor.java:67)
+	at org.apache.mina.core.polling.AbstractPollingIoProcessor$Processor.run(AbstractPollingIoProcessor.java:1124)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+
+------------------------ 2018-04-15 10:01:17 ------------------------
+Packet: 86
+All: 56 00 7B E7 D1 12 0D 00 21 67 6F 74 6F 20 68 65 6E 65 73 79 73 00
+Now: 

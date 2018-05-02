@@ -566,21 +566,6 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
           return ret.toString();
     }
     
-     public void ProDonatorItem(byte slot, int str, int dex, int int_, int luk){
-         MapleInventory equip = getPlayer().getInventory(MapleInventoryType.EQUIP);
-         Equip eu = (Equip) equip.getItem(slot); // get slot determine eq
-         short hand = eu.getHands(); // HANDS
-         byte level = eu.getLevel(); // LEVEL
-         eu.setStr((short) str); // STR
-         eu.setDex((short) dex); // DEX
-         eu.setInt((short) int_); // INT
-         eu.setLuk((short) luk); //LUK
-         eu.setUpgradeSlots((byte) 0); // Feel free to change
-         eu.setHands(hand);
-         eu.setLevel(level);
-         getPlayer().getInventory(MapleInventoryType.EQUIP).addFromDB(eu);
-    }
-     
      public int setAndroid(int args) {
         if (args < 30000) {
             c.getPlayer().getAndroid().setFace(args);
@@ -2288,6 +2273,18 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         getPlayer().changeKeybinding(key, (byte) type, action);
         getClient().getSession().write(CField.getKeymap(getPlayer().getKeyLayout()));
     }
+    
+    	public int getPoints() {
+		return getPlayer().getPoints();
+	}
+
+	public void gainPoints(int points) {
+                getPlayer().gainPoints(points);
+        }
+        
+        public void setPoints(int points) {
+            getPlayer().setPoints(points);
+        }
 
     public void logDonator(String log, int previous_points) {
         final StringBuilder logg = new StringBuilder();
