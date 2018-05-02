@@ -125,7 +125,7 @@ public class DonatorCommand {
                 case "dnotice":
                 case "dsay":
                     if (splitted.length > 1) {
-                        World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(6, "[Donator] " + player.getName() + " : " + StringUtil.joinStringFrom(splitted, 1)));
+                        World.Broadcast.broadcastMessage(player.getWorld(),CWvsContext.serverNotice(6, "[Donator] " + player.getName() + " : " + StringUtil.joinStringFrom(splitted, 1)));
                     } else {
                         player.dropMessage(5, "Syntax: !" + splitted[0] + " <message>");
                     }

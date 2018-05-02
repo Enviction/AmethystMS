@@ -1024,26 +1024,26 @@ public class InventoryHandler {
                     break;
                 case 2430112: //miracle cube fragment
                     if (c.getPlayer().getInventory(MapleInventoryType.USE).getNumFreeSlot() >= 1) {
-                        if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 10) {
-                            if (MapleInventoryManipulator.checkSpace(c, 2049401, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, toUse.getItemId(), 25, true, false)) {
-                                MapleInventoryManipulator.addById(c, 2049401, (short) 1, "Scripted item: " + toUse.getItemId() + " on " + FileoutputUtil.CurrentReadable_Date());
-                            } else {
-                                c.getPlayer().dropMessage(5, "Please make some space.");
-                            }
-                        } else if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 20) {
-                            if (MapleInventoryManipulator.checkSpace(c, 5062000, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, toUse.getItemId(), 10, true, false)) {
-                                MapleInventoryManipulator.addById(c, 5062000, (short) 1, "Scripted item: " + toUse.getItemId() + " on " + FileoutputUtil.CurrentReadable_Date());
-                            } else {
-                                c.getPlayer().dropMessage(5, "Please make some space.");
-                            }
-                        } else if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 50) {
-                            if (MapleInventoryManipulator.checkSpace(c, 5062002, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, toUse.getItemId(), 10, true, false)) {
+                        if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 50) {
+                            if (MapleInventoryManipulator.checkSpace(c, 5062002, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, toUse.getItemId(), 50, true, false)) {
                                 MapleInventoryManipulator.addById(c, 5062002, (short) 1, "Scripted item: " + toUse.getItemId() + " on " + FileoutputUtil.CurrentReadable_Date());
                             } else {
                                 c.getPlayer().dropMessage(5, "Please make some space.");
                             }
+                        } else if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 20) {
+                            if (MapleInventoryManipulator.checkSpace(c, 5062000, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, toUse.getItemId(), 20, true, false)) {
+                                MapleInventoryManipulator.addById(c, 5062000, (short) 1, "Scripted item: " + toUse.getItemId() + " on " + FileoutputUtil.CurrentReadable_Date());
+                            } else {
+                                c.getPlayer().dropMessage(5, "Please make some space.");
+                            }
+                        } else if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 5) {
+                            if (MapleInventoryManipulator.checkSpace(c, 2049401, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, toUse.getItemId(), 5, true, false)) {
+                                MapleInventoryManipulator.addById(c, 2049401, (short) 1, "Scripted item: " + toUse.getItemId() + " on " + FileoutputUtil.CurrentReadable_Date());
+                            } else {
+                                c.getPlayer().dropMessage(5, "Please make some space.");
+                            }
                         } else {
-                            c.getPlayer().dropMessage(5, "There needs to be 10 Fragments for a Potential Scroll, 20 for a Miracle Cube.");
+                            c.getPlayer().dropMessage(5, "There needs to be 5 Fragments for a Potential Scroll, 20 for a Miracle Cube, 50 for A Super Miracle Cube.");
                         }
                     } else {
                         c.getPlayer().dropMessage(5, "Please make some space.");
@@ -2033,7 +2033,7 @@ public class InventoryHandler {
             c.getSession().write(InfoPacket.getShowItemGain(reward, (short) amount, true));
 
             if (GameConstants.gachaponRareItem(item.getItemId()) > 0) {
-                World.Broadcast.broadcastSmega(c.getWorld(), CWvsContext.getGachaponMega(c.getPlayer().getName(), " : got a(n)", item, (byte) 2, "[" + box + " Chest]"));
+                World.Broadcast.broadcastSmega(c.getWorld(),CWvsContext.getGachaponMega(c.getPlayer().getName(), " : got a(n)", item, (byte) 2, "[" + box + " Chest]"));
             }
         } else {
             chr.dropMessage(5, "Please check your item inventory and see if you have a Master Key, or if the inventory is full.");
@@ -3055,7 +3055,7 @@ message = WordFilter.illegalArrayCheck(message, c.getPlayer());
                     }
                     boolean ear = slea.readByte() > 0;
 
-                    World.Broadcast.broadcastSmega(c.getWorld(), CWvsContext.tripleSmega(messages, ear, c.getChannel()));
+                    World.Broadcast.broadcastSmega(c.getWorld(),CWvsContext.tripleSmega(messages, ear, c.getChannel()));
                     used = true;
                 } else {
                     c.getPlayer().dropMessage(5, "The usage of Megaphone is currently disabled.");
@@ -3085,7 +3085,7 @@ message = WordFilter.illegalArrayCheck(message, c.getPlayer());
 
                     final boolean ear = slea.readByte() != 0;
 
-                    World.Broadcast.broadcastSmega(c.getWorld(), CWvsContext.serverNotice(25, c.getChannel(), sb.toString(), ear));
+                    World.Broadcast.broadcastSmega(c.getWorld(),CWvsContext.serverNotice(25, c.getChannel(), sb.toString(), ear));
                     used = true;
                 } else {
                     c.getPlayer().dropMessage(5, "The usage of Megaphone is currently disabled.");
@@ -3115,7 +3115,7 @@ message = WordFilter.illegalArrayCheck(message, c.getPlayer());
 
                     final boolean ear = slea.readByte() != 0;
 
-                    World.Broadcast.broadcastSmega(c.getWorld(), CWvsContext.serverNotice(26, c.getChannel(), sb.toString(), ear));
+                    World.Broadcast.broadcastSmega(c.getWorld(),CWvsContext.serverNotice(26, c.getChannel(), sb.toString(), ear));
                     used = true;
                 } else {
                     c.getPlayer().dropMessage(5, "The usage of Megaphone is currently disabled.");
@@ -3137,7 +3137,7 @@ message = WordFilter.illegalArrayCheck(message, c.getPlayer());
                     if (message.length() > 65) {
                         break;
                     }
-                    World.Broadcast.broadcastSmega(c.getWorld(), CWvsContext.echoMegaphone(c.getPlayer().getName(), message));
+                    World.Broadcast.broadcastSmega(c.getWorld(),CWvsContext.echoMegaphone(c.getPlayer().getName(), message));
                     used = true;
                 } else {
                     c.getPlayer().dropMessage(5, "The usage of Megaphone is currently disabled.");
@@ -3166,7 +3166,7 @@ message = WordFilter.illegalArrayCheck(message, c.getPlayer());
                     sb.append(message);
 
                     boolean ear = slea.readByte() != 0;
-                    World.Broadcast.broadcastSmega(c.getWorld(), CWvsContext.serverNotice(9, c.getChannel(), sb.toString(), ear));
+                    World.Broadcast.broadcastSmega(c.getWorld(),CWvsContext.serverNotice(9, c.getChannel(), sb.toString(), ear));
                     used = true;
                 } else {
                     c.getPlayer().dropMessage(5, "The usage of Megaphone is currently disabled.");
@@ -3196,7 +3196,7 @@ message = WordFilter.illegalArrayCheck(message, c.getPlayer());
 
                     boolean ear = slea.readByte() != 0;
 
-                    World.Broadcast.broadcastSmega(c.getWorld(), CWvsContext.serverNotice(22, c.getChannel(), sb.toString(), ear));
+                    World.Broadcast.broadcastSmega(c.getWorld(),CWvsContext.serverNotice(22, c.getChannel(), sb.toString(), ear));
                     used = true;
                 } else {
                     c.getPlayer().dropMessage(5, "The usage of Megaphone is currently disabled.");
@@ -3226,7 +3226,7 @@ message = WordFilter.illegalArrayCheck(message, c.getPlayer());
 
                     boolean ear = slea.readByte() != 0;
 
-                    World.Broadcast.broadcastSmega(c.getWorld(), CWvsContext.serverNotice(3, c.getChannel(), sb.toString(), ear));
+                    World.Broadcast.broadcastSmega( c.getWorld(),CWvsContext.serverNotice(3, c.getChannel(), sb.toString(), ear));
                     used = true;
                 } else {
                     c.getPlayer().dropMessage(5, "The usage of Megaphone is currently disabled.");
@@ -3265,7 +3265,7 @@ message = WordFilter.illegalArrayCheck(message, c.getPlayer());
                         }
                         item = c.getPlayer().getInventory(MapleInventoryType.getByType(invType)).getItem(pos);
                     }
-                    World.Broadcast.broadcastSmega(c.getWorld(), CWvsContext.itemMegaphone(sb.toString(), ear, c.getChannel(), item));
+                    World.Broadcast.broadcastSmega(c.getWorld(),CWvsContext.itemMegaphone(sb.toString(), ear, c.getChannel(), item));
                     used = true;
                 } else {
                     c.getPlayer().dropMessage(5, "The usage of Megaphone is currently disabled.");
@@ -3619,12 +3619,12 @@ message = WordFilter.illegalArrayCheck(message, c.getPlayer());
                             list.add(linez[2]);
                             list.add(linez[3]);
                             final boolean ear = slea.readByte() != 0;
-                            World.Broadcast.broadcastSmega(c.getWorld(), CWvsContext.getAvatarMega(c.getPlayer(), c.getChannel(), itemId, list, ear));
+                            World.Broadcast.broadcastSmega(c.getWorld(),CWvsContext.getAvatarMega(c.getPlayer(), c.getChannel(), itemId, list, ear));
                             used = true;
                         } else {
                             lines.add(text);
                             final boolean ear = slea.readByte() != 0;
-                            World.Broadcast.broadcastSmega(c.getWorld(), CWvsContext.getAvatarMega(c.getPlayer(), c.getChannel(), itemId, lines, ear));
+                            World.Broadcast.broadcastSmega(c.getWorld(),CWvsContext.getAvatarMega(c.getPlayer(), c.getChannel(), itemId, lines, ear));
                             used = true;
                         }
                     }

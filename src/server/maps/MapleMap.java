@@ -672,15 +672,15 @@ public final class MapleMap {
             chr.setHp(0);
             chr.updateSingleStat(MapleStat.HP, 0);
         } else if (mobid == 8810018 && mapid == 240060200) { 
-            World.Broadcast.broadcastGMMessage(chr.getWorld(), CWvsContext.serverNotice(5, "[GM-Message] Horntail was killed by : " + chr.getName()));
-            World.Broadcast.broadcastMessage(chr.getWorld(), CWvsContext.serverNotice(6, "To the crew that have finally conquered Horned Tail after numerous attempts, I salute thee! You are the true heroes of Leafre!!"));
+            World.Broadcast.broadcastGMMessage(chr.getWorld(),CWvsContext.serverNotice(5, "[GM-Message] Horntail was killed by : " + chr.getName()));
+            World.Broadcast.broadcastMessage(chr.getWorld(),CWvsContext.serverNotice(6, "To the crew that have finally conquered Horned Tail after numerous attempts, I salute thee! You are the true heroes of Leafre!!"));
             if (speedRunStart > 0) {
                 type = ExpeditionType.Horntail;
             }
             doShrine(true);
         } else if (mobid == 8810122 && mapid == 240060201) { // Horntail
-            World.Broadcast.broadcastGMMessage(chr.getWorld(), CWvsContext.serverNotice(5, "[GM-Message] Chaos Horntail was killed by : " + chr.getName()));
-            World.Broadcast.broadcastMessage(chr.getWorld(), CWvsContext.serverNotice(6, "To the crew that have finally conquered Chaos Horned Tail after numerous attempts, I salute thee! You are the true heroes of Leafre!!"));
+            World.Broadcast.broadcastGMMessage(chr.getWorld(),CWvsContext.serverNotice(5, "[GM-Message] Chaos Horntail was killed by : " + chr.getName()));
+            World.Broadcast.broadcastMessage(chr.getWorld(),CWvsContext.serverNotice(6, "To the crew that have finally conquered Chaos Horned Tail after numerous attempts, I salute thee! You are the true heroes of Leafre!!"));
             charactersLock.readLock().lock();
             try {
                 for (MapleCharacter c : characters) {
@@ -715,8 +715,8 @@ public final class MapleMap {
         } else if ((mobid == 9420544 || mobid == 9420549) && mapid == 551030200 && monster.getEventInstance() != null && monster.getEventInstance().getName().contains(getEMByMap().getName())) {
             doShrine(getAllReactor().isEmpty());
         } else if (mobid == 8820001 && mapid == 270050100) {
-            World.Broadcast.broadcastGMMessage(chr.getWorld(), CWvsContext.serverNotice(5, "[GM-Message] Pink bean was killed by : " + chr.getName()));
-            World.Broadcast.broadcastMessage(chr.getWorld(), CWvsContext.serverNotice(6, "Oh, the exploration team who has defeated Pink Bean with undying fervor! You are the true victors of time!"));
+            World.Broadcast.broadcastGMMessage(chr.getWorld(),CWvsContext.serverNotice(5, "[GM-Message] Pink bean was killed by : " + chr.getName()));
+            World.Broadcast.broadcastMessage(chr.getWorld(),CWvsContext.serverNotice(6, "Oh, the exploration team who has defeated Pink Bean with undying fervor! You are the true victors of time!"));
             charactersLock.readLock().lock();
             try {
                 for (MapleCharacter c : characters) {
@@ -730,8 +730,8 @@ public final class MapleMap {
             }
             doShrine(true);
         } else if (mobid == 8850011 && mapid == 271040100) {
-            World.Broadcast.broadcastGMMessage(chr.getWorld(), CWvsContext.serverNotice(5, "[GM-Message] Empress was killed by : " + chr.getName()));
-            World.Broadcast.broadcastMessage(chr.getWorld(), CWvsContext.serverNotice(6, "To you whom have defeated Empress Cygnus in the future, you are the heroes of time!"));
+            World.Broadcast.broadcastGMMessage(chr.getWorld(),CWvsContext.serverNotice(5, "[GM-Message] Empress was killed by : " + chr.getName()));
+            World.Broadcast.broadcastMessage(chr.getWorld(),CWvsContext.serverNotice(6, "To you whom have defeated Empress Cygnus in the future, you are the heroes of time!"));
             if (speedRunStart > 0) {
                 type = ExpeditionType.Cygnus;
             }
@@ -2355,9 +2355,7 @@ public final class MapleMap {
             } else if (mapid == 910000000) {
                 chr.getClient().getSession().write(CField.musicChange(MapConstants.FM_BGM));
                 chr.dropMessage("    **** Welcome to Amethyst's FM! ****");
-                chr.dropMessage("- @dev - All-In-One NPC");
                 chr.dropMessage("- @commands - Full Command List");
-                chr.dropMessage("- Vote Daily to receive Munny!");
             }
         if (GameConstants.isEvan(chr.getJob()) && chr.getJob() >= 2200) {
             if (chr.getDragon() == null) {

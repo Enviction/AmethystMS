@@ -555,7 +555,7 @@ public class MapleInventoryManipulator {
             return;
         }
         if (!c.getPlayer().isGM() && (source.getItemId() == 1002140 || source.getItemId() == 1042003 || source.getItemId() == 1062007 || source.getItemId() == 1322013)) {
-                World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.serverNotice(6, "[AutoBan]: " + c.getPlayer().getName() + " has been banned for wearing a Wizet Item."));
+                World.Broadcast.broadcastMessage(c.getWorld(),CWvsContext.serverNotice(6, "[AutoBan]: " + c.getPlayer().getName() + " has been banned for wearing a Wizet Item."));
                 c.getPlayer().ban("[AutoBan]: GM Equipment on character.", true);
         }
         boolean bag = false, switchSrcDst = false, bothBag = false;
@@ -926,7 +926,7 @@ public class MapleInventoryManipulator {
             c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).addFromDB(target);
         }
         if (!c.getPlayer().isGM() && (source.getItemId() == 1002140 || source.getItemId() == 1042003 || source.getItemId() == 1062007 || source.getItemId() == 1322013)) {
-                World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.serverNotice(6, "[AutoBan]: " + c.getPlayer().getName() + " has been banned for dropping a Wizet Item."));
+                World.Broadcast.broadcastMessage( c.getWorld(),CWvsContext.serverNotice(6, "[AutoBan]: " + c.getPlayer().getName() + " has been banned for dropping a Wizet Item."));
                 c.getPlayer().ban("[AutoBan]: GM Equipment on character.", true);
         }
         if (GameConstants.isWeapon(source.getItemId())) {

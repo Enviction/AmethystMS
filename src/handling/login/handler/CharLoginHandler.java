@@ -75,8 +75,10 @@ private static final int[] allowedEquips = {
 1042180, 1060138, 1072418, 1302132, 
 1050173, 1050174, 1050175, 1050181, 
 1050182, 1050183, 1050184, 1050185}; 
+
+        
    public static String fakeBan = "";
-   public static Server world = Server.Bera;
+   public static Server world = Server.Scania;
 
     private static boolean loginFailCount(final MapleClient c) {
         c.loginAttempt++;
@@ -96,7 +98,7 @@ private static final int[] allowedEquips = {
         int loginok = 0;
         String login = slea.readMapleAsciiString();
         String pwd = slea.readMapleAsciiString();
-        String unstuck = "unstuckme";
+        //String unstuck = "unstuckme";
         boolean isBanned = c.hasBannedIP() || c.hasBannedMac();
         // final Calendar tempbannedTill = c.getTempBanCalendar();
 
@@ -121,7 +123,7 @@ private static final int[] allowedEquips = {
             //c.acceptedToS();
             return;
         }*/
-        if ((pwd == null ? unstuck == null : pwd.equals(unstuck)) || (pwd == unstuck)) { 
+       /* if ((pwd == null ? unstuck == null : pwd.equals(unstuck)) || (pwd == unstuck)) { 
                     c.disconnect(true, true); // wtf is removeinchannelserver..?
                     int uid = 0;
                     try {
@@ -137,7 +139,7 @@ private static final int[] allowedEquips = {
                 } catch (SQLException ex) {
                 Logger.getLogger(CharLoginHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }*/ 
         if (loginok != 0) {
             if (!loginFailCount(c)) {
                 c.clearInformation();
@@ -165,7 +167,7 @@ private static final int[] allowedEquips = {
     public static void ServerListRequest(final MapleClient c) {
         c.getSession().write(LoginPacket.getLoginWelcome());
         for (World iWorld : LoginServer.getWorlds()) {
-            c.getSession().write(LoginPacket.getServerList(iWorld.getWorldId(), Server.getById(iWorld.getWorldId()).toString(), iWorld.getFlag(), iWorld.getEventMessage(), iWorld.getChannels()));
+            c.getSession().write(LoginPacket.getServerList(0, Server.getById(iWorld.getWorldId()).toString(), iWorld.getFlag(), iWorld.getEventMessage(), iWorld.getChannels()));
         }
         c.getSession().write(LoginPacket.getEndOfServerList());
         c.getSession().write(LoginPacket.selectWorld(1)); // TODO: last world selected
@@ -173,7 +175,7 @@ private static final int[] allowedEquips = {
         eventMessage = eventMessage.replaceAll("#b", "");
         eventMessage = eventMessage.replaceAll("#r", "");
         eventMessage = eventMessage.replaceAll("#k", "");
-        c.getSession().write(LoginPacket.sendRecommended(world.getId(), eventMessage));
+        c.getSession().write(LoginPacket.sendRecommended(0, eventMessage));
     }
 
     public static void ServerStatusRequest(final LittleEndianAccessor slea, final MapleClient c) {
@@ -209,7 +211,6 @@ private static final int[] allowedEquips = {
             slea.readByte(); //2?
         }
         final int server = slea.readByte();
-        world = Server.getById(server);
         final int channel = slea.readByte() + 1;
         //System.out.println("Client " + c.getSession().getRemoteAddress().toString().split(":")[0] + " is connecting to server " + server + " channel " + channel + "");
         FileoutputUtil.log("LogIPs.txt","\r\nIP Address : " + c.getSession().getRemoteAddress().toString().split(":")[0] + " | Account : " + c.getAccountName() + "\r\n");
@@ -262,7 +263,14 @@ private static final int[] allowedEquips = {
         }
 
         int shield = jobType == LoginInformationProvider.JobType.Phantom ? 1352100 : mercedes ? 1352000 : demon ? slea.readInt() : 0;
-        if (jobType == JobType.Demon) {
+        
+                if (jobType == JobType.Demon || jobType == JobType.Phantom || jobType == JobType.Mercedes || jobType == JobType.Resistance || jobType == JobType.Aran || jobType == JobType.Evan || jobType == JobType.Mihile ) {
+                     c.announce(CWvsContext.serverNotice(1, "This Class is temporary disabled!"));
+                     c.getSession().write(LoginPacket.getLoginFailed(1));
+                return;
+                }
+                
+            else if (jobType == JobType.Demon) {
             if (!LoginInformationProvider.getInstance().isEligibleItem(gender, 0, jobType.type, face) || !LoginInformationProvider.getInstance().isEligibleItem(gender, 1, jobType.type, hair)
                     || !LoginInformationProvider.getInstance().isEligibleItem(gender, 2, jobType.type, demonMark) || (skinColor != 0 && skinColor != 13)
                     || !LoginInformationProvider.getInstance().isEligibleItem(gender, 3, jobType.type, top) || !LoginInformationProvider.getInstance().isEligibleItem(gender, 4, jobType.type, shoes)
@@ -293,7 +301,7 @@ private static final int[] allowedEquips = {
         newchar.setDemonMarking(demonMark);
 
         if (newchar.getCustomFace() || newchar.getCustomHair()) {
-            World.Broadcast.broadcastMessage(newchar.getWorld(), CWvsContext.serverNotice(6, "[AutoBan] Hahaha some new player tried packet editing their eyes! Let's laugh at their ban!"));
+            World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.serverNotice(6, "[AutoBan] Hahaha some new player tried packet editing their eyes! Let's laugh at their ban!"));
             c.banMacs(); //Cheat custom faces/hairs..
             c.getSession().close();
             return;
@@ -333,8 +341,9 @@ private static final int[] allowedEquips = {
             equip.addFromDB(item);
         }
 
-        newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000013, (byte) 0, (short) 100, (byte) 0));
-        newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000014, (byte) 0, (short) 100, (byte) 0));
+        newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2001502, (byte) 0, (short) 100, (byte) 0));
+        newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2001506, (byte) 0, (short) 100, (byte) 0));
+        
     
         if(!((containsInt(allowedEquips, top) || containsInt(allowedEquips, bottom) || containsInt(allowedEquips, shoes) || containsInt(allowedEquips, weapon)))){
             System.out.println("banned client due to failed equips check.");
@@ -348,8 +357,8 @@ private static final int[] allowedEquips = {
         } else {
             c.getSession().write(LoginPacket.addNewCharEntry(newchar, false));
         }
-    }
     
+    }
     
 
     public static final void CreateUltimate(final LittleEndianAccessor slea, final MapleClient c) {
@@ -528,7 +537,7 @@ private static final int[] allowedEquips = {
             c.setWorld(slea.readInt());
         }
         final String currentpw = c.getSecondPassword();
-        if (!c.isLoggedIn() || loginFailCount(c) || (currentpw != null && (!currentpw.equals("") || haspic)) || !c.login_Auth(charId) || ChannelServer.getInstance(c.getWorld(), c.getChannel()) == null || c.getWorld() != world.getId()) { // TODOO: MULTI WORLDS
+        if (!c.isLoggedIn() || loginFailCount(c) || (currentpw != null && (!currentpw.equals("") || haspic)) || !c.login_Auth(charId) || ChannelServer.getInstance(c.getWorld(), c.getChannel()) == null || c.getWorld() != 0) { // TODOO: MULTI WORLDS
             c.getSession().close();
             return;
         }
@@ -567,7 +576,7 @@ private static final int[] allowedEquips = {
             c.setChannel(1);
             c.setWorld(slea.readInt());
         }
-        if (!c.isLoggedIn() || loginFailCount(c) || c.getSecondPassword() == null || !c.login_Auth(charId) || ChannelServer.getInstance(c.getWorld(), c.getChannel()) == null || c.getWorld() != world.getId()) { // TODOO: MULTI WORLDS
+        if (!c.isLoggedIn() || loginFailCount(c) || c.getSecondPassword() == null || !c.login_Auth(charId) || ChannelServer.getInstance(c.getWorld(), c.getChannel()) == null || c.getWorld() != 0) { // TODOO: MULTI WORLDS
             c.getSession().close();
             return;
         }
@@ -638,7 +647,7 @@ private static final int[] allowedEquips = {
 
     public static void ViewChar(LittleEndianAccessor slea, MapleClient c) {
         Map<Byte, ArrayList<MapleCharacter>> worlds = new HashMap<>();
-        List<MapleCharacter> chars = c.loadCharacters(world.getId()); //TODO multi world
+        List<MapleCharacter> chars = c.loadCharacters(0); //TODO multi world
         c.getSession().write(LoginPacket.showAllCharacter(chars.size()));
         for (MapleCharacter chr : chars) {
             if (chr != null) {

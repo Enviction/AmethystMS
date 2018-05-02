@@ -55,6 +55,10 @@ import tools.packet.CWvsContext;
 public class ChannelServer {
 
     public static long serverStartTime;
+
+
+
+
     private int expRate = 4, mesoRate = 2, dropRate = 1, cashRate = 1, traitRate = 3, BossDropRate = 1;
     private int port = 7575;
     private int world, channel, running_MerchantID = 0;
@@ -83,6 +87,10 @@ public class ChannelServer {
 
     public static Set<Integer> getAllInstance() {
         return new HashSet<>(instances.keySet());
+    }
+    
+        public static final ArrayList<ChannelServer> getAllInstances() {
+        return new ArrayList<ChannelServer>(instances.values());
     }
 
     public final void init() {
@@ -287,7 +295,6 @@ public class ChannelServer {
             for (MapleCharacter chr : worlds.getPlayerStorage().getAllCharacters()) {
                 chr.saveToDB(false, false);
                 if (!chr.Spam(3600000, 26)) { // every hour will notify yet still save.
-                    chr.dropMessage(6, "AutoSave Complete - Character Successfully Saved.");
                 }
             }
         }

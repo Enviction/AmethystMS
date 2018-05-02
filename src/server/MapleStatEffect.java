@@ -43,7 +43,7 @@ public class MapleStatEffect implements Serializable {
     private short hp, mp, watk, matk, wdef, mdef, acc, avoid, hands, speed, jump, psdSpeed, psdJump, mpCon, hpCon, forceCon, bdR, damage, prop,
             ehp, emp, ewatk, ewdef, emdef, ignoreMob, dot, dotTime, criticaldamageMin, criticaldamageMax, pddR, mddR,
             asrR, terR, er, damR, padX, madX, mesoR, thaw, selfDestruction, PVPdamage, indiePad, indieMad, fatigueChange,
-            str, dex, int_, luk, strX, dexX, intX, lukX, lifeId, imhp, immp, inflation, useLevel, mpConReduce,
+            str, dex, int_, luk, strX, dexX, intX, lukX, lifeId, imhp, immp, inflation, useLevel, mpConReduce, mhpX, mmpX, 
             indieMhp, indieMmp, indieAllStat, indieSpeed, indieJump, indieAcc, indieEva, indiePdd, indieMdd, incPVPdamage, indieMhpR, indieMmpR,
             mobSkill, mobSkillLevel; //ar = accuracy rate
     private double hpR, mpR;
@@ -1379,16 +1379,13 @@ case 12111007:
         if ((isSoaring_Mount() && applyfrom.getBuffedValue(MapleBuffStat.MONSTER_RIDING) == null) || (isSoaring_Normal() && !applyfrom.getMap().canSoar())) {
             applyfrom.getClient().getSession().write(CWvsContext.enableActions());
             return false;
-        } else if (sourceid == 4341006 && applyfrom.getBuffedValue(MapleBuffStat.SHADOWPARTNER) == null) {
+      } else if (sourceid == 4341006 && applyfrom.getBuffedValue(MapleBuffStat.SHADOWPARTNER) == null) {
             applyfrom.getClient().getSession().write(CWvsContext.enableActions());
             return false;
         } else if (sourceid == 33101008 && (applyfrom.getBuffedValue(MapleBuffStat.RAINING_MINES) == null || applyfrom.getBuffedValue(MapleBuffStat.SUMMON) != null || !applyfrom.canSummon())) {
             applyfrom.getClient().getSession().write(CWvsContext.enableActions());
             return false;
-        } else if (isShadow() && applyfrom.getJob() != 412 && applyfrom.getJob() != 422) { //pirate/shadow = dc
-            applyfrom.getClient().getSession().write(CWvsContext.enableActions());
-            return false;
-        } else if (isMI() && applyfrom.getJob() != 434) { //pirate/shadow = dc
+        } else if (isShadow() && applyfrom.getJob() / 100 % 10 != 4) { //pirate/shadow = dc
             applyfrom.getClient().getSession().write(CWvsContext.enableActions());
             return false;
         } else if (sourceid == 33101004 && applyfrom.getMap().isTown()) {
@@ -2929,6 +2926,8 @@ case 12111007:
     public final short getHp() {
         return hp;
     }
+    
+    
 
     public final short getMp() {
         return mp;
@@ -3565,6 +3564,14 @@ case 12111007:
 
     public final int getPrice() {
         return price;
+    }
+    
+        public final int getMaxHpX() {
+        return mhpX;
+    }
+
+    public final int getMaxMpX() {
+        return mmpX;
     }
 
     public final int getExtendPrice() {

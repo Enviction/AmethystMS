@@ -1098,8 +1098,83 @@ public class PlayerStats implements Serializable {
                     eff = bx.getEffect(bof);
                     percent_wdef += eff.getX();
                     percent_mdef += eff.getX();
+                       bx = SkillFactory.getSkill(4001005); // Haste
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    speed += eff.getPassiveSpeed();
+                }
+                // 4000010: Magic Theft, invisible.
+                if (chra.getJob() >= 410 && chra.getJob() <= 412) {
+                    bx = SkillFactory.getSkill(4100007); // Physical Training
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                        localluk += eff.getLukX();
+                        localdex += eff.getDexX();
+                    }
+                }
+                if (chra.getJob() >= 420 && chra.getJob() <= 422) {
+                    bx = SkillFactory.getSkill(4200007); // Physical Training
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                        localluk += eff.getLukX();
+                        localdex += eff.getDexX();
+                    }
+                }
+                if (chra.getJob() == 411 || chra.getJob() == 412) {
+                    bx = SkillFactory.getSkill(4110008); // Enveloping Darkness
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                        percent_hp += eff.getPercentHP();
+                        ASR += eff.getASRRate();
+                        TER += eff.getTERRate();
+                    }
+                    bx = SkillFactory.getSkill(4110012); // Expert Throwing Star Handling
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                        damageIncrease.put(4001344,(int) eff.getDAMRate());
+                        damageIncrease.put(4101008,(int) eff.getDAMRate());
+                        damageIncrease.put(4101009,(int) eff.getDAMRate());
+                        damageIncrease.put(4101010,(int) eff.getDAMRate());
+                    }
+                    bx = SkillFactory.getSkill(4110014);
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                        RecoveryUP += eff.getX() - 100;
+                    }
+                }
+                if (chra.getJob() == 412) {
+                    bx = SkillFactory.getSkill(4121014); // Dark Harmony
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                        ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((eff.getIgnoreMob()) / (double)100));
+                    }
+                }
+
+
+                bx = SkillFactory.getSkill(4200006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    percent_hp += eff.getPercentHP();
+                    ASR += eff.getASRRate();
+                    TER += eff.getTERRate();
+                }
+                bx = SkillFactory.getSkill(4210000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    percent_wdef += eff.getX();
+                    percent_mdef += eff.getX();
                 }
                 break;
+            }
             }
             case 431:
             case 432:
@@ -2316,6 +2391,43 @@ public class PlayerStats implements Serializable {
             case 520:
             case 521:
             case 522:
+                  bx = SkillFactory.getSkill(5210013); // Fullmetal Jacket
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((bx.getEffect(bof).getIgnoreMob()) / (double)100));
+                }
+                
+                bx = SkillFactory.getSkill(5210012);
+                bof = chra.getTotalSkillLevel(bx);
+                if(bof > 0){
+                    eff = bx.getEffect(bof);
+                    localmaxhp += eff.getMaxHpX();
+                    localmaxmp += eff.getMaxMpX();
+                    percent_wdef += eff.getWDEFRate();
+                    percent_mdef += eff.getMDEFRate();
+                }
+  
+                bx = SkillFactory.getSkill(5211006); // Homing Beacon
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= eff.getDamage() / 100.0;
+                    bossdam_r *= eff.getDamage() / 100.0;
+                }
+                
+                bx = SkillFactory.getSkill(5220020); // Majestic Presence
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    trueMastery += eff.getMastery();
+                }
+                
+                bx = SkillFactory.getSkill(5200009); // Physical Training
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
                 defRange = 200;
                 bx = SkillFactory.getSkill(5220001);
                 bof = chra.getTotalSkillLevel(bx);
@@ -2325,6 +2437,7 @@ public class PlayerStats implements Serializable {
                     damageIncrease.put(5211005, (int) eff.getDamage());
                 }
                 break;
+                }
             case 130:
             case 131:
             case 132:
@@ -2872,19 +2985,21 @@ public class PlayerStats implements Serializable {
             case 510:
             case 511:
             case 512: { // Buccaner, Viper
-                critSkill = SkillFactory.getSkill(5110000);
+                critSkill = SkillFactory.getSkill(5110000); // Opportunistic Fighter
                 critlevel = player.getTotalSkillLevel(critSkill);
                 if (critlevel > 0) {
                     this.passive_sharpeye_rate += (short) critSkill.getEffect(critlevel).getProb();
                     this.passive_sharpeye_min_percent += critSkill.getEffect(critlevel).getCriticalMin();
                 }
-                Skill critSkill2 = SkillFactory.getSkill(5100008);
-                int critlevel2 = player.getTotalSkillLevel(critSkill);
-                if (critlevel2 > 0) {
-                    this.passive_sharpeye_rate += (short) critSkill2.getEffect(critlevel2).getCr();
-                    this.passive_sharpeye_min_percent += critSkill2.getEffect(critlevel2).getCriticalMin();
+                critSkill = SkillFactory.getSkill(5110011); // Precision Strikes
+                critlevel = player.getTotalSkillLevel(critSkill);
+                if (critlevel > 0) {
+                    this.passive_sharpeye_rate += (short) critSkill.getEffect(critlevel).getProb();
+                    this.passive_sharpeye_min_percent += critSkill.getEffect(critlevel).getCriticalMin();
+                    this.passive_sharpeye_percent += critSkill.getEffect(critlevel).getCriticalMax();
+                    this.bossdam_r += critSkill.getEffect(critlevel).getBossDamage();
                 }
-                return;
+                                return;
             }
             case 1511:
             case 1512: {

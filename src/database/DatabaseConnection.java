@@ -104,7 +104,7 @@ public class DatabaseConnection {
                 System.err.println("ERROR" + e);
             }
             try {
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ascension?autoReconnect=true","root", "");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/Amethyst?autoReconnect=true","root", "Warning2018!!"); //3307 - Amethyst - Warning2018!!
                 allConnections.add(con);
                 return con;
             } catch (SQLException e) {

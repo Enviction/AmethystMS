@@ -111,7 +111,7 @@ public class SuperGMCommand {
                             fakeBan.getClient().getSession().close();
                         }
                     }, 2 * 1000);
-                    World.Broadcast.broadcastMessage(player.getWorld(), CWvsContext.serverNotice(6, "<Amethyst Ban> : " + player.getName() + " has banned " + victim.getName() + " for " + InternCommand.joinStringFrom(splitted, 2)));
+                    World.Broadcast.broadcastMessage(player.getWorld(),CWvsContext.serverNotice(6, "<Amethyst Ban> : " + player.getName() + " has banned " + victim.getName() + " for " + InternCommand.joinStringFrom(splitted, 2)));
                     return true;
                 case "unfakeban":
                     CharLoginHandler.fakeBan = "";

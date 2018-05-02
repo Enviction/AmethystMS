@@ -1239,7 +1239,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                 return -1;
             }
             if (grade >= 2 && grade != 5) {
-                World.Broadcast.broadcastMessage(c.getWorld(), CWvsContext.getGachaponMega(c.getPlayer().getName(), " : got a(n)", item, (byte) 0, "Maple World"));
+                World.Broadcast.broadcastMessage(c.getWorld(),CWvsContext.getGachaponMega(c.getPlayer().getName(), " : got a(n)", item, (byte) 0, "Maple World"));
             }
             c.getSession().write(InfoPacket.getShowItemGain(newId, (short) 1, true));
             gainItem(2430748, (short) 1);
