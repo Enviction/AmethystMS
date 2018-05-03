@@ -2134,46 +2134,38 @@ case 5211015:
     public static int[] fishingReward = {
         0, 100, // Meso
         1, 100, // EXP
-        2022179, 1, // Onyx Apple
-        1302021, 5, // Pico Pico Hammer
-        1072238, 1, // Voilet Snowshoe
-        1072239, 1, // Yellow Snowshoe
         2049100, 2, // Chaos Scroll
+        2040759, 1, // Shoes for ATT 60%
+        2040804, 2, // Glove for ATT 60%
+        2040817, 2, // Glove for M.ATT 60%
+        2040513, 2, // Overall INT 60%
+        2040501, 2, // Overall DEX 60%
+        2040425, 2, // Top for LUK 60%
+        2040914, 1, // Shield for ATT 60%
+        2040919, 1, // Shield for M.ATT 60%
+        2043001, 2, // One-Handed Sword 60%
+        2043101, 2, // One-Handed Axe 60%
+        2043201, 2, // One-Handed BW 60%
+        2043301, 2, // Dagger 60%
+        2043401, 2, // Katara 60%
+        2043701, 2, // Wand 60%
+        2043801, 2, // Staff 60%
+        2044001, 2, // Two-Handed Sword 60%
+        2044101, 2, // Two-Handed Axe 60%
+        2044201, 2, // Two-handed BW 60%
+        2044301, 2, // Spear 60%
+        2044401, 2, // PoleArm 60%
+        2044501, 2, // Bow 60%
+        2044601, 2, // Crossbow 60%
+        2044701, 2, // Claw 60%
+        2044801, 2, // Knuckle 60%
+        2044901, 2, // Gun 60%
         2430144, 1,
         2290285, 1,
         2028062, 1,
         2028061, 1,
         2049301, 1, // Equip Enhancer Scroll
         2049401, 1, // Potential Scroll
-        1302000, 3, // Sword
-        1442011, 1, // Surfboard
-        4000517, 8, // Golden Fish
-        4000518, 10, // Golden Fish Egg
-        4031627, 2, // White Bait (3cm)
-        4031628, 1, // Sailfish (120cm)
-        4031630, 1, // Carp (30cm)
-        4031631, 1, // Salmon(150cm)
-        4031632, 1, // Shovel
-        4031633, 2, // Whitebait (3.6cm)
-        4031634, 1, // Whitebait (5cm)
-        4031635, 1, // Whitebait (6.5cm)
-        4031636, 1, // Whitebait (10cm)
-        4031637, 2, // Carp (53cm)
-        4031638, 2, // Carp (60cm)
-        4031639, 1, // Carp (100cm)
-        4031640, 1, // Carp (113cm)
-        4031641, 2, // Sailfish (128cm)
-        4031642, 2, // Sailfish (131cm)
-        4031643, 1, // Sailfish (140cm)
-        4031644, 1, // Sailfish (148cm)
-        4031645, 2, // Salmon (166cm)
-        4031646, 2, // Salmon (183cm)
-        4031647, 1, // Salmon (227cm)
-        4031648, 1, // Salmon (288cm)
-        4001187, 20,
-        4001188, 20,
-        4001189, 20,
-        4031629, 1 // Pot
     };
 
     public static boolean isReverseItem(int itemId) {
@@ -3853,11 +3845,11 @@ case 5211015:
 		return 30; // beginner or 3100
     }
       // was 9270035 but we now have @wiz :P
-    public static final int[] publicNpcIds = {9070004, 9071003, 9010022, 9000087, 9000088, 9010034, 9000039, 9200000};
+    public static final int[] publicNpcIds = {9070004, 9071003, 9010022, 9000087, 9000088, 9209005, 9000039, 9200000};
     public static final String[] publicNpcs = {"Move to the #cBattle Square# to fight other players", 
         "Move to #cMonster Park# to team up to defeat monsters.", "Move to a variety of #cparty quests#.", 
-        "Move to #cFree Market# to trade items with players.", "Move to #cArdentmill#, the crafting town.", "#cVote NPC#.", 
-        "#Donation NPC#.", "#cMaple Leaf Exchanger#."};
+        "Move to #cFree Market# to trade items with players.", "Move to #cArdentmill#, the crafting town.", "#cFishing NPC#.", 
+        "#Donation NPC#.", "#cVarious Options#."};
     //questID; FAMILY USES 19000x, MARRIAGE USES 16000x, EXPED USES 16010x
     //dojo = 150000, bpq = 150001, master monster portals: 122600
     //compensate evan = 170000, compensate sp = 170001
