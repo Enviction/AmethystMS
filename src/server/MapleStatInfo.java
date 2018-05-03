@@ -34,7 +34,7 @@ public enum MapleStatInfo {
     asrR(0), //Abnormal Status Resistance % 
     attackCount(1), //Number of attacks, similiar to bulletCount
     bdR(0), //Damage on Bosses %
-    bufftimeR(90), //Buff Skill duration increase %
+    bufftimeR(0), //Buff Skill duration increase %
     bulletConsume(0), //Consume bullets
     bulletCount(1), //Number of attacks hit
     coolTimeR(0), //Reduce Skill cooldown %
@@ -64,6 +64,7 @@ public enum MapleStatInfo {
     er(0), //Avoidability %
     eva(0), //Avoidability Increase, avoid
     eva2hp(0), //Convert Avoidability to HP
+    evadeProb(0),
     evaR(0), //Avoidability %
     evaX(0), //Avoidability Increase
     expLossReduceR(0), //Reduce EXP loss at death %
@@ -79,6 +80,10 @@ public enum MapleStatInfo {
     ignoreMobpdpR(0), //Ignore Mob DEF % -> Attack higher
     indieAcc(0), //Accuracy +
     indieAllStat(0), //All Stats +
+    indieLUK(0),
+    indieSTR(0),
+    indieDEX(0),
+    indieINT(0),
     indieDamR(0), //Damage Increase %
     indieEva(0), //Avoidability +
     indieJump(0), //Jump Increase +
@@ -88,6 +93,8 @@ public enum MapleStatInfo {
     indieMmp(0), //Max MP Increase +
     indieMmpR(0), //Max MP Increase %
     indiePad(0), //Damage Increase
+    indiePdd(0),
+    indieMdd(0),
     indieSpeed(0), //Speed +
     int2luk(0), //Convert INT to LUK
     intFX(0), //Increase INT
@@ -95,6 +102,7 @@ public enum MapleStatInfo {
     itemCon(0), //Consumes item upon using <itemid>
     itemConNo(0), //amount for above
     itemConsume(0), //Uses certain item to cast that attack, the itemid doesn't need to be in inventory, just the effect.
+    itemInvincible(0),
     jump(0), //Jump Increase
     kp(0), //Body count attack stuffs
     luk2dex(0), //Convert LUK to DEX
@@ -152,6 +160,7 @@ public enum MapleStatInfo {
     selfDestruction(0), //Self Destruct Damage
     speed(0), //Increase moving speed
     speedMax(0), //Max Movement Speed +
+    stance(0), //Custom: knockback resist %
     str(0), //Increase STR
     str2dex(0), //STR to DEX
     strFX(0), //Increase STR
@@ -163,7 +172,7 @@ public enum MapleStatInfo {
     targetPlus(0), //Increases the number of enemies hit by multi-target skill
     tdR(0), //Increases damage by a set percentage when attacking a tower
     terR(0), //Elemental Resistance %
-    time(0), //bufflength
+    time(-1), //bufflength
     s(0),
     t(0), //Damage taken reduce
     u(0),
@@ -172,6 +181,7 @@ public enum MapleStatInfo {
     x(0),
     y(0),
     z(0),
+    attacksRemaining(-1), //custom: attacks remaining for buff, for corsair crosscut blast
     // START OF ITEM ONLY
     int_(0, true),
     luk(0);

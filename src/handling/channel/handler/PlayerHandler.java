@@ -425,26 +425,23 @@ return;
                     chr.addMPHP(-hploss, -mploss);
                 }
 
-            } else if (chr.getStat().mesoGuardMeso > 0) {
-                //damage = (int) Math.ceil(damage * chr.getStat().mesoGuard / 100.0);
-                //handled in client
-                final int mesoloss = (int) (damage * (chr.getStat().mesoGuardMeso / 100.0));
+            } else if (chr.getBuffedValue(MapleBuffStat.MESOGUARD) != null) {
+                int mesoloss = (int) (damage * (chr.getStat().mesoGuardMeso / 100.0D));
+                damage = (int) (damage * (chr.getBuffedValue(MapleBuffStat.MESOGUARD) / 100.0d));
                 if (chr.getMeso() < mesoloss) {
                     chr.gainMeso(-chr.getMeso(), false);
-                    chr.cancelBuffStats(MapleBuffStat.MESOGUARD);
+                    chr.cancelBuffStats(new MapleBuffStat[]{MapleBuffStat.MESOGUARD});
                 } else {
                     chr.gainMeso(-mesoloss, false);
                 }
-                if (isDeadlyAttack && stats.getMp() > 1) {
+                if ((isDeadlyAttack) && (stats.getMp() > 1)) {
                     mpattack = stats.getMp() - 1;
                 }
                 chr.addMPHP(-damage, -mpattack);
+            } else if (isDeadlyAttack) {
+                int hploss = stats.getHp() > 1 ? -(stats.getHp() - 1) : 0;
             } else {
-                if (isDeadlyAttack) {
-                    chr.addMPHP(stats.getHp() > 1 ? -(stats.getHp() - 1) : 0, stats.getMp() > 1 && !mpAttack ? -(stats.getMp() - 1) : 0);
-                } else {
-                    chr.addMPHP(-damage, mpAttack ? 0 : -mpattack);
-                }
+                chr.addMPHP(-damage, mpAttack ? 0 : -mpattack);
             }
             if (!GameConstants.GMS) { //TODO JUMP
                 chr.handleBattleshipHP(-damage);
@@ -932,6 +929,7 @@ return;
                 case 3111004: // arrow rain
                 case 5211008:
                 case 5221017:
+                case 5201001:    //Invisible Shot
                 case 5721001:
                 case 5221004: // Rapidfire
                 case 13111000: //   arrow rain

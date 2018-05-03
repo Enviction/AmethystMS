@@ -59,7 +59,8 @@ public class PlayerStats implements Serializable {
             incAllskill, combatOrders, ignoreTargetDEF, defRange, BuffUP_Summon, evaR, dodgeChance, speed, jump, harvestingTool,
             equipmentBonusExp, dropMod, cashMod, levelBonus, ASR, TER, pickRate, decreaseDebuff, equippedFairy, equippedSummon,
             percent_hp, percent_mp, percent_str, percent_dex, percent_int, percent_luk, percent_acc, percent_atk, percent_matk, percent_wdef, percent_mdef,
-            pvpDamage, hpRecoverTime = 0, mpRecoverTime = 0, dot, dotTime, questBonus, pvpRank, pvpExp, wdef, mdef, trueMastery;
+            pvpDamage, hpRecoverTime = 0, mpRecoverTime = 0, dot, dotTime, questBonus, pvpRank, pvpExp, wdef, mdef, trueMastery, DAMreduceR;
+        private transient int  add_hp, add_mp, add_str, add_dex, add_int, add_luk, add_acc, add_atk, add_matk, add_wdef, add_mdef, ms_maxhp, ms_maxmp;
     private transient float localmaxbasedamage, localmaxbasepvpdamage, localmaxbasepvpdamageL;
     public transient int def, element_ice, element_fire, element_light, element_psn;
 
@@ -634,7 +635,43 @@ public class PlayerStats implements Serializable {
                 sData.put(SkillFactory.getSkill(getSkillByJob(1179, chra.getJob())), new SkillEntry((byte) 1, (byte) 0, -1));
             }
         }
-        
+                // add to localmaxhp_ if percentage plays a role in it, else add_hp
+        handleBuffStats(chra);
+        Integer buff = chra.getBuffedValue(MapleBuffStat.ENHANCED_MAXHP);
+        if (buff != null) {
+            localmaxhp_ += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ENHANCED_MAXMP);
+        if (buff != null) {
+            localmaxmp_ += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.HP_BOOST);
+        if (buff != null) {
+            localmaxhp_ += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.MP_BOOST);
+        if (buff != null) {
+            localmaxmp_ += buff.intValue();
+        }
+        handlePassiveSkills(chra);
+        if (chra.getGuildId() > 0) {
+            final MapleGuild g = World.Guild.getGuild(chra.getGuildId());
+            if (g != null && g.getSkills().size() > 0) {
+                final long now = System.currentTimeMillis();
+                for (MapleGuildSkill gs : g.getSkills()) {
+                    if (gs.timestamp > now && gs.activator.length() > 0) {
+                        final MapleStatEffect e = SkillFactory.getSkill(gs.skillID).getEffect(gs.level);
+                        passive_sharpeye_rate += e.getCr();
+                        watk += e.getAttackX();
+                        magic += e.getMagicX();
+                        expBuff *= (e.getEXPRate() + 100.0) / 100.0;
+                        evaR += e.getER();
+                        percent_wdef += e.getWDEFRate();
+                        percent_mdef += e.getMDEFRate();
+                    }
+                }
+            }
+        }
         /*  426 */     for (Pair ix : chra.getCharacterCard().getCardEffects()) {
 /*  427 */       MapleStatEffect e = SkillFactory.getSkill(((Integer)ix.getLeft()).intValue()).getEffect(((Integer)ix.getRight()).intValue());
 /*  428 */       this.percent_wdef += e.getWDEFRate();
@@ -689,7 +726,6 @@ public class PlayerStats implements Serializable {
             passive_sharpeye_rate += eff.getW();
             percent_hp += eff.getZ();
         }
-        Integer buff = chra.getBuffedValue(MapleBuffStat.DICE_ROLL);
         if (buff != null) {
             percent_wdef += GameConstants.getDiceStat(buff.intValue(), 2);
             percent_mdef += GameConstants.getDiceStat(buff.intValue(), 2);
@@ -1140,6 +1176,13 @@ public class PlayerStats implements Serializable {
                         damageIncrease.put(4101008,(int) eff.getDAMRate());
                         damageIncrease.put(4101009,(int) eff.getDAMRate());
                         damageIncrease.put(4101010,(int) eff.getDAMRate());
+                    }
+                    bx = SkillFactory.getSkill(4120012); // Expert Throwing Star Handling
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                    watk += eff.getAttackX();
+                    trueMastery += eff.getMastery();
                     }
                     bx = SkillFactory.getSkill(4110014);
                     bof = chra.getTotalSkillLevel(bx);
@@ -2761,13 +2804,13 @@ public class PlayerStats implements Serializable {
         }
     }
 
-    private void CalcPassive_Mastery(MapleCharacter player) {
+   private void CalcPassive_Mastery(final MapleCharacter player) {
         if (player.getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -11) == null) {
             passive_mastery = 0;
             return;
         }
-        int skil;
-        MapleWeaponType weaponType = GameConstants.getWeaponType(player.getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -11).getItemId());
+        final int skil;
+        final MapleWeaponType weaponType = GameConstants.getWeaponType(player.getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -11).getItemId());
         boolean acc = true;
         switch (weaponType) {
             case BOW:
@@ -2791,13 +2834,13 @@ public class PlayerStats implements Serializable {
                 break;
             case AXE1H:
             case BLUNT1H:
-                skil = GameConstants.isResist(player.getJob()) ? 31100004 : (GameConstants.isKOC(player.getJob()) ? 11100000 : (player.getJob() > 112 ? 1200000 : 1100000)); //hero/pally
+                skil = GameConstants.isMihile(player.getJob()) ? 51100001 : (GameConstants.isResist(player.getJob()) ? 31100004 : (GameConstants.isKOC(player.getJob()) ? 11100000 : (player.getJob() > 112 ? 1200000 : 1100000))); // Mihile , DemonSlayer Dawn Warrior, Hero, Pally || Weapon Mastery
                 break;
             case AXE2H:
             case SWORD1H:
             case SWORD2H:
             case BLUNT2H:
-                skil = GameConstants.isKOC(player.getJob()) ? 11100000 : (player.getJob() > 112 ? 1200000 : 1100000); //hero/pally
+                skil = GameConstants.isMihile(player.getJob()) ? 51100001 : (GameConstants.isKOC(player.getJob()) ? 11100000 : (player.getJob() > 112 ? 1200000 : 1100000)); // Mihile , Dawn Warrior, Hero, Pally || Weapon Mastery
                 break;
             case POLE_ARM:
                 skil = GameConstants.isAran(player.getJob()) ? 21100000 : 1300000;
@@ -2809,7 +2852,7 @@ public class PlayerStats implements Serializable {
                 skil = GameConstants.isKOC(player.getJob()) ? 15100001 : 5100001;
                 break;
             case GUN:
-                skil = GameConstants.isResist(player.getJob()) ? 35100000 : 5200000;
+                skil = GameConstants.isResist(player.getJob()) ? 35100000 : (GameConstants.isJett(player.getJob()) ? 5700000 : 5200000);
                 break;
             case DUAL_BOW:
                 skil = 23100005;
@@ -2827,8 +2870,8 @@ public class PlayerStats implements Serializable {
         if (player.getSkillLevel(skil) <= 0) {
             passive_mastery = 0;
             return;
-        }
-        MapleStatEffect eff = SkillFactory.getSkill(skil).getEffect(player.getTotalSkillLevel(skil));
+        }// TODO: add job id check above skill, etc
+        final MapleStatEffect eff = SkillFactory.getSkill(skil).getEffect(player.getTotalSkillLevel(skil));
         if (acc) {
             accuracy += eff.getX();
             if (skil == 35100000) {
@@ -2838,8 +2881,21 @@ public class PlayerStats implements Serializable {
             magic += eff.getX();
         }
         passive_sharpeye_rate += eff.getCr();
-        passive_mastery = (byte) eff.getMastery(); //after bb, simpler?
+        passive_mastery = (byte) eff.getMastery();
         trueMastery += eff.getMastery() + weaponType.getBaseMastery();
+        if (player.getJob() == 412) {
+            final Skill bx = SkillFactory.getSkill(4120012); // Claw Expert
+            final int bof = player.getTotalSkillLevel(bx);
+            if (bof > 0) {
+                final MapleStatEffect eff2 = bx.getEffect(bof);
+                passive_mastery = (byte) eff2.getMastery(); // Override
+                accuracy += eff2.getPercentAcc();
+                evaR += eff2.getPercentAvoid();
+                watk += eff2.getX();
+                trueMastery -= eff.getMastery(); // - old
+                trueMastery += eff2.getMastery(); // add new
+            }
+        }
     }
 
     private void calculateFame(MapleCharacter player) {
@@ -3340,6 +3396,8 @@ public class PlayerStats implements Serializable {
         // TODO: Auto Steal potentials (modify handleSteal), potentials with invincible stuffs, abnormal status duration decrease,
         // poison, stun, etc (uses level field -> cast disease to mob/player), face?
     }
+    
+
 
     public void recalcPVPRank(MapleCharacter chra) {
         this.pvpRank = 10;
@@ -3354,5 +3412,2162 @@ public class PlayerStats implements Serializable {
 
     public int getHPPercent() {
         return (int) Math.ceil((hp * 100.0) / localmaxhp);
+    }
+    
+     private void handlePassiveSkills(final MapleCharacter chra) {
+        Skill bx;
+        int bof;
+        MapleStatEffect eff = null;
+        DAMreduceR = 0;
+        if (GameConstants.isKOC(chra.getJob())) {
+            bx = SkillFactory.getSkill(2000006);
+            bof = chra.getTotalSkillLevel(bx);
+            if (bof > 0) {
+                eff = bx.getEffect(bof);
+                percent_hp += eff.getX();
+                percent_mp += eff.getX();
+            }
+        }
+        final double[] baseAddition = {0, 0, 0, 20, 40, 60, 80};
+        final double[] mesoMulti = {0, 0, 0, 30, 80, 130, 200};
+        final double[] dropIncrease = {0, 0, 0, 26, 56, 81, 110}; //drop rate boost, in percent
+        incMesoProp += baseAddition[chra.getClient().getChannel()]; //base addition
+        incMesoProp += mesoMulti[chra.getClient().getChannel()]; //additional additive, multiplicative was OP.
+        dropBuff += dropIncrease[chra.getClient().getChannel()]; //droprate boost
+        
+        psdSkills.clear();
+        for(Skill sk : chra.getSkills().keySet()){
+            if(sk.getPsd() == 1){
+                Triple<Integer, String, Integer> psdSkill = new Triple<>(0, "", 0);
+                psdSkill.left = sk.getPsdSkill();
+                psdSkill.mid = sk.getPsdDamR(); //This only handles damage increases; some skills have effects other than that, so TODO
+                psdSkill.right = sk.getId();
+                psdSkills.add(psdSkill);
+            }
+        }
+        switch (chra.getJob()) {
+            case 200:
+            case 210:
+            case 211:
+            case 212:
+            case 220:
+            case 221:
+            case 222:
+            case 230:
+            case 231:
+            case 232: {
+                bx = SkillFactory.getSkill(2000006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    percent_mp += bx.getEffect(bof).getPercentMP();
+                }
+                break;
+            }
+            case 1200:
+            case 1210:
+            case 1211:
+            case 1212: {
+                bx = SkillFactory.getSkill(12000005);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    percent_mp += bx.getEffect(bof).getPercentMP();
+                }
+                bx = SkillFactory.getSkill(12110000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    TER += bx.getEffect(bof).getX();
+                }
+                break;
+            }
+            case 1100:
+            case 1110:
+            case 1111:
+            case 1112: {
+                bx = SkillFactory.getSkill(11000005);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    percent_hp += bx.getEffect(bof).getPercentHP();
+                }
+                break;
+            }
+            case 2400:
+            case 2410:
+            case 2411:
+            case 2412: { // Phantom
+                // Blanc Carte - 24100003
+                // Cane Mastery - 24100004
+                // Luck of Phantom Thief - 24111002
+                // 24111003- uses monlight effect, but is Misfortune Protection
+                // 24110004 - Flash and Flee -> active
+                // 24111005 - Moonlight
+                // 24111006 - Phantom Charge
+                // 24111008- Breeze Carte, (hidden), linked to phantom charge
+                // 24121000 - Ultimate Drive
+                // 24120002 - Noir Carte
+                // 24121003 - Twilight
+                // 24121004 - Pray of Aria
+                // 24121005 - Tempest of Card
+                // 24120006 - Cane Expert
+                // 24121007 - Soul Steal
+                // 24121008 - Maple Warrior
+                // 24121009 - Hero's will
+                // 24121010 - Some linked skill (Twilight)
+                bx = SkillFactory.getSkill(24001002); // Swift Phantom
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    speed += eff.getPassiveSpeed();
+                    jump += eff.getPassiveJump();
+                }
+                bx = SkillFactory.getSkill(24000003); // Quick Evasion
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    evaR += eff.getX();
+                }
+                bx = SkillFactory.getSkill(24100006); //Luck Monopoly
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    localluk += eff.getLukX();
+                }
+                bx = SkillFactory.getSkill(24110007); // Acute Sense
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    passive_sharpeye_rate += eff.getCr();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                bx = SkillFactory.getSkill(20030204); // Phantom Instinct
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    passive_sharpeye_rate += eff.getCr();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                bx = SkillFactory.getSkill(20030206); // Dexterous Training
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    localdex += eff.getDexX();
+                }
+                bx = SkillFactory.getSkill(24111002); //Luck of Phantom Thief
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    localluk += eff.getLukX();
+                }
+                break;
+            }
+            case 501:
+            case 530:
+            case 531:
+            case 532:
+                bx = SkillFactory.getSkill(5010003);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    watk += bx.getEffect(bof).getAttackX();
+                }
+                bx = SkillFactory.getSkill(5300008);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
+                }
+                bx = SkillFactory.getSkill(5311001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    damageIncrease.put(5301001, (int) bx.getEffect(bof).getDAMRate());
+                }
+                bx = SkillFactory.getSkill(5310007);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    percent_hp += eff.getHpR();
+                    ASR += eff.getASRRate();
+                    percent_wdef += eff.getWDEFRate();
+                }
+                bx = SkillFactory.getSkill(5310006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    watk += bx.getEffect(bof).getAttackX();
+                }
+                bx = SkillFactory.getSkill(5321009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= (eff.getDAMRate() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getDAMRate() + 100.0) / 100.0;
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((eff.getIgnoreMob()) / (double)100));
+                }
+                break;
+            case 3001:
+            case 3100:
+            case 3110:
+            case 3111:
+            case 3112:
+                mpRecoverProp = 100;
+                bx = SkillFactory.getSkill(31000003);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    percent_hp += bx.getEffect(bof).getHpR();
+                }
+                bx = SkillFactory.getSkill(31100007);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(31000004, (int) eff.getDAMRate());
+                    damageIncrease.put(31001006, (int) eff.getDAMRate());
+                    damageIncrease.put(31001007, (int) eff.getDAMRate());
+                    damageIncrease.put(31001008, (int) eff.getDAMRate());
+                }
+                bx = SkillFactory.getSkill(31100005);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
+                }
+                bx = SkillFactory.getSkill(31100010);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(31000004, (int) eff.getX());
+                    damageIncrease.put(31001006, (int) eff.getX());
+                    damageIncrease.put(31001007, (int) eff.getX());
+                    damageIncrease.put(31001008, (int) eff.getX());
+                }
+                bx = SkillFactory.getSkill(31111007);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= (eff.getDAMRate() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getDAMRate() + 100.0) / 100.0;
+                }
+                bx = SkillFactory.getSkill(31110008);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    evaR += eff.getX();
+                    // HACK: shouldn't be here
+                    //hpRecoverPercent += eff.getY();
+                    //hpRecoverProp += eff.getX();
+                    //mpRecover += eff.getY(); // handle in takeDamage
+                    //mpRecoverProp += eff.getX();
+                }
+                bx = SkillFactory.getSkill(31110009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    mpRecover += 1;
+                    mpRecoverProp += eff.getProb();
+                }
+                bx = SkillFactory.getSkill(31111006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= (eff.getX() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getX() + 100.0) / 100.0;
+                    passive_sharpeye_rate += eff.getY();
+                }
+                bx = SkillFactory.getSkill(31121006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((bx.getEffect(bof).getIgnoreMob()) / (double)100));
+                }
+                bx = SkillFactory.getSkill(31120011);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(31000004, (int) eff.getX());
+                    damageIncrease.put(31001006, (int) eff.getX());
+                    damageIncrease.put(31001007, (int) eff.getX());
+                    damageIncrease.put(31001008, (int) eff.getX());
+                }
+                bx = SkillFactory.getSkill(31120008);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    watk += eff.getAttackX();
+                    trueMastery += eff.getMastery();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                bx = SkillFactory.getSkill(31120010);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    percent_wdef += bx.getEffect(bof).getT();
+                }
+                bx = SkillFactory.getSkill(30010112);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    bossdam_r += eff.getBossDamage();
+                    mpRecover += eff.getX();
+                    mpRecoverProp += eff.getBossDamage(); //yes
+                }
+                bx = SkillFactory.getSkill(30010185);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    chra.getTrait(MapleTraitType.will).addLocalExp(GameConstants.getTraitExpNeededForLevel(eff.getY()));
+                    chra.getTrait(MapleTraitType.charisma).addLocalExp(GameConstants.getTraitExpNeededForLevel(eff.getZ()));
+                }
+                bx = SkillFactory.getSkill(30010111);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    hpRecoverPercent += eff.getX();
+                    hpRecoverProp += eff.getProb(); //yes
+                }
+                bx = SkillFactory.getSkill(31120009); //Obsidian Skin
+                bof = chra.getTotalSkillLevel(bx);
+                if(bof > 0){
+                    eff = bx.getEffect(bof);
+                    DAMreduceR += (int)(5 + (0.5d * bof)); //achilles doesn't use X
+                }
+                bx = SkillFactory.getSkill(31110009); //Max Fury
+                bof = chra.getTotalSkillLevel(bx);
+                if(bof > 0){
+                    final int DFRecovery = 2 * bof;
+                    if(chra.getDFRecoveryTimer() != null){
+                        chra.getDFRecoveryTimer().cancel();
+                        chra.getDFRecoveryTimer().purge();
+                    }
+                    chra.setDFRecoveryTimer(new java.util.Timer());
+                    TimerTask healTask = new TimerTask(){
+                        @Override
+                        public void run(){
+                            if(chra.getStat().getMp() < chra.getMaxMp() && chra.isAlive()){
+                                chra.handleForceGain(0,0,DFRecovery);
+                            }
+                        }
+                    };
+                    chra.getDFRecoveryTimer().scheduleAtFixedRate(healTask, 4000, 4000);
+                }
+                break;
+            case 510:
+            case 511:
+            case 512: {
+                bx = SkillFactory.getSkill(5100009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    percent_hp += bx.getEffect(bof).getPercentHP();
+                }
+                break;
+            }
+            case 1510:
+            case 1511:
+            case 1512: {
+                bx = SkillFactory.getSkill(15100007);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    percent_hp += bx.getEffect(bof).getPercentHP();
+                }
+                break;
+            }
+            case 508:
+            case 570:
+            case 571:
+            case 572: { // Jett
+                bx = SkillFactory.getSkill(228); // Retro Rockets
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    speed += eff.getPassiveSpeed();
+                    jump += eff.getPassiveJump();
+                }
+                
+                bx = SkillFactory.getSkill(5080000); // Comet Booster
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    accuracy += eff.getAccX();
+                    jump += eff.getPassiveJump();
+                    speed += eff.getSpeedMax(); // TODO: split speed max and speed. (speed have a limit, while speedMax will add to the max)
+                } // TODO: research more on percentage hp/mp and stats, which doesn't take effect to note.
+                
+                bx = SkillFactory.getSkill(5080004); // Shadow Heart
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    passive_sharpeye_rate += eff.getCr();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                    // 5081010, 5081011: Hidden
+                    if (chra.getJob() >= 570) {			
+                        bx = SkillFactory.getSkill(5700003); // Physical Training
+                        bof = chra.getTotalSkillLevel(bx);
+                        if (bof > 0) {
+                            eff = bx.getEffect(bof);
+                            localstr += eff.getStrX();
+                            localdex += eff.getDexX();
+                        }
+                    }
+                    if (chra.getJob() >= 571) {					
+                        bx = SkillFactory.getSkill(5710004); // High Life
+                        bof = chra.getTotalSkillLevel(bx);
+                        if (bof > 0) {
+                            eff = bx.getEffect(bof);
+                            percent_wdef += eff.getWDEFRate();
+                            percent_mdef += eff.getMDEFRate();
+                            add_hp += eff.getMaxHpX();
+                            add_mp += eff.getMaxMpX();
+                        }
+                        bx = SkillFactory.getSkill(5710005); // Cutting Edge
+                        bof = chra.getTotalSkillLevel(bx);
+                        if (bof > 0) {
+                            eff = bx.getEffect(bof);
+                            passive_sharpeye_rate += eff.getCr();
+                            ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((eff.getIgnoreMob()) / (double)100));
+                        }
+                    }
+                    if (chra.getJob() == 572) {
+                        bx = SkillFactory.getSkill(5720008); // Collateral Damage
+                        bof = chra.getTotalSkillLevel(bx);
+                        if (bof > 0) {
+                            eff = bx.getEffect(bof);
+                            passive_sharpeye_rate += eff.getCr();
+                            passive_sharpeye_min_percent += eff.getCriticalMin();
+                            passive_sharpeye_percent += eff.getCriticalMax();
+                            bossdam_r += eff.getBossDamage();
+                        }
+                        
+                        bx = SkillFactory.getSkill(5721009);
+                        bof = chra.getTotalSkillLevel(bx);
+                        if (bof > 0) {
+                            //TODO: 5721009
+                        }
+                        
+                        bx = SkillFactory.getSkill(5721012);
+                        bof = chra.getTotalSkillLevel(bx);
+                        if (bof > 0) {
+                            //TODO: 5720012 Counterattack
+                        }
+                    }
+                    break;
+                }			
+            case 400: // Thief
+            case 410: // Assassin
+            case 411: // Hermit
+            case 412: // Night Lord
+            case 420: // Bandit
+            case 421: // Chief Bandit
+            case 422: { // Shadower
+                bx = SkillFactory.getSkill(4001005); // Haste
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    speed += eff.getSpeedMax();
+                }
+                // 4000010: Magic Theft, invisible.
+                if (chra.getJob() >= 410 && chra.getJob() <= 412) {
+                    bx = SkillFactory.getSkill(4100007); // Physical Training
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                        localluk += eff.getLukX();
+                        localdex += eff.getDexX();
+                    }
+                }
+                if (chra.getJob() >= 420 && chra.getJob() <= 422) {
+                    bx = SkillFactory.getSkill(4200007); // Physical Training
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                        localluk += eff.getLukX();
+                        localdex += eff.getDexX();
+                    }
+                }
+                     if (chra.getJob() == 412) {
+                    bx = SkillFactory.getSkill(4120012); // Claw Expert
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                        final MapleStatEffect eff2 = bx.getEffect(bof);
+                 passive_mastery = eff2.getMastery(); // Override
+                accuracy += eff2.getPercentAcc();
+                evaR += eff2.getPercentAvoid();
+                watk += eff2.getX();
+                trueMastery -= eff2.getMastery(); // - old
+                trueMastery += eff2.getMastery(); // add new
+                    }
+                }
+                if (chra.getJob() == 413 || chra.getJob() == 413) {
+                    bx = SkillFactory.getSkill(4110000); // Enveloping Darkness
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                        percent_hp += eff.getPercentHP();
+                        ASR += eff.getASRRate();
+                        TER += eff.getTERRate();
+                    }
+                    bx = SkillFactory.getSkill(4110012); // Expert Throwing Star Handling
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                        damageIncrease.put(4001344, eff.getDAMRate());
+                        damageIncrease.put(4101008, eff.getDAMRate());
+                        damageIncrease.put(4101009, eff.getDAMRate());
+                        damageIncrease.put(4101010, eff.getDAMRate());
+                    }
+                    bx = SkillFactory.getSkill(4110014);
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                        RecoveryUP += eff.getX() - 100;
+                    }
+                }
+                if (chra.getJob() == 412) {
+                    bx = SkillFactory.getSkill(4121014); // Dark Harmony
+                    bof = chra.getTotalSkillLevel(bx);
+                    if (bof > 0) {
+                        eff = bx.getEffect(bof);
+                        ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((eff.getIgnoreMob()) / (double)100));
+                    }
+                }
+
+
+                bx = SkillFactory.getSkill(4200006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    percent_hp += eff.getPercentHP();
+                    ASR += eff.getASRRate();
+                    TER += eff.getTERRate();
+                }
+                bx = SkillFactory.getSkill(4210000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    percent_wdef += eff.getX();
+                    percent_mdef += eff.getX();
+                }
+                break;
+            }
+            case 431: // Blade Acolyte
+            case 432: // Blade Specialist
+            case 433: // Blade Lord
+            case 434: { // Blade Master
+                bx = SkillFactory.getSkill(4001006); // Haste
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    speed += eff.getSpeedMax();
+                }
+                
+                bx = SkillFactory.getSkill(4330001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0 ){
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(4331000, eff.getY());
+                    damageIncrease.put(4331006, eff.getY());
+                    damageIncrease.put(4341002, eff.getY());
+                    damageIncrease.put(4341004, eff.getY());
+                    damageIncrease.put(4341009, eff.getY());
+                    damageIncrease.put(4341011, eff.getY());
+                    
+                }
+                
+                bx = SkillFactory.getSkill(4310004);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    percent_hp += eff.getPercentHP();
+                    ASR += eff.getASRRate();
+                    TER += eff.getTERRate();
+                }
+                
+                bx = SkillFactory.getSkill(4341006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    percent_wdef += eff.getWDEFRate();
+                    percent_mdef += eff.getMDEFRate();
+                }
+                
+                bx = SkillFactory.getSkill(4310006); //physical training
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    localdex += eff.getDexX();
+                    localluk += eff.getLukX();
+                }
+                
+                bx = SkillFactory.getSkill(4330008); //Enveloping Darkness
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    percent_hp += eff.getPercentHP();
+                    ASR += eff.getASRRate();
+                    TER += eff.getTERRate();
+                }
+                break;
+            }
+            case 100:
+            case 110:
+            case 111:
+            case 112:
+            case 120:
+            case 121:
+            case 122:
+            case 130:
+            case 131:
+            case 132: {
+                bx = SkillFactory.getSkill(1000006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    percent_hp += bx.getEffect(bof).getPercentHP();
+                }
+                bx = SkillFactory.getSkill(1210001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    percent_wdef += eff.getX();
+                    percent_mdef += eff.getX();
+                }
+                bx = SkillFactory.getSkill(1220005);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    DAMreduceR += (5 + (0.5d * bof)); //achilles doesn't use X
+                }
+                bx = SkillFactory.getSkill(1220010);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    trueMastery += bx.getEffect(bof).getMastery();
+                }
+                bx = SkillFactory.getSkill(1310000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    TER += bx.getEffect(bof).getX();
+                }
+                break;
+            }
+            case 322: { // Crossbowman
+                bx = SkillFactory.getSkill(3220004);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    watk += eff.getX();
+                    trueMastery += eff.getMastery();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                bx = SkillFactory.getSkill(3220009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    percent_hp += eff.getPercentHP();
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((eff.getIgnoreMob()) / (double)100));
+                }
+                /*bx = SkillFactory.getSkill(3220005);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0 && chra.getBuffedValue(MapleBuffStat.SPIRIT_LINK) != null) {
+                    eff = bx.getEffect(bof);
+                    percent_hp += eff.getX();
+                    dam_r *= (eff.getDamage() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getDamage() + 100.0) / 100.0;
+                }*/
+                break;
+            }
+            case 312: { // Bowmaster
+                bx = SkillFactory.getSkill(3120005);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    watk += bx.getEffect(bof).getX();
+                }
+                bx = SkillFactory.getSkill(3120011);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    percent_hp += eff.getPercentHP();
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((eff.getIgnoreMob()) / (double)100));
+                }
+                bx = SkillFactory.getSkill(3120006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0 && chra.getBuffedValue(MapleBuffStat.SPIRIT_LINK) != null) {
+                    eff = bx.getEffect(bof);
+                    percent_hp += eff.getX();
+                    dam_r *= (eff.getDamage() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getDamage() + 100.0) / 100.0;
+                }
+                break;
+            }
+            case 3510:
+            case 3511:
+            case 3512: {
+                bx = SkillFactory.getSkill(35100000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    watk += bx.getEffect(bof).getAttackX();
+                }
+                bx = SkillFactory.getSkill(35120000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    trueMastery += bx.getEffect(bof).getMastery();
+ //                   watk += eff.getAttackX();
+   //                 maxhp += eff.getX();
+       //             maxmp += eff.getX();
+     //               wdef += eff.getX();
+         //           mdef += eff.getX();
+                }
+                bx = SkillFactory.getSkill(35100011); //physical training
+                bof = chra.getTotalSkillLevel(bx);
+                if(bof > 0){
+                    eff = bx.getEffect(bof);
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
+                }
+                break;
+            }
+            case 3211:
+            case 3212: {
+                bx = SkillFactory.getSkill(32110000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    ASR += bx.getEffect(bof).getASRRate();
+                    TER += bx.getEffect(bof).getTERRate();
+                }
+                bx = SkillFactory.getSkill(32110001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= (eff.getDAMRate() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getDAMRate() + 100.0) / 100.0;
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                bx = SkillFactory.getSkill(32120000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    magic += bx.getEffect(bof).getMagicX();
+                }
+                bx = SkillFactory.getSkill(32120001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    evaR += bx.getEffect(bof).getER();
+                }
+                bx = SkillFactory.getSkill(32120009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    percent_hp += bx.getEffect(bof).getPercentHP();
+                }
+                break;
+            }
+            case 3300:
+            case 3310:
+            case 3311:
+            case 3312: {
+                bx = SkillFactory.getSkill(33120000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    watk += eff.getX();
+                    trueMastery += eff.getMastery();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                bx = SkillFactory.getSkill(33110000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= (eff.getDamage() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getDamage() + 100.0) / 100.0;
+                }
+                bx = SkillFactory.getSkill(33120010);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((eff.getIgnoreMob()) / (double)100));
+                    evaR += eff.getER();
+                }
+                bx = SkillFactory.getSkill(32110001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= (eff.getDAMRate() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getDAMRate() + 100.0) / 100.0;
+                }
+                break;
+            }
+            case 5000: // Mihile 0
+            case 5100: // Mihile 1
+            case 5110: // Mihile 2
+            case 5111: // Mihile 3
+            case 5112: { // Mihile 4
+                
+                // Mihile 1st Job Passive Skills
+                bx = SkillFactory.getSkill(51000000); // Mihile || HP Boost
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    percent_hp += bx.getEffect(bof).getPercentHP();
+                }
+                bx = SkillFactory.getSkill(51000001); // Mihile || Soul Shield
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    percent_wdef += eff.getX();
+                    percent_mdef += eff.getX();
+                }
+                bx = SkillFactory.getSkill(51000002); // Mihile || Soul Devotion
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    accuracy += eff.getAccX();
+                    speed += eff.getPassiveSpeed();
+                    jump += eff.getPassiveJump();
+                }
+                
+                // Mihile 2nd Job Passive Skills
+                bx = SkillFactory.getSkill(51100000); // Mihile || Physical Training
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(5001002, eff.getX());
+                    damageIncrease.put(5001003, eff.getY());
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
+                }
+                bx = SkillFactory.getSkill(51120002); // Mihile || Final Attack && Advanced Final Attack
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    watk += eff.getAttackX();
+                    damageIncrease.put(51100002, (int) eff.getDamage());
+                }
+                
+                // Mihile 3rd Job Passive Skills
+                bx = SkillFactory.getSkill(51110000); // Mihile || Self Recovery
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    /*eff = bx.getEffect(bof);
+                    hpRecoverProp += eff.getProb();
+                    hpRecover += eff.getX();
+                    mpRecoverProp += eff.getProb();
+                    mpRecover += eff.getX();*/
+                    eff = bx.getEffect(bof);
+                    final int mpToHeal = (int)(eff.getMp());
+                    final int hpToHeal = (int)(eff.getHp());
+                    final int delay = (4000);
+                    if(chra.getDFRecoveryTimer() != null){
+                        chra.getDFRecoveryTimer().cancel();
+                        chra.getDFRecoveryTimer().purge();
+                    }
+                    chra.setDFRecoveryTimer(new java.util.Timer());
+                    TimerTask healTask = new TimerTask(){
+                        @Override
+                        public void run(){
+                            if(chra.getStat().getMp() < chra.getStat().getCurrentMaxMp(chra.getJob()) && chra.isAlive()){
+                                chra.healMP(mpToHeal);
+                            }
+                            if(chra.getStat().getHp() < chra.getStat().getCurrentMaxHp() && chra.isAlive()){
+                                chra.healHP(hpToHeal);
+                            }
+                        }
+                    };
+                    chra.getDFRecoveryTimer().scheduleAtFixedRate(healTask, delay, delay);
+                }
+                bx = SkillFactory.getSkill(51110001); // Mihile || Intense Focus
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    localstr += eff.getStrX();
+                    // Add Attack Speed here
+                }
+                bx = SkillFactory.getSkill(51110002); // Mihile || Righteous Indignation
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    ASR += eff.getX();
+                    percent_atk += eff.getX();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                
+                // Mihile 4th Job Passive Skills
+                bx = SkillFactory.getSkill(51120000); // Mihile || Combat Mastery
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((eff.getIgnoreMob()) / (double)100));
+                }
+                bx = SkillFactory.getSkill(51120001); // Mihile || Expert Sword Mastery
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    watk += bx.getEffect(bof).getX();
+                    trueMastery += eff.getMastery();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                bx = SkillFactory.getSkill(51120003);
+                bof = chra.getTotalSkillLevel(bx);
+                if(bof > 0){
+                    eff = bx.getEffect(bof);
+                    DAMreduceR += eff.getT();
+                }
+                break;
+            }
+            case 2200:
+            case 2210:
+            case 2211:
+            case 2212:
+            case 2213:
+            case 2214:
+            case 2215:
+            case 2216:
+            case 2217:
+            case 2218: {
+                magic += chra.getTotalSkillLevel(SkillFactory.getSkill(22000000));
+                bx = SkillFactory.getSkill(22150000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    mpconPercent += eff.getX() - 100;
+                    dam_r *= eff.getY() / 100.0;
+                    bossdam_r *= eff.getY() / 100.0;
+                }
+                bx = SkillFactory.getSkill(22160000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= (eff.getDamage() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getDamage() + 100.0) / 100.0;
+                }
+                bx = SkillFactory.getSkill(22170001); // magic mastery, this is an invisible skill
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    magic += eff.getX();
+                    trueMastery += eff.getMastery();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                break;
+            }
+            case 2112: {
+                bx = SkillFactory.getSkill(21120001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    watk += eff.getX();
+                    trueMastery += eff.getMastery();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                break;
+            }
+        }
+        bx = SkillFactory.getSkill(80000000);
+        bof = chra.getSkillLevel(bx);
+        if (bof > 0) {
+            eff = bx.getEffect(bof);
+            localstr += eff.getStrX();
+            localdex += eff.getDexX();
+            localint_ += eff.getIntX();
+            localluk += eff.getLukX();
+            percent_hp += eff.getHpR();
+            percent_mp += eff.getMpR();
+        }
+        bx = SkillFactory.getSkill(80000001);
+        bof = chra.getSkillLevel(bx);
+        if (bof > 0) {
+            eff = bx.getEffect(bof);
+            bossdam_r += eff.getBossDamage();
+        }
+        bx = SkillFactory.getSkill(80001040);
+        bof = chra.getSkillLevel(bx);
+        if (bof > 0) {
+            expBuff *= (bx.getEffect(bof).getEXPRate() + 100.0) / 100.0;
+        }
+        if (GameConstants.isAdventurer(chra.getJob())) {
+            bx = SkillFactory.getSkill(74);
+            bof = chra.getSkillLevel(bx);
+            if (bof > 0) {
+                levelBonus += bx.getEffect(bof).getX();
+            }
+
+            bx = SkillFactory.getSkill(80);
+            bof = chra.getSkillLevel(bx);
+            if (bof > 0) {
+                levelBonus += bx.getEffect(bof).getX();
+            }
+
+            bx = SkillFactory.getSkill(10074);
+            bof = chra.getSkillLevel(bx);
+            if (bof > 0) {
+                levelBonus += bx.getEffect(bof).getX();
+            }
+
+            bx = SkillFactory.getSkill(10080);
+            bof = chra.getSkillLevel(bx);
+            if (bof > 0) {
+                levelBonus += bx.getEffect(bof).getX();
+            }
+
+            bx = SkillFactory.getSkill(110);
+            bof = chra.getSkillLevel(bx);
+            if (bof > 0) {
+                eff = bx.getEffect(bof);
+                localstr += eff.getStrX();
+                localdex += eff.getDexX();
+                localint_ += eff.getIntX();
+                localluk += eff.getLukX();
+                percent_hp += eff.getHpR();
+                percent_mp += eff.getMpR();
+            }
+
+            bx = SkillFactory.getSkill(10110);
+            bof = chra.getSkillLevel(bx);
+            if (bof > 0) {
+                eff = bx.getEffect(bof);
+                localstr += eff.getStrX();
+                localdex += eff.getDexX();
+                localint_ += eff.getIntX();
+                localluk += eff.getLukX();
+                percent_hp += eff.getHpR();
+                percent_mp += eff.getMpR();
+            }
+        }
+        bx = SkillFactory.getSkill(GameConstants.getBOF_ForJob(chra.getJob()));
+        bof = chra.getSkillLevel(bx);
+        if (bof > 0) {
+            eff = bx.getEffect(bof);
+            watk += eff.getX();
+            magic += eff.getY();
+            accuracy += eff.getX();
+        }
+
+        bx = SkillFactory.getSkill(GameConstants.getEmpress_ForJob(chra.getJob()));
+        bof = chra.getSkillLevel(bx);
+        if (bof > 0) {
+            eff = bx.getEffect(bof);
+            watk += eff.getX();
+            magic += eff.getY();
+            accuracy += eff.getZ();
+        }
+        switch (chra.getJob()) {
+            case 210:
+            case 211:
+            case 212: { // IL
+                bx = SkillFactory.getSkill(2100007);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    localint_ += bx.getEffect(bof).getIntX();
+                }
+                bx = SkillFactory.getSkill(2110000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dotTime += eff.getX();
+                    dot += eff.getZ();
+                }
+                bx = SkillFactory.getSkill(2110001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    mpconPercent += eff.getX() - 100;
+                    dam_r *= eff.getY() / 100.0;
+                    bossdam_r *= eff.getY() / 100.0;
+                }
+                bx = SkillFactory.getSkill(2121003);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(2111003, (int) eff.getX());
+                }
+                bx = SkillFactory.getSkill(2120009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    magic += eff.getMagicX();
+                    BuffUP_Skill += eff.getX();
+                }
+                bx = SkillFactory.getSkill(2121005);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    TER += bx.getEffect(bof).getTERRate();
+                }
+                bx = SkillFactory.getSkill(2121009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    magic += bx.getEffect(bof).getMagicX();
+                }
+                bx = SkillFactory.getSkill(2120010);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= (eff.getX() * eff.getY() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getX() * eff.getY() + 100.0) / 100.0;
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((eff.getIgnoreMob()) / (double)100));
+                }
+                break;
+            }
+            case 220:
+            case 221:
+            case 222: { // IL
+                bx = SkillFactory.getSkill(2200007);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    localint_ += bx.getEffect(bof).getIntX();
+                }
+                bx = SkillFactory.getSkill(2210000);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    dot += bx.getEffect(bof).getZ();
+                }
+                bx = SkillFactory.getSkill(2210001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    mpconPercent += eff.getX() - 100;
+                    dam_r *= eff.getY() / 100.0;
+                    bossdam_r *= eff.getY() / 100.0;
+                }
+                bx = SkillFactory.getSkill(2220009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    magic += eff.getMagicX();
+                    BuffUP_Skill += eff.getX();
+                }
+                bx = SkillFactory.getSkill(2221005);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    TER += bx.getEffect(bof).getTERRate();
+                }
+                bx = SkillFactory.getSkill(2221009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    magic += bx.getEffect(bof).getMagicX();
+                }
+                bx = SkillFactory.getSkill(2220010);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= (eff.getX() * eff.getY() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getX() * eff.getY() + 100.0) / 100.0;
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((eff.getIgnoreMob()) / (double)100));
+                }
+                break;
+            }
+            case 1211:
+            case 1212: { // flame
+                bx = SkillFactory.getSkill(12110001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    mpconPercent += eff.getX() - 100;
+                    dam_r *= eff.getY() / 100.0;
+                    bossdam_r *= eff.getY() / 100.0;
+                }
+
+                bx = SkillFactory.getSkill(12111004);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    TER += bx.getEffect(bof).getTERRate();
+                }
+                break;
+            }
+            case 230:
+            case 231:
+            case 232: { // Bishop
+                bx = SkillFactory.getSkill(2300007);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    localint_ += bx.getEffect(bof).getIntX();
+                }
+                bx = SkillFactory.getSkill(2310008);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    passive_sharpeye_rate += bx.getEffect(bof).getCr();
+                }
+                bx = SkillFactory.getSkill(2320010);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    magic += eff.getMagicX();
+                    BuffUP_Skill += eff.getX();
+                }
+                bx = SkillFactory.getSkill(2321010);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    magic += bx.getEffect(bof).getMagicX();
+                }
+                bx = SkillFactory.getSkill(2320005);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    ASR += bx.getEffect(bof).getASRRate();
+                }
+                bx = SkillFactory.getSkill(2320011);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= (eff.getX() * eff.getY() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getX() * eff.getY() + 100.0) / 100.0;
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((eff.getIgnoreMob()) / (double)100));
+                }
+                break;
+            }
+            case 2002:
+            case 2300:
+            case 2310:
+            case 2311:
+            case 2312: {
+                bx = SkillFactory.getSkill(20020012); //Blessing of the Fairy for Mercedes
+                bof = chra.getSkillLevel(bx);
+                if (bof > 0) {
+                    evaR += bx.getEffect(bof).getX();
+                    accuracy += bx.getEffect(bof).getX();
+                    watk += bx.getEffect(bof).getX();
+                    magic += bx.getEffect(bof).getX();
+                }
+                
+                bx = SkillFactory.getSkill(20021110);
+                bof = chra.getSkillLevel(bx);
+                if (bof > 0) {
+                    //System.out.println("Elven's Blessing expR: " + bx.getEffect(bof).getEXPRate());
+                    expBuff += 10; //Hardcoded at 10, for some reason it likes to say otherwise.
+                }
+                bx = SkillFactory.getSkill(20020112);
+                bof = chra.getSkillLevel(bx);
+                if (bof > 0) {
+                    chra.getTrait(MapleTraitType.charm).addLocalExp(GameConstants.getTraitExpNeededForLevel(30));
+                }
+                bx = SkillFactory.getSkill(23000001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    evaR += bx.getEffect(bof).getER();
+                }
+                bx = SkillFactory.getSkill(23100008);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
+                }
+                bx = SkillFactory.getSkill(23110004);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    evaR += bx.getEffect(bof).getProb();
+                }
+                bx = SkillFactory.getSkill(23110004);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    damageIncrease.put(23101001, (int) bx.getEffect(bof).getDAMRate());
+                }
+                bx = SkillFactory.getSkill(23121004);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    evaR += bx.getEffect(bof).getProb();
+                }
+                bx = SkillFactory.getSkill(23120009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    watk += bx.getEffect(bof).getX();
+                    trueMastery += eff.getMastery();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                bx = SkillFactory.getSkill(23120010);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((bx.getEffect(bof).getX()) / (double)100)); //or should we do 100?
+                }
+                bx = SkillFactory.getSkill(23120011);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    damageIncrease.put(23101001, (int) bx.getEffect(bof).getDAMRate());
+                }
+                bx = SkillFactory.getSkill(23120012);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    watk += bx.getEffect(bof).getAttackX();
+                }
+                break;
+            }
+            case 1300:
+            case 1310:
+            case 1311:
+            case 1312: {
+				bx = SkillFactory.getSkill(13000001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    defRange += bx.getEffect(bof).getRange();
+                }
+                bx = SkillFactory.getSkill(13110008);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    evaR += bx.getEffect(bof).getER();
+                }
+                bx = SkillFactory.getSkill(13110003);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    trueMastery += eff.getMastery();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                break;
+            }
+            case 300:
+            case 310:
+            case 311:
+            case 312: {
+                bx = SkillFactory.getSkill(3000002);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    defRange += bx.getEffect(bof).getRange();
+                }
+                bx = SkillFactory.getSkill(3100006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(3001004, eff.getX());
+                    damageIncrease.put(3001005, eff.getY());
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
+                }
+                bx = SkillFactory.getSkill(3110007);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    evaR += bx.getEffect(bof).getER();
+                }
+                bx = SkillFactory.getSkill(3120005);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    trueMastery += eff.getMastery();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                }
+                break;
+            }
+            case 320:
+            case 321:
+            case 322: {
+                bx = SkillFactory.getSkill(3000002);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    defRange += bx.getEffect(bof).getRange();
+                }
+                bx = SkillFactory.getSkill(3200006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    //damageIncrease.put(3001004, eff.getX());
+                    //damageIncrease.put(3001005, eff.getY());
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
+                }
+                bx = SkillFactory.getSkill(3220010);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    damageIncrease.put(3211006, bx.getEffect(bof).getDamage() - 150);
+                }
+                bx = SkillFactory.getSkill(3210007);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    evaR += bx.getEffect(bof).getER();
+                }
+                break;
+            }
+            case 422: {
+                bx = SkillFactory.getSkill(4221007);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) { //Savage Blow, Steal, and Assaulter
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(4201005, (int) eff.getDAMRate());
+                    damageIncrease.put(4201004, (int) eff.getDAMRate());
+                    damageIncrease.put(4211002, (int) eff.getDAMRate());
+                }
+                bx = SkillFactory.getSkill(4210012);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    mesoBuff *= (eff.getMesoRate() + 100.0) / 100.0;
+                    pickRate += eff.getU();
+                    //mesoGuard -= eff.getV(); //handle this in maplestateffect is better, since it needs to be part of the buffstat
+                    //mesoGuardMeso -= eff.getW();
+                    damageIncrease.put(4211006, eff.getX());
+                }
+                bx = SkillFactory.getSkill(4210013);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    ASR += eff.getASRRate();
+                    TER += eff.getTERRate();
+                    percent_hp += eff.getPercentHP();
+                }
+                break;
+            }
+            case 433:
+            case 434: {
+                bx = SkillFactory.getSkill(4330007);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    hpRecoverProp += eff.getProb();
+                    hpRecoverPercent += eff.getX();
+                }
+                
+                bx = SkillFactory.getSkill(4330009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    evaR += eff.getER();
+                }
+                
+                bx = SkillFactory.getSkill(4341002);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) { //Fatal Blow, Slash Storm, Tornado Spin, Bloody Storm, Upper Stab, and Flying Assaulter
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(4311002, (int) eff.getDAMRate());
+                    damageIncrease.put(4311003, (int) eff.getDAMRate());
+                    damageIncrease.put(4321000, (int) eff.getDAMRate());
+                    damageIncrease.put(4321001, (int) eff.getDAMRate());
+                    damageIncrease.put(4331000, (int) eff.getDAMRate());
+                    damageIncrease.put(4331004, (int) eff.getDAMRate());
+                    damageIncrease.put(4331005, (int) eff.getDAMRate());
+                }
+                bx = SkillFactory.getSkill(4341006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    evaR += bx.getEffect(bof).getER();
+                }
+                break;
+            }
+            case 2110:
+            case 2111:
+            case 2112: { // Aran
+                bx = SkillFactory.getSkill(21101006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= (eff.getDAMRate() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getDAMRate() + 100.0) / 100.0;
+                }
+                bx = SkillFactory.getSkill(21110002);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    damageIncrease.put(21000004, bx.getEffect(bof).getW());
+                }
+                bx = SkillFactory.getSkill(21111010);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((bx.getEffect(bof).getIgnoreMob()) / (double)100));
+                    bossdam_r += bx.getEffect(bof).getBossDamage();
+                }
+                bx = SkillFactory.getSkill(21120002);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    damageIncrease.put(21100007, bx.getEffect(bof).getZ());
+                }
+                bx = SkillFactory.getSkill(21120011);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(21100002, (int) eff.getDAMRate());
+                    damageIncrease.put(21110003, (int) eff.getDAMRate());
+                }
+                bx = SkillFactory.getSkill(21100008); //[hysical training
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
+                }
+                bx = SkillFactory.getSkill(21120004); //High Defense
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    DAMreduceR += (int)(5 + (1.5d * Math.floor(bof / 2.0d))); //5+1.5*u(x/2)
+                    percent_hp += eff.getPercentHP();
+                }
+                break;
+            }
+            case 3511:
+            case 3512: {
+                bx = SkillFactory.getSkill(35110014);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) { //ME-07 Drillhands, Atomic Hammer
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(35001003, (int) eff.getDAMRate());
+                    damageIncrease.put(35101003, (int) eff.getDAMRate());
+                }
+                bx = SkillFactory.getSkill(35121006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) { //Satellite
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(35111001, (int) eff.getDAMRate());
+                    damageIncrease.put(35111009, (int) eff.getDAMRate());
+                    damageIncrease.put(35111010, (int) eff.getDAMRate());
+                }
+                bx = SkillFactory.getSkill(35120001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) { //Satellite
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(35111005, eff.getX());
+                    damageIncrease.put(35111011, eff.getX());
+                    damageIncrease.put(35121009, eff.getX());
+                    damageIncrease.put(35121010, eff.getX());
+                    damageIncrease.put(35121011, eff.getX());
+                    BuffUP_Summon += eff.getY();
+                }
+                break;
+            }
+            case 110:
+            case 111:
+            case 112: {
+                bx = SkillFactory.getSkill(1100009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(1001004, eff.getX());
+                    damageIncrease.put(1001005, eff.getY());
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
+                }
+                bx = SkillFactory.getSkill(1110009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= eff.getDamage() / 100.0;
+                    bossdam_r *= eff.getDamage() / 100.0;
+                }
+                bx = SkillFactory.getSkill(1120012);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((bx.getEffect(bof).getIgnoreMob()) / (double)100));
+                }
+                bx = SkillFactory.getSkill(1120013);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    watk += eff.getAttackX();
+                    damageIncrease.put(1100002, (int) eff.getDamage());
+                }
+                break;
+            }
+            case 120:
+            case 121:
+            case 122: {
+                bx = SkillFactory.getSkill(1200009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(1001004, eff.getX());
+                    damageIncrease.put(1001005, eff.getY());
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
+                }
+                bx = SkillFactory.getSkill(1220006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    ASR += bx.getEffect(bof).getASRRate();
+                    TER += bx.getEffect(bof).getTERRate();
+                }
+                break;
+            }
+            case 510:
+            case 511:
+            case 512: {
+                
+ /*               bx = SkillFactory.getSkill(5110008);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) { //Backspin Blow, Double Uppercut, and Corkscrew Blow
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(5101002, eff.getX());
+                    damageIncrease.put(5101003, eff.getY());
+                    damageIncrease.put(5101004, eff.getZ());
+                }*/
+                bx = SkillFactory.getSkill(5120014); // Typhoon Crush
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((bx.getEffect(bof).getIgnoreMob()) / (double)100));
+                }
+                bx = SkillFactory.getSkill(5100010); // Physical Training
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    //damageIncrease.put(5001002, eff.getX());
+                    //damageIncrease.put(5001003, eff.getY());
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
+                }
+                
+                bx = SkillFactory.getSkill(5121015); // Crossbones
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    trueMastery += eff.getMastery();
+                    TER += bx.getEffect(bof).getTERRate();
+                    ASR += bx.getEffect(bof).getASRRate();
+                }
+                bx = SkillFactory.getSkill(5100013);
+                bof = chra.getTotalSkillLevel(bx);
+                if(bof > 0){
+                    eff = bx.getEffect(bof);
+                    final int delay = (eff.getY() * 1000);
+                    if(chra.getDFRecoveryTimer() != null){
+                        chra.getDFRecoveryTimer().cancel();
+                        chra.getDFRecoveryTimer().purge();
+                    }
+                    chra.setDFRecoveryTimer(new java.util.Timer());
+                    TimerTask healTask = new TimerTask(){
+                        @Override
+                        public void run(){
+                            int hpToHeal = chra.getStat().getCurrentMaxHp();
+                            int mpToHeal = chra.getStat().getCurrentMaxMp(chra.getJob());
+                            if(chra.getStat().getMp() < chra.getMaxMp() && chra.isAlive()){
+                                chra.healMP(mpToHeal);
+                            }
+                            if(chra.getStat().getHp() < chra.getMaxHp() && chra.isAlive()){
+                                chra.healHP(hpToHeal);
+                            }
+                        }
+                    };
+                    chra.getDFRecoveryTimer().scheduleAtFixedRate(healTask, delay, delay);
+                }
+                break;
+            }
+            case 520:
+            case 521:
+            case 522: {
+/*                bx = SkillFactory.getSkill(5220001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) { //Flamethrower and Ice Splitter
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(5211004, (int) eff.getDamage());
+                    damageIncrease.put(5211005, (int) eff.getDamage());
+                }*/
+                
+                /*bx = SkillFactory.getSkill(5221015); // Parrotargetting
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    watk += eff.getAttackX();
+                }*/
+                
+                bx = SkillFactory.getSkill(5210013); // Fullmetal Jacket
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((bx.getEffect(bof).getIgnoreMob()) / (double)100));
+                }
+                
+                bx = SkillFactory.getSkill(5210012);
+                bof = chra.getTotalSkillLevel(bx);
+                if(bof > 0){
+                    eff = bx.getEffect(bof);
+                    localmaxhp += eff.getMaxHpX();
+                    localmaxmp += eff.getMaxMpX();
+                    percent_wdef += eff.getWDEFRate();
+                    percent_mdef += eff.getMDEFRate();
+                }
+  
+                bx = SkillFactory.getSkill(5211006); // Homing Beacon
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= eff.getDamage() / 100.0;
+                    bossdam_r *= eff.getDamage() / 100.0;
+                }
+                
+                bx = SkillFactory.getSkill(5220020); // Majestic Presence
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    trueMastery += eff.getMastery();
+                }
+                
+                bx = SkillFactory.getSkill(5200009); // Physical Training
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
+                }
+                break;
+            }
+            case 130:
+            case 131:
+            case 132: {
+                bx = SkillFactory.getSkill(1300009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    damageIncrease.put(1001004, eff.getX());
+                    damageIncrease.put(1001005, eff.getY());
+                    localstr += eff.getStrX();
+                    localdex += eff.getDexX();
+                }
+                bx = SkillFactory.getSkill(1310009);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    passive_sharpeye_rate += eff.getCr();
+                    passive_sharpeye_min_percent += eff.getCriticalMin();
+                    hpRecoverProp += eff.getProb();
+                    hpRecoverPercent += eff.getX();
+                }
+                bx = SkillFactory.getSkill(1320006);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    dam_r *= (eff.getDamage() + 100.0) / 100.0;
+                    bossdam_r *= (eff.getDamage() + 100.0) / 100.0;
+                }
+                break;
+            }
+            case 1400:
+            case 1410:
+            case 1411:
+            case 1412: {
+                bx = SkillFactory.getSkill(14110003);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    eff = bx.getEffect(bof);
+                    RecoveryUP += eff.getX() - 100;
+                    BuffUP += eff.getY() - 100;
+                }
+                bx = SkillFactory.getSkill(14000001);
+                bof = chra.getTotalSkillLevel(bx);
+                if (bof > 0) {
+                    defRange += bx.getEffect(bof).getRange();
+                }
+                break;
+            }
+        }
+        if (GameConstants.isResist(chra.getJob())) {
+            bx = SkillFactory.getSkill(30000002);
+            bof = chra.getTotalSkillLevel(bx);
+            if (bof > 0) {
+                RecoveryUP += bx.getEffect(bof).getX() - 100;
+            }
+        }
+        //Cap
+        if((incMesoProp - 100) > GameConstants.mesoRateCap){
+            incMesoProp = (int)(GameConstants.mesoRateCap - 100);
+        }
+        if((dropBuff - 100) > GameConstants.dropRateCap){
+            dropBuff = (GameConstants.dropRateCap - 100.0d);
+            }
+        }
+    
+
+
+    private void handleBuffStats(MapleCharacter chra) {
+        MapleStatEffect eff = chra.getStatForBuff(MapleBuffStat.MONSTER_RIDING);
+        if (eff != null && eff.getSourceId() == 33001001) { // jaguar
+            passive_sharpeye_rate += eff.getW();
+            percent_hp += eff.getZ();
+        }
+        Integer buff = chra.getBuffedValue(MapleBuffStat.DICE_ROLL);
+        if (buff != null) {
+            percent_wdef += GameConstants.getDiceStat(buff.intValue(), 2);
+            percent_mdef += GameConstants.getDiceStat(buff.intValue(), 2);
+            percent_hp += GameConstants.getDiceStat(buff.intValue(), 3);
+            percent_mp += GameConstants.getDiceStat(buff.intValue(), 3);
+            passive_sharpeye_rate += GameConstants.getDiceStat(buff.intValue(), 4);
+            dam_r *= (GameConstants.getDiceStat(buff.intValue(), 5) + 100.0) / 100.0;
+            bossdam_r *= (GameConstants.getDiceStat(buff.intValue(), 5) + 100.0) / 100.0;
+            expBuff *= (GameConstants.getDiceStat(buff.intValue(), 6) + 100.0) / 100.0;
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.HP_BOOST_PERCENT);
+        if (buff != null) {
+            percent_hp += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.MP_BOOST_PERCENT);
+        if (buff != null) {
+            percent_mp += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.DEFENCE_BOOST_R);
+        if (buff != null) {
+            percent_wdef += buff.intValue();
+            percent_mdef += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ABNORMAL_STATUS_R);
+        if (buff != null) {
+            ASR += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ELEMENTAL_STATUS_R);
+        if (buff != null) {
+            TER += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.INFINITY);
+        if (buff != null) {
+            percent_matk += buff.intValue() - 1;
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ONYX_SHROUD);
+        if (buff != null) {
+            evaR += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.PVP_DAMAGE);
+        if (buff != null) {
+            pvpDamage += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.PVP_ATTACK);
+        if (buff != null) {
+            pvpDamage += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.FELINE_BERSERK);
+        if (buff != null) {
+            percent_hp += buff.intValue();
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.BLUE_AURA);
+        if (eff != null) {
+            percent_wdef += eff.getZ() + eff.getY();
+            percent_mdef += eff.getZ() + eff.getY();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.CONVERSION);
+        if (buff != null) {
+            percent_hp += buff.intValue();
+        } else {
+            buff = chra.getBuffedValue(MapleBuffStat.MAXHP);
+            if (buff != null) {
+                percent_hp += buff.intValue();
+            }
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.MAXMP);
+        if (buff != null) {
+            percent_mp += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.MP_BUFF);
+        if (buff != null) {
+            percent_mp += buff.intValue();
+        }
+        buff = chra.getBuffedSkill_X(MapleBuffStat.BUFF_MASTERY);
+        if (buff != null) {
+            BuffUP_Skill += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.STR);
+        if (buff != null) {
+            localstr += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.DEX);
+        if (buff != null) {
+            localdex += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.INT);
+        if (buff != null) {
+            localint_ += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.LUK);
+        if (buff != null) {
+            localluk += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ANGEL_STAT);
+        if (buff != null) {
+            localstr += buff.intValue();
+            localdex += buff.intValue();
+            localint_ += buff.intValue();
+            localluk += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ENHANCED_WDEF);
+        if (buff != null) {
+            wdef += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ENHANCED_MDEF);
+        if (buff != null) {
+            mdef += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.WDEF);
+        if (buff != null) {
+            wdef += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.WDEF);
+        if (buff != null) {
+            mdef += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.MAPLE_WARRIOR);
+        if (buff != null) {
+            final double d = buff.doubleValue() / 100.0;
+            localstr += d * str; //base only
+            localdex += d * dex;
+            localluk += d * luk;
+            localint_ += d * int_;
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ECHO_OF_HERO);
+        if (buff != null) {
+            final double d = buff.doubleValue() / 100.0;
+            watk += (int) (watk * d);
+            magic += (int) (magic * d);
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ARAN_COMBO);
+        if (buff != null) {
+            watk += buff.intValue() / 10;
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.MESOGUARD);
+        if (buff != null) {
+            mesoGuardMeso += buff.doubleValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.EXPRATE);
+        if (buff != null) {
+            expBuff *= buff.doubleValue() / 100.0;
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.DROP_RATE);
+        if (buff != null) {
+            dropBuff *= buff.doubleValue() / 100.0;
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ACASH_RATE);
+        if (buff != null) {
+            cashBuff *= buff.doubleValue() / 100.0;
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.MESO_RATE);
+        if (buff != null) {
+            mesoBuff *= buff.doubleValue() / 100.0;
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.MESOUP);
+        if (buff != null) {
+            mesoBuff *= buff.doubleValue() / 100.0;
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ACC);
+        if (buff != null) {
+            accuracy += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ANGEL_ACC);
+        if (buff != null) {
+            accuracy += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ANGEL_ATK);
+        if (buff != null) {
+            watk += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ANGEL_MATK);
+        if (buff != null) {
+            magic += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.WATK);
+        if (buff != null) {
+            watk += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.SPIRIT_SURGE);
+        if (buff != null) {
+            passive_sharpeye_rate += buff.intValue();
+            dam_r *= (buff.intValue() + 100.0) / 100.0;
+            bossdam_r *= (buff.intValue() + 100.0) / 100.0;
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.ENHANCED_WATK);
+        if (buff != null) {
+            watk += buff.intValue();
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.ENERGY_CHARGE);
+        if (eff != null) {
+            watk += eff.getWatk();
+            accuracy += eff.getAcc();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.MATK);
+        if (buff != null) {
+            magic += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.SPEED);
+        if (buff != null) {
+            speed += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.JUMP);
+        if (buff != null) {
+            jump += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.DASH_SPEED);
+        if (buff != null) {
+            speed += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.DASH_JUMP);
+        if (buff != null) {
+            jump += buff.intValue();
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.HIDDEN_POTENTIAL);
+        if (eff != null) {
+            passive_sharpeye_rate = 100; //INTENSE
+            ASR = 100; //INTENSE
+
+            wdef += eff.getX();
+            mdef += eff.getX();
+            watk += eff.getX();
+            magic += eff.getX();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.DAMAGE_BUFF);
+        if (buff != null) {
+            dam_r *= (buff.doubleValue() + 100.0) / 100.0;
+            bossdam_r *= (buff.doubleValue() + 100.0) / 100.0;
+        }
+        buff = chra.getBuffedSkill_Y(MapleBuffStat.FINAL_CUT);
+        if (buff != null) {
+            dam_r *= buff.doubleValue() / 100.0;
+            bossdam_r *= buff.doubleValue() / 100.0;
+        }
+        buff = chra.getBuffedSkill_Y(MapleBuffStat.OWL_SPIRIT);
+        if (buff != null) {
+            dam_r *= buff.doubleValue() / 100.0;
+            bossdam_r *= buff.doubleValue() / 100.0;
+        }
+        buff = chra.getBuffedSkill_X(MapleBuffStat.BERSERK_FURY);
+        if (buff != null) {
+            dam_r *= buff.doubleValue() / 100.0;
+            bossdam_r *= buff.doubleValue() / 100.0;
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.BLESS);
+        if (eff != null) {
+            watk += eff.getX();
+            magic += eff.getY();
+            accuracy += eff.getV();
+        }
+        buff = chra.getBuffedSkill_X(MapleBuffStat.CONCENTRATE);
+        if (buff != null) {
+            mpconReduce += buff.intValue();
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.HOLY_SHIELD);
+        if (eff != null) {
+            watk += eff.getX();
+            magic += eff.getY();
+            accuracy += eff.getV();
+            mpconReduce += eff.getMPConReduce();
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.MAGIC_RESISTANCE);
+        if (eff != null) {
+            ASR += eff.getX();
+        }
+
+        eff = chra.getStatForBuff(MapleBuffStat.COMBO);
+        buff = chra.getBuffedValue(MapleBuffStat.COMBO);
+        if (eff != null && buff != null) {
+            dam_r *= ((100.0 + ((eff.getV() + eff.getDAMRate()) * (buff.intValue() - 1))) / 100.0);
+            bossdam_r *= ((100.0 + ((eff.getV() + eff.getDAMRate()) * (buff.intValue() - 1))) / 100.0);
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.SUMMON);
+        if (eff != null) {
+            if (eff.getSourceId() == 35121010) { //amp
+                dam_r *= (eff.getX() + 100.0) / 100.0;
+                bossdam_r *= (eff.getX() + 100.0) / 100.0;
+            }
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.DARK_AURA);
+        if (eff != null) {
+            dam_r *= (eff.getX() + 100.0) / 100.0;
+            bossdam_r *= (eff.getX() + 100.0) / 100.0;
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.BODY_BOOST);
+        if (eff != null) {
+            dam_r *= (eff.getV() + 100.0) / 100.0;
+            bossdam_r *= (eff.getV() + 100.0) / 100.0;
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.BEHOLDER);
+        if (eff != null) {
+            trueMastery += eff.getMastery();
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.MECH_CHANGE);
+        if (eff != null) {
+            passive_sharpeye_rate += eff.getCr();
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.PYRAMID_PQ);
+        if (eff != null && eff.getBerserk() > 0) {
+            dam_r *= eff.getBerserk() / 100.0;
+            bossdam_r *= eff.getBerserk() / 100.0;
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.WK_CHARGE);
+        if (eff != null) {
+            dam_r *= eff.getDamage() / 100.0;
+            //bossdam_r *= eff.getDamage() / 100.0;
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.PICKPOCKET);
+        if (eff != null) {
+            pickRate = eff.getProb();
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.PIRATES_REVENGE);
+        if (eff != null) {
+            dam_r *= (eff.getDAMRate() + 100.0) / 100.0;
+            bossdam_r *= (eff.getDAMRate() + 100.0) / 100.0;
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.LIGHTNING_CHARGE);
+        if (eff != null) {
+            dam_r *= eff.getDamage() / 100.0;
+            bossdam_r *= eff.getDamage() / 100.0;
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.WIND_WALK);
+        if (eff != null) {
+            dam_r *= eff.getDamage() / 100.0;
+            bossdam_r *= eff.getDamage() / 100.0;
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.DIVINE_SHIELD);
+        if (eff != null) {
+            watk += eff.getEnhancedWatk();
+        }
+        buff = chra.getBuffedSkill_Y(MapleBuffStat.DARKSIGHT);
+        if (buff != null) {
+            dam_r *= (buff.intValue() + 100.0) / 100.0;
+            bossdam_r *= (buff.intValue() + 100.0) / 100.0;
+        }
+        buff = chra.getBuffedSkill_X(MapleBuffStat.ENRAGE);
+        if (buff != null) {
+            dam_r *= (buff.intValue() + 100.0) / 100.0;
+            bossdam_r *= (buff.intValue() + 100.0) / 100.0;
+        }
+        buff = chra.getBuffedSkill_X(MapleBuffStat.COMBAT_ORDERS);
+        if (buff != null) {
+            combatOrders += buff.intValue();
+        }
+        eff = chra.getStatForBuff(MapleBuffStat.SHARP_EYES);
+        if (eff != null) {
+            passive_sharpeye_rate += eff.getX();
+            passive_sharpeye_percent += eff.getCriticalMax();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.CRITICAL_RATE_RED);
+        if(buff != null){
+            passive_sharpeye_rate += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.CRITICAL_RATE);
+        if(buff != null){
+            passive_sharpeye_rate += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.DECENT_ADVANCE_BLESS);
+        if(buff != null){
+            watk += 20;
+            magic += 20;
+            wdef += 425;
+            mdef += 425;
+            accuracy += 260;
+            //no evasion?
+            localmaxhp += 475;
+            localmaxmp += 475;
+            mpconReduce += 12;
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.IGNORE_DEFENSE_R);
+        if(buff != null){
+            ignoreTargetDEF += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.TOTAL_DAMAGE_RED);
+        if(buff != null){
+            dam_r += buff.intValue();
+            bossdam_r += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.TOTAL_DAMAGE);
+        if(buff != null){
+            dam_r += buff.intValue();
+            bossdam_r += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.WEAPON_MAGIC_ATTACK);
+        if(buff != null){
+            watk += buff.intValue();
+            magic += buff.intValue();
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.CRITICAL_RATE_BUFF);
+        if (buff != null) {
+            passive_sharpeye_rate += buff.intValue();
+        }
+        if (speed > 140) {
+            speed = 140;
+        }
+        if (jump > 123) {
+            jump = 123;
+        }
+        buff = chra.getBuffedValue(MapleBuffStat.MONSTER_RIDING);
+        if (buff != null) {
+            jump = 120;
+            switch (buff.intValue()) {
+                case 1:
+                    speed = 150;
+                    break;
+                case 2:
+                    speed = 170;
+                    break;
+                case 3:
+                    speed = 180;
+                    break;
+                default:
+                    speed = 200; //lol
+                    break;
+            }
+        }
     }
 }

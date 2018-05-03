@@ -45,10 +45,10 @@ public class MapleStatEffect implements Serializable {
             asrR, terR, er, damR, padX, madX, mesoR, thaw, selfDestruction, PVPdamage, indiePad, indieMad, fatigueChange,
             str, dex, int_, luk, strX, dexX, intX, lukX, lifeId, imhp, immp, inflation, useLevel, mpConReduce, mhpX, mmpX, 
             indieMhp, indieMmp, indieAllStat, indieSpeed, indieJump, indieAcc, indieEva, indiePdd, indieMdd, incPVPdamage, indieMhpR, indieMmpR,
-            mobSkill, mobSkillLevel; //ar = accuracy rate
+            mobSkill, mobSkillLevel, accR,evaR; //ar = accuracy rate
     private double hpR, mpR;
     private Map<MapleTraitType, Integer> traits;
-    private int duration, subTime, sourceid, recipe, moveTo, t, u, v, w, x, y, z, cr, itemCon, itemConNo, bulletConsume, moneyCon,
+    private int duration, subTime, sourceid, recipe, moveTo, t, u, v, w, x, y, z, cr, itemCon, itemConNo, bulletConsume, moneyCon, speedMax,
             cooldown, morphId = 0, expinc, exp, consumeOnPickup, range, price, extendPrice, charColor, interval, rewardMeso, totalprob, cosmetic;
     private boolean overTime, skill, partyBuff = true;
     private EnumMap<MapleBuffStat, Integer> statups;
@@ -61,6 +61,7 @@ public class MapleStatEffect implements Serializable {
     private List<MapleDisease> cureDebuffs;
     private List<Integer> petsCanConsume, familiars, randomPickup;
     private List<Triple<Integer, Integer, Integer>> rewardItem;
+    private Map<MapleStatInfo, Integer> info;
 
     public static MapleStatEffect loadSkillEffectFromData(final MapleData source, final int skillid, final boolean overtime, final int level, final String variables) {
         return loadFromData(source, skillid, true, overtime, level, variables);
@@ -203,8 +204,8 @@ public class MapleStatEffect implements Serializable {
                 case 2211007:
                 case 2311007:
                 case 32111010:
-                    case 22161005:
-case 12111007:
+                case 22161005:
+                case 12111007:
                 case 33100009:
                 case 22150004:
                 case 22181004: //All Final Attack
@@ -521,12 +522,14 @@ try {
                     ret.statups.put(MapleBuffStat.DARKSIGHT, ret.x);
                     break;
                 case 4211003: // pickpocket
+                    ret.duration = 2100000000;
                     ret.statups.put(MapleBuffStat.PICKPOCKET, ret.x);
                     break;
-                case 4211005: // mesoguard
+                    case 4211005: // mesoguard
+                    case 4201011:
                     ret.statups.put(MapleBuffStat.MESOGUARD, ret.x);
                     break;
-                case 4111001: // mesoup
+                    case 4111001: // mesoup
                     ret.statups.put(MapleBuffStat.MESOUP, ret.x);
                     break;
                 case 4111002: // shadowpartner
@@ -1009,7 +1012,6 @@ case 12111007:
                 case 13111004: // puppet cygnus
                 case 5211014: // Pirate octopus summon
                 case 5220002: // wrath of the octopi
-               
                 case 5321003:
                     ret.statups.put(MapleBuffStat.PUPPET, 1);
                     break;
@@ -2173,6 +2175,37 @@ case 12111007:
             case 20018006:
             case 20028006:
             case 30008006:
+            case 5211011:
+            case 5211015:
+            case 5211016: {
+                if (applyfrom.getTotalSkillLevel(5220019) > 0) {
+                    localstatups = new EnumMap<>(MapleBuffStat.class);
+                    localstatups.put(MapleBuffStat.ANGEL_ATK, 3 * applyto.getTotalSkillLevel(5220019));
+                    switch (sourceid) {
+                        case 5211011: //critical damage is clientside, so don't need to do anything here
+                            break;
+                        case 5211015:
+                            localstatups.put(MapleBuffStat.CRITICAL_RATE_BUFF, applyto.getTotalSkillLevel(5220019));
+                            break;
+                        case 5211016:
+                            localstatups.put(MapleBuffStat.HP_BOOST_PERCENT, 2 * applyto.getTotalSkillLevel(5220019));
+                            localstatups.put(MapleBuffStat.ENHANCED_MAXMP, (int) (0.02d * applyto.getTotalSkillLevel(5220019) * applyto.getMaxMp()));
+                            localstatups.put(MapleBuffStat.SPEED, 2 * applyto.getTotalSkillLevel(5220019));
+                            break;
+                    }
+                    if (!localstatups.isEmpty()) {
+                        applyto.getClient().getSession().write(BuffPacket.giveBuff(5220019, 120000, localstatups, null));
+                    }
+                }
+                break;
+            }
+            case 4201011: {
+            int mesoMasteryBoost = applyto.getTotalSkillLevel(4210012);
+            int mesoGuardRate = getX() - mesoMasteryBoost;
+            localstatups.remove(MapleBuffStat.MESOGUARD);
+            localstatups.put(MapleBuffStat.MESOGUARD, mesoGuardRate);
+            break;
+            }
             case 30018006:
             case 5121009: // Speed Infusion
             case 15111005:
@@ -2423,6 +2456,7 @@ case 12111007:
                 applyto.getMap().broadcastMessage(applyto, BuffPacket.giveForeignBuff(applyto.getId(), stat, this), false);
                 break;
             }
+            
             case 35001001: //flame
             case 35101009:
             case 35121013:
@@ -2960,6 +2994,10 @@ case 12111007:
     public final short getMdef() {
         return mdef;
     }
+    
+        public final int getDAMRate() {
+        return info.get(MapleStatInfo.damR);
+    }
 
     public final short getAcc() {
         return acc;
@@ -3131,7 +3169,7 @@ case 12111007:
     }
     
     public final boolean isBadSkill() {
-        return sourceid == 5211014 || sourceid == 32121003 || sourceid == 35121013 ||  sourceid == 35111004 || sourceid == 35121003 || sourceid == 1320006 || sourceid == 32111006 || sourceid == 13111004 || sourceid == 3220012 || sourceid == 3211002 || sourceid == 3111002 || sourceid == 3120012 || sourceid == 12111004 || sourceid == 13001004 || sourceid == 14001004 || sourceid == 15001004 || sourceid == 12001004 || sourceid == 11001004 || sourceid == 2121005 || sourceid == 2221005 || sourceid == 2321003 || sourceid == 3211005 || sourceid == 3111005 || sourceid == 35121009 || sourceid == 5311004 || sourceid == 5321004 || sourceid == 5321003 || sourceid == 2321004 || sourceid == 2121004 || sourceid == 2221004 || sourceid == 86 || sourceid == 91 || sourceid == 30000091 || sourceid == 30000086 || sourceid == 20010091 || sourceid == 20010086 || sourceid == 20001090 || sourceid == 20001085 || sourceid == 10001085 || sourceid == 10001090 || sourceid == 1090 || sourceid == 1085 || sourceid == 30001085 || sourceid == 30001090 || sourceid == 20011085 || sourceid == 20011090 || sourceid == 10000091 || sourceid == 10000086 || sourceid == 20000091 || sourceid == 20000086;
+        return sourceid == 32121003 || sourceid == 35121013 ||  sourceid == 35111004 || sourceid == 35121003 || sourceid == 1320006 || sourceid == 32111006 || sourceid == 13111004 || sourceid == 3220012 || sourceid == 3211002 || sourceid == 3111002 || sourceid == 3120012 || sourceid == 12111004 || sourceid == 13001004 || sourceid == 14001004 || sourceid == 15001004 || sourceid == 12001004 || sourceid == 11001004 || sourceid == 2121005 || sourceid == 2221005 || sourceid == 2321003 || sourceid == 3211005 || sourceid == 3111005 || sourceid == 35121009 || sourceid == 5311004 || sourceid == 5321004 || sourceid == 5321003 || sourceid == 2321004 || sourceid == 2121004 || sourceid == 2221004 || sourceid == 86 || sourceid == 91 || sourceid == 30000091 || sourceid == 30000086 || sourceid == 20010091 || sourceid == 20010086 || sourceid == 20001090 || sourceid == 20001085 || sourceid == 10001085 || sourceid == 10001090 || sourceid == 1090 || sourceid == 1085 || sourceid == 30001085 || sourceid == 30001090 || sourceid == 20011085 || sourceid == 20011090 || sourceid == 10000091 || sourceid == 10000086 || sourceid == 20000091 || sourceid == 20000086;
     }
 
     public final boolean isMonsterRiding_() {
@@ -3449,6 +3487,14 @@ case 12111007:
     public final short getIgnoreMob() {
         return ignoreMob;
     }
+    
+        public final int getPercentAcc() {
+        return accR;
+    }
+
+    public final int getPercentAvoid() {
+        return evaR;
+    }
 
     public final int getEnhancedHP() {
         return ehp;
@@ -3492,10 +3538,6 @@ case 12111007:
 	
 	public final short getTERRate() {
         return terR;
-    }
-
-    public final short getDAMRate() {
-        return damR;
     }
 
     public final short getMesoRate() {
@@ -3561,6 +3603,11 @@ case 12111007:
     public final short getER() {
         return er;
     }
+    
+        public final int getSpeedMax() {
+        return speedMax;
+    }
+        
 
     public final int getPrice() {
         return price;
@@ -3588,6 +3635,10 @@ case 12111007:
 
     public final byte getEXPRate() {
         return expR;
+    }
+    
+        public final int getAccX() {
+        return info.get(MapleStatInfo.accX);
     }
 
     public final short getLifeID() {

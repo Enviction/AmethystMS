@@ -1534,21 +1534,21 @@ public class CField {
 
         final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         mplew.writeShort(SendPacketOpcode.WARP_TO_MAP.getValue());
+
         mplew.writeShort(2);
         mplew.writeLong(1);
         mplew.writeLong(2);
         mplew.writeLong(chr.getClient().getChannel() - 1);
-        mplew.write(0);
-        mplew.writeLong(2); // Count
-        mplew.write(0);
+        mplew.write(0); // todo jump
+        mplew.write(2);
+        mplew.write(new byte[8]);//v93
         mplew.writeInt(to.getId());
         mplew.write(spawnPoint);
-        mplew.writeInt(chr.getStat().getHp());
-        mplew.write(0);
+        mplew.writeInt(chr.getStat().getHp()); //bb - int
+        mplew.write(0);//?
         mplew.writeLong(PacketHelper.getTime(System.currentTimeMillis()));
         mplew.writeInt(100);
-        mplew.write(0);
-        mplew.write(GameConstants.isResist(chr.getJob()) ? 0 : 1);
+        mplew.writeShort(0);//v93
 
         return mplew.getPacket();
     }
@@ -2834,6 +2834,32 @@ public class CField {
 
         return mplew.getPacket();
     }
+    
+        public static byte[] getCarteAnimation(int cid, int oid, int job, int total, int numDisplay) {
+        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+
+        mplew.writeShort(SendPacketOpcode.GAIN_FORCE.getValue());
+        mplew.write(0);
+        mplew.writeInt(cid);
+        mplew.writeInt(1);
+
+        mplew.writeInt(oid);
+        mplew.writeInt(job == 2412 ? 24120002 : 24100003);
+        mplew.write(1);
+        for (int i = 1; i <= numDisplay; i++) {
+            mplew.writeInt(total - (numDisplay - i));
+            mplew.writeInt(job == 2412 ? 2 : 0);
+
+            mplew.writeInt(15 + Randomizer.nextInt(15));
+            mplew.writeInt(7 + Randomizer.nextInt(5));
+            mplew.writeInt(Randomizer.nextInt(4));
+
+            mplew.write(i == numDisplay ? 0 : 1);
+        }
+
+        return mplew.getPacket();
+    }
+
 
     public static byte[] updateFamiliar(MonsterFamiliar mf) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();

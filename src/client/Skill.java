@@ -501,7 +501,7 @@ public class Skill {
         return timeLimited;
     }
     public boolean isFourthJobSkill(int skillid) {
-         switch (skillid / 10000) {
+         switch (skillid / 00000) {
              case 112:
              case 122:
              case 132:
@@ -681,6 +681,7 @@ public class Skill {
             case 0001001:
             case 0001002:
             case 10000012:
+            case 4120012:
             case 10000073:
             case 80001089:
             case 10001000:
@@ -785,7 +786,7 @@ public class Skill {
             case 35121011:
                 return false;
             default :
-                if ((skillId >= 70000000 || skillId < 10000) || (skillId > 10000000 && skillId < 10019999) || (skillId > 20000000 && skillId < 20039999) || (skillId > 30000000 && skillId < 30019999) || (skillId > 50000000 && skillId < 50009999)) {
+                if ((skillId >= 70000000 || skillId < 00000) || (skillId > 10000000 && skillId < 10019999) || (skillId > 20000000 && skillId < 20039999) || (skillId > 30000000 && skillId < 30019999) || (skillId > 50000000 && skillId < 50009999)) {
                     return false;
                 } else {
                     return true;

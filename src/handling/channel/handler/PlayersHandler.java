@@ -1443,7 +1443,7 @@ public class PlayersHandler {
                     addedScore += Math.min(attacked.getStat().getHp() / 100, (totalHPLoss / 100) + (totalMPLoss / 100)); //ive NO idea
                     attacked.addMPHP(-totalHPLoss, -totalMPLoss);
                     ourAttacks.add(new AttackPair(attacked.getId(), attacked.getPosition(), attacks));
-                    chr.onAttack(attacked.getStat().getCurrentMaxHp(), attacked.getStat().getCurrentMaxMp(attacked.getJob()), skillid, attacked.getObjectId(), totalHPLoss);
+                    chr.onAttack(attacked.getStat().getCurrentMaxHp(), attacked.getStat().getCurrentMaxMp(attacked.getJob()), skillid, attacked.getObjectId(), totalHPLoss, 0);
 
                     if (totalHPLoss > 0) {
                         didAttack = true;

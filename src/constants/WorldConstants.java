@@ -32,7 +32,7 @@ public class WorldConstants {
     
     public static int GLOBAL_EXP_RATE = 4;
     public static int GLOBAL_MESO_RATE = 2;
-    public static int GLOBAL_DROP_RATE = 1; // Default: 2
+    public static int GLOBAL_DROP_RATE = 2; // Default: 2
     public static int GLOBAL_CASH_RATE = 0; // Default: 3
     public static int GLOBAL_TRAIT_RATE = 2; // Default: 3
     public static boolean GLOBAL_RATES = true; // When true, all worlds use the above rates

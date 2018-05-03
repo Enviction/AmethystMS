@@ -70,10 +70,10 @@ public class SkillFactory {
                             if (data2 != null) {
                                 skillid = Integer.parseInt(data2.getName());
                                 Skill skil = Skill.loadFromData(skillid, data2, delayData);
-                                List<Integer> job = skillsByJob.get(skillid / 10000);
+                                List<Integer> job = skillsByJob.get(skillid / 20000);
                                 if (job == null) {
                                     job = new ArrayList<Integer>();
-                                    skillsByJob.put(skillid / 10000, job);
+                                    skillsByJob.put(skillid / 20000, job);
                                 }
                                 job.add(skillid);
                                 skil.setName(getName(skillid, stringData));

@@ -288,46 +288,44 @@ public class DamageParse {
                     //  if (monster.isBuffed(MonsterStatus.WEAPON_DAMAGE_REFLECT)) { //test
                     //    player.addHP(-(7000 + Randomizer.nextInt(8000))); //this is what it seems to be?
                     // }
-                    player.onAttack(monster.getMobMaxHp(), monster.getMobMaxMp(), attack.skill, monster.getObjectId(), totDamage);
+                    player.onAttack(monster.getMobMaxHp(), monster.getMobMaxMp(), attack.skill, monster.getObjectId(), totDamage, 0);
                     switch (attack.skill) {
-                        case 14001004:
-                        case 14111002:
-                        case 14111005:
+                      case 4001002:
+                        case 4001334:
+                        case 4001344:
+                        case 4111005:
+                        case 4121007:
+                        case 4201005:
+                        case 4211002:
+                        case 4221001:
+                        case 4221007:
                         case 4301001:
                         case 4311002:
                         case 4311003:
                         case 4331000:
                         case 4331004:
                         case 4331005:
+                        case 4331006:
                         case 4341002:
                         case 4341004:
                         case 4341005:
-                        case 4331006:
                         case 4341009:
-                        case 4221007: // Boomerang Stab
-                        case 4221001: // Assasinate
-                        case 4211002: // Assulter
-                        case 4201005: // Savage Blow
-                        case 4001002: // Disorder
-                        case 4001334: // Double Stab
-                        case 4121007: // Triple Throw
-                        case 4111005: // Avenger
-                        case 4001344: { // Lucky Seven
-                            // Venom
+                        case 14001004:
+                        case 14111002:
+                        case 14111005:
                             int[] skills = {4120005, 4220005, 4340001, 14110004};
                             for (int i : skills) {
-                                final Skill skill = SkillFactory.getSkill(i);
+                                Skill skill = SkillFactory.getSkill(i);
                                 if (player.getTotalSkillLevel(skill) > 0) {
-                                    final MapleStatEffect venomEffect = skill.getEffect(player.getTotalSkillLevel(skill));
-                                    if (venomEffect.makeChanceResult()) {
-                                        monster.applyStatus(player, new MonsterStatusEffect(MonsterStatus.POISON, 1, i, null, false), true, venomEffect.getDuration(), true, venomEffect);
+                                    MapleStatEffect venomEffect = skill.getEffect(player.getTotalSkillLevel(skill));
+                                    if (!venomEffect.makeChanceResult()) {
+                                        break;
                                     }
+                                    monster.applyStatus(player, new MonsterStatusEffect(MonsterStatus.POISON, Integer.valueOf(1), i, null, false), true, venomEffect.getDuration(), true, venomEffect);
                                     break;
                                 }
                             }
-
                             break;
-                        }
                         case 4201004: { //steal
                             monster.handleSteal(player);
                             break;
@@ -599,7 +597,7 @@ public class DamageParse {
                     //if (monster.isBuffed(MonsterStatus.WEAPON_DAMAGE_REFLECT)) { //test
                     //    player.addHP(-(7000 + Randomizer.nextInt(8000))); //this is what it seems to be?
                     //}
-                    player.onAttack(monster.getMobMaxHp(), monster.getMobMaxMp(), attack.skill, monster.getObjectId(), (int) totDamage);
+                    player.onAttack(monster.getMobMaxHp(), monster.getMobMaxMp(), attack.skill, monster.getObjectId(), (int) totDamage, 0);
                     // effects, reversed after bigbang
                     switch (attack.skill) {
                         case 2221003:

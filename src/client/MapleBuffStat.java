@@ -269,8 +269,15 @@ public enum MapleBuffStat implements Serializable, Buffstat {
     // 0x100000  true
     // 0x200000 idk
     // 0x400000  true
-    // 0x800000 idk
-
+    // custom
+    CRITICAL_RATE_RED(0x1000000, 6),
+   CRITICAL_RATE(0x80000, 6),
+   DECENT_ADVANCE_BLESS(0x40, 7),
+   IGNORE_DEFENSE_R(0x80000000, 7), //:3
+       TOTAL_DAMAGE_RED(0x400000, 4), //The increase shows in the player's range.
+       TOTAL_DAMAGE(0x800, 7),
+       WEAPON_MAGIC_ATTACK(0x10000, 7, true),
+   //
     ENERGY_CHARGE(0x2000000, 8),
     DASH_SPEED(0x4000000, 8),
     DASH_JUMP(0x8000000, 8),

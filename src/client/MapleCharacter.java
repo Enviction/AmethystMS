@@ -266,6 +266,8 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     private static int[] ariantroomslot = new int[3]; // AriantPQ
     public long dojoStartTime;
     public long dojoMapEndTime;
+        private java.util.Timer healTimer;
+    private java.util.Timer DFRecoveryTimer;
 
     public MapleCharacter(final boolean ChannelServer) {
         setStance(0);
@@ -8009,6 +8011,31 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         this.initialSpawnPoint = (byte)portal.getId();
         this.map = c.getChannelServer().getMapFactory().getMap(getMapId());
     }
+
+    public java.util.Timer getHealTimer() {
+        return healTimer;
+    }
+
+    public void setHealTimer(java.util.Timer timer) {
+        healTimer = timer;
+    }
+
+    public java.util.Timer getDFRecoveryTimer() {
+        return DFRecoveryTimer;
+    }
+
+    public void setDFRecoveryTimer(java.util.Timer timer) {
+        DFRecoveryTimer = timer;
+    }
+
+    public int getMaxHp() {
+        return getStat().getMaxHp();
+    }
+
+    public int getMaxMp() {
+        return getStat().getMaxMp();
+    }
+
     
 
     public static enum FameStatus {
@@ -9918,7 +9945,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
         cancelEffect(ii.getItemEffect(ii.getFamiliar(summonedFamiliar.getFamiliar()).passive), false, System.currentTimeMillis());
     }
-
+    
     public void spawnFamiliar(MonsterFamiliar mf) {
         summonedFamiliar = mf;
 
@@ -10291,7 +10318,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         return ret;
     }
 
-    public void onAttack(long maxhp, int maxmp, int skillid, int oid, int totDamage) {
+    public void onAttack(long maxhp, int maxmp, int skillid, int oid, int totDamage, int critCount) {
         if (stats.hpRecoverProp > 0) {
             if (Randomizer.nextInt(100) <= stats.hpRecoverProp) {//i think its out of 100, anyway
                 if (stats.hpRecover > 0) {
@@ -10320,8 +10347,8 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             }
         }
         if (getJob() == 212 || getJob() == 222 || getJob() == 232) {
-            int[] skillshi = {2120010, 2220010, 2320011};
-            for (int i : skillshi) {
+            int[] skills = {2120010, 2220010, 2320011};
+            for (int i : skills) {
                 final Skill skill = SkillFactory.getSkill(i);
                 if (getTotalSkillLevel(skill) > 0) {
                     final MapleStatEffect venomEffect = skill.getEffect(getTotalSkillLevel(skill));
@@ -10330,6 +10357,37 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                         venomEffect.applyTo(this);
                     }
                     break;
+                }
+            }
+        }
+        int[] skills = {4110011, 4120005, 4210010, 4220005, 4320005, 4340001, 14110004};
+        for (int i : skills) {
+            if (i == 4110011) {
+                if (getTotalSkillLevel(4120011) > 0) {
+                    i = 4120011;
+                }
+            } else if (i == 4210010) {
+                if (getTotalSkillLevel(4220011) > 0) {
+                    i = 4220011;
+                }
+            }
+            final Skill skill = SkillFactory.getSkill(i);
+            if (getTotalSkillLevel(skill) > 0) {
+                final MapleStatEffect venomEffect = skill.getEffect(getTotalSkillLevel(skill));
+                final MapleMonster monster = map.getMonsterByOid(oid);
+                if (venomEffect.makeChanceResult() && monster != null) {
+                    monster.applyStatus(this, new MonsterStatusEffect(MonsterStatus.POISON, 1, i, null, false), true, venomEffect.getDuration(), true, venomEffect);
+                }
+                break;
+            }
+        }
+        if (getJob() == 2410 || getJob() == 2411 || getJob() == 2412) {
+            final Skill skil = SkillFactory.getSkill(getJob() == 2412 ? 24120002 : 24100003);
+            if (getTotalSkillLevel(skil) > 0 && critCount > 0 && skillid != 24120002 && skillid != 24100003) {
+                final MapleStatEffect eff = skil.getEffect(getTotalSkillLevel(skil));
+                if (eff.makeChanceResult()) {
+                    setBattleshipHP(Math.min(getJob() == 2412 ? 40 : 20, currentBattleshipHP() + 1));
+                    attackCarte(eff, oid, 1);
                 }
             }
         }
@@ -10361,6 +10419,14 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                     break;
                 }
             }
+        }
+    }
+    
+        public void attackCarte(final MapleStatEffect eff, final int oid, final int x) {
+        if (x > 0) {
+            lastBerserkTime += x; //lol unused variable.
+            map.broadcastMessage(CField.getCarteAnimation(id, oid, job, (int) lastBerserkTime, x));
+            client.getSession().write(CField.updateCardStack(currentBattleshipHP()));
         }
     }
 

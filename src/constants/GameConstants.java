@@ -15,6 +15,8 @@ import tools.packet.CField;
 public class GameConstants {
 
     public static boolean GMS = true; //true = GMS
+       public static final double dropRateCap = 1500.0;
+    public static final double mesoRateCap = 1500.0;
     public static List<MapleMapObjectType> rangedMapobjectTypes = Collections.unmodifiableList(Arrays.asList(
             MapleMapObjectType.ITEM,
             MapleMapObjectType.MONSTER,
@@ -3221,6 +3223,8 @@ case 5211015:
             return 4100000;
         } else if (job >= 520 && job <= 522) {
             return 5200000;
+         } else if (job == 412) {
+            return 4120012;
         }
         return 0;
     }

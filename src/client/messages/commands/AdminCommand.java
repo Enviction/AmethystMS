@@ -347,6 +347,33 @@ public class AdminCommand {
                         c.getPlayer().getMap().removePlayer(c.getPlayer());
                         c.getPlayer().getMap().addPlayer(c.getPlayer());
                 return true;
+                   case "copyuse":
+                    victim = c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]);
+                        for (Item ii : victim.getInventory(MapleInventoryType.USE).list())  {
+                            MapleInventoryManipulator.addById(c, ii.getItemId(), (short) 1, "");
+                        }
+                        c.getPlayer().getClient().getSession().write(CField.getCharInfo(c.getPlayer()));
+                        c.getPlayer().getMap().removePlayer(c.getPlayer());
+                        c.getPlayer().getMap().addPlayer(c.getPlayer());
+                return true;
+               case "copyetc":
+                    victim = c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]);
+                        for (Item ii : victim.getInventory(MapleInventoryType.ETC).list())  {
+                            MapleInventoryManipulator.addById(c, ii.getItemId(), (short) 1, "");
+                        }
+                        c.getPlayer().getClient().getSession().write(CField.getCharInfo(c.getPlayer()));
+                        c.getPlayer().getMap().removePlayer(c.getPlayer());
+                        c.getPlayer().getMap().addPlayer(c.getPlayer());
+                return true;
+                case "copycash":
+                    victim = c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]);
+                        for (Item ii : victim.getInventory(MapleInventoryType.CASH).list())  {
+                            MapleInventoryManipulator.addById(c, ii.getItemId(), (short) 1, "");
+                        }
+                        c.getPlayer().getClient().getSession().write(CField.getCharInfo(c.getPlayer()));
+                        c.getPlayer().getMap().removePlayer(c.getPlayer());
+                        c.getPlayer().getMap().addPlayer(c.getPlayer());
+                return true;  
                 case "smega":
                     if (splitted.length == 1) {
                     player.dropMessage("Usage: !smega [name] [type] [message], where [type] is love, cloud, ctiger(cute tiger), rtiger(roaring tiger), goal, soccer or diablo.");
