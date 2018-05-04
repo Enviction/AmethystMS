@@ -1177,13 +1177,6 @@ public class PlayerStats implements Serializable {
                         damageIncrease.put(4101009,(int) eff.getDAMRate());
                         damageIncrease.put(4101010,(int) eff.getDAMRate());
                     }
-                    bx = SkillFactory.getSkill(4120012); // Expert Throwing Star Handling
-                    bof = chra.getTotalSkillLevel(bx);
-                    if (bof > 0) {
-                        eff = bx.getEffect(bof);
-                    watk += eff.getAttackX();
-                    trueMastery += eff.getMastery();
-                    }
                     bx = SkillFactory.getSkill(4110014);
                     bof = chra.getTotalSkillLevel(bx);
                     if (bof > 0) {
@@ -2804,13 +2797,13 @@ public class PlayerStats implements Serializable {
         }
     }
 
-   private void CalcPassive_Mastery(final MapleCharacter player) {
+    private void CalcPassive_Mastery(MapleCharacter player) {
         if (player.getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -11) == null) {
             passive_mastery = 0;
             return;
         }
-        final int skil;
-        final MapleWeaponType weaponType = GameConstants.getWeaponType(player.getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -11).getItemId());
+        int skil;
+        MapleWeaponType weaponType = GameConstants.getWeaponType(player.getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -11).getItemId());
         boolean acc = true;
         switch (weaponType) {
             case BOW:
@@ -2834,13 +2827,13 @@ public class PlayerStats implements Serializable {
                 break;
             case AXE1H:
             case BLUNT1H:
-                skil = GameConstants.isMihile(player.getJob()) ? 51100001 : (GameConstants.isResist(player.getJob()) ? 31100004 : (GameConstants.isKOC(player.getJob()) ? 11100000 : (player.getJob() > 112 ? 1200000 : 1100000))); // Mihile , DemonSlayer Dawn Warrior, Hero, Pally || Weapon Mastery
+                skil = GameConstants.isResist(player.getJob()) ? 31100004 : (GameConstants.isKOC(player.getJob()) ? 11100000 : (player.getJob() > 112 ? 1200000 : 1100000)); //hero/pally
                 break;
             case AXE2H:
             case SWORD1H:
             case SWORD2H:
             case BLUNT2H:
-                skil = GameConstants.isMihile(player.getJob()) ? 51100001 : (GameConstants.isKOC(player.getJob()) ? 11100000 : (player.getJob() > 112 ? 1200000 : 1100000)); // Mihile , Dawn Warrior, Hero, Pally || Weapon Mastery
+                skil = GameConstants.isKOC(player.getJob()) ? 11100000 : (player.getJob() > 112 ? 1200000 : 1100000); //hero/pally
                 break;
             case POLE_ARM:
                 skil = GameConstants.isAran(player.getJob()) ? 21100000 : 1300000;
@@ -2852,7 +2845,7 @@ public class PlayerStats implements Serializable {
                 skil = GameConstants.isKOC(player.getJob()) ? 15100001 : 5100001;
                 break;
             case GUN:
-                skil = GameConstants.isResist(player.getJob()) ? 35100000 : (GameConstants.isJett(player.getJob()) ? 5700000 : 5200000);
+                skil = GameConstants.isResist(player.getJob()) ? 35100000 : 5200000;
                 break;
             case DUAL_BOW:
                 skil = 23100005;
@@ -2870,8 +2863,8 @@ public class PlayerStats implements Serializable {
         if (player.getSkillLevel(skil) <= 0) {
             passive_mastery = 0;
             return;
-        }// TODO: add job id check above skill, etc
-        final MapleStatEffect eff = SkillFactory.getSkill(skil).getEffect(player.getTotalSkillLevel(skil));
+        }
+        MapleStatEffect eff = SkillFactory.getSkill(skil).getEffect(player.getTotalSkillLevel(skil));
         if (acc) {
             accuracy += eff.getX();
             if (skil == 35100000) {
@@ -2881,21 +2874,8 @@ public class PlayerStats implements Serializable {
             magic += eff.getX();
         }
         passive_sharpeye_rate += eff.getCr();
-        passive_mastery = (byte) eff.getMastery();
+        passive_mastery = (byte) eff.getMastery(); //after bb, simpler?
         trueMastery += eff.getMastery() + weaponType.getBaseMastery();
-        if (player.getJob() == 412) {
-            final Skill bx = SkillFactory.getSkill(4120012); // Claw Expert
-            final int bof = player.getTotalSkillLevel(bx);
-            if (bof > 0) {
-                final MapleStatEffect eff2 = bx.getEffect(bof);
-                passive_mastery = (byte) eff2.getMastery(); // Override
-                accuracy += eff2.getPercentAcc();
-                evaR += eff2.getPercentAvoid();
-                watk += eff2.getX();
-                trueMastery -= eff.getMastery(); // - old
-                trueMastery += eff2.getMastery(); // add new
-            }
-        }
     }
 
     private void calculateFame(MapleCharacter player) {
@@ -3397,24 +3377,7 @@ public class PlayerStats implements Serializable {
         // poison, stun, etc (uses level field -> cast disease to mob/player), face?
     }
     
-
-
-    public void recalcPVPRank(MapleCharacter chra) {
-        this.pvpRank = 10;
-        this.pvpExp = chra.getTotalBattleExp();
-        for (int i = 0; i < 10; i++) {
-            if (pvpExp > GameConstants.getPVPExpNeededForLevel(i + 1)) {
-                pvpRank--;
-                pvpExp -= GameConstants.getPVPExpNeededForLevel(i + 1);
-            }
-        }
-    }
-
-    public int getHPPercent() {
-        return (int) Math.ceil((hp * 100.0) / localmaxhp);
-    }
-    
-     private void handlePassiveSkills(final MapleCharacter chra) {
+    private void handlePassiveSkills(final MapleCharacter chra) {
         Skill bx;
         int bof;
         MapleStatEffect eff = null;
@@ -3782,7 +3745,7 @@ public class PlayerStats implements Serializable {
                 bof = chra.getTotalSkillLevel(bx);
                 if (bof > 0) {
                     eff = bx.getEffect(bof);
-                    accuracy += eff.getAccX();
+                    accuracy += eff.getX();
                     jump += eff.getPassiveJump();
                     speed += eff.getSpeedMax(); // TODO: split speed max and speed. (speed have a limit, while speedMax will add to the max)
                 } // TODO: research more on percentage hp/mp and stats, which doesn't take effect to note.
@@ -3870,6 +3833,17 @@ public class PlayerStats implements Serializable {
                         localdex += eff.getDexX();
                     }
                 }
+                        if (chra.getJob() == 412) {
+             bx = SkillFactory.getSkill(4120012); // Claw Expert
+                final MapleStatEffect eff2 = bx.getEffect(bof);
+                passive_mastery = (byte) eff2.getMastery(); // Override
+                accuracy += eff2.getPercentAcc();
+                dodgeChance += eff2.getPercentAvoid();
+                watk += eff2.getX();
+                trueMastery -= eff.getMastery(); // - old
+                trueMastery += eff2.getMastery(); // add new
+            
+        }
                 if (chra.getJob() >= 420 && chra.getJob() <= 422) {
                     bx = SkillFactory.getSkill(4200007); // Physical Training
                     bof = chra.getTotalSkillLevel(bx);
@@ -3879,22 +3853,8 @@ public class PlayerStats implements Serializable {
                         localdex += eff.getDexX();
                     }
                 }
-                     if (chra.getJob() == 412) {
-                    bx = SkillFactory.getSkill(4120012); // Claw Expert
-                    bof = chra.getTotalSkillLevel(bx);
-                    if (bof > 0) {
-                        eff = bx.getEffect(bof);
-                        final MapleStatEffect eff2 = bx.getEffect(bof);
-                 passive_mastery = eff2.getMastery(); // Override
-                accuracy += eff2.getPercentAcc();
-                evaR += eff2.getPercentAvoid();
-                watk += eff2.getX();
-                trueMastery -= eff2.getMastery(); // - old
-                trueMastery += eff2.getMastery(); // add new
-                    }
-                }
-                if (chra.getJob() == 413 || chra.getJob() == 413) {
-                    bx = SkillFactory.getSkill(4110000); // Enveloping Darkness
+                if (chra.getJob() == 411 || chra.getJob() == 412) {
+                    bx = SkillFactory.getSkill(4110008); // Enveloping Darkness
                     bof = chra.getTotalSkillLevel(bx);
                     if (bof > 0) {
                         eff = bx.getEffect(bof);
@@ -3906,10 +3866,10 @@ public class PlayerStats implements Serializable {
                     bof = chra.getTotalSkillLevel(bx);
                     if (bof > 0) {
                         eff = bx.getEffect(bof);
-                        damageIncrease.put(4001344, eff.getDAMRate());
-                        damageIncrease.put(4101008, eff.getDAMRate());
-                        damageIncrease.put(4101009, eff.getDAMRate());
-                        damageIncrease.put(4101010, eff.getDAMRate());
+                        damageIncrease.put(4001344,(int) eff.getDAMRate());
+                        damageIncrease.put(4101008,(int) eff.getDAMRate());
+                        damageIncrease.put(4101009,(int) eff.getDAMRate());
+                        damageIncrease.put(4101010,(int) eff.getDAMRate());
                     }
                     bx = SkillFactory.getSkill(4110014);
                     bof = chra.getTotalSkillLevel(bx);
@@ -3926,8 +3886,6 @@ public class PlayerStats implements Serializable {
                         ignoreTargetDEF += ((100 - ignoreTargetDEF) * ((eff.getIgnoreMob()) / (double)100));
                     }
                 }
-
-
                 bx = SkillFactory.getSkill(4200006);
                 bof = chra.getTotalSkillLevel(bx);
                 if (bof > 0) {
@@ -4210,7 +4168,7 @@ public class PlayerStats implements Serializable {
                 bof = chra.getTotalSkillLevel(bx);
                 if (bof > 0) {
                     eff = bx.getEffect(bof);
-                    accuracy += eff.getAccX();
+                     accuracy += eff.getX();
                     speed += eff.getPassiveSpeed();
                     jump += eff.getPassiveJump();
                 }
@@ -5142,12 +5100,10 @@ public class PlayerStats implements Serializable {
         }
         if((dropBuff - 100) > GameConstants.dropRateCap){
             dropBuff = (GameConstants.dropRateCap - 100.0d);
-            }
         }
+    }
     
-
-
-    private void handleBuffStats(MapleCharacter chra) {
+     private void handleBuffStats(MapleCharacter chra) {
         MapleStatEffect eff = chra.getStatForBuff(MapleBuffStat.MONSTER_RIDING);
         if (eff != null && eff.getSourceId() == 33001001) { // jaguar
             passive_sharpeye_rate += eff.getW();
@@ -5569,5 +5525,20 @@ public class PlayerStats implements Serializable {
                     break;
             }
         }
+    }
+
+    public void recalcPVPRank(MapleCharacter chra) {
+        this.pvpRank = 10;
+        this.pvpExp = chra.getTotalBattleExp();
+        for (int i = 0; i < 10; i++) {
+            if (pvpExp > GameConstants.getPVPExpNeededForLevel(i + 1)) {
+                pvpRank--;
+                pvpExp -= GameConstants.getPVPExpNeededForLevel(i + 1);
+            }
+        }
+    }
+
+    public int getHPPercent() {
+        return (int) Math.ceil((hp * 100.0) / localmaxhp);
     }
 }

@@ -1534,21 +1534,21 @@ public class CField {
 
         final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         mplew.writeShort(SendPacketOpcode.WARP_TO_MAP.getValue());
-
         mplew.writeShort(2);
         mplew.writeLong(1);
         mplew.writeLong(2);
         mplew.writeLong(chr.getClient().getChannel() - 1);
-        mplew.write(0); // todo jump
-        mplew.write(2);
-        mplew.write(new byte[8]);//v93
+        mplew.write(0);
+        mplew.writeLong(2); // Count
+        mplew.write(0);
         mplew.writeInt(to.getId());
         mplew.write(spawnPoint);
-        mplew.writeInt(chr.getStat().getHp()); //bb - int
-        mplew.write(0);//?
+        mplew.writeInt(chr.getStat().getHp());
+        mplew.write(0);
         mplew.writeLong(PacketHelper.getTime(System.currentTimeMillis()));
         mplew.writeInt(100);
-        mplew.writeShort(0);//v93
+        mplew.write(0);
+        mplew.write(GameConstants.isResist(chr.getJob()) ? 0 : 1);
 
         return mplew.getPacket();
     }

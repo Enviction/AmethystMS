@@ -61,7 +61,6 @@ public class MapleStatEffect implements Serializable {
     private List<MapleDisease> cureDebuffs;
     private List<Integer> petsCanConsume, familiars, randomPickup;
     private List<Triple<Integer, Integer, Integer>> rewardItem;
-    private Map<MapleStatInfo, Integer> info;
 
     public static MapleStatEffect loadSkillEffectFromData(final MapleData source, final int skillid, final boolean overtime, final int level, final String variables) {
         return loadFromData(source, skillid, true, overtime, level, variables);
@@ -2994,10 +2993,6 @@ case 12111007:
     public final short getMdef() {
         return mdef;
     }
-    
-        public final int getDAMRate() {
-        return info.get(MapleStatInfo.damR);
-    }
 
     public final short getAcc() {
         return acc;
@@ -3540,6 +3535,10 @@ case 12111007:
         return terR;
     }
 
+    public final short getDAMRate() {
+        return damR;
+    }
+
     public final short getMesoRate() {
         return mesoR;
     }
@@ -3635,10 +3634,6 @@ case 12111007:
 
     public final byte getEXPRate() {
         return expR;
-    }
-    
-        public final int getAccX() {
-        return info.get(MapleStatInfo.accX);
     }
 
     public final short getLifeID() {

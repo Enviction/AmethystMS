@@ -134,8 +134,8 @@ slea.readInt();
         boolean isBeginnerSkill = false;
         final int remainingSp;
 
-        if (GameConstants.isBeginnerJob(skillid / 00000) && (skillid % 00000 == 0000 || skillid % 00000 == 0001 || skillid % 00000 == 0002 || skillid % 00000 == 2)) {
-            final boolean resistance = skillid / 00000 == 3000 || skillid / 00000 == 3001;
+        if (GameConstants.isBeginnerJob(skillid / 10000) && (skillid % 10000 == 1000 || skillid % 10000 == 1001 || skillid % 10000 == 1002 || skillid % 10000 == 2)) {
+            final boolean resistance = skillid / 10000 == 3000 || skillid / 10000 == 3001;
             final int snailsLevel = chr.getSkillLevel(SkillFactory.getSkill(((skillid / 10000) * 10000) + 1000));
             final int recoveryLevel = chr.getSkillLevel(SkillFactory.getSkill(((skillid / 10000) * 10000) + 1001));
             final int nimbleFeetLevel = chr.getSkillLevel(SkillFactory.getSkill(((skillid / 10000) * 10000) + (resistance ? 2 : 1002)));
