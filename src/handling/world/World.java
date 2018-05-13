@@ -280,15 +280,10 @@ public class World {
         return false;
     }
 
-    public static boolean hasMerchant(int accountID, int characterID) {
-        for (World worlds : LoginServer.getInstance().getWorlds()) {
-            PlayerStorage strg = worlds.getPlayerStorage();
-            MapleCharacter chr = strg.getCharacterById(characterID);
-            int world = chr.getClient().getWorld();
-            for (ChannelServer cs : LoginServer.getInstance().getWorld(world).getChannels()) {
-                if (cs.containsMerchant(accountID, characterID)) {
-                    return true;
-                }
+    public static boolean hasMerchant(int worldID, int accountID, int characterID) {
+        for (ChannelServer cs : LoginServer.getInstance().getWorld(worldID).getChannels()) {
+            if (cs.containsMerchant(accountID, characterID)) {
+                return true;
             }
         }
         return false;
