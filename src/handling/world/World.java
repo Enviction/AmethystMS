@@ -48,7 +48,7 @@ public class World {
     private int id, flag, expRate, mesoRate, dropRate, cashRate = 3, traitRate = 3, flags = 0, userLimit;
     private String eventMessage;
     private List<ChannelServer> channels = new ArrayList<>();
-    private static PlayerStorage players = new PlayerStorage();
+    private PlayerStorage players = new PlayerStorage();
     
     private static final Map<Integer, Integer> magicWheelCache = new HashMap();
     // AutoJQ and Event Maps
@@ -97,6 +97,11 @@ public class World {
     
     public PlayerStorage getPlayerStorage() {
         return players;
+    }
+    
+    public void addPlayer(MapleCharacter chr) {
+        players.addPlayer(chr);
+        channels.get(chr.getClient().getChannel() - 1).addPlayer(chr);
     }
 
     public void removePlayer(MapleCharacter chr) {
@@ -1419,25 +1424,32 @@ public class World {
     public static class Broadcast {
 
         public static void broadcastSmega(int world, byte[] message) {
-            for (MapleCharacter chr : players.getAllCharacters()) {
+            for (MapleCharacter chr : LoginServer.getInstance().getWorld(world).getPlayerStorage().getAllCharacters()) {
                 if ((world == -1) || (chr.getWorld() == world)) {
                     chr.getClient().getChannelServer().broadcastSmega(message);
+                    break;
                 }
             }
         }
 
         public static void broadcastGMMessage(int world, byte[] message) {
-            for (MapleCharacter chr : players.getAllCharacters()) {
-                if ((world == -1) || (chr.getWorld() == world)) {
-                    chr.getClient().getChannelServer().broadcastGMPacket(message);
+            for (World w : LoginServer.getInstance().getWorlds()) {
+                if ((world == -1) || (w.getWorldId() == world)) {
+                    for (MapleCharacter chr : LoginServer.getInstance().getWorld(world).getPlayerStorage().getAllCharacters()) {
+                        chr.getClient().getChannelServer().broadcastGMPacket(message);
+                    }
+                    break;
                 }
             }
         }
 
         public static void broadcastMessage(int world, byte[] message) {
-            for (MapleCharacter chr : players.getAllCharacters()) {
-                if ((world == -1) || (chr.getWorld() == world)) {
-                    chr.announce(message);
+            for (World w : LoginServer.getInstance().getWorlds()) {
+                if ((world == -1) || (w.getWorldId() == world)) {
+                    for (MapleCharacter chr : LoginServer.getInstance().getWorld(world).getPlayerStorage().getAllCharacters()) {
+                        chr.announce(message);
+                    }
+                    break;
                 }
             }
         }
