@@ -19,7 +19,7 @@ import tools.packet.LoginPacket.Server;
  */
 public class WorldConstants {
     // Global Constants : handle world count, channel count, max user per world, max char per account, and event scripts
-    public static int Worlds = 2; // max: 23 (skips 24-32 and continues 33-39, making the real max: 40)
+    public static int Worlds = 1; // max: 23 (skips 24-32 and continues 33-39, making the real max: 40)
     public static int Channels = 12; // channel count per world (will differ between worlds in future)
     public static int UserLimit = 1500; // maximum users per world (will be the same unless i say so)
     public static int maxCharacters = 7; // max characters per world (will differ between worlds in future)

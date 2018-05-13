@@ -4239,7 +4239,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         /* 3467 */ if ((skill == null) || ((!GameConstants.isApplicableSkill(skill.getId())) && (!GameConstants.isApplicableSkill_(skill.getId())))) {
             /* 3468 */ return false;
             /*      */        }
-        /* 3470 */ if ((newLevel == 0) && (newMasterlevel == 10)) {
+        /* 3470 */ if ((newLevel == 0) && (newMasterlevel == 0)) {
             /* 3471 */ if (this.skills.containsKey(skill)) {
                 this.skills.remove(skill);
             } /*      */ else {
