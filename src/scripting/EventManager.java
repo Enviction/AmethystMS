@@ -194,7 +194,7 @@ public class EventManager {
             setProperty("leader", "true");
         }
         if (this.name.equals("CWKPQ")) { //hard code it because i said so
-            for (World worlds : LoginServer.getWorlds()) {
+            for (World worlds : LoginServer.getInstance().getWorlds()) {
                 for (ChannelServer channels : worlds.getChannels()) {
                     final MapleSquad squad = channels.getMapleSquad("CWKPQ");//so fkin hacky
                     if (squad != null) {
@@ -446,7 +446,7 @@ public class EventManager {
     }
 
     public boolean scheduleRandomEventInChannel(int chz) {
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             final ChannelServer cs = worlds.getChannel(chz); 
             if (cs == null || cs.getEvent() > -1) {
                 return false;
@@ -480,7 +480,7 @@ public class EventManager {
     }
 
     public void setWorldEvent() {
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (int i = 0; i < eventChannel.length; i++) {
                 eventChannel[i] = Randomizer.nextInt(worlds.getChannels().size()) + i; //2-13
             }

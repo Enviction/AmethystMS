@@ -212,7 +212,7 @@ public class World {
     public static String getStatus() {
         StringBuilder ret = new StringBuilder();
         int totalUsers = 0;
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (ChannelServer cs : worlds.getChannels()) {
                 ret.append("World ");
                 ret.append(worlds.getWorldId());
@@ -235,7 +235,7 @@ public class World {
     public static Map<Integer, Integer> getConnected() {
         Map<Integer, Integer> ret = new HashMap<>();
         int total = 0;
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (ChannelServer cs : worlds.getChannels()) {
                 int curConnected = cs.getConnectedClients();
                 ret.put(cs.getChannel(), curConnected);
@@ -265,7 +265,7 @@ public class World {
     }
 
     public static boolean isCharacterListConnected(List<String> charName) {
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (ChannelServer cs : worlds.getChannels()) {
                 for (String c : charName) {
                     if (cs.getPlayerStorage().getCharacterByName(c) != null) {
@@ -278,7 +278,7 @@ public class World {
     }
 
     public static boolean hasMerchant(int accountID, int characterID) {
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             PlayerStorage strg = worlds.getPlayerStorage();
             MapleCharacter chr = strg.getCharacterById(characterID);
             int world = chr.getClient().getWorld();
@@ -302,7 +302,7 @@ public class World {
 
     public static int getPendingCharacterSize() {
         int ret = CashShopServer.getPlayerStorage().pendingCharacterSize() + CashShopServer.getPlayerStorageMTS().pendingCharacterSize();
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (ChannelServer cserv : worlds.getChannels()) {
                 ret += cserv.getPlayerStorage().pendingCharacterSize();
             }
@@ -2179,7 +2179,7 @@ public class World {
     
     public static List<MapleCharacter> getAllCharacters() {
         List<MapleCharacter> chrlist = new ArrayList<>();
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (ChannelServer cs : worlds.getChannels()) {
                 for (MapleCharacter chra : cs.getPlayerStorage().getAllCharacters()) {
                     chrlist.add(chra);

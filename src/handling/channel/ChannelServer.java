@@ -215,7 +215,6 @@ public class ChannelServer {
 
     public final void setChannel(final int channel) {
         instances.put(channel, this);
-        LoginServer.addChannel(channel);
     }
 
     public final String getIP() {
@@ -227,7 +226,7 @@ public class ChannelServer {
     }
 
     public final int getLoadedMaps() {
-        for (World worlds : LoginServer.getWorlds()) { // forloop worlds
+        for (World worlds : LoginServer.getInstance().getWorlds()) { // forloop worlds
             for (ChannelServer cs : worlds.getChannels()) {// forloop channels
                 return cs.getMapFactory().getLoadedMaps();
             }
@@ -291,7 +290,7 @@ public class ChannelServer {
     }
     
      public void saveWorlds() {
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (MapleCharacter chr : worlds.getPlayerStorage().getAllCharacters()) {
                 chr.saveToDB(false, false);
                 if (!chr.Spam(3600000, 26)) { // every hour will notify yet still save.
@@ -323,7 +322,7 @@ public class ChannelServer {
         } finally {
             merchLock.writeLock().unlock();
         }
-        for (World worlds : LoginServer.getWorlds()) { // forloop every world
+        for (World worlds : LoginServer.getInstance().getWorlds()) { // forloop every world
             for (ChannelServer channels : worlds.getChannels()) { // forloop every channel of every world
                 for (int i = 910000001; i <= 910000022; i++) { // forloop every fm map of every channel of every world
                     for (MapleMapObject mmo : channels.getMapFactory().getMap(i).getAllHiredMerchantsThreadsafe()) { // get ALL merchants
@@ -420,7 +419,7 @@ public class ChannelServer {
             return;
         }
         playerNPCs.add(npc);
-        for (World worlds : LoginServer.getWorlds()) { // forloop worlds
+        for (World worlds : LoginServer.getInstance().getWorlds()) { // forloop worlds
             for (ChannelServer cs : worlds.getChannels()) {// forloop channels
                 cs.getMapFactory().getMap(npc.getMapId()).addMapObject(npc); // add to every world and channel
             }
@@ -430,7 +429,7 @@ public class ChannelServer {
     public final void removePlayerNPC(final PlayerNPC npc) {
         if (playerNPCs.contains(npc)) {
             playerNPCs.remove(npc);
-            for (World worlds : LoginServer.getWorlds()) { // forloop worlds
+            for (World worlds : LoginServer.getInstance().getWorlds()) { // forloop worlds
                 for (ChannelServer cs : worlds.getChannels()) {// forloop channels
                     cs.getMapFactory().getMap(npc.getMapId()).removeMapObject(npc); // add to every world and channel
                 }

@@ -166,7 +166,7 @@ private static final int[] allowedEquips = {
 
     public static void ServerListRequest(final MapleClient c) {
         c.getSession().write(LoginPacket.getLoginWelcome());
-        for (World iWorld : LoginServer.getWorlds()) {
+        for (World iWorld : LoginServer.getInstance().getWorlds()) {
             c.getSession().write(LoginPacket.getServerList(0, Server.getById(iWorld.getWorldId()).toString(), iWorld.getFlag(), iWorld.getEventMessage(), iWorld.getChannels()));
         }
         c.getSession().write(LoginPacket.getEndOfServerList());

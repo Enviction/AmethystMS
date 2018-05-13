@@ -4908,7 +4908,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
     
     public static void saveAllChars() {
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (ChannelServer ch : worlds.getChannels()) {
                 for (MapleCharacter chr : ch.getPlayerStorage().getAllCharacters()) {
                     chr.savePlayer();
@@ -6928,12 +6928,12 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         HashMap<Skill, SkillEntry> sa = new HashMap<>();
         int[] dontAddSkill = {21120009, 21120010, 5320011, 31120010, 31121011, 24121010};
         for (Skill skil : SkillFactory.getAllSkills()) {
-          for (int i : dontAddSkill) { // if we're adding skills, lets not look like we're maxing xDD
-            if (skil.getId() != i && GameConstants.isApplicableSkill(skil.getId()) && skil.isNormalSkill(skil.getId(), isGM()) && ((skil.getId() / 10000) == getJobId() || (skil.getId() / 1000 == (getJobId() * 10) + 1) || (skil.getId() / 1000 == (getJobId() * 10)))) {
+            for (int i : dontAddSkill) { // if we're adding skills, lets not look like we're maxing xDD
+                if (skil.getId() != i && GameConstants.isApplicableSkill(skil.getId()) && skil.isNormalSkill(skil.getId(), isGM()) && ((skil.getId() / 10000) == getJobId() || (skil.getId() / 1000 == (getJobId() * 10) + 1) || (skil.getId() / 1000 == (getJobId() * 10)))) {
                     sa.put(skil, new SkillEntry((byte) (getSkillLevel(skil.getId()) > 0 ? getSkillLevel(skil.getId()) : 0), (byte) skil.getMasterLevel(), SkillFactory.getDefaultSExpiry(skil)));
+                }
             }
         }
-    }
         changeSkillsLevel(sa);
     }
     

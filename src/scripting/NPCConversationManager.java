@@ -994,7 +994,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
               }
      
      public void startMonsterRush() { // don't use my sloppy code until i re-build this entire system #EricsOldCodeIsLul
-       for (int l = 1; l <= LoginServer.getWorlds().size(); l++) { //ChannelServer instance [l]
+       for (int l = 1; l <= LoginServer.getInstance().getWorlds().size(); l++) { //ChannelServer instance [l]
              //ChannelServer.getInstance(l).MonsterRush = true;
              //MapleMonsterStats newStats = new MapleMonsterStats();
              //newStats.setHp(2000000000);

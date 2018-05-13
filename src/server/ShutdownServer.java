@@ -42,7 +42,7 @@ public class ShutdownServer implements ShutdownServerMBean {
     public void run() {
 	if (mode == 0) {
             int ret = 0;
-            for (World worlds : LoginServer.getWorlds()) {
+            for (World worlds : LoginServer.getInstance().getWorlds()) {
                 for (ChannelServer cs : worlds.getChannels()) {
                     cs.setShutdown();
                     cs.setServerMessage("The world is going to shutdown now. Please log off safely.");
@@ -62,7 +62,7 @@ public class ShutdownServer implements ShutdownServerMBean {
                 Integer[] chs =  ChannelServer.getAllInstance().toArray(new Integer[0]);
                 for (int i : chs) {
                     try {
-                        for (World w : LoginServer.getWorlds()) {
+                        for (World w : LoginServer.getInstance().getWorlds()) {
                             ChannelServer cs = ChannelServer.getInstance(w.getWorldId(), i);
                             synchronized (this) {
                                 cs.shutdown();
@@ -72,7 +72,7 @@ public class ShutdownServer implements ShutdownServerMBean {
                         e.printStackTrace();
                     }
                 }
-	        LoginServer.shutdown();
+	        LoginServer.getInstance().shutdown();
                 CashShopServer.shutdown();
                 DatabaseConnection.closeAll();
             } catch (SQLException e) {

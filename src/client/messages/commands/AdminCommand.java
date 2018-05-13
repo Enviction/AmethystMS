@@ -1037,7 +1037,7 @@ public class AdminCommand {
                     if (splitted.length > 1) {
                         final int rate = Integer.parseInt(splitted[1]);
                         if (splitted.length > 2 && splitted[2].equalsIgnoreCase("all")) {
-                            for (World worlds : LoginServer.getWorlds()) {
+                            for (World worlds : LoginServer.getInstance().getWorlds()) {
                                 worlds.setExpRate(rate);
                             }
                         } else {
@@ -1052,7 +1052,7 @@ public class AdminCommand {
                     if (splitted.length > 1) {
                         final int rate = Integer.parseInt(splitted[1]);
                         if (splitted.length > 2 && splitted[2].equalsIgnoreCase("all")) {
-                                for (World worlds : LoginServer.getWorlds()) {
+                                for (World worlds : LoginServer.getInstance().getWorlds()) {
                                 worlds.setMesoRate(rate);
                             }
                         } else {
