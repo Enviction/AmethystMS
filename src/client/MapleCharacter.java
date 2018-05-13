@@ -3161,7 +3161,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             return true; // Forest of Tenacity
         } else if (getMapId() == 100000202 || getMapId() == 220000006 || getMapId() == 682000200 || getMapId() == 922020000) {
             return true;
-        } else if (getMapId() == World.getEventMap()) {
+        } else if (getMapId() == LoginServer.getInstance().getWorld(getWorld()).getEventMap()) {
             return true;    
         } else {
             return false; 
@@ -7737,7 +7737,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
     
     public void JoinEvent() {
-     if (World.AutoJQ.getInstance().getAutoJQ())  {
+     if (LoginServer.getInstance().getWorld(getWorld()).getAutoJQ().getAutoJQ())  {
          client.getPlayer().changeMap(109060001);
          client.getSession().write(CWvsContext.getMidMsg("The Automatic Jump Quest will start in one minute. Have fun!!", true, 0));
        } else {
@@ -7746,7 +7746,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
     
     public boolean AutoJQOnline() {
-        if (World.AutoJQ.getInstance().getAutoJQ())  {
+        if (LoginServer.getInstance().getWorld(getWorld()).getAutoJQ().getAutoJQ())  {
             return true;
         } else {
             return false;

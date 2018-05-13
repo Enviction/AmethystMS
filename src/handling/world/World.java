@@ -52,9 +52,10 @@ public class World {
     
     private static final Map<Integer, Integer> magicWheelCache = new HashMap();
     // AutoJQ and Event Maps
-    public static int eventMap = 0;
-    public static boolean eventOn = false;
-    public static int AutoJQ_Channel = -1; // for checks in commands
+    public int eventMap = 0;
+    public boolean eventOn = false;
+    public int AutoJQ_Channel = -1; // for checks in commands
+    public AutoJQ autoJQ;
     // Monster Rush
     public static boolean MonsterRush = false;
     public static boolean Monster_Rush_Enabled = false;
@@ -73,6 +74,8 @@ public class World {
         this.expRate = exprate;
         this.mesoRate = mesorate;
         this.dropRate = droprate;
+        
+        this.autoJQ = new AutoJQ(world);
     }
     
     public List<ChannelServer> getChannels() {
@@ -347,19 +350,19 @@ public class World {
             return false;
         }
         
-        public static void setEventMap(int map) {
+    public void setEventMap(int map) {
         eventMap = map;
     }
     
-    public static int getEventMap() {
+    public int getEventMap() {
         return eventMap;
     }
     
-    public static void setEventOn(boolean onoff) {
+    public void setEventOn(boolean onoff) {
         eventOn = onoff;
     }
     
-    public static boolean getEventOn() {
+    public boolean getEventOn() {
         return eventOn;
     }
 
@@ -375,11 +378,11 @@ public class World {
         pvpState = state;
     }
 
-    public static void setJQChannel(int channel) {
+    public void setJQChannel(int channel) {
         AutoJQ_Channel = channel;
     }
     
-    public static int getJQChannel() {
+    public int getJQChannel() {
         return AutoJQ_Channel;
     }
 
@@ -395,68 +398,71 @@ public class World {
         MonsterRush = onoff;
     }
     
+    public AutoJQ getAutoJQ() {
+        return autoJQ;
+    }
+    
     public static class AutoJQ {
-    private static AutoJQ instance = null;
-    private boolean autojq = false;
-    private static boolean autojqOn = false;
-    private static int autojqWaitingMap = 109060001;
-    
-     public boolean getAutoJQ() {
-        return autojq;
-     }
-     
-     public static int getWaitingMap() {
-        return autojqWaitingMap;
-    }
-    
-     public synchronized static AutoJQ getInstance() {
-        if (instance == null) {
-            instance = new AutoJQ();
-        }
-        return instance;
-     }
-     
-     public static boolean getAutoJQStatus() {
-         return autojqOn;
-     }
-    
-    public void openAutoJQ() {
-        autojq = true;
+        private final int world;
+        private boolean autojq = false;
+        private boolean autojqOn = false;
+        private int autojqWaitingMap = 109060001;
         
-        EventTimer.getInstance().schedule(new Runnable(){
-            @Override
-            public void run() {
-                for (MapleCharacter chr : getAllCharacters()) {
-                  if (chr.getMapId() == 109060001) {
-                   if (getEventMap() == 0) {
-                    chr.getClient().getSession().write(CWvsContext.clearMidMsg());
-                    chr.changeMap(100000000); 
-                    setEventOn(false);
-                    autojqOn = true;
-                 } else {
-                    chr.getClient().getSession().write(CWvsContext.clearMidMsg());
-                    chr.changeMap(getEventMap()); 
-                    chr.dropMessage(-1, "The Automatic Jump Quest has started!");
-                    setEventOn(false);
-                    autojqOn = true;
+        public AutoJQ(int world) {
+            this.world = world;
+        }
+    
+        public boolean getAutoJQ() {
+            return autojq;
+        }
+     
+        public int getWaitingMap() {
+            return autojqWaitingMap;
+        }
+     
+        public boolean getAutoJQStatus() {
+            return autojqOn;
+        }
+    
+        public void openAutoJQ() {
+            autojq = true;
+        
+            EventTimer.getInstance().schedule(new Runnable(){
+                @Override
+                public void run() {
+                    World w = LoginServer.getInstance().getWorld(world);
+                    for (MapleCharacter chr : w.getPlayerStorage().getAllCharacters()) {
+                        if (chr.getMapId() == 109060001) {
+                            if (w.getEventMap() == 0) {
+                                chr.getClient().getSession().write(CWvsContext.clearMidMsg());
+                                chr.changeMap(100000000); 
+                                w.setEventOn(false);
+                                autojqOn = true;
+                            } else {
+                                chr.getClient().getSession().write(CWvsContext.clearMidMsg());
+                                chr.changeMap(w.getEventMap()); 
+                                chr.dropMessage(-1, "The Automatic Jump Quest has started!");
+                                w.setEventOn(false);
+                                autojqOn = true;
+                            }
+                        }
                     }
+                    autojq = false;
+                    EventTimer.getInstance().schedule(new Runnable() {
+                        @Override
+                        public void run() {
+                            World w = LoginServer.getInstance().getWorld(world);
+                            for (MapleCharacter chr : w.getPlayerStorage().getAllCharacters()) {
+                                if (chr.getMapId() == w.getEventMap()) { 
+                                    chr.changeMap(910000000);
+                                    autojqOn = false;
+                                }
+                            } 
+                        } 
+                    }, Long.MAX_VALUE); 
                 }
-            }
-            autojq = false;
-            EventTimer.getInstance().schedule(new Runnable() {
-            @Override
-            public void run() {
-                for (MapleCharacter chr : getAllCharacters()) {
-                if (chr.getMapId() == getEventMap()) { 
-                    chr.changeMap(910000000);
-                    autojqOn = false;
-                }
-              } 
-            } 
-            }, Long.MAX_VALUE); 
-            }
-        }, 60000); 
-    }
+            }, 60000); 
+        }
     }
 
     public static class Party {
@@ -2177,27 +2183,5 @@ public class World {
                 }
             }
         }
-    }
-    
-    public static List<MapleCharacter> getAllCharacters() {
-        List<MapleCharacter> chrlist = new ArrayList<>();
-        for (World worlds : LoginServer.getInstance().getWorlds()) {
-            for (ChannelServer cs : worlds.getChannels()) {
-                for (MapleCharacter chra : cs.getPlayerStorage().getAllCharacters()) {
-                    chrlist.add(chra);
-                }
-            }
-        }
-        return chrlist;
-    }
-    
-    public static List<MapleCharacter> getAllCharacters(int world) {
-        List<MapleCharacter> chrlist = new ArrayList<>();
-        for (ChannelServer cs : LoginServer.getInstance().getWorld(world).getChannels()) {
-            for (MapleCharacter chra : cs.getPlayerStorage().getAllCharacters()) {
-                chrlist.add(chra);
-            }
-        }
-        return chrlist;
     }
 }
