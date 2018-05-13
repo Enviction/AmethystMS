@@ -2028,9 +2028,11 @@ public class World {
     private final static int CHANNELS_PER_THREAD = 3;
 
     public static void registerRespawn() {
-        Integer[] chs = ChannelServer.getAllInstance().toArray(new Integer[0]);
-        for (int i = 0; i < chs.length; i += CHANNELS_PER_THREAD) {
-            WorldTimer.getInstance().register(new Respawn(chs, i), 4500); //divisible by 9000 if possible.
+        for (int i = 0; i < WorldConstants.Worlds; i++) {
+            Integer[] chs = ChannelServer.getAllInstance(i).toArray(new Integer[0]);
+            for (int j = 0; j < chs.length; j += CHANNELS_PER_THREAD) {
+                WorldTimer.getInstance().register(new Respawn(i, chs, j), 4500); //divisible by 9000 if possible.
+            }
         }
         //3000 good or bad? ive no idea >_>
         //buffs can also be done, but eh
@@ -2041,14 +2043,14 @@ public class World {
         private int numTimes = 0;
         private final List<ChannelServer> cservs = new ArrayList<>(CHANNELS_PER_THREAD);
 
-        public Respawn(Integer[] chs, int c) { 
-            StringBuilder s = new StringBuilder("[Respawn Worker] Registered for channels "); 
-            for (int i = 1; i <= CHANNELS_PER_THREAD && chs.length >= (c + i); i++) { 
-                cservs.add(ChannelServer.getInstance(0, c + i)); 
-                s.append(c + i).append(" "); 
-            } 
-            System.out.println(s.toString()); 
-        }  
+        public Respawn(int world, Integer[] chs, int c) {
+            StringBuilder s = new StringBuilder("[Respawn Worker] Registered for channels ");
+            for (int i = 1; i <= CHANNELS_PER_THREAD && chs.length >= (c + i); i++) {
+                cservs.add(ChannelServer.getInstance(world, c + i));
+                s.append(c + i).append(" ");
+            }
+            System.out.println(s.toString());
+        }
 
         @Override
         public void run() {

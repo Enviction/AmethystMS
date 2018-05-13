@@ -1,5 +1,6 @@
 package server;
 
+import constants.WorldConstants;
 import java.sql.SQLException;
 
 import database.DatabaseConnection;
@@ -59,17 +60,17 @@ public class ShutdownServer implements ShutdownServerMBean {
             System.out.println("Shutdown 2 commencing...");
             try {
 	        World.Broadcast.broadcastMessage(-1,CWvsContext.serverNotice(0, "The world is going to shutdown now. Please log off safely.")); // -1 : all world servers
-                Integer[] chs =  ChannelServer.getAllInstance().toArray(new Integer[0]);
-                for (int i : chs) {
-                    try {
-                        for (World w : LoginServer.getInstance().getWorlds()) {
-                            ChannelServer cs = ChannelServer.getInstance(w.getWorldId(), i);
+                for (int i = 0; i < WorldConstants.Worlds; i++) {
+                    Integer[] chs =  ChannelServer.getAllInstance(i).toArray(new Integer[0]);
+                    for (int c : chs) {
+                        try {
+                            ChannelServer cs = ChannelServer.getInstance(i, c);
                             synchronized (this) {
                                 cs.shutdown();
                             }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
                 }
 	        LoginServer.getInstance().shutdown();
