@@ -13,7 +13,7 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-	cm.sendSimple("What do you want to do?#b\n\r #L0#Go to Fishing Map#l\r\n#L1#Buy fishing nets#l#k");
+	cm.sendSimple("What do you want to do?#b\n\r #L0#Go to Fishing Map#l\r\n#L1#Buy fishing nets & chair#l#k");
     } else if (status == 1) {
 		if (selection == 0) {
 			cm.warp(cm.getMapId() == 970020000 ? 970020005 : 970020000, 0);
@@ -25,6 +25,7 @@ function action(mode, type, selection) {
 	    if (cm.canHold(2270008,120) && cm.getMeso() >= 300000) {
 		if (!cm.haveItem(2270008)) {
 		    cm.gainMeso(-300000);
+                    cm.gainItem(3011000, 1);
 		    cm.gainItem(2270008, 120);
 		    cm.sendNext("Happy Fishing~");
 		} else {
@@ -33,6 +34,6 @@ function action(mode, type, selection) {
 	    } else {
 		cm.sendOk("Please check if you have the required meso or sufficient inventory slot.");
 	    }
-	    cm.safeDispose();
+	    cm.Dispose();
     }
 }

@@ -20,19 +20,19 @@ import tools.packet.LoginPacket.Server;
 public class WorldConstants {
     // Global Constants : handle world count, channel count, max user per world, max char per account, and event scripts
     public static int Worlds = 2; // max: 23 (skips 24-32 and continues 33-39, making the real max: 40)
-    public static int Channels = 12; // channel count per world (will differ between worlds in future)
+    public static int Channels = 6; // channel count per world (will differ between worlds in future)
     public static int UserLimit = 1500; // maximum users per world (will be the same unless i say so)
     public static int maxCharacters = 7; // max characters per world (will differ between worlds in future)
     // Scripts TODO: Amoria,CWKPQ,BossBalrog_EASY,BossBalrog_NORMAL,ZakumPQ,ProtectTylus,GuildQuest,Ravana_EASY,Ravna_MED,Ravana_HARD (untested or not working)
     public static String Events =  // event scripts, programmed per world but i'll keep them the same
              "elevator, 3rdjob,3rdJob_mount,AriantPQ1,Aswan,automsg,autoSave,MonsterPark,Trains,Boats,Flight,PVP,Visitor,cpq2,cpq,Rex,AirPlane,CygnusBattle,ScarTarBattle,VonLeonBattle,Ghost,"
-            + "Prison,HillaBattle,AswanOffSeason,ArkariumBattle,OrbisPQ,HenesysPQ,Juliet,Dragonica,Pirate,BossQuestEASY,BossQuestMED,BossQuestHARD,BossQuestHELL,Ellin,"
+            + "Prison,HillaBattle,AswanOffSeason,ArkariumBattle,KerningPQ,LudiPQ,LudiMazePQ,OrbisPQ,HenesysPQ,Juliet,Dragonica,Pirate,BossQuestEASY,BossQuestMED,BossQuestHARD,BossQuestHELL,Ellin,"
             + "HorntailBattle,LudiPQ,KerningPQ,ZakumBattle,MV,MVBattle,DollHouse,Amoria,CWKPQ,BossBalrog_EASY,BossBalrog_NORMAL,PinkBeanBattle,ZakumPQ,ProtectTylus,ChaosHorntail,"
             + "ChaosZakum,Ravana_EASY,Ravana_HARD,Ravana_MED,GuildQuest";
     
     public static int GLOBAL_EXP_RATE = 4;
     public static int GLOBAL_MESO_RATE = 2;
-    public static int GLOBAL_DROP_RATE = 2; // Default: 2
+    public static int GLOBAL_DROP_RATE = 1; // Default: 2
     public static int GLOBAL_CASH_RATE = 0; // Default: 3
     public static int GLOBAL_TRAIT_RATE = 2; // Default: 3
     public static boolean GLOBAL_RATES = true; // When true, all worlds use the above rates

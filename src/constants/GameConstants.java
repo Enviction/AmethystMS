@@ -2135,31 +2135,53 @@ case 5211015:
         0, 100, // Meso
         1, 100, // EXP
         2049100, 2, // Chaos Scroll
+        1072059, 10, // Leather Boot
+        4001187, 20, //Fish
+        4001188, 20, //Fish
+        4001189, 20, //Fish
+        2100001, 7, // Summon Bag
+        2100002, 7, // Summon Bag 2
+        2100003, 5, // Summon Bag 3
+        2100004, 5, // Summon Bag 4
         2040759, 1, // Shoes for ATT 60%
-        2040804, 2, // Glove for ATT 60%
-        2040817, 2, // Glove for M.ATT 60%
-        2040513, 2, // Overall INT 60%
-        2040501, 2, // Overall DEX 60%
-        2040425, 2, // Top for LUK 60%
+        2040804, 1, // Glove for ATT 60%
+        2040817, 1, // Glove for M.ATT 60%
+        2040513, 1, // Overall INT 60%
+        2040501, 1, // Overall DEX 60%
+        2040425, 1, // Top for LUK 60%
         2040914, 1, // Shield for ATT 60%
         2040919, 1, // Shield for M.ATT 60%
-        2043001, 2, // One-Handed Sword 60%
-        2043101, 2, // One-Handed Axe 60%
-        2043201, 2, // One-Handed BW 60%
-        2043301, 2, // Dagger 60%
-        2043401, 2, // Katara 60%
-        2043701, 2, // Wand 60%
-        2043801, 2, // Staff 60%
-        2044001, 2, // Two-Handed Sword 60%
-        2044101, 2, // Two-Handed Axe 60%
-        2044201, 2, // Two-handed BW 60%
-        2044301, 2, // Spear 60%
-        2044401, 2, // PoleArm 60%
-        2044501, 2, // Bow 60%
-        2044601, 2, // Crossbow 60%
-        2044701, 2, // Claw 60%
-        2044801, 2, // Knuckle 60%
-        2044901, 2, // Gun 60%
+        2043001, 1, // One-Handed Sword 60%
+        2043101, 1, // One-Handed Axe 60%
+        2043201, 1, // One-Handed BW 60%
+        2043301, 1, // Dagger 60%
+        2043401, 1, // Katara 60%
+        2043701, 1, // Wand 60%
+        2043801, 1, // Staff 60%
+        2044001, 1, // Two-Handed Sword 60%
+        2044101, 1, // Two-Handed Axe 60%
+        2044201, 1, // Two-handed BW 60%
+        2044301, 1, // Spear 60%
+        2044401, 1, // PoleArm 60%
+        2044501, 1, // Bow 60%
+        2044601, 1, // Crossbow 60%
+        2044701, 1, // Claw 60%
+        2044801, 1, // Knuckle 60%
+        2044901, 1, // Gun 60%
+        4031822, 1, //Infinity Circlet Forging
+        4031823, 1, //Antellion Miter Forging
+        4031824, 1, //Stormcaster Glove Forging
+        4031825, 1, //Crystal Leaf Forging
+        4031826, 1, //Zeta Cape Forging
+        4031827, 1, // Sirius Cloak Forging
+        4031828, 1, //Dark Shard Forging
+        4031829, 1, //Black Phoenix Forging
+        4031907, 1, //Tigers Fang Forging
+        4031908, 1, //Neva Forging
+        4031909, 1, //Winkel Forging
+        4031910, 1, //Glitter Glove Forging
+        4031911, 1, //Facestompers Forging
+        4031912, 1, //Crystal Ilbi Forging
         2430144, 1,
         2290285, 1,
         2028062, 1,
