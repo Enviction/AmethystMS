@@ -48,13 +48,14 @@ public class World {
     private int id, flag, expRate, mesoRate, dropRate, cashRate = 3, traitRate = 3, flags = 0, userLimit;
     private String eventMessage;
     private List<ChannelServer> channels = new ArrayList<>();
-    private static PlayerStorage players = new PlayerStorage();
+    private PlayerStorage players = new PlayerStorage();
     
     private static final Map<Integer, Integer> magicWheelCache = new HashMap();
     // AutoJQ and Event Maps
-    public static int eventMap = 0;
-    public static boolean eventOn = false;
-    public static int AutoJQ_Channel = -1; // for checks in commands
+    public int eventMap = 0;
+    public boolean eventOn = false;
+    public int AutoJQ_Channel = -1; // for checks in commands
+    public AutoJQ autoJQ;
     // Monster Rush
     public static boolean MonsterRush = false;
     public static boolean Monster_Rush_Enabled = false;
@@ -73,6 +74,8 @@ public class World {
         this.expRate = exprate;
         this.mesoRate = mesorate;
         this.dropRate = droprate;
+        
+        this.autoJQ = new AutoJQ(world);
     }
     
     public List<ChannelServer> getChannels() {
@@ -94,6 +97,11 @@ public class World {
     
     public PlayerStorage getPlayerStorage() {
         return players;
+    }
+    
+    public void addPlayer(MapleCharacter chr) {
+        players.addPlayer(chr);
+        channels.get(chr.getClient().getChannel() - 1).addPlayer(chr);
     }
 
     public void removePlayer(MapleCharacter chr) {
@@ -212,7 +220,7 @@ public class World {
     public static String getStatus() {
         StringBuilder ret = new StringBuilder();
         int totalUsers = 0;
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (ChannelServer cs : worlds.getChannels()) {
                 ret.append("World ");
                 ret.append(worlds.getWorldId());
@@ -235,7 +243,7 @@ public class World {
     public static Map<Integer, Integer> getConnected() {
         Map<Integer, Integer> ret = new HashMap<>();
         int total = 0;
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (ChannelServer cs : worlds.getChannels()) {
                 int curConnected = cs.getConnectedClients();
                 ret.put(cs.getChannel(), curConnected);
@@ -265,7 +273,7 @@ public class World {
     }
 
     public static boolean isCharacterListConnected(List<String> charName) {
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (ChannelServer cs : worlds.getChannels()) {
                 for (String c : charName) {
                     if (cs.getPlayerStorage().getCharacterByName(c) != null) {
@@ -277,15 +285,10 @@ public class World {
         return false;
     }
 
-    public static boolean hasMerchant(int accountID, int characterID) {
-        for (World worlds : LoginServer.getWorlds()) {
-            PlayerStorage strg = worlds.getPlayerStorage();
-            MapleCharacter chr = strg.getCharacterById(characterID);
-            int world = chr.getClient().getWorld();
-            for (ChannelServer cs : LoginServer.getInstance().getWorld(world).getChannels()) {
-                if (cs.containsMerchant(accountID, characterID)) {
-                    return true;
-                }
+    public static boolean hasMerchant(int worldID, int accountID, int characterID) {
+        for (ChannelServer cs : LoginServer.getInstance().getWorld(worldID).getChannels()) {
+            if (cs.containsMerchant(accountID, characterID)) {
+                return true;
             }
         }
         return false;
@@ -302,7 +305,7 @@ public class World {
 
     public static int getPendingCharacterSize() {
         int ret = CashShopServer.getPlayerStorage().pendingCharacterSize() + CashShopServer.getPlayerStorageMTS().pendingCharacterSize();
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (ChannelServer cserv : worlds.getChannels()) {
                 ret += cserv.getPlayerStorage().pendingCharacterSize();
             }
@@ -347,19 +350,19 @@ public class World {
             return false;
         }
         
-        public static void setEventMap(int map) {
+    public void setEventMap(int map) {
         eventMap = map;
     }
     
-    public static int getEventMap() {
+    public int getEventMap() {
         return eventMap;
     }
     
-    public static void setEventOn(boolean onoff) {
+    public void setEventOn(boolean onoff) {
         eventOn = onoff;
     }
     
-    public static boolean getEventOn() {
+    public boolean getEventOn() {
         return eventOn;
     }
 
@@ -375,11 +378,11 @@ public class World {
         pvpState = state;
     }
 
-    public static void setJQChannel(int channel) {
+    public void setJQChannel(int channel) {
         AutoJQ_Channel = channel;
     }
     
-    public static int getJQChannel() {
+    public int getJQChannel() {
         return AutoJQ_Channel;
     }
 
@@ -395,68 +398,71 @@ public class World {
         MonsterRush = onoff;
     }
     
+    public AutoJQ getAutoJQ() {
+        return autoJQ;
+    }
+    
     public static class AutoJQ {
-    private static AutoJQ instance = null;
-    private boolean autojq = false;
-    private static boolean autojqOn = false;
-    private static int autojqWaitingMap = 109060001;
-    
-     public boolean getAutoJQ() {
-        return autojq;
-     }
-     
-     public static int getWaitingMap() {
-        return autojqWaitingMap;
-    }
-    
-     public synchronized static AutoJQ getInstance() {
-        if (instance == null) {
-            instance = new AutoJQ();
-        }
-        return instance;
-     }
-     
-     public static boolean getAutoJQStatus() {
-         return autojqOn;
-     }
-    
-    public void openAutoJQ() {
-        autojq = true;
+        private final int world;
+        private boolean autojq = false;
+        private boolean autojqOn = false;
+        private int autojqWaitingMap = 109060001;
         
-        EventTimer.getInstance().schedule(new Runnable(){
-            @Override
-            public void run() {
-                for (MapleCharacter chr : getAllCharacters()) {
-                  if (chr.getMapId() == 109060001) {
-                   if (getEventMap() == 0) {
-                    chr.getClient().getSession().write(CWvsContext.clearMidMsg());
-                    chr.changeMap(100000000); 
-                    setEventOn(false);
-                    autojqOn = true;
-                 } else {
-                    chr.getClient().getSession().write(CWvsContext.clearMidMsg());
-                    chr.changeMap(getEventMap()); 
-                    chr.dropMessage(-1, "The Automatic Jump Quest has started!");
-                    setEventOn(false);
-                    autojqOn = true;
+        public AutoJQ(int world) {
+            this.world = world;
+        }
+    
+        public boolean getAutoJQ() {
+            return autojq;
+        }
+     
+        public int getWaitingMap() {
+            return autojqWaitingMap;
+        }
+     
+        public boolean getAutoJQStatus() {
+            return autojqOn;
+        }
+    
+        public void openAutoJQ() {
+            autojq = true;
+        
+            EventTimer.getInstance().schedule(new Runnable(){
+                @Override
+                public void run() {
+                    World w = LoginServer.getInstance().getWorld(world);
+                    for (MapleCharacter chr : w.getPlayerStorage().getAllCharacters()) {
+                        if (chr.getMapId() == 109060001) {
+                            if (w.getEventMap() == 0) {
+                                chr.getClient().getSession().write(CWvsContext.clearMidMsg());
+                                chr.changeMap(100000000); 
+                                w.setEventOn(false);
+                                autojqOn = true;
+                            } else {
+                                chr.getClient().getSession().write(CWvsContext.clearMidMsg());
+                                chr.changeMap(w.getEventMap()); 
+                                chr.dropMessage(-1, "The Automatic Jump Quest has started!");
+                                w.setEventOn(false);
+                                autojqOn = true;
+                            }
+                        }
                     }
+                    autojq = false;
+                    EventTimer.getInstance().schedule(new Runnable() {
+                        @Override
+                        public void run() {
+                            World w = LoginServer.getInstance().getWorld(world);
+                            for (MapleCharacter chr : w.getPlayerStorage().getAllCharacters()) {
+                                if (chr.getMapId() == w.getEventMap()) { 
+                                    chr.changeMap(910000000);
+                                    autojqOn = false;
+                                }
+                            } 
+                        } 
+                    }, Long.MAX_VALUE); 
                 }
-            }
-            autojq = false;
-            EventTimer.getInstance().schedule(new Runnable() {
-            @Override
-            public void run() {
-                for (MapleCharacter chr : getAllCharacters()) {
-                if (chr.getMapId() == getEventMap()) { 
-                    chr.changeMap(910000000);
-                    autojqOn = false;
-                }
-              } 
-            } 
-            }, Long.MAX_VALUE); 
-            }
-        }, 60000); 
-    }
+            }, 60000); 
+        }
     }
 
     public static class Party {
@@ -1418,25 +1424,32 @@ public class World {
     public static class Broadcast {
 
         public static void broadcastSmega(int world, byte[] message) {
-            for (MapleCharacter chr : players.getAllCharacters()) {
+            for (MapleCharacter chr : LoginServer.getInstance().getWorld(world).getPlayerStorage().getAllCharacters()) {
                 if ((world == -1) || (chr.getWorld() == world)) {
                     chr.getClient().getChannelServer().broadcastSmega(message);
+                    break;
                 }
             }
         }
 
         public static void broadcastGMMessage(int world, byte[] message) {
-            for (MapleCharacter chr : players.getAllCharacters()) {
-                if ((world == -1) || (chr.getWorld() == world)) {
-                    chr.getClient().getChannelServer().broadcastGMPacket(message);
+            for (World w : LoginServer.getInstance().getWorlds()) {
+                if ((world == -1) || (w.getWorldId() == world)) {
+                    for (MapleCharacter chr : LoginServer.getInstance().getWorld(world).getPlayerStorage().getAllCharacters()) {
+                        chr.getClient().getChannelServer().broadcastGMPacket(message);
+                    }
+                    break;
                 }
             }
         }
 
         public static void broadcastMessage(int world, byte[] message) {
-            for (MapleCharacter chr : players.getAllCharacters()) {
-                if ((world == -1) || (chr.getWorld() == world)) {
-                    chr.announce(message);
+            for (World w : LoginServer.getInstance().getWorlds()) {
+                if ((world == -1) || (w.getWorldId() == world)) {
+                    for (MapleCharacter chr : LoginServer.getInstance().getWorld(world).getPlayerStorage().getAllCharacters()) {
+                        chr.announce(message);
+                    }
+                    break;
                 }
             }
         }
@@ -2028,9 +2041,11 @@ public class World {
     private final static int CHANNELS_PER_THREAD = 3;
 
     public static void registerRespawn() {
-        Integer[] chs = ChannelServer.getAllInstance().toArray(new Integer[0]);
-        for (int i = 0; i < chs.length; i += CHANNELS_PER_THREAD) {
-            WorldTimer.getInstance().register(new Respawn(chs, i), 4500); //divisible by 9000 if possible.
+        for (int i = 0; i < WorldConstants.Worlds; i++) {
+            Integer[] chs = ChannelServer.getAllInstance(i).toArray(new Integer[0]);
+            for (int j = 0; j < chs.length; j += CHANNELS_PER_THREAD) {
+                WorldTimer.getInstance().register(new Respawn(i, chs, j), 4500); //divisible by 9000 if possible.
+            }
         }
         //3000 good or bad? ive no idea >_>
         //buffs can also be done, but eh
@@ -2041,14 +2056,14 @@ public class World {
         private int numTimes = 0;
         private final List<ChannelServer> cservs = new ArrayList<>(CHANNELS_PER_THREAD);
 
-        public Respawn(Integer[] chs, int c) { 
-            StringBuilder s = new StringBuilder("[Respawn Worker] Registered for channels "); 
-            for (int i = 1; i <= CHANNELS_PER_THREAD && chs.length >= (c + i); i++) { 
-                cservs.add(ChannelServer.getInstance(0, c + i)); 
-                s.append(c + i).append(" "); 
-            } 
-            System.out.println(s.toString()); 
-        }  
+        public Respawn(int world, Integer[] chs, int c) {
+            StringBuilder s = new StringBuilder("[Respawn Worker] Registered for channels ");
+            for (int i = 1; i <= CHANNELS_PER_THREAD && chs.length >= (c + i); i++) {
+                cservs.add(ChannelServer.getInstance(world, c + i));
+                s.append(c + i).append(" ");
+            }
+            System.out.println(s.toString());
+        }
 
         @Override
         public void run() {
@@ -2175,27 +2190,5 @@ public class World {
                 }
             }
         }
-    }
-    
-    public static List<MapleCharacter> getAllCharacters() {
-        List<MapleCharacter> chrlist = new ArrayList<>();
-        for (World worlds : LoginServer.getWorlds()) {
-            for (ChannelServer cs : worlds.getChannels()) {
-                for (MapleCharacter chra : cs.getPlayerStorage().getAllCharacters()) {
-                    chrlist.add(chra);
-                }
-            }
-        }
-        return chrlist;
-    }
-    
-    public static List<MapleCharacter> getAllCharacters(int world) {
-        List<MapleCharacter> chrlist = new ArrayList<>();
-        for (ChannelServer cs : LoginServer.getInstance().getWorld(world).getChannels()) {
-            for (MapleCharacter chra : cs.getPlayerStorage().getAllCharacters()) {
-                chrlist.add(chra);
-            }
-        }
-        return chrlist;
     }
 }

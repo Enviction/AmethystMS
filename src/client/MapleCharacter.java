@@ -3161,7 +3161,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
             return true; // Forest of Tenacity
         } else if (getMapId() == 100000202 || getMapId() == 220000006 || getMapId() == 682000200 || getMapId() == 922020000) {
             return true;
-        } else if (getMapId() == World.getEventMap()) {
+        } else if (getMapId() == LoginServer.getInstance().getWorld(getWorld()).getEventMap()) {
             return true;    
         } else {
             return false; 
@@ -3940,6 +3940,9 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
                     }
                     makeDragon();
                 }
+                if ((newJob % 10) >= 2) {//Apply proper mastery levels
+                    fixSkillsByJob();
+                }
             } catch (Exception e) {
                 FileoutputUtil.outputFileError(FileoutputUtil.ScriptEx_Log, e); //all jobs throw errors :(
             }
@@ -4236,7 +4239,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         /* 3467 */ if ((skill == null) || ((!GameConstants.isApplicableSkill(skill.getId())) && (!GameConstants.isApplicableSkill_(skill.getId())))) {
             /* 3468 */ return false;
             /*      */        }
-        /* 3470 */ if ((newLevel == 0) && (newMasterlevel == 10)) {
+        /* 3470 */ if ((newLevel == 0) && (newMasterlevel == 0)) {
             /* 3471 */ if (this.skills.containsKey(skill)) {
                 this.skills.remove(skill);
             } /*      */ else {
@@ -4908,7 +4911,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
     
     public static void saveAllChars() {
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (ChannelServer ch : worlds.getChannels()) {
                 for (MapleCharacter chr : ch.getPlayerStorage().getAllCharacters()) {
                     chr.savePlayer();
@@ -6928,12 +6931,12 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         HashMap<Skill, SkillEntry> sa = new HashMap<>();
         int[] dontAddSkill = {21120009, 21120010, 5320011, 31120010, 31121011, 24121010};
         for (Skill skil : SkillFactory.getAllSkills()) {
-          for (int i : dontAddSkill) { // if we're adding skills, lets not look like we're maxing xDD
-            if (skil.getId() != i && GameConstants.isApplicableSkill(skil.getId()) && skil.isNormalSkill(skil.getId(), isGM()) && ((skil.getId() / 10000) == getJobId() || (skil.getId() / 1000 == (getJobId() * 10) + 1) || (skil.getId() / 1000 == (getJobId() * 10)))) {
+            for (int i : dontAddSkill) { // if we're adding skills, lets not look like we're maxing xDD
+                if (skil.getId() != i && GameConstants.isApplicableSkill(skil.getId()) && skil.isNormalSkill(skil.getId(), isGM()) && ((skil.getId() / 10000) == getJobId() || (skil.getId() / 1000 == (getJobId() * 10) + 1) || (skil.getId() / 1000 == (getJobId() * 10)))) {
                     sa.put(skil, new SkillEntry((byte) (getSkillLevel(skil.getId()) > 0 ? getSkillLevel(skil.getId()) : 0), (byte) skil.getMasterLevel(), SkillFactory.getDefaultSExpiry(skil)));
+                }
             }
         }
-    }
         changeSkillsLevel(sa);
     }
     
@@ -7057,7 +7060,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
      setReborns(getReborns() + 1);
      setLevel((short) 3);
      setExp(0);
-     setJob(0);
+     changeJob(0);
      updateSingleStat(MapleStat.LEVEL, 2);
      updateSingleStat(MapleStat.JOB, 0);
      updateSingleStat(MapleStat.EXP, 0);
@@ -7169,7 +7172,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     this.reborns += 1;
     setLevel((short) 15);
     setExp(0);
-    setJob(1000);
+    changeJob(1000);
     updateSingleStat(MapleStat.LEVEL, 15);
     updateSingleStat(MapleStat.JOB, 1000);
     updateSingleStat(MapleStat.EXP, 0);
@@ -7179,7 +7182,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
        this.reborns += 1;
        setLevel((short) 15);
        setExp(0);
-       setJob(2400);
+       changeJob(2400);
        updateSingleStat(MapleStat.LEVEL, 15);
        updateSingleStat(MapleStat.JOB, 2400);
        updateSingleStat(MapleStat.EXP, 0);
@@ -7189,7 +7192,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     this.reborns += 1;
     setLevel((short) 15);
     setExp(0);
-    setJob(508);
+    changeJob(508);
     updateSingleStat(MapleStat.LEVEL, 15);
     updateSingleStat(MapleStat.JOB, 508);
     updateSingleStat(MapleStat.EXP, 0);
@@ -7198,7 +7201,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     this.reborns += 1;
     setLevel((short) 15);
     setExp(0);
-    setJob(5000);
+    changeJob(5000);
     updateSingleStat(MapleStat.LEVEL, 15);
     updateSingleStat(MapleStat.JOB, 5000);
     updateSingleStat(MapleStat.EXP, 0);
@@ -7208,7 +7211,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         setReborns(getReborns() + 1);
         setLevel((short) 3);
         setExp(0);
-        setJob(2218);
+        changeJob(2218);
         updateSingleStat(MapleStat.LEVEL, 2);
         updateSingleStat(MapleStat.JOB, 2218);
         updateSingleStat(MapleStat.EXP, 0);
@@ -7218,7 +7221,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         setReborns(getReborns() + 1);
         setLevel((short) 3);
         setExp(0);
-        setJob(434);
+        changeJob(434);
         updateSingleStat(MapleStat.LEVEL, 2);
         updateSingleStat(MapleStat.JOB, 434);
         updateSingleStat(MapleStat.EXP, 0);
@@ -7228,7 +7231,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         setReborns(getReborns() + 1);
         setLevel((short) 3);
         setExp(0);
-        setJob(2112);
+        changeJob(2112);
         updateSingleStat(MapleStat.LEVEL, 2);
         updateSingleStat(MapleStat.JOB, 2112);
         updateSingleStat(MapleStat.EXP, 0);
@@ -7242,7 +7245,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         setReborns(getReborns() + 1);
         setLevel((short) 3);
         setExp(0);
-        setJob(0);
+        changeJob(0);
         updateSingleStat(MapleStat.LEVEL, 2);
         updateSingleStat(MapleStat.JOB, 0);
         updateSingleStat(MapleStat.EXP, 0);
@@ -7252,7 +7255,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         setReborns(getReborns() + 1);
         setLevel((short) 3);
         setExp(0);
-        setJob(3512);
+        changeJob(3512);
         updateSingleStat(MapleStat.LEVEL, 2);
         updateSingleStat(MapleStat.JOB, 3512);
         updateSingleStat(MapleStat.EXP, 0);
@@ -7262,7 +7265,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         setReborns(getReborns() + 1);
         setLevel((short) 3);
         setExp(0);
-        setJob(3312);
+        changeJob(3312);
         updateSingleStat(MapleStat.LEVEL, 2);
         updateSingleStat(MapleStat.JOB, 3312);
         updateSingleStat(MapleStat.EXP, 0);
@@ -7272,7 +7275,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         setReborns(getReborns() + 1);
         setLevel((short) 3);
         setExp(0);
-        setJob(3212);
+        changeJob(3212);
         updateSingleStat(MapleStat.LEVEL, 2);
         updateSingleStat(MapleStat.JOB, 3212);
         updateSingleStat(MapleStat.EXP, 0);
@@ -7282,7 +7285,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         setReborns(getReborns() + 1);
         setLevel((short) 3);
         setExp(0);
-        setJob(2412);
+        changeJob(2412);
         updateSingleStat(MapleStat.LEVEL, 2);
         updateSingleStat(MapleStat.JOB, 2412);
         updateSingleStat(MapleStat.EXP, 0);
@@ -7292,7 +7295,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         setReborns(getReborns() + 1);
         setLevel((short) 3);
         setExp(0);
-        setJob(5112);
+        changeJob(5112);
         updateSingleStat(MapleStat.LEVEL, 2);
         updateSingleStat(MapleStat.JOB, 5112);
         updateSingleStat(MapleStat.EXP, 0);
@@ -7302,7 +7305,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         setReborns(getReborns() + 1);
         setLevel((short) 3);
         setExp(0);
-        setJob(572);
+        changeJob(572);
         updateSingleStat(MapleStat.LEVEL, 2);
         updateSingleStat(MapleStat.JOB, 572);
         updateSingleStat(MapleStat.EXP, 0);
@@ -7312,7 +7315,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         setReborns(getReborns() + 1);
         setLevel((short) 3);
         setExp(0);
-        setJob(2312);
+        changeJob(2312);
         updateSingleStat(MapleStat.LEVEL, 2);
         updateSingleStat(MapleStat.JOB, 2312);
         updateSingleStat(MapleStat.EXP, 0);
@@ -7322,7 +7325,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         setReborns(getReborns() + 1);
         setLevel((short) 3);
         setExp(0);
-        setJob(532);
+        changeJob(532);
         updateSingleStat(MapleStat.LEVEL, 2);
         updateSingleStat(MapleStat.JOB, 532);
         updateSingleStat(MapleStat.EXP, 0);
@@ -7332,7 +7335,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
         setReborns(getReborns() + 1);
         setLevel((short) 3);
         setExp(0);
-        setJob(3112);
+        changeJob(3112);
         updateSingleStat(MapleStat.LEVEL, 2);
         updateSingleStat(MapleStat.JOB, 3112);
         updateSingleStat(MapleStat.EXP, 0);
@@ -7734,7 +7737,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
     
     public void JoinEvent() {
-     if (World.AutoJQ.getInstance().getAutoJQ())  {
+     if (LoginServer.getInstance().getWorld(getWorld()).getAutoJQ().getAutoJQ())  {
          client.getPlayer().changeMap(109060001);
          client.getSession().write(CWvsContext.getMidMsg("The Automatic Jump Quest will start in one minute. Have fun!!", true, 0));
        } else {
@@ -7743,7 +7746,7 @@ public class MapleCharacter extends AnimatedMapleMapObject implements Serializab
     }
     
     public boolean AutoJQOnline() {
-        if (World.AutoJQ.getInstance().getAutoJQ())  {
+        if (LoginServer.getInstance().getWorld(getWorld()).getAutoJQ().getAutoJQ())  {
             return true;
         } else {
             return false;

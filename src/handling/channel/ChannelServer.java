@@ -71,7 +71,6 @@ public class ChannelServer {
     private IoAcceptor acceptor;
     private final MapleMapFactory mapFactory;
     private AramiaFireWorks works = new AramiaFireWorks();
-    private static final Map<Integer, ChannelServer> instances = new HashMap<>();
     private final Map<MapleSquadType, MapleSquad> mapleSquads = new ConcurrentEnumMap<>(MapleSquadType.class);
     private final Map<Integer, HiredMerchant> merchants = new HashMap<>();
     private final List<PlayerNPC> playerNPCs = new LinkedList<>();
@@ -81,20 +80,18 @@ public class ChannelServer {
     private ChannelServer(final int world, final int channel) {
         this.world = world;
         this.channel = channel;
-        setChannel(channel);
         mapFactory = new MapleMapFactory(world, channel);
     }
 
-    public static Set<Integer> getAllInstance() {
-        return new HashSet<>(instances.keySet());
-    }
-    
-        public static final ArrayList<ChannelServer> getAllInstances() {
-        return new ArrayList<ChannelServer>(instances.values());
+    public static Set<Integer> getAllInstance(int world) {
+        Set<Integer> chs = new HashSet<>();
+        for (ChannelServer cserv : LoginServer.getInstance().getChannelsFromWorld(world)) {
+            chs.add(cserv.getChannel());
+        }
+        return chs;
     }
 
     public final void init() {
-        setChannel(channel);
         serverMessage = ServerConstants.serverMessage;
         eventSM = new EventScriptManager(this, WorldConstants.Events.split(","));
         port = 7575 + this.channel - 1;
@@ -126,7 +123,7 @@ public class ChannelServer {
         System.out.println("Channel " + channel + ", Unbinding...");
         acceptor.unbind();
         acceptor = null;
-        instances.remove(channel);
+        LoginServer.getInstance().removeChannel(world, channel);
         setFinishShutdown();
     }
 
@@ -213,26 +210,12 @@ public class ChannelServer {
         return world;
     }
 
-    public final void setChannel(final int channel) {
-        instances.put(channel, this);
-        LoginServer.addChannel(channel);
-    }
-
     public final String getIP() {
         return ip;
     }
 
     public final boolean isShutdown() {
         return shutdown;
-    }
-
-    public final int getLoadedMaps() {
-        for (World worlds : LoginServer.getWorlds()) { // forloop worlds
-            for (ChannelServer cs : worlds.getChannels()) {// forloop channels
-                return cs.getMapFactory().getLoadedMaps();
-            }
-        }
-        return mapFactory.getLoadedMaps();
     }
     
     public final void loadEvents() {
@@ -291,11 +274,9 @@ public class ChannelServer {
     }
     
      public void saveWorlds() {
-        for (World worlds : LoginServer.getWorlds()) {
+        for (World worlds : LoginServer.getInstance().getWorlds()) {
             for (MapleCharacter chr : worlds.getPlayerStorage().getAllCharacters()) {
                 chr.saveToDB(false, false);
-                if (!chr.Spam(3600000, 26)) { // every hour will notify yet still save.
-                }
             }
         }
     }  
@@ -312,25 +293,25 @@ public class ChannelServer {
         int ret = 0;
         merchLock.writeLock().lock();
         try {
-            final Iterator<Entry<Integer, HiredMerchant>> merchants_ = merchants.entrySet().iterator();
-            while (merchants_.hasNext()) {
-                HiredMerchant hm = merchants_.next().getValue();
-                hm.closeShop(true, false);
-                hm.getMap().removeMapObject(hm);
-                merchants_.remove();
-                ret++;
+            for (Iterator<Entry<Integer, HiredMerchant>> it = merchants.entrySet().iterator(); it.hasNext();) {
+                Map.Entry<Integer, HiredMerchant> pEntry = it.next();
+                HiredMerchant hm = pEntry.getValue();
+                if (hm != null) {
+                    hm.closeShop(true, false);
+                    hm.getMap().removeMapObject(hm);
+                    it.remove();
+                    ret++;
+                }
             }
         } finally {
             merchLock.writeLock().unlock();
         }
-        for (World worlds : LoginServer.getWorlds()) { // forloop every world
-            for (ChannelServer channels : worlds.getChannels()) { // forloop every channel of every world
-                for (int i = 910000001; i <= 910000022; i++) { // forloop every fm map of every channel of every world
-                    for (MapleMapObject mmo : channels.getMapFactory().getMap(i).getAllHiredMerchantsThreadsafe()) { // get ALL merchants
-                        ((HiredMerchant) mmo).closeShop(true, false);
-                        ret++;
-                    }
-                }
+        
+        //hacky
+        for (int i = 910000001; i <= 910000022; i++) {
+            for (MapleMapObject mmo : mapFactory.getMap(i).getAllHiredMerchantsThreadsafe()) {
+                ((HiredMerchant) mmo).closeShop(true, false);
+                ret++;
             }
         }
         return ret;
@@ -420,21 +401,13 @@ public class ChannelServer {
             return;
         }
         playerNPCs.add(npc);
-        for (World worlds : LoginServer.getWorlds()) { // forloop worlds
-            for (ChannelServer cs : worlds.getChannels()) {// forloop channels
-                cs.getMapFactory().getMap(npc.getMapId()).addMapObject(npc); // add to every world and channel
-            }
-        }
+        mapFactory.getMap(npc.getMapId()).addMapObject(npc);
     }
 
     public final void removePlayerNPC(final PlayerNPC npc) {
         if (playerNPCs.contains(npc)) {
             playerNPCs.remove(npc);
-            for (World worlds : LoginServer.getWorlds()) { // forloop worlds
-                for (ChannelServer cs : worlds.getChannels()) {// forloop channels
-                    cs.getMapFactory().getMap(npc.getMapId()).removeMapObject(npc); // add to every world and channel
-                }
-            }
+            mapFactory.getMap(npc.getMapId()).removeMapObject(npc);
         }
     }
 
@@ -452,13 +425,9 @@ public class ChannelServer {
         System.out.println("Channel " + channel + " has finished shutdown.");
     }
 
-    public static int getChannelCount() { // needs to be fixed for multi-world
-        return instances.size(); 
-    }
-
-    public static Map<Integer, Integer> getChannelLoad() { // needs to be fixed for multi-world
+    public static Map<Integer, Integer> getChannelLoad(int world) {
         Map<Integer, Integer> ret = new HashMap<>();
-        for (ChannelServer cs : instances.values()) {
+        for (ChannelServer cs : LoginServer.getInstance().getChannelsFromWorld(world)) {
             ret.put(cs.getChannel(), cs.getConnectedClients());
         }
         return ret;

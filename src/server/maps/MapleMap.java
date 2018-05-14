@@ -2300,7 +2300,7 @@ public final class MapleMap {
             if (chr.getCarnivalParty() != null && chr.getEventInstance() != null) {
                 chr.getEventInstance().onMapLoad(chr);
             }
-            MapleEvent.mapLoad(chr, channel);
+            MapleEvent.mapLoad(chr, world, channel);
             if (getSquadBegin() != null && getSquadBegin().getTimeLeft() > 0 && getSquadBegin().getStatus() == 1) {
                 chr.getClient().getSession().write(CField.getClock((int) (getSquadBegin().getTimeLeft() / 1000)));
             }
@@ -2388,9 +2388,6 @@ public final class MapleMap {
         }
         if (chr.getJob() < 3200 || chr.getJob() > 3212) {
             chr.cancelEffectFromBuffStat(MapleBuffStat.AURA);
-        }
-        if (GameConstants.isPhantom(chr.getJob())) {
-            chr.fixSkillsByJob(); // because masteries reset upon cc, relog, or even cs exit. when we add to map we fix this issue.
         }
     }
 
@@ -3824,6 +3821,10 @@ public final class MapleMap {
 
     public int getChannel() {
         return channel;
+    }
+    
+    public int getWorld() {
+        return world;
     }
 
     public int getConsumeItemCoolTime() {

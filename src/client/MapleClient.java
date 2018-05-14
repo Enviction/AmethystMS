@@ -1021,7 +1021,7 @@ public class MapleClient implements Serializable {
             }
 
             if (!fromCS) {
-                final ChannelServer ch = ChannelServer.getInstance(world, map == null ? channel : map.getChannel());
+                final ChannelServer ch = ChannelServer.getInstance(map == null ? player.getWorld() : map.getWorld(), map == null ? channel : map.getChannel());
                 final int chz = World.Find.findChannel(idz);
                 if (chz < -1) {
                     disconnect(RemoveInChannelServer, true);//u lie
