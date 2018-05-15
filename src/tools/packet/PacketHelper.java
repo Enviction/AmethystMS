@@ -416,10 +416,10 @@ public class PacketHelper {
         }
         mplew.write(0);
         mplew.writeReversedLong(getTime(System.currentTimeMillis()));
-        mplew.writeInt(chr.getStat().pvpExp);
-        mplew.write(chr.getStat().pvpRank); 
-        mplew.writeInt(chr.getBattlePoints()); 
-        mplew.write(1); 
+        mplew.writeInt(chr.getStat().pvpExp);//nPvPExp
+        mplew.write(chr.getStat().pvpRank);//nPvPGrade
+        mplew.writeInt(chr.getBattlePoints());//nPvPPoint
+        mplew.write(5);//nPvPModeLevel
         mplew.writeInt(0); 
         mplew.write(0);
         mplew.writeReversedLong(getTime(-2L));
